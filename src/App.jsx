@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// 라우팅을 담당하는 App입니다.
+// 페이지를 제작할 때 Navigation의 높이만큼 padding해야 페이지의 내용이 내비바 아래에 보여지게 됩니다.
+// padding이나 추가적인 작업이 없다면 내용이 내비바보다 더 높은 위치에서부터 표시되어 일부 내용이 보이지 않습니다.
+// 내비바의 높이는 80px입니다.
 
-function App() {
-  const [count, setCount] = useState(0)
+import { Routes, Route } from "react-router-dom";
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+import { GlobalStyle } from "./styles/global";
+import { MainLayout } from "./components/layouts/MainLayout"
+
+import MainPage from "./pages/MainPage"
+import NotFound from "./pages/NotFound";
+
+export default function App() {
+    return (
+        <>
+            <GlobalStyle />
+            <Routes>
+                <Route path="/" element={<MainLayout />}>
+                    <Route index path="/" element={<MainPage />} />
+                    <Route path="*" element={<NotFound />} />
+                </Route>
+            </Routes>
+        </>
+    )
 }
-
-export default App

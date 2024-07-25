@@ -1,0 +1,9 @@
+// 정의되지 않은 페이지를 접속했을 때 보이는 페이지입니다.
+
+export default function NotFound() {
+    return (
+        <>
+            찾을 수 없는 페이지
+        </>
+    )
+}
