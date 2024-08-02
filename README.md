@@ -6,13 +6,17 @@
 - 웬만해선 pull request로 merge합니다. (dev -> main)
 ### dev
 - main에 올리기전 이것저것 개발해둔 걸 merge시키는 곳입니다. 여기가 날아가도 main으로 땜빵할 수 있는 안전한 브랜치입니다.
-- 모든 push/pull는 dev로 해주세요.
+- 모든 push/pull는 dev 또는 기타 브랜치로 해주세요.
 ```shell
 git push origin dev
 ```
 ```shell
 git pull origin dev
 ```
+
+## Push 규칙
+- 브랜치를 합치는 과정은 `main <- dev <- 기타 브랜치`로 진행될 예정입니다.
+- 기타 브랜치는 `feat/기능이름` 또는 `hotfix/이름`등 으로 적어주시면 됩니다.
 
 ## 개발 시작
 ### 레포지토리를 처음 받을 때
