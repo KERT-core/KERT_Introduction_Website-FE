@@ -1,10 +1,10 @@
-import React, { useEffect,useState,useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import bg_img from "../assets/background_img.png";
 import kert_logo from "../assets/kert_logos/White_Icon.png";
+import Section2 from './Section2';
 import '../font/main_font.css';
-import { useNavigate } from 'react-router-dom'; // react-router-dom을 사용하여 페이지 이동
 
-const DIVIDER_HEIGHT=5;
+const DIVIDER_HEIGHT = 5;
 
 const back_first_Style = {
     width: '100vw',
@@ -23,13 +23,13 @@ const backgroundStyle = {
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center center',
-    filter: 'blur(12px)', // 배경 이미지를 흐리게 만듦
-    zIndex: -1, // 배경을 콘텐츠 뒤에 배치
+    filter: 'blur(12px)',
+    zIndex: -1,
 };
 
 const contentStyle = {
     position: 'relative',
-    zIndex: 1, // 콘텐츠가 배경 위에 표시되도록 설정
+    zIndex: 1,
     textAlign: 'center',
     paddingTop: '100px',
 };
@@ -39,19 +39,19 @@ const logoContainerStyle = {
     bottom: '0',
     left: '50%',
     transform: 'translateX(-50%)',
-    width: '400px', // 로고의 넓이 조절
-    height: '200px', // 로고의 높이 조절
+    width: '400px',
+    height: '200px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    zIndex: 1, // 콘텐츠 위에 배치
+    zIndex: 1,
 };
 
 const blurredLogoStyle = {
-    width: '100%', // 컨테이너에 맞춰서 로고 크기 조정
+    width: '100%',
     height: 'auto',
-    filter: 'brightness(30%) blur(6px)', // 로고를 더 어둡고 흐리게 처리
-    mixBlendMode: 'multiply', // 배경과 로고가 어우러지도록 설정
+    filter: 'brightness(30%) blur(6px)',
+    mixBlendMode: 'multiply',
 };
 
 const headerStyle = {
@@ -69,50 +69,165 @@ const subtitleStyle = {
     paddingTop: '15px',
 };
 
-export default function MainPage() {
-    const outerDivRef=useRef();
-    const [scrollIndex,setScrollIndex]=useState(1);
+const pageStyle = {
+    width: '100vw',
+    height: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '3em',
+    color: '#fff',
+};
 
-    useEffect(() => { 
-        const wheelHandler =(e) => {
+const dividerStyle = {
+    height: `${DIVIDER_HEIGHT}px`,
+    backgroundColor: 'transparent',
+};
+
+export default function MainPage() {
+    const outerDivRef = useRef();
+    const [scrollIndex, setScrollIndex] = useState(1);
+
+    useEffect(() => {
+        const wheelHandler = (e) => {
             e.preventDefault();
-            const {deltaY}=e;
-            const {scrollTop}=outerDivRef.current; //스크롤이 위쪽 끝부분에 위치
-            const pageHeight=window.innerHeight; //화면의 세로길이
-        
-            if (deltaY>0) {
-                //스크롤 내릴 때
-                if (scrollTop>=0 && scrollTop < pageHeight) {
-                    //현재 1페이지
-                    console.log("현재 1 페이지 , down");
+            const { deltaY } = e;
+            const { scrollTop } = outerDivRef.current;
+            const pageHeight = window.innerHeight;
+
+            if (deltaY > 0) {
+                // Scroll down
+                if (scrollTop >= 0 && scrollTop < pageHeight) {
                     outerDivRef.current.scrollTo({
-                        top:pageHeight+DIVIDER_HEIGHT,
-                        left:0,
-                        behavior:"smooth"
+                        top: pageHeight + DIVIDER_HEIGHT,
+                        left: 0,
+                        behavior: 'smooth',
                     });
                     setScrollIndex(2);
-                } else if (scrollTop>=pageHeight && scrollTop<pageHeight*2) {
-                    //현재 2페이지
+                } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
                     outerDivRef.current.scrollTo({
-                        top:pageHeight*2+DIVIDER_HEIGHT*2,
-                        left:0,
-                        behavior:"smooth"
+                        top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+                        left: 0,
+                        behavior: 'smooth',
                     });
                     setScrollIndex(3);
-                }else if (scrollTop>=pageHeight*2 && scrollTop < pageHeight*3)
+                } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 3 + DIVIDER_HEIGHT * 3,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(4);
+                } else if (scrollTop >= pageHeight * 3 && scrollTop < pageHeight * 4) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 4 + DIVIDER_HEIGHT * 4,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(5);
+                } else if (scrollTop >= pageHeight * 4 && scrollTop < pageHeight * 5) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 5 + DIVIDER_HEIGHT * 5,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(6);
+                } else if (scrollTop >= pageHeight * 5 && scrollTop < pageHeight * 6) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 6 + DIVIDER_HEIGHT * 6,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(7);
+                }
+            } else {
+                // Scroll up
+                if (scrollTop >= pageHeight * 6 && scrollTop < pageHeight * 7) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 5 + DIVIDER_HEIGHT * 5,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(6);
+                } else if (scrollTop >= pageHeight * 5 && scrollTop < pageHeight * 6) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 4 + DIVIDER_HEIGHT * 4,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(5);
+                } else if (scrollTop >= pageHeight * 4 && scrollTop < pageHeight * 5) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 3 + DIVIDER_HEIGHT * 3,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(4);
+                } else if (scrollTop >= pageHeight * 3 && scrollTop < pageHeight * 4) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight * 2 + DIVIDER_HEIGHT * 2,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(3);
+                } else if (scrollTop >= pageHeight * 2 && scrollTop < pageHeight * 3) {
+                    outerDivRef.current.scrollTo({
+                        top: pageHeight + DIVIDER_HEIGHT,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(2);
+                } else if (scrollTop >= pageHeight && scrollTop < pageHeight * 2) {
+                    outerDivRef.current.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: 'smooth',
+                    });
+                    setScrollIndex(1);
+                }
             }
-        }
-    })
+        };
+
+        const outerDivRefCurrent = outerDivRef.current;
+        outerDivRefCurrent.addEventListener('wheel', wheelHandler);
+        return () => {
+            outerDivRefCurrent.removeEventListener('wheel', wheelHandler);
+        };
+    }, []);
 
     return (
-        <div style={back_first_Style}>
-            <div style={backgroundStyle}></div>
-            <div style={contentStyle}>
-                <div style={headerStyle}><h1>KERT</h1></div>
-                <div style={subtitleStyle}><p>KNU Computer Emergency Response Team</p></div>
+        <div ref={outerDivRef} style={{ ...back_first_Style, overflowY: 'scroll', scrollSnapType: 'y mandatory' }}>
+            <div style={back_first_Style}>
+                <div style={backgroundStyle}></div>
+                <div style={contentStyle}>
+                    <div style={headerStyle}><h1>KERT</h1></div>
+                    <div style={subtitleStyle}><p>KNU Computer Emergency Response Team</p></div>
+                </div>
+                <div style={logoContainerStyle}>
+                    <img src={kert_logo} alt="KERT Logo" style={blurredLogoStyle} />
+                </div>
             </div>
-            <div style={logoContainerStyle}>
-                <img src={kert_logo} alt="KERT Logo" style={blurredLogoStyle} />
+            <div style={dividerStyle}></div>
+            <Section2 />
+            <div style={dividerStyle}></div>
+            <div style={{ ...pageStyle, backgroundColor: 'rgba(0, 0, 0, 0.9)' }}>
+                Page 3
+            </div>
+            <div style={dividerStyle}></div>
+            <div style={{ ...pageStyle, backgroundColor: 'rgba(0, 0, 0, 1)' }}>
+                Page 4
+            </div>
+            <div style={dividerStyle}></div>
+            <div style={{ ...pageStyle, backgroundColor: 'rgba(50, 50, 50, 1)' }}>
+                Page 5
+            </div>
+            <div style={dividerStyle}></div>
+            <div style={{ ...pageStyle, backgroundColor: 'rgba(75, 75, 75, 1)' }}>
+                Page 6
+            </div>
+            <div style={dividerStyle}></div>
+            <div style={{ ...pageStyle, backgroundColor: 'rgba(100, 100, 100, 1)' }}>
+                Page 7
             </div>
         </div>
     );
