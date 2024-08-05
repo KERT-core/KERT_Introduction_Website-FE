@@ -1,10 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import bg_img from "../assets/background_img.png";
 import kert_logo from "../assets/kert_logos/White_Icon.png";
-import Section2 from './Section2.jsx';
-import { Container } from "../components/forms/Container"
 import '../font/main_font.css';
-
 
 const back_first_Style = {
     width: '100vw',
@@ -69,34 +66,17 @@ const subtitleStyle = {
     paddingTop: '15px',
 };
 
-const pageStyle = {
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '3em',
-    color: '#fff',
-};
-
-const dividerStyle = {
-    height: `${DIVIDER_HEIGHT}px`,
-    backgroundColor: 'transparent',
-};
-
-export default function MainPage() {
+export default function Section1() {
     return (
-        <div style={{ width: '100vw', height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', fontSize: '3em', color: '#fff', backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
         <div style={back_first_Style}>
-        <div style={backgroundStyle}></div>
-        <div style={contentStyle}>
-            <div style={headerStyle}><h1>KERT</h1></div>
-            <div style={subtitleStyle}><p>KNU Computer Emergency Response Team</p></div>
+            <div style={backgroundStyle}></div>
+            <div style={contentStyle}>
+                <div style={headerStyle}><h1>KERT</h1></div>
+                <div style={subtitleStyle}><p>KNU Computer Emergency Response Team</p></div>
+            </div>
+            <div style={logoContainerStyle}>
+                <img src={kert_logo} alt="KERT Logo" style={blurredLogoStyle} />
+            </div>
         </div>
-        <div style={logoContainerStyle}>
-            <img src={kert_logo} alt="KERT Logo" style={blurredLogoStyle} />
-        </div>
-    </div>
-    </div>
     );
 }
