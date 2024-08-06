@@ -7,7 +7,6 @@ import ManageUserIcon from "/src/assets/icons/menu/ManageUser.png";
 import styled from "styled-components"
 
 import { Menu } from "./Menu";
-import useDashboard from "../../stores/dashboard";
 import { useNavigate } from "react-router-dom";
 
 const DashboardNavBox = styled.div`
@@ -41,7 +40,7 @@ const Menus = styled.div`
 export const DashboardNav = () => {
     const navigate = useNavigate();
 
-    const { moveHome, moveHistory, moveExecutive, moveAdmin, moveManageUser } = useDashboard();
+    // 여기에 토큰 유효 검사해서 관리자 아니면 메인으로 내보내기
 
     return (
         <DashboardNavBox>
@@ -53,11 +52,11 @@ export const DashboardNav = () => {
                 </div>
             </Title>
             <Menus>
-                <Menu onClick={() => {moveHome(); navigate("/dashboard")}}       icon={HomeIcon}       name="home"      >홈</Menu>
-                <Menu onClick={() => {moveHistory(); navigate("/dashboard/history")}}    icon={HistoryIcon}    name="history"   >연혁 추가/제거</Menu>
-                <Menu onClick={() => {moveExecutive(); navigate("/dashboard/executive")}}  icon={ExecutiveIcon}  name="executive" >임원진 추가/제거</Menu>
-                <Menu onClick={() => {moveAdmin(); navigate("/dashboard/admin")}}      icon={AdminIcon}      name="admin"     >관리자 추가/제거</Menu>
-                <Menu onClick={() => {moveManageUser(); navigate("/dashboard/manageuser")}} icon={ManageUserIcon} name="manageuser">회원 관리</Menu>
+                <Menu onClick={() => {navigate("/dashboard")}}            icon={HomeIcon}       name="home"      >홈</Menu>
+                <Menu onClick={() => {navigate("/dashboard/history")}}    icon={HistoryIcon}    name="history"   >연혁 추가/제거</Menu>
+                <Menu onClick={() => {navigate("/dashboard/executive")}}  icon={ExecutiveIcon}  name="executive" >임원진 추가/제거</Menu>
+                <Menu onClick={() => {navigate("/dashboard/admin")}}      icon={AdminIcon}      name="admin"     >관리자 추가/제거</Menu>
+                <Menu onClick={() => {navigate("/dashboard/users")}}      icon={ManageUserIcon} name="users">회원 관리</Menu>
             </Menus>
         </DashboardNavBox>
     )

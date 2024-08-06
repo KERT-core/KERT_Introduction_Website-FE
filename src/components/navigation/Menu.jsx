@@ -2,7 +2,7 @@ import useDashboard from "../../stores/dashboard"
 
 import styled from "styled-components"
 
-let fadeSpeed = "0.25s";
+let fadeSpeed = "0.2s";
 
 const MenuBox = styled.button`
     transition: background-color ${fadeSpeed} ease-in-out;

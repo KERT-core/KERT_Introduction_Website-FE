@@ -12,8 +12,11 @@ import MainPage from "./pages/MainPage"
 import NotFound from "./pages/NotFound";
 
 import { DashboardLayout } from "./components/layouts/DashboardLayout";
-import DashboardHome from "./components/display/dashboard/DashboardHome";
-import DashboardHistory from "./components/display/dashboard/DashboardHistory";
+import DashboardHome from "./components/display/dashboard/Home";
+import DashboardHistory from "./components/display/dashboard/History";
+import DashboardExecutive from "./components/display/dashboard/Executive";
+import DashboardAdmin from "./components/display/dashboard/Admin";
+import DashboardUsers from "./components/display/dashboard/Users";
 
 export default function App() {
     return (
@@ -25,7 +28,10 @@ export default function App() {
                     <Route path="*" element={<NotFound />} />
                     <Route path="/dashboard" element={<DashboardLayout />}>
                         <Route index path="/dashboard" element={<DashboardHome />} />
-                        <Route index path="/dashboard/history" element={<DashboardHistory />} />
+                        <Route path="/dashboard/history" element={<DashboardHistory />} />
+                        <Route path="/dashboard/executive" element={<DashboardExecutive />} />
+                        <Route path="/dashboard/admin" element={<DashboardAdmin />} />
+                        <Route path="/dashboard/users" element={<DashboardUsers />} />
                         <Route path="/dashboard/*" element={<NotFound />} />
                     </Route>
                 </Route>

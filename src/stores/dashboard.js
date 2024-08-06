@@ -2,12 +2,13 @@ import { create } from 'zustand';
 
 
 const useDashboard = create((set) => ({
-    SelectedDashboardMenu: "home",
+    SelectedDashboardMenu: "",
     moveHome: () => set((state) => ({ SelectedDashboardMenu: "home" })),
     moveHistory: () => set((state) => ({ SelectedDashboardMenu: "history" })),
     moveExecutive: () => set((state) => ({ SelectedDashboardMenu: "executive" })),
     moveAdmin: () => set((state) => ({ SelectedDashboardMenu: "admin" })),
-    moveManageUser: () => set((state) => ({ SelectedDashboardMenu: "manageuser" }))
+    moveUsers: () => set((state) => ({ SelectedDashboardMenu: "users" })),
+    notFound: () => set((state) => ({ SelectedDashboardMenu: "" })),
 }));
   
 export default useDashboard;
