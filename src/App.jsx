@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 
 import { GlobalStyle } from "./styles/global";
 import { MainLayout } from "./components/layouts/MainLayout"
+import "./styles/font.css"
 
 import MainPage from "./pages/MainPage"
 import NotFound from "./pages/NotFound";
