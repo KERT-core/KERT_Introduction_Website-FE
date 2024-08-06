@@ -11,6 +11,10 @@ import { MainLayout } from "./components/layouts/MainLayout"
 import MainPage from "./pages/MainPage"
 import NotFound from "./pages/NotFound";
 
+import { DashboardLayout } from "./components/layouts/DashboardLayout";
+import DashboardHome from "./components/display/dashboard/DashboardHome";
+import DashboardHistory from "./components/display/dashboard/DashboardHistory";
+
 export default function App() {
     return (
         <>
@@ -19,6 +23,11 @@ export default function App() {
                 <Route path="/" element={<MainLayout />}>
                     <Route index path="/" element={<MainPage />} />
                     <Route path="*" element={<NotFound />} />
+                    <Route path="/dashboard" element={<DashboardLayout />}>
+                        <Route index path="/dashboard" element={<DashboardHome />} />
+                        <Route index path="/dashboard/history" element={<DashboardHistory />} />
+                        <Route path="/dashboard/*" element={<NotFound />} />
+                    </Route>
                 </Route>
             </Routes>
         </>
