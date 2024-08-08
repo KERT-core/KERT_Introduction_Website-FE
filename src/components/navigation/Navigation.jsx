@@ -19,7 +19,7 @@ const Nav = styled.div`
     backdrop-filter: blur(20px);
 `
 
-const Logo = styled.img.attrs({src: "src/assets/kert_logos/White_Vertical.png"})`
+const Logo = styled.img.attrs({src: "/nav_logo.png"})`
     height: 30px;
 `
 
