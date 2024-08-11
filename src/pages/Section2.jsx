@@ -1,6 +1,6 @@
 import React from 'react';
 import bg_img from "../assets/Section2_bg_img.png";
-import lock_icon from "../assets/kert_logos/White_incline_Lock.png"; // Make sure this path is correct
+import lock_icon from "../assets/kert_logos/White_incline_Lock.png"; 
 import "../font/main_font.css";
 
 const bg_Style = {
@@ -32,7 +32,7 @@ const contentStyle = {
     zIndex: 1,
     textAlign: 'flex-start',
     color: '#fff',
-    fontFamily: 'NanumSquare',
+    fontFamily: 'NanumSquareNeo',
     padding: '20px',
 };
 
@@ -68,7 +68,7 @@ const textStyle = {
     marginBottom: '20px',
     lineHeight: '1.5',
     transform: 'translateX(65%)',
-    fontFamily:'NanumSquare',
+    fontFamily:'NanumSquareNeo',
     opacity: 0.65
 };
 
@@ -85,7 +85,7 @@ const statsStyle = {
 const statItemStyle = {
     margin: '30px', // Adjust margin for spacing between items
     textAlign: 'center',
-    fontFamily:'NanumSquare'
+    fontFamily:'NanumSquareNeo'
 };
 
 export default function MainPage() {
