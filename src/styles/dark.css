@@ -10,9 +10,9 @@
     --body-background: #080F17;
     --nav-background: #080F17 !important;
     --container-primary-background: #080F17;
-    --container-secondary-background: #FFFFFF;
+    --container-secondary-background: #FFFFFF0F;
     --container-border: #273341;
     --footer-background: #000000;
-    --transparent-button-background: #FFFFFF;
-    --transparent-button-background-focus: #FFFFFF;
+    --transparent-button-background: #FFFFFF0F;
+    --transparent-button-background-focus: #FFFFFF1C;
 }

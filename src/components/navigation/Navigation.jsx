@@ -57,8 +57,8 @@ export const Navigation = () => {
                 onChange={toggleTheme}
                 checked={theme === 'dark'}
                 color={{
-                    on: "var(--primary--color)",
-                    off: "var(--primary--color)"
+                    on: "var(--primary-color)",
+                    off: "var(--primary-color)"
                 }}
             />
         </Nav>
