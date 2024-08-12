@@ -1,6 +1,10 @@
 import React from 'react';
 import bg_img from "../assets/Section3_bg_img.png";
-import white_kert_logo from '../assets/kert_logos/White_Icon.png';
+import Hspace from "../assets/HSpace.png";
+import KUCIS from "../assets/KUCIS.png"; 
+import CCA from "../assets/CCA.png";
+import Computer from "../assets/Computer.png"
+import GroupCard from "../assets/GroupCard.png"
 import "../font/main_font.css";
 
 const back_first_Style = {
@@ -11,145 +15,81 @@ const back_first_Style = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundPosition: 'center center',
-    backgroundImage: `url(${bg_img})`
+    backgroundImage: `url(${bg_img})`,
+    backgroundSize: 'cover', // Ensure background covers entire area
 };
 
 const textContainerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'flex-start', // 상단 정렬
+    justifyContent: 'center', 
     textAlign: 'center',
-    paddingTop: '9%', // 상단 여백 조정
+    paddingTop: '5%',
     position: 'absolute',
-    top: '0' // 상단에 위치시키기 위해 설정
+    top: '0',
+    color: '#FFFFFF',
 };
 
 const title_text_style = {
     fontFamily: 'NanumSquareA',
-    fontSize: '2.1em',
+    fontSize: '2.5em',
     fontWeight: 'bold',
-    position: 'relative',
-    alignItems: 'center',
-    textAlign: 'center',
-    marginBottom: '1.5em' // 타이틀과 서브타이틀 간격 조정
+    marginBottom: '0.5em',
 };
 
 const subtitle_text_style = {
     fontFamily: 'NanumSquareA',
+    fontSize: '1.2em',
+    marginBottom: '2em',
+};
+
+const groupCardsContainerStyle = {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(2, 1fr)',
+    gridGap: '20px',
+    width: '70%',
+    maxWidth: '1000px',
+    marginTop: '2em',
+};
+
+const groupCardStyle = {
     position: 'relative',
-    textAlign: 'center'
-};
-
-const GroupCardFormat = {
-    position: 'absolute',
-    width: '447px',
-    height: '310px',
-    left: '463px',
-    top: '2061px',
-    filter: 'drop-shadow(0px 0px 20px rgba(0, 0, 0, 0.25))',
-    backdropFilter: 'blur(10px)' // 대소문자 구분에 주의
-};
-
-const GroupCardBackGround = {
     boxSizing: 'border-box',
-    position: 'absolute',
     left: '0%',
     right: '0%',
     top: '0%',
     bottom: '0%',
     background: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: '30px'
+    borderRadius: '30px',
+    backgroundImage:`url(${GroupCard})`
 };
+
 
 const GroupCardLogo = {
-    position: 'absolute',
-    width: '116px',
-    height: '116px',
-    left: '51px',
-    top: '119px'
-};
-
-const GroupCardLogoImg = {
-    position: 'absolute',
-    width: '116px',
-    left: '51px',
-    top: '38.39%',
-    bottom: '24.19%',
-    background: `url(${white_kert_logo})` // 수정
-};
-
-const GroupCardMask = {
-    position: 'absolute',
-    width: '116px',
-    left: '51px',
-    top: '38.39%',
-    bottom: '24.19%',
-    background: '#FFFFFF'
-};
-
-const GroupCardHashTag = {
-    position: 'absolute',
-    width: '157px',
-    height: '17px',
-    left: '205px',
-    top: '214px',
-    fontFamily: 'NanumSquare',
-    fontStyle: 'normal',
-    fontWeight: 350,
-    fontSize: '15px',
-    lineHeight: '17px',
-    display: 'flex',
-    alignItems: 'flex-end',
-    color: 'rgba(255, 255, 255, 0.5)'
-};
-
-const GroupCardDate = {
-    position: 'absolute',
-    width: '192px',
-    height: '17px',
-    left: '205px',
-    top: '168px',
-    fontFamily: 'NanumSquare',
-    fontStyle: 'normal',
-    fontWeight: 350,
-    fontSize: '15px',
-    lineHeight: '17px',
-    display: 'flex',
-    alignItems: 'flex-end',
-    color: 'rgba(255, 255, 255, 0.5)'
+    width: '50px',
+    height: '50px',
+    marginBottom: '10px',
 };
 
 const GroupCardName = {
-    position: 'absolute',
-    width: '122px',
-    height: '33px',
-    left: '205px',
-    top: '124px',
     fontFamily: 'NanumSquare',
-    fontStyle: 'normal',
-    fontWeight: 800,
-    fontSize: '30px',
-    lineHeight: '33px',
-    display: 'flex',
-    alignItems: 'flex-end',
-    color: '#FFFFFF'
+    fontSize: '1.5em',
+    fontWeight: 700,
+    marginBottom: '0.3em',
 };
 
-const GroupCardTitle = {
-    position: 'absolute',
-    left: '4.92%',
-    right: '60.85%',
-    top: '6.45%',
-    bottom: '87.42%',
+const GroupCardDate = {
     fontFamily: 'NanumSquare',
-    fontStyle: 'normal',
-    fontWeight: 350,
-    fontSize: '20px',
-    lineHeight: '22px',
-    display: 'flex',
-    alignItems: 'flex-end',
-    color: '#FFFFFF'
+    fontSize: '0.9em',
+    color: 'rgba(255, 255, 255, 0.7)',
+    marginBottom: '0.5em',
+};
+
+const GroupCardHashTag = {
+    fontFamily: 'NanumSquare',
+    fontSize: '0.9em',
+    color: 'rgba(255, 255, 255, 0.5)',
 };
 
 export default function Section1() {
@@ -157,12 +97,40 @@ export default function Section1() {
         <div style={back_first_Style}>
             <div style={textContainerStyle}>
                 <div style={title_text_style}>
-                    <p>우리 모두 함께 해요</p>
+                    우리 모두 함께 해요
                 </div>
                 <div style={subtitle_text_style}>
-                    <p>KERT는 HSpace와 KUCIS/CCA의 소속으로 가입되어 수준 높은 활동을 외부에서 체험할 수 있어요.</p>
+                    KERT는 HSpace와 KUCIS/CCA의 소속으로 가입되어 수준 높은 활동을 외부에서 체험할 수 있어요.
+                </div>
+                <div style={groupCardsContainerStyle}>
+                    <div style={groupCardStyle}>
+                        <img src={Hspace} alt="HSpace Logo" style={GroupCardLogo} />
+                        <div style={GroupCardName}>HSpace</div>
+                        <div style={GroupCardDate}>가입일자: 2024.7.6 (D+20)</div>
+                        <div style={GroupCardHashTag}>#Hackers #space</div>
+                    </div>
+                    <div style={groupCardStyle}>
+                        <img src={KUCIS} alt="KUCIS Logo" style={GroupCardLogo} />
+                        <div style={GroupCardName}>KUCIS</div>
+                        <div style={GroupCardDate}>가입일자: 2024.7.6 (D+20)</div>
+                        <div style={GroupCardHashTag}>#대학생정보보호동아리 #KISA</div>
+                    </div>
+                    <div style={groupCardStyle}>
+                        <img src={CCA} alt="CCA Logo" style={GroupCardLogo} />
+                        <div style={GroupCardName}>CCA</div>
+                        <div style={GroupCardDate}>가입일자: 2024.7.6 (D+20)</div>
+                        <div style={GroupCardHashTag}>#전국사이버보안동아리연합</div>
+                    </div>
+                    <div style={groupCardStyle}>
+                        <img src={Computer} alt="CCA Logo" style={GroupCardLogo} />
+                        <div style={GroupCardName}>컴퓨터학부</div>
+                        <div style={GroupCardDate}>가입일자: 2024.7.6 (D+20)</div>
+                        <div style={GroupCardHashTag}>#IT대학 #천재들의모임</div>
+                    </div>
                 </div>
             </div>
         </div>
     );
 }
+
+
