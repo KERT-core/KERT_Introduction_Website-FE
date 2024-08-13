@@ -2,12 +2,12 @@
 // 코드 작성자 : GiHhub @whitedev77773
 
 // 외부 라이브러리에서 import
-//import React from "react";
-//import styled from "styled-components";
+import React from "react";
+import styled from "styled-components";
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
 
-/*
+
 import { Container } from "../components/forms/Container";
 import { Text, Span } from "../components/typograph/Text";
 import { Checkbox } from "../components/forms/Checkbox";
@@ -182,16 +182,4 @@ export default function DevDocument() {
             </Section>
         </div>
     )
-}*/
-
-import React from 'react';
-import ReactDOM from 'react-dom/client'; // ReactDOM from 'react-dom/client' 사용
-import MainPage from './MainPage.jsx';  // MainPage 컴포넌트를 import
-
-export default function DevDocument() {
-    return <MainPage />;  // MainPage 컴포넌트를 렌더링
 }
-
-// createRoot를 사용해 root 엘리먼트 생성 및 렌더링
-const root = ReactDOM.createRoot(document.getElementById('root')); 
-root.render(<DevDocument />);
