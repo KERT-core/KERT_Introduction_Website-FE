@@ -4,8 +4,6 @@ import kert_logo from "../assets/kert_logos/White_Icon.png";
 import '../font/main_font.css';
 import styled from "styled-components";
 
-
-
 const back_first_Style = {
     width: '100vw',
     height: '100vh',
