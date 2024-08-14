@@ -9,15 +9,19 @@ import styled from "styled-components";
 import { Text, Span } from "../components/typograph/Text";
 import "../font/main_font.css";
 
+//Dev문서 타이틀 양식 가져오기
 const Title = styled(Span).attrs({ id: "title", $size: "sxl", $weight: "heavy", $color: "--primary-text-color" })`
     margin-bottom: 12px;
 `;
 
+//Dev문서 서브타이틀 양식 가져오기
 const SubTitle = styled(Span).attrs({
     $size: "l", $weight: "bold"
 })`
     margin-bottom: 10px;
 `;
+
+//MainPage 양식과 호환될 수 있도록 바탕 설정
 const back_first_Style = {
     width: '100vw',
     height: '100vh',
@@ -30,6 +34,7 @@ const back_first_Style = {
     backgroundSize: 'cover', // Ensure background covers entire area
 };
 
+//배경 중 작성될 텍스트 컨테이너 스타일 설정
 const textContainerStyle = {
     fontFamily: 'NanumSquareA',
     display: 'flex',
@@ -43,6 +48,8 @@ const textContainerStyle = {
     color: '#FFFFFF',
 };
 
+//이건 안 씁니다 !! 기원님이 Dev 해주셔서 Title이랑 subtitle 양식 들고왔어용
+/*
 const title_text_style = {
     fontFamily: 'NanumSquareA',
     fontSize: '2.5em',
@@ -54,24 +61,30 @@ const subtitle_text_style = {
     fontFamily: 'NanumSquareA',
     fontSize: '1.2em',
     marginBottom: '2em',
-};
+};*/
 
+//그룹카드 grid 배치 설정
 const groupCardsContainerStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(2, 1fr)',
-    gridGap: '30px',
-    width: '70%',
-    maxWidth: '900px',
-    marginTop: '3em',
+    gridTemplateColumns: 'repeat(2, 1fr)', // 2열 그리드 유지
+    gridGap: '40px', // 카드 사이의 간격을 40px로 설정
+    width: '85%', 
+    maxWidth: '2000px', 
+    marginTop: '4em', 
+
 };
 
+//GroupCard Image 크기 및 스타일 설정
 const groupCardStyle = {
     position: 'relative',
-    backgroundImage:`url(${GroupCard})`,
+    backgroundImage: `url(${GroupCard})`,
     backgroundSize: 'cover',
-    padding: '10px',             
+    padding: '25px', // 패딩을 25px로 확대하여 카드 내 공간을 더 넓게 설정
+    height: '155px', 
+    width: '250px',  
 };
 
+//각 그룹카드에 넣을 로고 이미지 양식
 const GroupCardLogo = {
     width: '50px',
     height: '50px',
@@ -81,21 +94,24 @@ const GroupCardLogo = {
     justifyContent: 'flex-start', 
 };
 
-
+//그룹카드 상단에 있는 이름 양식. Figma에서 들고왔어영
 const GroupCardName = {
     fontFamily: 'NanumSquare',
     fontSize: '1.5em',
     fontWeight: 700,
-    marginBottom: '0.3em',
+    marginBottom: '0.7em',
 };
 
+//그룹카드안에 가입날짜 양식! Figma에서 들고왔어영
 const GroupCardDate = {
     fontFamily: 'NanumSquare',
     fontSize: '0.9em',
     color: 'rgba(255, 255, 255, 0.7)',
-    marginBottom: '0.5em',
+    marginTop:'0.5em',
+    marginBottom: '2em',
 };
 
+//그룹카드안에 해시태그 양식. Figma에서 들고왔어영
 const GroupCardHashTag = {
     fontFamily: 'NanumSquare',
     fontSize: '0.9em',
