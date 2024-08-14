@@ -2,6 +2,11 @@ import React from 'react';
 import bg_img from "../assets/Section2_bg_img.png";
 import lock_icon from "../assets/kert_logos/White_incline_Lock.png"; 
 import "../font/main_font.css";
+import styled from "styled-components";
+import { Container } from "../components/forms/Container";
+import { Text, Span } from "../components/typograph/Text";
+import { Checkbox } from "../components/forms/Checkbox";
+import { Toggle } from "../components/forms/Toggle";
 
 const bg_Style = {
     width: '100vw', 
@@ -26,6 +31,10 @@ const overlayStyle = {
     backgroundColor: 'rgba(0, 0, 0, 0.78)',
     zIndex: 1,
 };
+
+const Title = styled(Span).attrs({ id: "title", $size: "sxl", $weight: "heavy", $color: "--primary-text-color" })`
+    margin-bottom: 12px;
+`;
 
 const contentStyle = {
     position: 'relative',
@@ -52,7 +61,7 @@ const lockIconContainerStyle = {
 const lockIconStyle = {
     width: '100%',
     height: '100%',
-    objectFit: 'contain', // Maintains aspect ratio
+    objectFit: 'contain', 
 };
 
 const lockIconOverlayStyle = {
@@ -69,49 +78,83 @@ const textStyle = {
     lineHeight: '1.5',
     transform: 'translateX(65%)',
     fontFamily:'NanumSquareNeo',
-    opacity: 0.65
+    fontWeight:'extrabold',
 };
+
+
+const minitextStyle = {
+    marginBottom: '1px',
+    lineHeight: '1.5',
+    transform: 'translateX(65%)',
+    fontFamily:'NanumSquareNeo',
+    fontWeight:'extrabold',
+};
+
 
 const statsStyle = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-start',
     fontSize: '0.5em',
-    marginTop: '20px', // Adjust margin to fit layout
-    transform: 'translateX(65%)',
-    opacity: 0.6
+    marginTop: '20px',
+    //transform: 'translateX(50%)',
+    flexDirection: 'column', // Align elements vertically
 };
 
 const statItemStyle = {
     margin: '30px', // Adjust margin for spacing between items
     textAlign: 'center',
-    fontFamily:'NanumSquareNeo'
+    fontFamily:'NanumSquareNeo',
+    opacity: 0.6,
+    justifyContent: 'center',
 };
+
+const DateStyle = {
+    fontSize: '3em',
+    backgroundImage: 'linear-gradient(to right, #FFFFFF, #6F8CB8)',
+    WebkitBackgroundClip: 'text',
+    backgroundClip: 'text',
+    color: 'transparent',
+    fontWeight: 'bold',
+};
+
+const containerStyle = {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: '20px',
+    transform: 'translateX(50%)',
+};
+
+
 
 export default function MainPage() {
     return (
         <div style={bg_Style}>
             <div style={overlayStyle}></div>
             <div style={contentStyle}>
-                <div style={textStyle}>
-                    <p>보안에 진심인 사람들이 모여,<br />
-                        경북대학교의 보안을 지킵니다.</p>
-                </div>
+                <div style={minitextStyle}>보안에 진심인 사람들이 모여,<br/></div>
+                <div style={textStyle}>경북대학교의 보안을 지킵니다.</div>
+
                 <div style={lockIconContainerStyle}>
                     <img src={lock_icon} alt="Lock Icon" style={lockIconStyle} />
                     <div style={lockIconOverlayStyle}></div>
                 </div>
-                <div style={statsStyle}>
-                    <div style={statItemStyle}>
-                        <p>KERT가 개설된 지</p>
-                        <p style={{ fontSize: '2em' }}>27년</p>
+                <div style={containerStyle}>
+                    <div style={statsStyle}>
+                        <div style={statItemStyle}>
+                            KERT가 개설된 지
+                        </div>
+                        <div style={DateStyle}>27년</div>
                     </div>
-                    <div style={statItemStyle}>
-                        <p>가입한 인원</p>
-                        <p style={{ fontSize: '2em' }}>61명</p>
+                    <div style={statsStyle}>
+                        <div style={statItemStyle}>
+                            가입한 인원
+                        </div>
+                        <div style={DateStyle}>61명</div>
                     </div>
                 </div>
-            </div>
         </div>
+    </div>
     );
 }

@@ -120,16 +120,16 @@ const groupCardContent = {
 const GroupCardDate = {
     fontFamily: 'NanumSquareNeo',
     fontWeight: 300,
-    fontSize: '0.9em',
+    fontSize: '0.5em',
     color: 'rgba(255, 255, 255, 0.5)',
-    marginTop:'0.5em',
-    marginBottom: '2em',
+    marginTop:'0.8em',
+    marginBottom: '3em',
 };
 
 //그룹카드안에 해시태그 양식. Figma에서 들고왔어영
 const GroupCardHashTag = {
     fontFamily: 'NanumSquareNeo',
-    fontSize: '0.9em',
+    fontSize: '0.35em',
     color: 'rgba(255, 255, 255, 0.5)',
 };
 
