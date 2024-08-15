@@ -56,10 +56,6 @@ export const Navigation = () => {
             <Toggle
                 onChange={toggleTheme}
                 checked={theme === 'dark'}
-                color={{
-                    on: "var(--primary-color)",
-                    off: "var(--primary-color)"
-                }}
             />
         </Nav>
     )
