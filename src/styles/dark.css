@@ -1,0 +1,18 @@
+:root {
+    /* 이미지 url */
+    --vertical-logo-url: url("/logo/white_vertical.png");
+    --sqaure-logo-url: url("/logo/white_square.png");
+    --text-logo-url: url("/logo/white_text.png");
+
+    /* Figma 참고해서 컬러 사용 */
+    --primary-text-color: #FFFFFF;
+    --secondary-text-color: #83878B;
+    --body-background: #080F17;
+    --nav-background: #080F17 !important;
+    --container-primary-background: #080F17;
+    --container-secondary-background: #FFFFFF0F;
+    --container-border: #273341;
+    --footer-background: #000000;
+    --transparent-button-background: #FFFFFF0F;
+    --transparent-button-background-focus: #FFFFFF1C;
+}
