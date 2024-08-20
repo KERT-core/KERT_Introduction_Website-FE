@@ -42,7 +42,7 @@
     line-height: normal;
     position: absolute;
     text-align: center;
-    top: 120px;
+    top: 150px;
     width: 288px;
 }
 
@@ -241,17 +241,6 @@
     cursor: pointer;
 }
 
-/* .SignUp .navigator {
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
-    border-color: #0075ff80;
-    height: 102px;
-    left: -1px;
-    position: absolute;
-    top: -1px;
-    width: 1922px;
-} */
-
 .SignUp .view-right {
     height: 22px;
     left: 1583px;
@@ -293,77 +282,6 @@
     position: absolute;
     top: 35px;
     width: 808px;
-}
-
-.SignUp .Notice {
-    height: 30px;
-    left: 715px;
-    position: absolute;
-    top: 0;
-    width: 93px;
-}
-
-.SignUp .text-notice {
-    color: #000000;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 25px;
-    font-weight: 500;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: -1px;
-    width: 93px;
-}
-
-.SignUp .StoreInfo {
-    height: 30px;
-    left: 459px;
-    position: absolute;
-    top: 0;
-    width: 152px;
-}
-
-.SignUp .text-storeinfo {
-    color: #000000;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 25px;
-    font-weight: 500;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: -1px;
-    width: 152px;
-}
-
-.SignUp .UnbrellaStock {
-    height: 30px;
-    left: 203px;
-    position: absolute;
-    top: 0;
-    width: 152px;
-}
-
-.SignUp .text-umbrella {
-    color: #000000;
-    font-family: "Inter-Medium", Helvetica;
-    font-size: 25px;
-    font-weight: 500;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    top: -1px;
-    white-space: nowrap;
-}
-
-.SignUp .UmbrellaFind {
-    height: 30px;
-    left: 0;
-    position: absolute;
-    top: 0;
-    width: 99px;
 }
 
 .SignUp .view-left {
