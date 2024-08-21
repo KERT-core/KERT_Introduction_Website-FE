@@ -6,20 +6,14 @@ import React from "react";
 import styled from "styled-components";
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
-<<<<<<< HEAD
 
 
-=======
->>>>>>> fab44530a51b0689aaf1a24b18b980685fd98a61
 import { Container } from "../components/forms/Container";
 import { Text, Span } from "../components/typograph/Text";
 import { Checkbox } from "../components/forms/Checkbox";
 import { Toggle } from "../components/forms/Toggle";
-<<<<<<< HEAD
-=======
 import { Button } from "../components/forms/Button";
 
->>>>>>> fab44530a51b0689aaf1a24b18b980685fd98a61
 
 const Section = styled(Container)`
     display: flex;
@@ -81,35 +75,26 @@ export default function DevDocument() {
             <Section id="text-explain">
                 <Header>
                     <TextLabel>src/component/typograph/Text.jsx</TextLabel>
-<<<<<<< HEAD
                     <Title>{"<Text />"}</Title>
-=======
                     <Title>{'<Text />'}</Title>
->>>>>>> fab44530a51b0689aaf1a24b18b980685fd98a61
                     <Description>텍스트를 추가할 때 사용하는 컴포넌트입니다. size, weight, color를 속성로 받습니다.</Description>
                 </Header>
                 <div id="explain">
                     <SubTitle>인자 및 상세 설명</SubTitle>
-<<<<<<< HEAD
                     <Description size="s">props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
-=======
                     <Description size="s">색상 관련 props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
->>>>>>> fab44530a51b0689aaf1a24b18b980685fd98a61
                     <Description size="s">size : xs || s || m || l || xl || string ?? m</Description>
                     <Description size="s">weight : light || regular || bold || extrabold || heavy ?? regular</Description>
                     <Description size="s">color : --primary-text-color || #ffffff || white || string ?? --primary-text-color</Description>
                 </div>
                 <div id="example-code">
                     <SubTitle>코드 사용 예시</SubTitle>
-<<<<<<< HEAD
                     <Code>{"<Text size=\"xs\" weight=\"bold\">xs 사이즈 및 bold 굵기의 텍스트입니다.</Text>"}</Code>
                     <Code>{"<Text size=\"l\">l 사이즈의 텍스트입니다.</Text>"}</Code>
                     <Code>{"<Text size=\"xl\" color=\"#000000\">xl 사이즈 및 색이 #000000인 텍스트입니다.</Text>"}</Code>
-=======
                     <Code>{'<Text size="xs" weight="bold">xs 사이즈 및 bold 굵기의 텍스트입니다.</Text>'}</Code>
                     <Code>{'<Text size="l">l 사이즈의 텍스트입니다.</Text>'}</Code>
                     <Code>{'<Text size="xl" color="#000000">xl 사이즈 및 색이 #000000인 텍스트입니다.</Text>'}</Code>
->>>>>>> fab44530a51b0689aaf1a24b18b980685fd98a61
                 </div>
                 <div id="example">
                     <SubTitle>실행 예시</SubTitle>

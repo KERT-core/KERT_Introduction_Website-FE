@@ -98,11 +98,8 @@ const Slider = styled.span`
             else {
                 return props.$color ?? "var(--primary-color)";
             }
-<<<<<<< HEAD
         }};;
-=======
         }};
->>>>>>> fab44530a51b0689aaf1a24b18b980685fd98a61
     }
 
     ${Checkbox}:checked + &:before {

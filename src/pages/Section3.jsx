@@ -48,20 +48,6 @@ const textContainerStyle = {
     color: '#FFFFFF',
 };
 
-//이건 안 씁니다 !! 기원님이 Dev 해주셔서 Title이랑 subtitle 양식 들고왔어용
-/*
-const title_text_style = {
-    fontFamily: 'NanumSquareNeo',
-    fontSize: '2.5em',
-    fontWeight: 'bold',
-    marginBottom: '0.5em',
-};
-
-const subtitle_text_style = {
-    fontFamily: 'NanumSquareNeo',
-    fontSize: '1.2em',
-    marginBottom: '2em',
-};*/
 
 //그룹카드 grid 배치 설정
 const groupCardsContainerStyle = {
