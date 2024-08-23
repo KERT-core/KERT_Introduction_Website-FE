@@ -60,14 +60,14 @@ const blurredLogoStyle = {
 };
 
 const headerStyle = {
-    fontFamily: 'NanumSquare',
+    fontFamily: 'NanumSquareNeo',
     fontWeight: 700,
     color: '#fff',
     fontSize: '2em',
 };
 
 const subtitleStyle = {
-    fontFamily: 'NanumSquare',
+    fontFamily: 'NanumSquareNeo',
     fontWeight: 600,
     color: '#fff',
     fontSize: '1em',
