@@ -11,6 +11,6 @@ export const Container = styled.div`
     border-radius: 30px;
     box-sizing: border-box;
     
-    background-color: ${(props) => props.$bg_color ?? "#0b1520"};
-    box-shadow: 0px 0px 30px #00000025;
+    background-color: ${(props) => props.$bg_color ?? "var(--container-primary-background)"};
+    border: ${(props) => props.$bg_color ?? "var(--container-border-width)"} solid var(--container-border);
 `
