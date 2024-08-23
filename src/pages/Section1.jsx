@@ -2,7 +2,7 @@ import React from 'react';
 import bg_img from "../assets/background_img.png";
 import kert_logo from "../assets/kert_logos/White_Icon.png";
 import '../font/main_font.css';
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const back_first_Style = {
     width: '100vw',
@@ -10,6 +10,13 @@ const back_first_Style = {
     position: 'relative',
     overflow: 'hidden',
 };
+
+const BackFirst = styled.div`
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+`
 
 const backgroundStyle = {
     position: 'absolute',
@@ -69,7 +76,7 @@ const subtitleStyle = {
 
 export default function Section1() {
     return (
-        <div style={back_first_Style}>
+        <BackFirst>
             <div style={backgroundStyle}></div>
             <div style={contentStyle}>
                 <div style={headerStyle}><h1>KERT</h1></div>
@@ -78,6 +85,6 @@ export default function Section1() {
             <div style={logoContainerStyle}>
                 <img src={kert_logo} alt="KERT Logo" style={blurredLogoStyle} />
             </div>
-        </div>
+        </BackFirst>
     );
 }
