@@ -110,10 +110,10 @@ export default function Section1() {
         <BackFirstStyle>
             <ContentWrapper>
                 <LeftContentContainr>
-                    <Text size="xs" weight="light">Education Content of KERT</Text>
+                    <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">Education Content of KERT</Text>
                     <Title>KERT, 이런 걸 배워요</Title>
-                    <Text size="s" weight="regular">
-                        KERT는 보안과 관련된 다양한 활동이 준비돼있어요.<br/>
+                    <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.8)" >
+                        KERT는 보안과 관련된 다양한 활동이 준비돼있어요.
                         가입 후 다양한 분야 지식을 습득할 수 있어요.
                     </Text>
                 </LeftContentContainr>
