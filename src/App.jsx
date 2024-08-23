@@ -13,12 +13,9 @@ import MainPage from "./pages/MainPage";
 import NotFound from "./pages/NotFound";
 
 import { DashboardLayout } from "./components/layouts/DashboardLayout";
-import DashboardHome from "./components/display/dashboard/Home";
-import DashboardHistory from "./components/display/dashboard/History";
-import DashboardExecutive from "./components/display/dashboard/Executive";
-import DashboardAdmin from "./components/display/dashboard/Admin";
-import DashboardUsers from "./components/display/dashboard/Users";
+import {DashboardAdmin, DashboardHome, DashboardHistory, DashboardExecutive ,DashboardUsers} from "./components/display/dashboard";
 import DevDocument from "./pages/DevDocument";
+import Board from "./pages/Board";
 
 export default function App() {
     return (
@@ -28,6 +25,7 @@ export default function App() {
                 <Route path="/" element={<MainLayout />}>
                     <Route index path="/" element={<MainPage />} />
                     <Route path="/developer" element={<DevDocument />} />
+                    <Route path="/board" element={<Board />} />
                     <Route path="*" element={<NotFound />} />
                     <Route path="/dashboard" element={<DashboardLayout />}>
                         <Route index path="/dashboard" element={<DashboardHome />} />
