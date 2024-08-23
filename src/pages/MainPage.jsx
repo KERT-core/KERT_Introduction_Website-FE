@@ -3,6 +3,8 @@ import bg_img from "../assets/background_img.png";
 import kert_logo from "../assets/kert_logos/White_Icon.png";
 import Section2 from './Section2.jsx';
 import Section1 from './Section1.jsx';
+import Section3 from './Section3.jsx';
+import Section4 from './Section4.jsx';
 import '../font/main_font.css';
 
 //스크롤바 기능 구현
@@ -148,13 +150,9 @@ export default function MainPage() {
             <div style={dividerStyle}></div>
             <Section2 />
             <div style={dividerStyle}></div>
-            <div style={{ ...pageStyle, backgroundColor: 'rgba(0, 0, 0, 0.9)' }}>
-                Page 3
-            </div>
+            <Section3/>
             <div style={dividerStyle}></div>
-            <div style={{ ...pageStyle, backgroundColor: 'rgba(0, 0, 0, 1)' }}>
-                Page 4
-            </div>
+            <Section4/>
             <div style={dividerStyle}></div>
             <div style={{ ...pageStyle, backgroundColor: 'rgba(50, 50, 50, 1)' }}>
                 Page 5

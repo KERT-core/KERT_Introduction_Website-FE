@@ -67,6 +67,22 @@ const FlatButton = styled(IButton)`
             return `var(${props.$color});`;
         }
         else {
+            return props.$color ?? "var(--transparent-button-background)";
+        }
+    }};
+`
+
+/**
+ * 라운드 버튼입니다.
+ * @type {styled.button}
+ */
+const RoundedButton = styled(IButton)`
+    border-radius: 1000px;
+    background-color: ${(props) => {
+        if (props.$color?.startsWith("--")) {
+            return `var(${props.$color});`;
+        }
+        else {
             return props.$color ?? "var(--primary-color)";
         }
     }};
@@ -140,6 +156,8 @@ export const Button = ({ type="flat", width, height, color, text_color, onClick,
     switch (type) {
         case "flat":
             return <FlatButton $width={width} $height={height} $color={color} $text_color={text_color} onClick={onClick}>{children}</FlatButton>;
+        case "rounded":
+            return <RoundedButton $width={width} $height={height} $color={color} $text_color={text_color} onClick={onClick}>{children}</RoundedButton>;
         case "outline":
             return <OutlineButton $width={width} $height={height} $color={color} $text_color={text_color} onClick={onClick}>{children}</OutlineButton>;
         case "translucent":

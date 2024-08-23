@@ -6,6 +6,8 @@ import React from "react";
 import styled from "styled-components";
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
+
+
 import { Container } from "../components/forms/Container";
 import { Text, Span } from "../components/typograph/Text";
 import { Checkbox } from "../components/forms/Checkbox";
@@ -73,11 +75,13 @@ export default function DevDocument() {
             <Section id="text-explain">
                 <Header>
                     <TextLabel>src/component/typograph/Text.jsx</TextLabel>
+                    <Title>{"<Text />"}</Title>
                     <Title>{'<Text />'}</Title>
                     <Description>텍스트를 추가할 때 사용하는 컴포넌트입니다. size, weight, color를 속성로 받습니다.</Description>
                 </Header>
                 <div id="explain">
                     <SubTitle>인자 및 상세 설명</SubTitle>
+                    <Description size="s">props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
                     <Description size="s">색상 관련 props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
                     <Description size="s">size : xs || s || m || l || xl || string ?? m</Description>
                     <Description size="s">weight : light || regular || bold || extrabold || heavy ?? regular</Description>
@@ -85,6 +89,9 @@ export default function DevDocument() {
                 </div>
                 <div id="example-code">
                     <SubTitle>코드 사용 예시</SubTitle>
+                    <Code>{"<Text size=\"xs\" weight=\"bold\">xs 사이즈 및 bold 굵기의 텍스트입니다.</Text>"}</Code>
+                    <Code>{"<Text size=\"l\">l 사이즈의 텍스트입니다.</Text>"}</Code>
+                    <Code>{"<Text size=\"xl\" color=\"#000000\">xl 사이즈 및 색이 #000000인 텍스트입니다.</Text>"}</Code>
                     <Code>{'<Text size="xs" weight="bold">xs 사이즈 및 bold 굵기의 텍스트입니다.</Text>'}</Code>
                     <Code>{'<Text size="l">l 사이즈의 텍스트입니다.</Text>'}</Code>
                     <Code>{'<Text size="xl" color="#000000">xl 사이즈 및 색이 #000000인 텍스트입니다.</Text>'}</Code>
@@ -113,22 +120,20 @@ export default function DevDocument() {
             <Section id="checkbox-explain">
                 <Header>
                     <TextLabel>src/component/forms/Checkbox.jsx</TextLabel>
-                    <Title>{'<Checkbox />'}</Title>
-                    <Description>폼 작성용 체크박스입니다. size, color, checked, onChange를 속성로 받습니다.</Description>
+                    <Title>{"<Checkbox />"}</Title>
+                    <Description>폼 작성용 체크박스입니다. size, color를 속성로 받습니다.</Description>
                 </Header>
                 <div id="explain">
                     <SubTitle>인자 및 상세 설명</SubTitle>
-                    <Description size="s">색상 관련 props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
+                    <Description size="s">props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
                     <Description size="s">size : s || m || l || string ?? m</Description>
                     <Description size="s">color : --primary-color || #ffffff || white || string ?? --primary-color</Description>
-                    <Description size="s">checked : true || false || boolean ?? false</Description>
-                    <Description size="s">onChange : null || function ?? null</Description>
                 </div>
                 <div id="example-code">
                     <SubTitle>코드 사용 예시</SubTitle>
-                    <Code>{'<Checkbox size="s" />'}</Code>
-                    <Code>{'<Checkbox size="l" color="--secondary-color" />'}</Code>
-                    <Code>{'<Checkbox onChange={(e) => alert("체크 박스가 " + e.target.checked + "로 변한 것도 감지해요.")} />'}</Code>
+                    <Code>{"<Checkbox size=\"s\" />"}</Code>
+                    <Code>{"<Checkbox size=\"l\" color=\"--secondary-color\" />"}</Code>
+                    <Code>{"<Checkbox onChange={(e) => alert(\"체크 박스가 \" + e.target.checked + \"로 변한 것도 감지해요.\")} />"}</Code>
                 </div>
                 <div id="example">
                     <SubTitle>실행 예시</SubTitle>
@@ -150,22 +155,20 @@ export default function DevDocument() {
             <Section id="toggle-explain">
                 <Header>
                     <TextLabel>src/component/forms/Toggle.jsx</TextLabel>
-                    <Title>{'<Toggle />'}</Title>
-                    <Description>폼 작성용 토글 버튼입니다. size, color, checked, onChange를 속성로 받습니다.</Description>
+                    <Title>{"<Toggle />"}</Title>
+                    <Description>폼 작성용 토글 버튼입니다. size, color를 속성로 받습니다.</Description>
                 </Header>
                 <div id="explain">
                     <SubTitle>인자 및 상세 설명</SubTitle>
-                    <Description size="s">색상 관련 props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
+                    <Description size="s">props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
                     <Description size="s">size : s || m || l || string ?? m</Description>
                     <Description size="s">color : --primary-color || #ffffff || white || string ?? --primary-color</Description>
-                    <Description size="s">checked : true || false || boolean ?? false</Description>
-                    <Description size="s">onChange : null || function ?? null</Description>
                 </div>
                 <div id="example-code">
                     <SubTitle>코드 사용 예시</SubTitle>
-                    <Code>{'<Toggle />'}</Code>
-                    <Code>{'<Toggle size="l" color="--secondary-color" />'}</Code>
-                    <Code>{'<Toggle onChange={(e) => alert("토글 버튼이 " + e.target.checked + "로 변한 것도 감지해요.")} />'}</Code>
+                    <Code>{"<Toggle />"}</Code>
+                    <Code>{"<Toggle size=\"l\" color=\"--secondary-color\" />"}</Code>
+                    <Code>{"<Toggle onChange={(e) => alert(\"토글 버튼이 \" + e.target.checked + \"로 변한 것도 감지해요.\")} />"}</Code>
                 </div>
                 <div id="example">
                     <SubTitle>실행 예시</SubTitle>
@@ -180,76 +183,6 @@ export default function DevDocument() {
                             <Toggle size="l" color="black" />
                             <Toggle size="l" color="#c5c500" />
                             <Toggle size="l" color="--secondary-color" />
-                        </Demo>
-                    </div>
-                </div>
-            </Section>
-            <Section id="button-explain">
-                <Header>
-                    <TextLabel>src/component/forms/Button.jsx</TextLabel>
-                    <Title>{'<Button />'}</Title>
-                    <Description>폼 작성용 버튼입니다. type, width, height, color, text_color, onClick을 속성로 받습니다.</Description>
-                    <Description>type은 flat / outline / translucent 3가지 중 하나를 입력해야합니다. 기본은 flat입니다.</Description>
-                </Header>
-                <div id="explain">
-                    <SubTitle>인자 및 상세 설명</SubTitle>
-                    <Description size="s">색상 관련 props의 값이 --로 시작하면 css 변수로 감지합니다. (다른 컴포넌트 참고)</Description>
-                    <Description size="s">width : fit-content || 200px || string ?? fit-content</Description>
-                    <Description size="s">height : fit-content || 80px || string ?? fit-content</Description>
-                    <Description size="s">color : --primary-color || #ffffff || white || string ?? --primary-color</Description>
-                    <Description size="s">text_color : --white || #ffffff || white || string ?? --white</Description>
-                </div>
-                <div id="example-code">
-                    <SubTitle>코드 사용 예시</SubTitle>
-                    <TextLabel>플랫버튼</TextLabel>
-                    <Code>{'<Button type="flat">플랫 버튼</Button>'}</Code>
-                    <Code>{'<Button type="flat" onClick={() => alert("버튼 클릭!")}>플랫 버튼 (onClick)</Button>'}</Code>
-                    <Code>{'<Button type="flat" width="400px" height="80px">플랫 버튼 (크기 정의됨)</Button>'}</Code>
-                    <TextLabel>아웃라인 버튼</TextLabel>
-                    <Code>{'<Button type="outline">아웃라인 버튼</Button>'}</Code>
-                    <Code>{'<Button type="outline" onClick={() => alert("버튼 클릭!")}>아웃라인 버튼 (onClick)</Button>'}</Code>
-                    <Code>{'<Button type="outline" width="400px" height="80px">아웃라인 버튼 (크기 정의됨)</Button>'}</Code>
-                    <TextLabel>반투명 버튼</TextLabel>
-                    <Code>{'<Button type="translucent">반투명 버튼</Button>'}</Code>
-                    <Code>{'<Button type="translucent" onClick={() => alert("버튼 클릭!")}>반투명 버튼 (onClick)</Button>'}</Code>
-                    <Code>{'<Button type="translucent" width="400px" height="80px">반투명 버튼 (크기 정의됨)</Button>'}</Code>
-                </div>
-                <div id="example">
-                    <SubTitle>실행 예시</SubTitle>
-                    <div style={{ display: "flex", width: "100%" }}>
-                        <Demo>
-                            <Button type="flat">플랫 버튼</Button>
-                            <Button type="flat" onClick={() => alert("버튼 클릭!")}>플랫 버튼 (onClick)</Button>
-                            <Button type="flat" width="400px" height="80px">플랫 버튼 (크기 정의됨)</Button>
-                        </Demo>
-                        <Demo>
-                            <Button type="flat" color="--primary-text-color" text_color="--body-background">플랫 버튼</Button>
-                            <Button type="flat" color="#c5c500" text_color="black">플랫 버튼</Button>
-                            <Button type="flat" color="--secondary-color" onClick={() => alert("왜 눌렀어요")}>플랫 버튼</Button>
-                        </Demo>
-                    </div>
-                    <div style={{ display: "flex", width: "100%" }}>
-                        <Demo>
-                            <Button type="outline">아웃라인 버튼</Button>
-                            <Button type="outline" onClick={() => alert("버튼 클릭!")}>아웃라인 버튼 (onClick)</Button>
-                            <Button type="outline" width="400px" height="80px">아웃라인 버튼 (크기 정의됨)</Button>
-                        </Demo>
-                        <Demo>
-                            <Button type="outline" color="--primary-text-color" text_color="--primary-text-color">아웃라인 버튼</Button>
-                            <Button type="outline" color="#c5c500" text_color="#c5c500">아웃라인 버튼</Button>
-                            <Button type="outline" color="--secondary-color" text_color="--secondary-color">아웃라인 버튼</Button>
-                        </Demo>
-                    </div>
-                    <div style={{ display: "flex", width: "100%" }}>
-                        <Demo>
-                            <Button type="translucent">반투명 버튼</Button>
-                            <Button type="translucent" onClick={() => alert("버튼 클릭!")}>반투명 버튼 (onClick)</Button>
-                            <Button type="translucent" width="400px" height="80px">반투명 버튼 (크기 정의됨)</Button>
-                        </Demo>
-                        <Demo>
-                            <Button type="translucent" color="--primary-text-color" text_color="--primary-text-color">반투명 버튼</Button>
-                            <Button type="translucent" color="#c5c500" text_color="#c5c500">반투명 버튼</Button>
-                            <Button type="translucent" color="--secondary-color" text_color="--secondary-color">반투명 버튼</Button>
                         </Demo>
                     </div>
                 </div>
