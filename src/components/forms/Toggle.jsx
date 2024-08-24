@@ -47,33 +47,33 @@ const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 
 // 토글 버튼 본체 :before가 좌우로 움직이는 동그란 버튼입니다.
 const Slider = styled.span`
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--secondary-text-color);
-    transition: 0.4s ease-out;
-    border-radius: ${(props) => {
-      switch (props.$size) {
-        case 's':
-          return '20px;';
-        case 'm':
-          return '24px;';
-        case 'l':
-          return '28px;';
-        default:
-          return `24px;`;
-      }
-    }};
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--secondary-text-color);
+  transition: 0.4s ease-out;
+  border-radius: ${(props) => {
+    switch (props.$size) {
+      case 's':
+        return '20px;';
+      case 'm':
+        return '24px;';
+      case 'l':
+        return '28px;';
+      default:
+        return `24px;`;
+    }
+  }};
 
-    &:before {
-        position: absolute;
-        content: '';
-        width: 16px;
-        height: 16px;
-		${(props) => {
+  &:before {
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 16px;
+    ${(props) => {
       switch (props.$size) {
         case 's':
           return 'width: 12px; height: 12px;';
@@ -85,39 +85,40 @@ const Slider = styled.span`
           return `width: 48px; height: 24px;`;
       }
     }}
-        left: 4px;
-        bottom: 4px;
-        background-color: #ffffff;
-        transition: 0.3s ease-out;
-        border-radius: 50%;
-    }
+    left: 4px;
+    bottom: 4px;
+    background-color: #ffffff;
+    transition: 0.3s ease-out;
+    border-radius: 50%;
+  }
 
-    ${Checkbox}:checked + & {
-        background-color: ${(props) => {
-          if (props.$color?.startsWith('--')) {
-            return `var(${props.$color});`;
-          } else {
-            return props.$color ?? 'var(--primary-color)';
-          }
-        }};;
-        }};
-    }
+  ${Checkbox}:checked + & {
+    background-color: ${(props) => {
+      if (props.$color?.startsWith('--')) {
+        return `var(${props.$color});`;
+      } else {
+        return props.$color ?? 'var(--primary-color)';
+      }
+    }};
+  }
 
-    ${Checkbox}:checked + &:before {
-        transform: translateX(${(props) => {
-          switch (props.$size) {
-            case 's':
-              return '20px';
-            case 'm':
-              return '24px';
-            case 'l':
-              return '28px';
-            default:
-              return `24px`;
-          }
-        }});
-		background-color: #ffffff;
-    }
+  ${Checkbox}:checked + &:before {
+    transform: translateX(
+      ${(props) => {
+        switch (props.$size) {
+          case 's':
+            return '20px';
+          case 'm':
+            return '24px';
+          case 'l':
+            return '28px';
+          default:
+            return `24px`;
+        }
+      }}
+    );
+    background-color: #ffffff;
+  }
 `;
 
 /**
