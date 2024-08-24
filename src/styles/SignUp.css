@@ -1,293 +1,292 @@
 .SignUp {
-    background-color: #ffffff;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
 }
 
 .SignUp .div {
-    background-color: #ffffff;
-    height: 1080px;
-    /* overflow: hidden; */
-    position: relative;
-    width: 1920px;
+  background-color: #ffffff;
+  height: 1080px;
+  /* overflow: hidden; */
+  position: relative;
+  width: 1920px;
 }
 
 .SignUp .middleSide {
-    background-color: #ffffff;
-    height: 980px;
-    left: 0;
-    /* position: absolute; */
-    top: 0px;
-    width: 1920px;
+  background-color: #ffffff;
+  height: 980px;
+  left: 0;
+  /* position: absolute; */
+  top: 0px;
+  width: 1920px;
 }
 
 .SignUp .view {
-    background-color: #ffffff;
-    height: 939px;
-    left: 727px;
-    position: relative;
-    top: 0px;
-    width: 466px;
+  background-color: #ffffff;
+  height: 939px;
+  left: 727px;
+  position: relative;
+  top: 0px;
+  width: 466px;
 }
 
 .SignUp .text-signup {
-    color: #000000;
-    font-family: "Inter-Bold", Helvetica;
-    font-size: 55px;
-    font-weight: 650;
-    left: 89px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 150px;
-    width: 288px;
+  color: #000000;
+  font-family: 'Inter-Bold', Helvetica;
+  font-size: 55px;
+  font-weight: 650;
+  left: 89px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 150px;
+  width: 288px;
 }
 
 .SignUp .input-name {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    left: 52px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    position: absolute;
-    top: 290px;
-    width: 350px;
-    font-size: 30px;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #000000;
+  border-radius: 15px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  left: 52px;
+  opacity: 0.3;
+  overflow: hidden;
+  padding: 10px;
+  position: absolute;
+  top: 290px;
+  width: 350px;
+  font-size: 30px;
 }
 
 .SignUp .input-name::placeholder {
-    font-size: 25px;
-    padding: 10px;
+  font-size: 25px;
+  padding: 10px;
 }
 
 .SignUp .input-mail {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    left: 52px;
-    position: absolute;
-    top: 380px;
-    width: 350px;
-    font-size: 30px;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #000000;
+  border-radius: 15px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  opacity: 0.3;
+  overflow: hidden;
+  padding: 10px;
+  left: 52px;
+  position: absolute;
+  top: 380px;
+  width: 350px;
+  font-size: 30px;
 }
 
-
 .SignUp .input-mail::placeholder {
-    font-size: 25px;
-    padding: 10px;
+  font-size: 25px;
+  padding: 10px;
 }
 
 .SignUp .input-pw {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    left: 52px;
-    position: absolute;
-    top: 470px;
-    width: 350px;
-    font-size: 30px;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #000000;
+  border-radius: 15px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  opacity: 0.3;
+  overflow: hidden;
+  padding: 10px;
+  left: 52px;
+  position: absolute;
+  top: 470px;
+  width: 350px;
+  font-size: 30px;
 }
 
 .SignUp .input-pw::placeholder {
-    font-size: 25px;
-    padding: 10px;
+  font-size: 25px;
+  padding: 10px;
 }
 
 .SignUp .input-sn {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    left: 52px;
-    position: absolute;
-    top: 560px;
-    width: 350px;
-    font-size: 30px;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #000000;
+  border-radius: 15px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  opacity: 0.3;
+  overflow: hidden;
+  padding: 10px;
+  left: 52px;
+  position: absolute;
+  top: 560px;
+  width: 350px;
+  font-size: 30px;
 }
 
 .SignUp .input-sn::placeholder {
-    font-size: 25px;
-    padding: 10px;
+  font-size: 25px;
+  padding: 10px;
 }
 
 .SignUp .input-major {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    left: 52px;
-    position: absolute;
-    top: 650px;
-    width: 350px;
-    font-size: 30px;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #000000;
+  border-radius: 15px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  opacity: 0.3;
+  overflow: hidden;
+  padding: 10px;
+  left: 52px;
+  position: absolute;
+  top: 650px;
+  width: 350px;
+  font-size: 30px;
 }
 
 .SignUp .input-major::placeholder {
-    font-size: 25px;
-    padding: 10px;
+  font-size: 25px;
+  padding: 10px;
 }
 
 .SignUp .input-ge {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    left: 52px;
-    position: absolute;
-    top: 740px;
-    width: 350px;
-    font-size: 30px;
+  align-items: flex-start;
+  background-color: #ffffff;
+  border: 2px solid;
+  border-color: #000000;
+  border-radius: 15px;
+  display: flex;
+  gap: 10px;
+  height: 50px;
+  opacity: 0.3;
+  overflow: hidden;
+  padding: 10px;
+  left: 52px;
+  position: absolute;
+  top: 740px;
+  width: 350px;
+  font-size: 30px;
 }
 
 .SignUp .input-ge::placeholder {
-    font-size: 25px;
-    padding: 10px;
+  font-size: 25px;
+  padding: 10px;
 }
 
 .SignUp .click-button {
-    background-color: #000000;
-    border-radius: 50px;
-    border: none;
-    height: 70px;
-    left: 52px;
-    position: absolute;
-    top: 880px;
-    width: 375px;
+  background-color: #000000;
+  border-radius: 50px;
+  border: none;
+  height: 70px;
+  left: 52px;
+  position: absolute;
+  top: 880px;
+  width: 375px;
 
-    color: #ffffff;
-    font-family: "Inter-Thin", Helvetica;
-    font-size: 25px;
-    font-weight: 500;
+  color: #ffffff;
+  font-family: 'Inter-Thin', Helvetica;
+  font-size: 25px;
+  font-weight: 500;
 }
 
 .SignUp .click-button:hover {
-    border: 2px solid #000000;
-    transition: all 0.2s ease-out;
-    cursor: pointer;
+  border: 2px solid #000000;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
 }
 
 .SignUp .signUp {
-    width: 150px;
-    height: 40px;
-    top: 720px;
-    left: 160px;
-    position: absolute;
+  width: 150px;
+  height: 40px;
+  top: 720px;
+  left: 160px;
+  position: absolute;
 }
 
 .SignUp .text-signUp {
-    color: #373737;
-    font-family: "Inter-Thin", Helvetica;
-    font-size: 23px;
-    font-weight: 100;
-    width: 150px;
-    height: 40px;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    text-decoration: underline;
-    top: -1px;
+  color: #373737;
+  font-family: 'Inter-Thin', Helvetica;
+  font-size: 23px;
+  font-weight: 100;
+  width: 150px;
+  height: 40px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  text-decoration: underline;
+  top: -1px;
 }
 
 .SignUp .text-signUp:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .SignUp .view-right {
-    height: 22px;
-    left: 1583px;
-    position: absolute;
-    top: 39px;
-    width: 244px;
+  height: 22px;
+  left: 1583px;
+  position: absolute;
+  top: 39px;
+  width: 244px;
 }
 
 .SignUp .SignUp {
-    height: 22px;
-    left: 177px;
-    position: absolute;
-    top: 0;
-    width: 67px;
+  height: 22px;
+  left: 177px;
+  position: absolute;
+  top: 0;
+  width: 67px;
 }
 
 .SignUp .text-sign {
-    color: #373737;
-    font-family: "Inter-Thin", Helvetica;
-    font-size: 11px;
-    font-weight: 100;
-    left: 0;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
+  color: #373737;
+  font-family: 'Inter-Thin', Helvetica;
+  font-size: 11px;
+  font-weight: 100;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
 }
 
 .SignUp .Login {
-    height: 22px;
-    left: 90px;
-    position: absolute;
-    top: 0;
-    width: 50px;
+  height: 22px;
+  left: 90px;
+  position: absolute;
+  top: 0;
+  width: 50px;
 }
 
 .SignUp .view-middle {
-    height: 30px;
-    left: 530px;
-    position: absolute;
-    top: 35px;
-    width: 808px;
+  height: 30px;
+  left: 530px;
+  position: absolute;
+  top: 35px;
+  width: 808px;
 }
 
 .SignUp .view-left {
-    height: 61px;
-    left: 74px;
-    position: absolute;
-    top: 19px;
-    width: 113px;
+  height: 61px;
+  left: 74px;
+  position: absolute;
+  top: 19px;
+  width: 113px;
 }

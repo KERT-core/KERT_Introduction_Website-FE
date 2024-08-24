@@ -7,7 +7,9 @@ const useTheme = () => {
     if (savedTheme) {
       return savedTheme;
     }
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const systemPrefersDark = window.matchMedia(
+      '(prefers-color-scheme: dark)',
+    ).matches;
     return systemPrefersDark ? 'dark' : 'light';
   };
 

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Button } from "../components/forms/Button";
+import styled from 'styled-components';
+import { Button } from '../components/forms/Button';
 
 const Container = styled.div`
   width: 100%;
@@ -25,45 +25,47 @@ const Container = styled.div`
 `;
 
 const TitleBox = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 1rem;
-    gap: 1rem;
-`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+`;
 
 const Title = styled.h1`
-    font-size: 42px;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    color: var(--primary-text-color);
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--primary-text-color);
 `;
 
 const Description = styled.div`
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--secondary-text-color);
-`
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--secondary-text-color);
+`;
 
 const ButtonGroup = styled.div`
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-    margin-top: 2rem;
-`
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-top: 2rem;
+`;
 
 export default function Board() {
-    return (
-        <Container>
-            <TitleBox>
-                <Title>KERT 소식지</Title>
-                <Description>열심히 소통하는 KERT, 자세히 알아볼 수 있어요</Description>
-            </TitleBox>
-            <ButtonGroup>
-                <Button type="rounded">asdf</Button>
-                <Button type="rounded" color="var(--secondary-color)">asdf</Button>
-            </ButtonGroup>
-        </Container>
-    );
+  return (
+    <Container>
+      <TitleBox>
+        <Title>KERT 소식지</Title>
+        <Description>열심히 소통하는 KERT, 자세히 알아볼 수 있어요</Description>
+      </TitleBox>
+      <ButtonGroup>
+        <Button type="rounded">asdf</Button>
+        <Button type="rounded" color="var(--secondary-color)">
+          asdf
+        </Button>
+      </ButtonGroup>
+    </Container>
+  );
 }

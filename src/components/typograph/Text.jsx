@@ -2,8 +2,8 @@
 // 코드 작성자 : GiHhub @whitedev77773
 
 // 외부 라이브러리에서 import
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
 
@@ -18,51 +18,50 @@ import styled from "styled-components";
  * @property {Color} color
  */
 export const Span = styled.span`
-    display: block;
-    font-size: ${(props) => {
-        switch (props.$size) {
-            case "xs":
-                return "12px";
-            case "s":
-                return "14px";
-            case "m":
-                return "16px";
-            case "l":
-                return "20px";
-            case "xl":
-                return "24px";
-            case "sxl":
-                return "28px";
-            default:
-                return props.$size ?? "16px";
-        }
-    }};
+  display: block;
+  font-size: ${(props) => {
+    switch (props.$size) {
+      case 'xs':
+        return '12px';
+      case 's':
+        return '14px';
+      case 'm':
+        return '16px';
+      case 'l':
+        return '20px';
+      case 'xl':
+        return '24px';
+      case 'sxl':
+        return '28px';
+      default:
+        return props.$size ?? '16px';
+    }
+  }};
 
-    font-weight: ${(props) => {
-        switch (props.$weight) {
-            case 'light':
-                return "300";
-            case 'regular':
-                return "400";
-            case 'bold':
-                return "700";
-            case 'extrabold':
-                return "800";
-            case 'heavy':
-                return "900";
-            default:
-                return props.$weight ?? "regular";
-        }
-    }};
+  font-weight: ${(props) => {
+    switch (props.$weight) {
+      case 'light':
+        return '300';
+      case 'regular':
+        return '400';
+      case 'bold':
+        return '700';
+      case 'extrabold':
+        return '800';
+      case 'heavy':
+        return '900';
+      default:
+        return props.$weight ?? 'regular';
+    }
+  }};
 
-    color: ${(props) => {
-        if (props.$color?.startsWith("--")) {
-            return `var(${props.$color});`;
-        }
-        else {
-            return props.$color ?? "var(--primary-text-color)";
-        }
-    }};
+  color: ${(props) => {
+    if (props.$color?.startsWith('--')) {
+      return `var(${props.$color});`;
+    } else {
+      return props.$color ?? 'var(--primary-text-color)';
+    }
+  }};
 `;
 
 /**
@@ -76,11 +75,15 @@ export const Span = styled.span`
  * 스타일링된 span을 생성합니다.
  * @param {IText & IChildren} props
  */
-export const Text = ({ size="m", weight="regular", color="--primary-text-color", children="" }) => {
-    return (
-        <Span
-            $size={size} $weight={weight} $color={color}>
-            {children}
-        </Span>
-    )
-}
+export const Text = ({
+  size = 'm',
+  weight = 'regular',
+  color = '--primary-text-color',
+  children = '',
+}) => {
+  return (
+    <Span $size={size} $weight={weight} $color={color}>
+      {children}
+    </Span>
+  );
+};
