@@ -18,29 +18,31 @@ import styled from 'styled-components';
  */
 // IToogle이라는 이름으로 새로운 컴포넌트를 생성합니다.
 const IToggle = styled.label`
-    position: relative;
-    display: inline-block;
+  position: relative;
+  display: inline-block;
 
-	${(props) => {
-        switch (props.$size) {
-            case "s":
-                return "width: 40px; height: 20px;";
-            case "m":
-                return "width: 48px; height: 24px;";
-            case "l":
-                return "width: 56px; height: 28px;";
-            default:
-				console.warn("[Toggle.jsx] 정의되지 않은 사이즈입니다. 기본값으로 적용됩니다.");
-                return `width: 48px; height: 24px;`;
-        }
-    }}
+  ${(props) => {
+    switch (props.$size) {
+      case 's':
+        return 'width: 40px; height: 20px;';
+      case 'm':
+        return 'width: 48px; height: 24px;';
+      case 'l':
+        return 'width: 56px; height: 28px;';
+      default:
+        console.warn(
+          '[Toggle.jsx] 정의되지 않은 사이즈입니다. 기본값으로 적용됩니다.',
+        );
+        return `width: 48px; height: 24px;`;
+    }
+  }}
 `;
 
 // Checkbox를 통해 토글 버튼이 활성화 상태인지 판단합니다.
-const Checkbox = styled.input.attrs({ type: "checkbox" })`
-    opacity: 0;
-    width: 0;
-    height: 0;
+const Checkbox = styled.input.attrs({ type: 'checkbox' })`
+  opacity: 0;
+  width: 0;
+  height: 0;
 `;
 
 // 토글 버튼 본체 :before가 좌우로 움직이는 동그란 버튼입니다.
@@ -54,16 +56,16 @@ const Slider = styled.span`
     background-color: var(--secondary-text-color);
     transition: 0.4s ease-out;
     border-radius: ${(props) => {
-        switch (props.$size) {
-            case "s":
-                return "20px;";
-            case "m":
-                return "24px;";
-            case "l":
-                return "28px;";
-            default:
-                return `24px;`;
-        }
+      switch (props.$size) {
+        case 's':
+          return '20px;';
+        case 'm':
+          return '24px;';
+        case 'l':
+          return '28px;';
+        default:
+          return `24px;`;
+      }
     }};
 
     &:before {
@@ -72,17 +74,17 @@ const Slider = styled.span`
         width: 16px;
         height: 16px;
 		${(props) => {
-			switch (props.$size) {
-				case "s":
-					return "width: 12px; height: 12px;";
-				case "m":
-					return "width: 16px; height: 16px;";
-				case "l":
-					return "width: 20px; height: 20px;";
-				default:
-					return `width: 48px; height: 24px;`;
-			}
-		}}
+      switch (props.$size) {
+        case 's':
+          return 'width: 12px; height: 12px;';
+        case 'm':
+          return 'width: 16px; height: 16px;';
+        case 'l':
+          return 'width: 20px; height: 20px;';
+        default:
+          return `width: 48px; height: 24px;`;
+      }
+    }}
         left: 4px;
         bottom: 4px;
         background-color: #ffffff;
@@ -92,29 +94,28 @@ const Slider = styled.span`
 
     ${Checkbox}:checked + & {
         background-color: ${(props) => {
-            if (props.$color?.startsWith("--")) {
-                return `var(${props.$color});`;
-            }
-            else {
-                return props.$color ?? "var(--primary-color)";
-            }
+          if (props.$color?.startsWith('--')) {
+            return `var(${props.$color});`;
+          } else {
+            return props.$color ?? 'var(--primary-color)';
+          }
         }};;
         }};
     }
 
     ${Checkbox}:checked + &:before {
         transform: translateX(${(props) => {
-			switch (props.$size) {
-				case "s":
-					return "20px";
-				case "m":
-					return "24px";
-				case "l":
-					return "28px";
-				default:
-					return `24px`;
-			}
-		}});
+          switch (props.$size) {
+            case 's':
+              return '20px';
+            case 'm':
+              return '24px';
+            case 'l':
+              return '28px';
+            default:
+              return `24px`;
+          }
+        }});
 		background-color: #ffffff;
     }
 `;
@@ -128,11 +129,16 @@ const Slider = styled.span`
  * 토글 버튼 처럼 스타일링된 input[type="checkbox"]를 생성합니다.
  * @param {IToggle} props
  */
-export const Toggle = ({ size="m", color="--primary-color", checked, onChange=()=>{} }) => {
-    return (
-        <IToggle $size={size}>
-            <Checkbox onChange={onChange} checked={checked} />
-            <Slider $size={size} $color={color} />
-        </IToggle>
-    );
-}
+export const Toggle = ({
+  size = 'm',
+  color = '--primary-color',
+  checked,
+  onChange = () => {},
+}) => {
+  return (
+    <IToggle $size={size}>
+      <Checkbox onChange={onChange} checked={checked} />
+      <Slider $size={size} $color={color} />
+    </IToggle>
+  );
+};
