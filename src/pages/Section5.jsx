@@ -43,10 +43,10 @@ const TitleWrapper = styled.div`
   gap: 25px;
 `;
 
-const SubTitle=styled(Text)`
-  margin-bottom:20%;
+const SubTitle = styled(Text)`
+  margin-bottom: 50px; 
+`;
 
-`
 /* Image Wrapper */
 const ImageWrapper = styled.div`
   display: flex;
@@ -70,7 +70,7 @@ export default function Section1() {
         <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">
           Major Content of KERT
         </Text>
-        <SubTitle size="xsl" weight="extrabold">
+        <SubTitle size="sxl" weight="extrabold">
           다같이 즐겁게 활동해요
         </SubTitle>
         <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.78)">

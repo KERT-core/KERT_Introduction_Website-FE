@@ -22,7 +22,7 @@ const LeftContentContainr = styled.div`
     padding: 0 50px;
 `;
 
-// Container to wrap the left and right content containers
+//왼-오 잡는 컨테이너
 const ContentWrapper = styled.div`
     display: flex;
     justify-content: space-between;
