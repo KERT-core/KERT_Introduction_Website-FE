@@ -30,12 +30,26 @@ export const Header = styled(Span).attrs({
 export const Container = styled(Cont).attrs({
   id: 'dashboard-container',
 })`
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  & > * {
+    animation: show 0.75s ease-in-out;
+  }
+
   width: 360px;
 
   margin: 0;
   padding: 30px;
   border-radius: 20px;
   box-sizing: border-box;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
