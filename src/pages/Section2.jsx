@@ -125,10 +125,11 @@ const statsStyle = {
   justifyContent: 'center',
   alignItems: 'flex-start',
   fontSize: '0.5em',
-  marginTop: '20px', // Adjust margin to fit layout
-  transform: 'translateX(65%)',
-  opacity: 0.6,
+  marginTop: '20px',
+  //transform: 'translateX(50%)',
+  flexDirection: 'column', // Align elements vertically
 };
+
 
 export default function MainPage() {
   return (
