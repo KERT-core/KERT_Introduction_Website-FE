@@ -7,6 +7,7 @@ import Section3 from './Section3.jsx';
 import Section4 from './Section4.jsx';
 import Section5 from "./Section5.jsx";
 import Section6 from "./Section6.jsx";
+import Section7 from "./Section7.jsx";
 import '../font/main_font.css';
 
 //스크롤바 기능 구현
@@ -167,9 +168,7 @@ export default function MainPage() {
       <div style={dividerStyle}></div>
       <Section6/>
       <div style={dividerStyle}></div>
-      <div style={{ ...pageStyle, backgroundColor: 'rgba(100, 100, 100, 1)' }}>
-        Page 7
-      </div>
+      <Section7/>
     </div>
   );
 }
