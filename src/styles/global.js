@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         --warning-color: #F1C40F;
         --success-color: #2ECC71;
         --container-border-width: 1px;
+        --transparent-button-background: rgba(255, 255, 255, 0.05);
     }
 
     body {
