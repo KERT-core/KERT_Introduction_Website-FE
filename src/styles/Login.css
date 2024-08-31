@@ -1,15 +1,21 @@
+/* 
+    Login.jsx
+    코드 작성자 : GiHhub @huisuu 
+*/
+
+/* Apply font globally to the login container */
 .Login {
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
     justify-content: center;
     width: 100%;
+    font-family: 'NanumSquareNeo', sans-serif;
 }
 
 .Login .div {
     background-color: #ffffff;
     height: 1080px;
-    /* overflow: hidden; */
     position: relative;
     width: 1920px;
 }
@@ -18,7 +24,6 @@
     background-color: #ffffff;
     height: 980px;
     left: 0;
-    /* position: absolute; */
     top: 0px;
     width: 1920px;
 }
@@ -34,9 +39,8 @@
 
 .Login .text-login {
     color: #000000;
-    font-family: 'Inter-Bold', Helvetica;
     font-size: 55px;
-    font-weight: 650;
+    font-weight: 700;
     left: 89px;
     letter-spacing: 0;
     line-height: normal;
@@ -46,30 +50,8 @@
     width: 288px;
 }
 
-.Login .input-pw {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
-    display: flex;
-    gap: 10px;
-    height: 50px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    left: 52px;
-    position: absolute;
-    top: 560px;
-    width: 350px;
-    font-size: 30px;
-}
-
-.Login .input-pw::placeholder {
-    font-size: 25px;
-    padding: 10px;
-}
-
+/* Apply font to input fields */
+.Login .input-pw,
 .Login .input-sn {
     align-items: flex-start;
     background-color: #ffffff;
@@ -84,16 +66,26 @@
     padding: 10px;
     left: 52px;
     position: absolute;
-    top: 470px;
     width: 350px;
     font-size: 30px;
 }
 
+.Login .input-pw {
+    top: 560px;
+}
+
+.Login .input-sn {
+    top: 470px;
+}
+
+/* Apply font to placeholders */
+.Login .input-pw::placeholder,
 .Login .input-sn::placeholder {
     font-size: 25px;
     padding: 10px;
 }
 
+/* Apply font to the button */
 .Login .click-button {
     background-color: #000000;
     border-radius: 50px;
@@ -103,9 +95,7 @@
     position: absolute;
     top: 680px;
     width: 375px;
-
     color: #ffffff;
-    font-family: 'Inter-Thin', Helvetica;
     font-size: 25px;
     font-weight: 500;
 }
@@ -116,27 +106,9 @@
     cursor: pointer;
 }
 
-
-.Login .view-right {
-    height: 22px;
-    left: 1583px;
-    position: absolute;
-    top: 39px;
-    width: 244px;
-}
-
-.Login .view-middle {
-    height: 30px;
-    left: 530px;
-    position: absolute;
-    top: 35px;
-    width: 808px;
-}
-
+/* Apply font to view sections */
+.Login .view-right,
+.Login .view-middle,
 .Login .view-left {
-    height: 61px;
-    left: 74px;
     position: absolute;
-    top: 19px;
-    width: 113px;
 }

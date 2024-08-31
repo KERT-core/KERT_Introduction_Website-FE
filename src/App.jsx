@@ -24,6 +24,9 @@ import DevDocument from './pages/DevDocument';
 import Board from './pages/Board';
 import Article from './pages/Article';
 
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+
 export default function App() {
   return (
     <>
@@ -34,6 +37,8 @@ export default function App() {
           <Route path="/developer" element={<DevDocument />} />
           <Route path="/board" element={<Board />} />
           <Route path="/articles/:id" element={<Article />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index path="/dashboard" element={<DashboardHome />} />
