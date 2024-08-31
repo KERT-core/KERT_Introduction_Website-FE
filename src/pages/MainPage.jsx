@@ -10,8 +10,8 @@ import Section6 from "./Section6.jsx";
 import Section7 from "./Section7.jsx";
 import '../font/main_font.css';
 
-//스크롤바 기능 구현
-//section 파일로 화면 렌더링
+// 스크롤바 기능 구현
+// section 파일로 화면 렌더링
 const DIVIDER_HEIGHT = 5;
 
 const back_first_Style = {
@@ -36,9 +36,45 @@ const dividerStyle = {
   backgroundColor: 'transparent',
 };
 
+const Footer=styled.footer`
+    position: 'absolute';
+    bottom: 0;
+    width: '100vw';
+    height: '60px';
+    backgroundColor: '#333';
+    color: '#fff';
+    display: 'flex';
+    justifyContent: 'center';
+    alignItems: 'center';
+    textAlign: 'center',
+    zIndex: 1000,
+    transition: 'opacity 0.3s ease';
+    opacity: showFooter ? 1 : 0;
+
+`
+
+// Footer 스타일
+const footerStyle = (showFooter) => ({
+  position: 'absolute',
+  bottom: 0,
+  width: '100vw',
+  height: '60px',
+  backgroundColor: '#333',
+  color: '#fff',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  fontSize: '1em',
+  textAlign: 'center',
+  zIndex: 1000,
+  transition: 'opacity 0.3s ease',
+  opacity: showFooter ? 1 : 0,
+});
+
 export default function MainPage() {
   const outerDivRef = useRef();
   const [scrollIndex, setScrollIndex] = useState(1);
+  const [showFooter, setShowFooter] = useState(false);
 
   useEffect(() => {
     const wheelHandler = (e) => {
@@ -138,6 +174,10 @@ export default function MainPage() {
           setScrollIndex(1);
         }
       }
+
+      // Footer 표시 여부 결정
+      const shouldShowFooter = scrollTop >= pageHeight * 6;
+      setShowFooter(shouldShowFooter);
     };
 
     const outerDivRefCurrent = outerDivRef.current;
@@ -148,27 +188,34 @@ export default function MainPage() {
   }, []);
 
   return (
-    <div
-      ref={outerDivRef}
-      style={{
-        ...back_first_Style,
-        overflowY: 'scroll',
-        scrollSnapType: 'y mandatory',
-      }}
-    >
-      <Section1 />
-      <div style={dividerStyle}></div>
-      <Section2 />
-      <div style={dividerStyle}></div>
-      <Section3 />
-      <div style={dividerStyle}></div>
-      <Section4 />
-      <div style={dividerStyle}></div>
-      <Section5/>
-      <div style={dividerStyle}></div>
-      <Section6/>
-      <div style={dividerStyle}></div>
-      <Section7/>
-    </div>
+    <>
+      <div
+        ref={outerDivRef}
+        style={{
+          ...back_first_Style,
+          overflowY: 'scroll',
+          scrollSnapType: 'y mandatory',
+          paddingBottom: '60px', // Footer 공간을 위해 padding 추가
+        }}
+      >
+        <Section1 />
+        <div style={dividerStyle}></div>
+        <Section2 />
+        <div style={dividerStyle}></div>
+        <Section3 />
+        <div style={dividerStyle}></div>
+        <Section4 />
+        <div style={dividerStyle}></div>
+        <Section5 />
+        <div style={dividerStyle}></div>
+        <Section6 />
+        <div style={dividerStyle}></div>
+        <Section7 />
+      </div>
+      <footer style={footerStyle(showFooter)}>
+        <img src={kert_logo} alt="KERT Logo" style={{ height: '40px', marginRight: '10px' }} />
+        <span>© 2024 KERT. All Rights Reserved.</span>
+      </footer>
+    </>
   );
 }
