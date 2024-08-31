@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import '../styles/Login.css';
 
@@ -8,7 +8,7 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [student, setStudenet] = useState('');
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -22,7 +22,7 @@ export default function SignUp() {
       console.log('Sign up successful:', response.data);
 
       // 로그인 성공 시 ~page로 이동합니다.
-      // navigate("/page");
+      navigate('/MainPage');
     } catch (error) {
       console.error('Error:', error);
     }
