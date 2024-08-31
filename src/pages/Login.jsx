@@ -1,20 +1,23 @@
-import { useState } from 'react';
+// Login.jsx
+// 코드 작성자 : GiHhub @huisuu
+
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import '../styles/Login.css';
+import '../styles/font.css';
 
 export default function SignUp() {
-  const [password, setPassword] = useState('');
-  const [student, setStudenet] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const onSubmit = async (data) => {
     try {
       const userData = {
-        student: student,
-        password: password,
+        student: data.student,
+        password: data.password,
       };
 
       // 서버로 로그인 정보를 전송합니다.
@@ -34,29 +37,53 @@ export default function SignUp() {
         <div className="middleSide">
           <div className="view">
             <div className="text-login">로그인</div>
-            {/* student number */}
-            <div className="input-SN">
-              <input
-                className="input-sn"
-                type="student"
-                placeholder="학번"
-                value={student}
-                onChange={(e) => setStudenet(e.target.value)}
-              />
-            </div>
-            {/* pw */}
-            <div className="input-PW">
-              <input
-                className="input-pw"
-                type="password"
-                placeholder="비밀번호"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <button className="click-button" onClick={handleLogin}>
-              로그인
-            </button>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              {/* student number */}
+              <div className="input-SN">
+                <input
+                  className="input-sn"
+                  type="text"
+                  placeholder="학번"
+                  {...register('student', {
+                    minLength: {
+                      value: 10,
+                      message: '학번은 10자리 숫자여야 합니다.',
+                    },
+                    pattern: {
+                      value: /^[0-9]{10}$/,
+                      message: '학번은 10자리 숫자여야 합니다.',
+                    },
+                  })}
+                />
+                {errors.student && (
+                  <p className="error-message">{errors.student.message}</p>
+                )}
+              </div>
+              {/* pw */}
+              <div className="input-PW">
+                <input
+                  className="input-pw"
+                  type="password"
+                  placeholder="비밀번호"
+                  {...register('password', {
+                    minLength: {
+                      value: 8,
+                      message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    },
+                    pattern: {
+                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                      message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    },
+                  })}
+                />
+                {errors.password && (
+                  <p className="error-message">{errors.password.message}</p>
+                )}
+              </div>
+              <button className="click-button" type="submit">
+                로그인
+              </button>
+            </form>
           </div>
         </div>
       </div>
