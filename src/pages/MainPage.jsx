@@ -9,6 +9,8 @@ import Section5 from "./Section5.jsx";
 import Section6 from "./Section6.jsx";
 import Section7 from "./Section7.jsx";
 import '../font/main_font.css';
+import styled from 'styled-components';
+
 
 // 스크롤바 기능 구현
 // section 파일로 화면 렌더링
@@ -36,6 +38,23 @@ const dividerStyle = {
   backgroundColor: 'transparent',
 };
 
+const footerStyle = (showFooter) => ({
+  position: 'absolute',
+  bottom: 0,
+  width: '100vw',
+  height: '60px',
+  backgroundColor: '#333',
+  color: '#fff',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+  zIndex: 1000,
+  transition: 'opacity 0.3s ease',
+  opacity: showFooter ? 1 : 0,
+});
+
+
 const Footer=styled.footer`
     position: 'absolute';
     bottom: 0;
@@ -50,26 +69,8 @@ const Footer=styled.footer`
     zIndex: 1000,
     transition: 'opacity 0.3s ease';
     opacity: showFooter ? 1 : 0;
-
 `
 
-// Footer 스타일
-const footerStyle = (showFooter) => ({
-  position: 'absolute',
-  bottom: 0,
-  width: '100vw',
-  height: '60px',
-  backgroundColor: '#333',
-  color: '#fff',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontSize: '1em',
-  textAlign: 'center',
-  zIndex: 1000,
-  transition: 'opacity 0.3s ease',
-  opacity: showFooter ? 1 : 0,
-});
 
 export default function MainPage() {
   const outerDivRef = useRef();
