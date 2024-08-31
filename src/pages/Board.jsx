@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from '../components/forms/Button';
+import { Text } from '../components/typograph/Text';
 
 const Container = styled.div`
   width: 100%;
@@ -18,9 +19,6 @@ const Container = styled.div`
   }
   @media (min-width: 1280px) {
     max-width: 1280px;
-  }
-  @media (min-width: 1536px) {
-    max-width: 1536px;
   }
 `;
 
@@ -53,6 +51,52 @@ const ButtonGroup = styled.div`
   margin-top: 2rem;
 `;
 
+const PostItems = styled.div`
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+`;
+
+const PostCardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+`;
+
+const PostCardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+`;
+
+const PostCardImage = styled.img`
+  width: 100%;
+  height: 50%;
+  border-radius: 10px;
+  object-fit: cover;
+`;
+
+const PostCard = ({ title, description, author, image }) => {
+  return (
+    <PostCardWrapper>
+      <PostCardImage src={image} />
+      <PostCardContainer>
+        <Text size="l" weight="extrabold">
+          {title}
+        </Text>
+        <Text size="s">{description}</Text>
+        <Text size="s" weight="bold">
+          {author}
+        </Text>
+      </PostCardContainer>
+    </PostCardWrapper>
+  );
+};
+
 export default function Board() {
   return (
     <Container>
@@ -61,11 +105,28 @@ export default function Board() {
         <Description>열심히 소통하는 KERT, 자세히 알아볼 수 있어요</Description>
       </TitleBox>
       <ButtonGroup>
-        <Button type="rounded">asdf</Button>
-        <Button type="rounded" color="var(--secondary-color)">
-          asdf
+        <Button type="rounded">전체</Button>
+        <Button type="rounded" color="--transparent-button-background">
+          공지
+        </Button>
+        <Button type="rounded" color="--transparent-button-background">
+          블로그
+        </Button>
+        <Button type="rounded" color="--transparent-button-background">
+          기.보.교
         </Button>
       </ButtonGroup>
+      <PostItems>
+        {Array.from({ length: 9 }).map((_, index) => (
+          <PostCard
+            key={index}
+            title="여기에 제목 입력"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit....."
+            author="KERT 관리자"
+            image={`https://picsum.photos/200?random=${index}`}
+          />
+        ))}
+      </PostItems>
     </Container>
   );
 }

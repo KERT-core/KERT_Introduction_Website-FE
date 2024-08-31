@@ -22,6 +22,7 @@ import {
 } from './components/display/dashboard';
 import DevDocument from './pages/DevDocument';
 import Board from './pages/Board';
+import Article from './pages/Article';
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
           <Route index path="/" element={<MainPage />} />
           <Route path="/developer" element={<DevDocument />} />
           <Route path="/board" element={<Board />} />
+          <Route path="/articles/:id" element={<Article />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index path="/dashboard" element={<DashboardHome />} />
