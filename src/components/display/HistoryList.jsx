@@ -133,6 +133,8 @@ export const HistoryList = () => {
           {deleteHistory.year}년 {deleteHistory.month}월 -{' '}
           {deleteHistory.content}
         </Text>
+        <br />
+        <Text color="--secondary-text-color">ID : {deleteHistory.id}</Text>
       </Confirm>
       <Alert
         title="연혁 삭제됨"
