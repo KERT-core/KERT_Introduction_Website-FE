@@ -36,10 +36,13 @@ export const HistoryList = () => {
   // 유저가 confirm 모달에서 삭제를 눌렀을 때
   const handleDeleteConfirm = () => {
     setConfirmOpen(false);
-    setAlertOpen(true);
 
     // 서버로 삭제를 요청합니다.
-    API.DELETE(`/histories/${deleteHistory.id}`);
+    API.DELETE(`/histories/${deleteHistory.id}`)
+      .then()
+      .then(() => {
+        setAlertOpen(true);
+      });
     setDeleteHistory({
       id: null,
       year: null,

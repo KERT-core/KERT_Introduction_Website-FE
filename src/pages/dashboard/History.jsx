@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import useHistory from '../../stores/dashboard/useHistory';
 
 import { Text } from '../../components/typograph/Text';
@@ -10,6 +10,7 @@ import { HistoryList } from '../../components/display/HistoryList';
 import { API } from '../../utils/api';
 import { Confirm } from '../../components/forms/modal/Confirm';
 import { Alert } from '../../components/forms/modal/Alert';
+import { Input } from '../../components/forms/Input';
 
 /**
  * ↓ API 요청 시 반환 형식 ↓
@@ -24,27 +25,28 @@ import { Alert } from '../../components/forms/modal/Alert';
  */
 
 export default function History() {
+  const yearInputRef = useRef('');
+  const monthInputRef = useRef('');
+  const contentInputRef = useRef('');
+
   const [alertOpen, setAlertOpen] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
-  const [newHistory, setNewHistory] = useState({
-    year: null,
-    month: null,
-    content: null,
-  });
 
   // confirm 모달이 표시될 때
   const handleAddClick = () => {
-    setNewHistory({
-      year: 2024,
-      month: 9,
-      content: 'KERT 웹사이트 개발 완료',
-    });
     setConfirmOpen(true);
   };
 
   // 유저가 confirm 모달에서 확인을 눌렀을 때
   const handleAddConfirm = () => {
-    setConfirmOpen(false);
+    console.log(contentInputRef.current.value);
+
+    const newHistory = {
+      year: parseInt(yearInputRef.current.value),
+      month: parseInt(monthInputRef.current.value),
+      content: contentInputRef.current.value,
+    };
+    console.log(newHistory);
 
     // 서버로 추가를 요청합니다.
     API.POST('/histories', newHistory)
@@ -52,6 +54,8 @@ export default function History() {
       .then(() => {
         setAlertOpen(true);
       });
+
+    setConfirmOpen(false);
   };
 
   // 유저가 닫기 버튼을 눌렀을 때
@@ -81,9 +85,27 @@ export default function History() {
         onCancel={handleAddCancel}
         confirmMsg="추가"
       >
-        <Text>
-          {newHistory.year}년 {newHistory.month}월 - {newHistory.content}
-        </Text>
+        <div style={{ display: 'flex', gap: '20px' }}>
+          <Input
+            ref={yearInputRef}
+            label="연도"
+            type="number"
+            placeholder="2024"
+          />
+          <Input
+            ref={monthInputRef}
+            label="월"
+            type="number"
+            min={1}
+            max={12}
+            placeholder="2"
+          />
+        </div>
+        <Input
+          ref={contentInputRef}
+          label="내용"
+          placeholder="여기에 연혁 내용 입력"
+        />
       </Confirm>
       <Alert
         title="연혁 추가됨"
@@ -95,6 +117,7 @@ export default function History() {
         buttonColor="--success-color"
       >
         <Text>추가되었습니다.</Text>
+        <Text>연혁 목록을 다시 불러옵니다.</Text>
       </Alert>
     </>
   );
