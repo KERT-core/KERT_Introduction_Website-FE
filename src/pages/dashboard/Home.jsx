@@ -4,10 +4,10 @@
 // 외부 라이브러리에서 import
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useHome from '../../stores/dashboard/useHome';
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
 import HomeLoading from './Home.Loading';
-import useDashboard from '../../stores/useDashboardStore';
 import {
   Header,
   Container,
@@ -155,7 +155,7 @@ const PostBoard = ({ name, data, navigate }) => {
 
 export default function Home() {
   // 메뉴 변경마다 재렌더링을 막기 위해 useDashboardStore를 불러옵니다.
-  const { home, setHome } = useDashboard();
+  const { home, saveHome } = useHome();
 
   // 다른 컴포넌트에서 URL 이동을 할 수 있도록 navigate를 넙깁니다.
   const navigate = useNavigate();
@@ -172,7 +172,7 @@ export default function Home() {
       // API 요청하는 척 3초 Timeout을 겁니다.
       setTimeout(() => {
         setLoading(false); // 로딩 해제
-        setHome({
+        saveHome({
           history: { wholeCount: 16, yearCount: 10 },
           executive: { wholeCount: 36, displayCount: 5 },
           admin: { wholeCount: 5 },

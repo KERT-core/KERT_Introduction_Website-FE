@@ -12,7 +12,7 @@ import styled from 'styled-components';
  *  기본 스타일을 지정할 수 있습니다.
  * @type {styled.button}
  */
-const IButton = styled.button`
+export const IButton = styled.button`
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -65,7 +65,7 @@ const FlatButton = styled(IButton)`
     if (props.$color?.startsWith('--')) {
       return `var(${props.$color});`;
     } else {
-      return props.$color ?? 'var(--transparent-button-background)';
+      return props.$color ?? 'var(--primary-color)';
     }
   }};
 `;

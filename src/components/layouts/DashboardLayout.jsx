@@ -69,7 +69,6 @@ export const DashboardLayout = ({ location }) => {
       <Content>
         {/* location.key로 랜덤한 index를 부여하여 화면 전환 시 컴포넌트 충돌이 없도록 예방합니다. */}
         <CSSTransition
-          exact="true"
           nodeRef={nodeRef}
           key={location.key}
           timeout={{ enter: 500, exit: 300 }}

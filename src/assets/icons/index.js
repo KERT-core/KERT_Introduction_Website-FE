@@ -6,6 +6,7 @@ export { default as DragableIcon } from './dragable.svg';
 export { default as EditIcon } from './edit.svg';
 export { default as HomeIcon } from './home.svg';
 export { default as PersonIcon } from './person.svg';
+export { default as RefreshIcon } from './refresh.svg';
 export { default as RemoveIcon } from './remove.svg';
 export { default as TimelineIcon } from './timeline.svg';
 export { default as VerifiedIcon } from './verified.svg';

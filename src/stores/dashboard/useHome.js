@@ -4,20 +4,14 @@
 
 import { create } from 'zustand';
 
-const useDashboardStore = create((set) => ({
-  // 대시보드 데이터를 저장할 상태
+const useHome = create((set) => ({
+  // 대시보드 홈 데이터를 저장할 상태
   home: null,
-  history: null,
-  executive: null,
-  admin: null,
-  users: null,
 
   // setHome()으로 Home 데이터를 저장합니다.
-  setHome: (newData) => {
-    set({
-      home: newData,
-    });
+  saveHome: (newData) => {
+    set({ home: newData });
   },
 }));
 
-export default useDashboardStore;
+export default useHome;
