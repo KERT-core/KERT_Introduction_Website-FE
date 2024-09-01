@@ -1,292 +1,134 @@
-.SignUp {
-  background-color: #ffffff;
+body {
+  background-color: #080f17;
+  /* background-color: var(--primary-text-color); */
+  font-family: "NanumSquare", Helvetica;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
+  height: 100%;
 }
 
-.SignUp .div {
-  background-color: #ffffff;
-  height: 1080px;
-  /* overflow: hidden; */
+.div {
+  top: 100px;
   position: relative;
-  width: 1920px;
+  /* height: 1140px; */
+  /* width: 1920px; */
 }
 
-.SignUp .middleSide {
-  background-color: #ffffff;
-  height: 980px;
-  left: 0;
-  /* position: absolute; */
-  top: 0px;
-  width: 1920px;
-}
-
-.SignUp .view {
-  background-color: #ffffff;
-  height: 939px;
-  left: 727px;
-  position: relative;
-  top: 0px;
-  width: 466px;
-}
-
-.SignUp .text-signup {
-  color: #000000;
-  font-family: 'Inter-Bold', Helvetica;
-  font-size: 55px;
-  font-weight: 650;
-  left: 89px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 150px;
-  width: 288px;
-}
-
-.SignUp .input-name {
-  align-items: flex-start;
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: #000000;
-  border-radius: 15px;
-  display: flex;
-  gap: 10px;
-  height: 50px;
-  left: 52px;
-  opacity: 0.3;
-  overflow: hidden;
-  padding: 10px;
-  position: absolute;
-  top: 290px;
-  width: 350px;
-  font-size: 30px;
-}
-
-.SignUp .input-name::placeholder {
-  font-size: 25px;
-  padding: 10px;
-}
-
-.SignUp .input-mail {
-  align-items: flex-start;
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: #000000;
-  border-radius: 15px;
-  display: flex;
-  gap: 10px;
-  height: 50px;
-  opacity: 0.3;
-  overflow: hidden;
-  padding: 10px;
-  left: 52px;
-  position: absolute;
-  top: 380px;
-  width: 350px;
-  font-size: 30px;
-}
-
-.SignUp .input-mail::placeholder {
-  font-size: 25px;
-  padding: 10px;
-}
-
-.SignUp .input-pw {
-  align-items: flex-start;
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: #000000;
-  border-radius: 15px;
-  display: flex;
-  gap: 10px;
-  height: 50px;
-  opacity: 0.3;
-  overflow: hidden;
-  padding: 10px;
-  left: 52px;
-  position: absolute;
-  top: 470px;
-  width: 350px;
-  font-size: 30px;
-}
-
-.SignUp .input-pw::placeholder {
-  font-size: 25px;
-  padding: 10px;
-}
-
-.SignUp .input-sn {
-  align-items: flex-start;
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: #000000;
-  border-radius: 15px;
-  display: flex;
-  gap: 10px;
-  height: 50px;
-  opacity: 0.3;
-  overflow: hidden;
-  padding: 10px;
-  left: 52px;
-  position: absolute;
-  top: 560px;
-  width: 350px;
-  font-size: 30px;
-}
-
-.SignUp .input-sn::placeholder {
-  font-size: 25px;
-  padding: 10px;
-}
-
-.SignUp .input-major {
-  align-items: flex-start;
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: #000000;
-  border-radius: 15px;
-  display: flex;
-  gap: 10px;
-  height: 50px;
-  opacity: 0.3;
-  overflow: hidden;
-  padding: 10px;
-  left: 52px;
-  position: absolute;
-  top: 650px;
-  width: 350px;
-  font-size: 30px;
-}
-
-.SignUp .input-major::placeholder {
-  font-size: 25px;
-  padding: 10px;
-}
-
-.SignUp .input-ge {
-  align-items: flex-start;
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: #000000;
-  border-radius: 15px;
-  display: flex;
-  gap: 10px;
-  height: 50px;
-  opacity: 0.3;
-  overflow: hidden;
-  padding: 10px;
-  left: 52px;
-  position: absolute;
-  top: 740px;
-  width: 350px;
-  font-size: 30px;
-}
-
-.SignUp .input-ge::placeholder {
-  font-size: 25px;
-  padding: 10px;
-}
-
-.SignUp .click-button {
-  background-color: #000000;
-  border-radius: 50px;
+.login-button {
+  margin-left: 20px;
+  padding: 10px 20px;
+  background-color: #4A90E2;
+  color: white;
   border: none;
-  height: 70px;
-  left: 52px;
-  position: absolute;
-  top: 880px;
-  width: 375px;
+  border-radius: 50px;
+  cursor: pointer;
+}
 
+/* 회원가입 박스 스타일 */
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+
+  top: 100px;
+  /* width: 914px; */
+}
+
+.signup-box {
+  background-color: #10141c;
+  padding: 50px;
+  /* margin: 50px; */
+
+  border-radius: 10px;
+  width: 500px;
+}
+
+.signup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.signup-header h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 300;
   color: #ffffff;
-  font-family: 'Inter-Thin', Helvetica;
-  font-size: 25px;
-  font-weight: 500;
 }
 
-.SignUp .click-button:hover {
-  border: 2px solid #000000;
-  transition: all 0.2s ease-out;
+.signup-header h2 {
+  margin: 10px 0 20px 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.kert-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.kert-logo img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.signup-form .input-group {
+  margin-right: 30px;
+  margin-bottom: 25px;
+}
+
+.signup-form .input-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 18px;
+  color: #ffffff;
+}
+
+.signup-form .input-group input {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #1c1f25;
+  color: white;
+}
+
+.signup-form .input-group input::placeholder {
+  font-size: 16px;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #4A90E2;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
   cursor: pointer;
+  margin-top: 20px;
 }
 
-.SignUp .signUp {
-  width: 150px;
-  height: 40px;
-  top: 720px;
-  left: 160px;
-  position: absolute;
-}
-
-.SignUp .text-signUp {
-  color: #373737;
-  font-family: 'Inter-Thin', Helvetica;
-  font-size: 23px;
-  font-weight: 100;
-  width: 150px;
-  height: 40px;
-  left: 0;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
+.login-link {
+  margin-top: 20px;
   text-align: center;
-  text-decoration: underline;
-  top: -1px;
-}
-
-.SignUp .text-signUp:hover {
-  cursor: pointer;
-}
-
-.SignUp .view-right {
-  height: 22px;
-  left: 1583px;
-  position: absolute;
-  top: 39px;
-  width: 244px;
-}
-
-.SignUp .SignUp {
-  height: 22px;
-  left: 177px;
-  position: absolute;
-  top: 0;
-  width: 67px;
-}
-
-.SignUp .text-sign {
-  color: #373737;
-  font-family: 'Inter-Thin', Helvetica;
-  font-size: 11px;
-  font-weight: 100;
-  left: 0;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-}
-
-.SignUp .Login {
-  height: 22px;
-  left: 90px;
-  position: absolute;
-  top: 0;
-  width: 50px;
-}
-
-.SignUp .view-middle {
-  height: 30px;
-  left: 530px;
-  position: absolute;
-  top: 35px;
-  width: 808px;
-}
-
-.SignUp .view-left {
-  height: 61px;
-  left: 74px;
-  position: absolute;
-  top: 19px;
-  width: 113px;
+  font-size: 14px;
+  color: #ccc;
 }
