@@ -3,112 +3,113 @@
     코드 작성자 : GiHhub @huisuu 
 */
 
-/* Apply font globally to the login container */
-.Login {
-    background-color: #ffffff;
+body {
+    background-color: #080f17;
+    font-family: "NanumSquare", Helvetica;
+    margin: 0;
+    padding: 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
+    height: 100%;
     width: 100%;
-    font-family: 'NanumSquareNeo', sans-serif;
 }
 
-.Login .div {
-    background-color: #ffffff;
-    height: 1080px;
-    position: relative;
-    width: 1920px;
-}
-
-.Login .middleSide {
-    background-color: #ffffff;
-    height: 980px;
-    left: 0;
-    top: 0px;
-    width: 1920px;
-}
-
-.Login .view {
-    background-color: #ffffff;
-    height: 939px;
-    left: 727px;
-    position: relative;
-    top: 0px;
-    width: 466px;
-}
-
-.Login .text-login {
-    color: #000000;
-    font-size: 55px;
-    font-weight: 700;
-    left: 89px;
-    letter-spacing: 0;
-    line-height: normal;
-    position: absolute;
-    text-align: center;
-    top: 250px;
-    width: 288px;
-}
-
-/* Apply font to input fields */
-.Login .input-pw,
-.Login .input-sn {
-    align-items: flex-start;
-    background-color: #ffffff;
-    border: 2px solid;
-    border-color: #000000;
-    border-radius: 15px;
+.login-container {
     display: flex;
-    gap: 10px;
-    height: 50px;
-    opacity: 0.3;
-    overflow: hidden;
-    padding: 10px;
-    left: 52px;
-    position: absolute;
-    width: 350px;
-    font-size: 30px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    position: relative;
+    top: 250px; 
 }
 
-.Login .input-pw {
-    top: 560px;
+.login-box {
+    background-color: #10141c;
+    padding: 50px;
+    border-radius: 10px;
+    width: 450px;
 }
 
-.Login .input-sn {
-    top: 470px;
+.login-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    padding-bottom: 20px;
 }
 
-/* Apply font to placeholders */
-.Login .input-pw::placeholder,
-.Login .input-sn::placeholder {
-    font-size: 25px;
-    padding: 10px;
-}
-
-/* Apply font to the button */
-.Login .click-button {
-    background-color: #000000;
-    border-radius: 50px;
-    border: none;
-    height: 70px;
-    left: 52px;
-    position: absolute;
-    top: 680px;
-    width: 375px;
+.login-header h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
     color: #ffffff;
-    font-size: 25px;
-    font-weight: 500;
 }
 
-.Login .click-button:hover {
-    border: 2px solid #000000;
-    transition: all 0.2s ease-out;
-    cursor: pointer;
+.login-header h2 {
+    margin: 10px 0 20px 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
 }
 
-/* Apply font to view sections */
-.Login .view-right,
-.Login .view-middle,
-.Login .view-left {
+.login-form .input-group {
+    margin-right: 25px;
+    margin-bottom: 20px;
+}
+
+.kert-logo {
     position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.kert-logo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+.login-form .input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #ffffff;
+}
+
+.login-form .input-group input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1c1f25;
+    color: white;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 15px;
+    background-color: #4A90E2;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-right: 25px;
+}
+
+.signup-link {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #ccc;
 }
