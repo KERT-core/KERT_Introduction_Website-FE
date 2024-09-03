@@ -63,42 +63,63 @@ const RightContentContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-end;
-    padding: 0 30px;
+    justify-content: flex-start;
+    padding-left: 50px;
     position: relative; 
-    top: 500; /* 페이지 상단에 위치하도록 설정 */
-    left: 10px;
-`;
-
-
-const HistoryYear = styled.div`
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    left: 97px;
-    top: 5px;
-    border-radius:25px;
-    background: #FFFFFF;
+    top: 0; 
 `;
 
 const HistoryLine = styled.div`
     position: absolute;
     width: 4px;
-    height: 240px;
+    height: 300px;
     left: 102px;
-    top: 3px;
+    top: 25px;
     background: #303146;
+`;
 
-    /* 라인 Fade Out */
-    &::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        height: 92px;
-        left: 0;
-        top: 148px;  /* 라인 중 아래쪽에 위치하도록 조정 */
-        background: linear-gradient(180deg, #303146 0%, rgba(48, 49, 70, 0) 100%);
-    }
+const HistoryYear = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    position: relative;
+`;
+
+const YearText = styled(Text)`
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin-right: 20px;
+`;
+
+const Dot = styled.div`
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 97px;
+    top: 5px;
+
+    background: #FFFFFF;
+    border-radius:50px;
+
+`;
+
+const EventCard = styled.div`
+    background-color: #303146;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-left: 34px;
+    font-size: 14px;
+    position: relative;
+    flex-direction: column;
+    z-index: 4;
+`;
+
+const EventDate = styled.div`
+    font-size: 12px;
+    color: #B0B0B0;
+    margin-bottom: 4px;
 `;
 
 export default function Section6() {
@@ -121,8 +142,36 @@ export default function Section6() {
                     </button>
                 </LeftContentContainer>
                 <RightContentContainer>
-                    <HistoryLine />
-                    <HistoryYear />
+                    <HistoryYear>
+                        <YearText>2024
+                        </YearText>
+                        <Dot active={true} />
+                        <HistoryLine />
+                        <EventCard>
+                            <EventDate>2024.05</EventDate>
+                            정보보호대학동아리연합 KUCIS 소속
+                        </EventCard>
+                        <EventCard>
+                            <EventDate>2024.04</EventDate>
+                            전국사이버보안연합 CCA 소속
+                        </EventCard>
+
+                    </HistoryYear>
+                    
+                    <HistoryYear>
+                        <YearText>2023</YearText>
+                        <Dot />
+                    </HistoryYear>
+                    
+                    <HistoryYear>
+                        <YearText>2021</YearText>
+                        <Dot />
+                    </HistoryYear>
+                    
+                    <HistoryYear>
+                        <YearText>2018</YearText>
+                        <Dot />
+                    </HistoryYear>
                 </RightContentContainer>
             </ContentWrapper>
         </BackgroundWrapper>
