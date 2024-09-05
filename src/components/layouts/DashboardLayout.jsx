@@ -2,7 +2,7 @@
 // 코드 작성자 : GiHhub @whitedev77773
 
 // 외부 라이브러리에서 import
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createRef } from 'react';
 import { useOutlet } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -10,6 +10,9 @@ import styled from 'styled-components';
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
 import { DashboardNav } from '../navigation/DashboardNav';
+import { Alert } from '../display/modal/Alert';
+import { Confirm } from '../display/modal/Confirm';
+import { Loading } from '../display/modal/Loading';
 
 // 전환 애니메이션
 import '../../transitions/fade-slide.css';
@@ -25,6 +28,8 @@ const Layout = styled.div.attrs({
   border-top: 1px solid var(--container-border);
 
   display: flex;
+
+  z-index: 1000;
 
   & > #dashboard-nav {
     height: calc(100vh - 80px);
@@ -63,6 +68,9 @@ export const DashboardLayout = ({ location }) => {
 
   return (
     <Layout>
+      <Confirm />
+      <Alert />
+      <Loading />
       {/* 내비바 */}
       <DashboardNav />
       {/* 콘텐츠 */}

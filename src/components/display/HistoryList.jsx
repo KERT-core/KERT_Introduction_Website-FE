@@ -1,65 +1,86 @@
 import { useEffect, useState } from 'react';
 
-import useHistory from '../../stores/dashboard/useHistory';
-import { API } from '../../utils/api';
-
 import { Text } from '../typograph/Text';
 import { YearElement, HistoryElement } from './HistoryList.styled';
-import { Confirm } from '../forms/modal/Confirm';
-import { Alert } from '../forms/modal/Alert';
+
+import { API } from '../../utils/api';
+import useHistory from '../../stores/dashboard/useHistory';
+import useAlert from '../../stores/useAlert';
+import useConfirm from '../../stores/useConfirm';
+import useLoading from '../../stores/useLoading';
+
+export const DeleteHistory = ({ history }) => {
+  return (
+    <>
+      <Text>아래 연혁을 삭제할까요?</Text>
+      <br />
+      <Text>
+        {history.year}년 {history.month}월 - {history.content}
+      </Text>
+      <br />
+      <br />
+      <Text color="--secondary-text-color">ID : {history.id}</Text>
+    </>
+  );
+};
 
 export const HistoryList = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // 컨테이너 스켈레톤 로딩
   const { history, refined_history, saveHistory } = useHistory();
 
-  // confirm 모달에서 삭제한 연혁의 ID를 능동적으로 적용하기 위해 state를 선언합니다.
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [alertOpen, setAlertOpen] = useState(false);
-  const [deleteHistory, setDeleteHistory] = useState({
-    id: null,
-    year: null,
-    month: null,
-    content: null,
-  });
+  const { openAlert } = useAlert();
+  const { openConfirm, closeConfirm, confirm_label, confirm_color } =
+    useConfirm();
+  const { showLoading, hideLoading } = useLoading();
 
   // confirm 모달이 표시될 때
-  const handleDeleteClick = (id, year, month, content) => {
-    setDeleteHistory({
-      id: id,
-      year: year,
-      month: month,
-      content: content,
+  const handleClick = (history) => {
+    openConfirm({
+      title: '연혁 삭제',
+      content: <DeleteHistory history={history} />,
+      onConfirm: () => {
+        onConfirm(history);
+      },
+      onCancel: () => {
+        onCancel();
+      },
+      confirm_label: '삭제',
+      confirm_color: 'var(--danger-color)',
+      cancel_label: '취소',
     });
-    setConfirmOpen(true);
   };
 
   // 유저가 confirm 모달에서 삭제를 눌렀을 때
-  const handleDeleteConfirm = () => {
-    setConfirmOpen(false);
+  const onConfirm = (target_delete_history) => {
+    console.log(target_delete_history);
+    showLoading('');
 
     // 서버로 삭제를 요청합니다.
-    API.DELETE(`/histories/${deleteHistory.id}`)
+    API.DELETE(`/histories/${target_delete_history.id}`)
       .then()
       .then(() => {
-        setAlertOpen(true);
+        hideLoading();
+        closeConfirm();
+        openAlert({
+          title: '연혁 삭제됨',
+          content: (
+            <>
+              <Text>연혁을 삭제했어요.</Text>
+              <br />
+              <Text>페이지를 다시 불러올게요.</Text>
+            </>
+          ),
+          ok_label: '닫기',
+          onClose: () => {
+            window.location.reload();
+          },
+        });
       });
-    setDeleteHistory({
-      id: null,
-      year: null,
-      month: null,
-      content: null,
-    });
   };
 
   // 유저가 닫기 버튼을 눌렀을 때
-  const handleDeleteCancel = () => {
-    setConfirmOpen(false);
-    setDeleteHistory({
-      id: null,
-      year: null,
-      month: null,
-      content: null,
-    });
+  const onCancel = () => {
+    closeConfirm();
   };
 
   // API로부터 데이터를 가져와 Zustand 상태를 업데이트합니다.
@@ -99,17 +120,7 @@ export const HistoryList = () => {
               {year}년
             </Text>
             {refined_history[year].map((hist) => (
-              <HistoryElement
-                key={hist.id}
-                onClick={() =>
-                  handleDeleteClick(
-                    hist.id,
-                    hist.year,
-                    hist.month,
-                    hist.content,
-                  )
-                }
-              >
+              <HistoryElement key={hist.id} onClick={() => handleClick(hist)}>
                 <Text size="s" weight="bold">
                   {hist.month}월
                 </Text>
@@ -120,32 +131,6 @@ export const HistoryList = () => {
             ))}
           </YearElement>
         ))}
-      <Confirm
-        title="연혁 삭제"
-        isOpen={confirmOpen}
-        onConfirm={handleDeleteConfirm}
-        onCancel={handleDeleteCancel}
-        confirmMsg="삭제"
-        confirmColor="--danger-color"
-      >
-        <Text>아래 연혁을 삭제할까요?</Text>
-        <Text>
-          {deleteHistory.year}년 {deleteHistory.month}월 -{' '}
-          {deleteHistory.content}
-        </Text>
-        <br />
-        <Text color="--secondary-text-color">ID : {deleteHistory.id}</Text>
-      </Confirm>
-      <Alert
-        title="연혁 삭제됨"
-        isOpen={alertOpen}
-        onClose={() => {
-          // 간단하게 새로고침해서 연혁 목록을 다시 불러옵니다.
-          window.location.reload();
-        }}
-      >
-        <Text>삭제되었습니다.</Text>
-      </Alert>
     </>
   );
 };

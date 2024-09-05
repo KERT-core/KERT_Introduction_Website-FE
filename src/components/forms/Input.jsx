@@ -41,6 +41,19 @@ export const RawInput = styled.input.attrs((props) => ({
   &:focus {
     border: 1px solid var(--primary-color);
   }
+
+  // input[type="number"]에서 화살표 컨트롤을 숨깁니다.
+  // 크롬, 사파리, 엣지, 오페라
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  // 파이어폭스
+  &[type='number'] {
+    -moz-appearance: textfield;
+  }
 `;
 
 export const Input = forwardRef(({ label, value, ...props }, ref) => {

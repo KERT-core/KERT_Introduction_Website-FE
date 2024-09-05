@@ -1,7 +1,9 @@
+import useAlert from '../../../stores/useAlert';
+
 import styled from 'styled-components';
 
 import { ModalLayout } from '../../layouts/ModalLayout';
-import { Button } from '../Button';
+import { Button } from '../../forms/Button';
 import { Span } from '../../typograph/Text';
 
 const ModalContainer = styled.div`
@@ -43,21 +45,17 @@ const BottomControlBox = styled.div`
   text-align: right;
 `;
 
-export const Alert = ({
-  title = '알림',
-  isOpen,
-  onClose,
-  buttonColor,
-  children,
-}) => {
+export const Alert = () => {
+  const { isOpen, title, content, ok_label, ok_color, onClose } = useAlert();
+
   return (
-    <ModalLayout $isOpen={isOpen} onClick={onClose}>
+    <ModalLayout $isOpen={isOpen}>
       <ModalContainer>
         <Title>{title}</Title>
-        {children}
+        {content}
         <BottomControlBox>
-          <Button type="flat" color={buttonColor} onClick={onClose}>
-            닫기
+          <Button type="flat" color={ok_color} onClick={onClose}>
+            {ok_label}
           </Button>
         </BottomControlBox>
       </ModalContainer>

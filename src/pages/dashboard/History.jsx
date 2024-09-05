@@ -1,66 +1,130 @@
-import { useRef, useState } from 'react';
-import useHistory from '../../stores/dashboard/useHistory';
+import { forwardRef, useEffect, useRef } from 'react';
 
 import { Text } from '../../components/typograph/Text';
 import { Header } from './Dashboard.styled';
 import { ManageHistory, Menu } from './History.styled';
 import { AddIcon, RefreshIcon } from '../../assets/icons';
 import { HistoryList } from '../../components/display/HistoryList';
-
-import { API } from '../../utils/api';
-import { Confirm } from '../../components/forms/modal/Confirm';
-import { Alert } from '../../components/forms/modal/Alert';
 import { Input } from '../../components/forms/Input';
 
+import { API } from '../../utils/api';
+import useAlert from '../../stores/useAlert';
+import useConfirm from '../../stores/useConfirm';
+import useLoading from '../../stores/useLoading';
+
 /**
- * ↓ API 요청 시 반환 형식 ↓
- * [{
- *   "id": "integer",
+ * ↓ API 요청 시 history 형식 ↓
+ * {
  *   "year": "integer",
  *   "month": "integer",
- *   "description": "string",
- *   "created_at": "datetime",
- *   "updated_at": "datetime"
- * }]
+ *   "description": "string"
+ * }
  */
 
+// 새로운 연혁을 추가하기 위한 폼입니다.
+const NewHistoryInputForms = forwardRef((props, ref) => {
+  const { yearRef, monthRef, contentRef } = ref;
+
+  useEffect(() => {
+    // useEffect 외부에서 .focus()는 ref가 비어있는 채로 실행됩니다.
+    // 따라서 useEffect으로 컴포넌트의 마운트가 끝난 후 포커싱을 실행하도록 합니다.
+    if (yearRef) {
+      yearRef.current.focus();
+    }
+  }, []);
+
+  return (
+    <>
+      <div style={{ display: 'flex', gap: '20px' }}>
+        <Input ref={yearRef} label="연도" type="number" placeholder="2024" />
+        <Input
+          ref={monthRef}
+          label="월"
+          type="number"
+          min={1}
+          max={12}
+          placeholder="2"
+        />
+      </div>
+      <Input
+        ref={contentRef}
+        label="내용"
+        placeholder="여기에 연혁 내용 입력"
+      />
+    </>
+  );
+});
+
 export default function History() {
-  const yearInputRef = useRef('');
-  const monthInputRef = useRef('');
-  const contentInputRef = useRef('');
+  const refs = {
+    yearRef: useRef(),
+    monthRef: useRef(),
+    contentRef: useRef(),
+  };
 
-  const [alertOpen, setAlertOpen] = useState(false);
-  const [confirmOpen, setConfirmOpen] = useState(false);
+  const { openAlert, closeAlert } = useAlert();
+  const { openConfirm, closeConfirm } = useConfirm();
+  const { showLoading, hideLoading, message } = useLoading();
 
-  // confirm 모달이 표시될 때
+  // 추가 버튼을 눌렀을 때
   const handleAddClick = () => {
-    setConfirmOpen(true);
+    openConfirm({
+      title: '새로운 연혁 추가',
+      content: <NewHistoryInputForms ref={refs} />,
+      onConfirm: onConfirm,
+      onCancel: closeConfirm,
+    });
   };
 
   // 유저가 confirm 모달에서 확인을 눌렀을 때
-  const handleAddConfirm = () => {
-    console.log(contentInputRef.current.value);
+  const onConfirm = () => {
+    const newYear = parseInt(refs.yearRef.current.value);
+    const newMonth = parseInt(refs.monthRef.current.value);
+    const newContent = refs.contentRef.current.value;
 
+    // 연도, 월, 내용 중 하나라도 비어있으면 API 요청 X
+    if (!newYear || !newMonth || !newContent) {
+      openAlert({
+        title: '경고',
+        content: <Text>모든 입력란을 채워주세요.</Text>,
+        ok_label: '닫기',
+        onClose: closeAlert,
+      });
+      return;
+    }
+
+    // API 서버에 전송할 연혁 객체를 구성합니다.
     const newHistory = {
-      year: parseInt(yearInputRef.current.value),
-      month: parseInt(monthInputRef.current.value),
-      content: contentInputRef.current.value,
+      year: newYear,
+      month: newMonth,
+      content: newContent,
     };
-    console.log(newHistory);
+
+    showLoading({ message: '연혁 정보를 전송하고 있어요...' }); // 서버 요청 하기전 로딩 표시
 
     // 서버로 추가를 요청합니다.
     API.POST('/histories', newHistory)
       .then()
       .then(() => {
-        setAlertOpen(true);
+        hideLoading();
+        closeConfirm();
+        openAlert({
+          title: '연혁 추가 성공',
+          content: (
+            <>
+              <Text>
+                {newYear}년 {newMonth}월 - {newContent}
+              </Text>
+              <br />
+              <Text>페이지를 다시 불러올게요.</Text>
+            </>
+          ),
+          ok_label: '닫기',
+          onClose: () => {
+            window.location.reload();
+          },
+        });
       });
-
-    setConfirmOpen(false);
-  };
-
-  // 유저가 닫기 버튼을 눌렀을 때
-  const handleAddCancel = () => {
-    setConfirmOpen(false);
   };
 
   return (
@@ -76,49 +140,6 @@ export default function History() {
         </Menu>
       </ManageHistory>
       <HistoryList />
-
-      {/* 연혁 추가 시 표시되는 모달들입니다. */}
-      <Confirm
-        title="연혁 추가"
-        isOpen={confirmOpen}
-        onConfirm={handleAddConfirm}
-        onCancel={handleAddCancel}
-        confirmMsg="추가"
-      >
-        <div style={{ display: 'flex', gap: '20px' }}>
-          <Input
-            ref={yearInputRef}
-            label="연도"
-            type="number"
-            placeholder="2024"
-          />
-          <Input
-            ref={monthInputRef}
-            label="월"
-            type="number"
-            min={1}
-            max={12}
-            placeholder="2"
-          />
-        </div>
-        <Input
-          ref={contentInputRef}
-          label="내용"
-          placeholder="여기에 연혁 내용 입력"
-        />
-      </Confirm>
-      <Alert
-        title="연혁 추가됨"
-        isOpen={alertOpen}
-        onClose={() => {
-          // 간단하게 새로고침해서 연혁 목록을 다시 불러옵니다.
-          window.location.reload();
-        }}
-        buttonColor="--success-color"
-      >
-        <Text>추가되었습니다.</Text>
-        <Text>연혁 목록을 다시 불러옵니다.</Text>
-      </Alert>
     </>
   );
 }

@@ -1,8 +1,10 @@
+import useConfirm from '../../../stores/useConfirm';
+
 import styled from 'styled-components';
 
 import { ModalLayout } from '../../layouts/ModalLayout';
 import { Span } from '../../typograph/Text';
-import { IButton } from '../Button';
+import { IButton } from '../../forms/Button';
 
 const ModalContainer = styled.div`
   position: relative;
@@ -86,30 +88,40 @@ const BottomControlBox = styled.div`
   text-align: right;
 `;
 
-export const Confirm = ({
-  isOpen,
-  title,
-  onConfirm,
-  onCancel,
-  confirmMsg = '확인',
-  confirmColor,
-  cancelMsg = '취소',
-  cancelColor,
-  children,
-}) => {
-  if (!isOpen) return null;
+export const Confirm = () => {
+  const {
+    isOpen,
+    title,
+    content,
+    onConfirm,
+    onCancel,
+    confirm_label,
+    cancel_label,
+    confirm_color,
+    cancel_color,
+  } = useConfirm();
 
   return (
     <ModalLayout $isOpen={isOpen}>
       <ModalContainer>
         <Title>{title}</Title>
-        {children}
+        {content}
         <BottomControlBox>
-          <CancelButton type="flat" $color={cancelColor} onClick={onCancel}>
-            {cancelMsg}
+          <CancelButton
+            type="flat"
+            $width="110px"
+            $color={cancel_color}
+            onClick={onCancel}
+          >
+            {cancel_label}
           </CancelButton>
-          <ConfirmButton type="flat" $color={confirmColor} onClick={onConfirm}>
-            {confirmMsg}
+          <ConfirmButton
+            type="flat"
+            $width="110px"
+            $color={confirm_color}
+            onClick={onConfirm}
+          >
+            {confirm_label}
           </ConfirmButton>
         </BottomControlBox>
       </ModalContainer>
