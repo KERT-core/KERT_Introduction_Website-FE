@@ -69,14 +69,6 @@ const RightContentContainer = styled.div`
     top: 0; 
 `;
 
-const HistoryLine = styled.div`
-    position: absolute;
-    width: 4px;
-    height: 300px;
-    left: 102px;
-    top: 25px;
-    background: #303146;
-`;
 
 const HistoryYear = styled.div`
     display: flex;
@@ -98,7 +90,6 @@ const Dot = styled.div`
     height: 14px;
     left: 97px;
     top: 5px;
-
     background: #FFFFFF;
     border-radius:50px;
 
@@ -114,6 +105,7 @@ const EventCard = styled.div`
     position: relative;
     flex-direction: column;
     z-index: 4;
+    transform: translateX(50px); 
 `;
 
 const EventDate = styled.div`
@@ -121,6 +113,33 @@ const EventDate = styled.div`
     color: #B0B0B0;
     margin-bottom: 4px;
 `;
+
+//이하의 3개는 historyline 설정
+const HistoryLineWrapper = styled.div`
+    position: absolute;
+    left: 102px;
+    top: 20px;
+`;
+
+const HistoryLine = styled.div`
+    width: 4px;
+    height: 248px;  
+    background: #303146;
+`;
+
+const FadeOutLine = styled.div`
+  width: 4px;
+  height: 100px;
+  background: linear-gradient(180deg, #303146 0%, rgba(48, 49, 70, 0) 100%);
+`;
+
+// Combining HistoryLine and FadeOutLine
+const CombinedHistoryLine = () => (
+    <HistoryLineWrapper>
+        <HistoryLine />
+        <FadeOutLine />
+    </HistoryLineWrapper>
+);
 
 export default function Section6() {
     const navigate = useNavigate();
@@ -136,7 +155,7 @@ export default function Section6() {
             <ContentWrapper>
                 <LeftContentContainer>
                     <Text size="sxl" weight="extrabold">KERT는 <br/>매년 성장하고 있어요</Text>
-                    <Text size="l" weight="light" color="rgba(255, 255, 255, 0.7)">작년보다 더 뛰어난 동아리로 발전하고 있답니다.</Text>
+                    <Text size="m" weight="light" color="rgba(255, 255, 255, 0.7)">작년보다 더 뛰어난 동아리로 발전하고 있답니다.</Text>
                     <button onClick={handleClick}>
                         상세 연혁 보기
                     </button>
@@ -146,7 +165,7 @@ export default function Section6() {
                         <YearText>2024
                         </YearText>
                         <Dot active={true} />
-                        <HistoryLine />
+                        <CombinedHistoryLine/>
                         <EventCard>
                             <EventDate>2024.05</EventDate>
                             정보보호대학동아리연합 KUCIS 소속
