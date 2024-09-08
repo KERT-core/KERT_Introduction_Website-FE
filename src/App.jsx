@@ -26,6 +26,7 @@ import Article from './pages/Article';
 
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
+import MyPage from './pages/MyPage';
 
 export default function App() {
   return (
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/articles/:id" element={<Article />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/dashboard" element={<DashboardLayout />}>
             <Route index path="/dashboard" element={<DashboardHome />} />
