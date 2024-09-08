@@ -69,7 +69,7 @@ const RightContentContainer = styled.div`
     top: 0; 
 `;
 
-
+/*연혁 그래프 관련 style*/
 const HistoryYear = styled.div`
     display: flex;
     align-items: center;
@@ -95,6 +95,16 @@ const Dot = styled.div`
 
 `;
 
+const PassDot=styled.div`
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 97px;
+    top: 5px;
+    background: #303146;
+    border-radius:50px;
+
+`
 const EventCard = styled.div`
     background-color: #303146;
     color: white;
@@ -141,6 +151,31 @@ const CombinedHistoryLine = () => (
     </HistoryLineWrapper>
 );
 
+const Button = styled.button`
+    background: transparent;
+    border: none; 
+    color: rgba(255, 255, 255, 0.5);
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+    position: relative;
+    z-index: 4;
+
+    &:hover {
+        background: #FFFFFF; 
+        color: #303146;  
+    }
+
+    &:focus {
+        outline: none;  
+    }
+`;
+
+
+
 export default function Section6() {
     const navigate = useNavigate();
 
@@ -156,9 +191,9 @@ export default function Section6() {
                 <LeftContentContainer>
                     <Text size="sxl" weight="extrabold">KERT는 <br/>매년 성장하고 있어요</Text>
                     <Text size="m" weight="light" color="rgba(255, 255, 255, 0.7)">작년보다 더 뛰어난 동아리로 발전하고 있답니다.</Text>
-                    <button onClick={handleClick}>
+                    <Button onClick={handleClick}>
                         상세 연혁 보기
-                    </button>
+                    </Button>
                 </LeftContentContainer>
                 <RightContentContainer>
                     <HistoryYear>
@@ -179,17 +214,17 @@ export default function Section6() {
                     
                     <HistoryYear>
                         <YearText>2023</YearText>
-                        <Dot />
+                        <PassDot />
                     </HistoryYear>
                     
                     <HistoryYear>
                         <YearText>2021</YearText>
-                        <Dot />
+                        <PassDot />
                     </HistoryYear>
                     
                     <HistoryYear>
                         <YearText>2018</YearText>
-                        <Dot />
+                        <PassDot />
                     </HistoryYear>
                 </RightContentContainer>
             </ContentWrapper>

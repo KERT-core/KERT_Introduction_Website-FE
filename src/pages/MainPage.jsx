@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import bg_img from '../assets/background_img.png';
 import kert_logo from '../assets/kert_logos/White_Icon.png';
 import Section2 from './Section2.jsx';
 import Section1 from './Section1.jsx';
@@ -11,26 +10,15 @@ import Section7 from "./Section7.jsx";
 import '../font/main_font.css';
 import styled from 'styled-components';
 
-
-// 스크롤바 기능 구현
-// section 파일로 화면 렌더링
+// Constants for styling and functionality
 const DIVIDER_HEIGHT = 5;
 
+// Styles for main container and footer
 const back_first_Style = {
   width: '100vw',
   height: '100vh',
   position: 'relative',
   overflow: 'hidden',
-};
-
-const pageStyle = {
-  width: '100vw',
-  height: '100vh',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  fontSize: '3em',
-  color: '#fff',
 };
 
 const dividerStyle = {
@@ -39,10 +27,10 @@ const dividerStyle = {
 };
 
 const footerStyle = (showFooter) => ({
-  position: 'absolute',
+  position: 'fixed',
   bottom: 0,
   width: '100vw',
-  height: '60px',
+  height: '150px',
   backgroundColor: '#333',
   color: '#fff',
   display: 'flex',
@@ -54,23 +42,115 @@ const footerStyle = (showFooter) => ({
   opacity: showFooter ? 1 : 0,
 });
 
+const LogoAddressCopyrightContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 85px;
+  width: 294px;
+  height: 200px;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+`;
 
-const Footer=styled.footer`
-    position: 'absolute';
-    bottom: 0;
-    width: '100vw';
-    height: '60px';
-    backgroundColor: '#333';
-    color: '#fff';
-    display: 'flex';
-    justifyContent: 'center';
-    alignItems: 'center';
-    textAlign: 'center',
-    zIndex: 1000,
-    transition: 'opacity 0.3s ease';
-    opacity: showFooter ? 1 : 0;
-`
+const LogoAddressContainer = styled.div`
+  margin: 0 auto;
+  width: 279px;
+  height: 100px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+`;
 
+const AddressEmailContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 6px;
+  position: absolute;
+  height: 42px;
+  left: 0%;
+  right: 5.1%;
+  top: calc(50% - 42px / 2 - 21px);
+`;
+
+const AddressText = styled.p`
+  width: 279px;
+  height: 18px;
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #ffffff;
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+`;
+
+const EmailText = styled.p`
+  width: 279px;
+  height: 18px;
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  color: #ffffff;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+`;
+
+const Logo = styled.div`
+  position: relative;
+  height: 40px;
+  margin-right: 10px;
+  background-image: url(${kert_logo});
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: flex-start;
+`;
+
+const CopyrightText = styled.p`
+  margin: 0 auto;
+  width: 294px;
+  height: 13px;
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 13px;
+  letter-spacing: -0.02em;
+  color: #83878b;
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+`;
+
+const Footer = styled.footer`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px;
+  width: 100%;
+  height: 150px;
+  background-color: #000;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+  opacity: ${({ showFooter }) => (showFooter ? 1 : 0)};
+  position: fixed;
+  bottom: 0;
+`;
 
 export default function MainPage() {
   const outerDivRef = useRef();
@@ -196,7 +276,7 @@ export default function MainPage() {
           ...back_first_Style,
           overflowY: 'scroll',
           scrollSnapType: 'y mandatory',
-          paddingBottom: '60px', // Footer 공간을 위해 padding 추가
+          paddingBottom: '150px', // Footer 공간을 위해 padding 추가
         }}
       >
         <Section1 />
@@ -213,10 +293,14 @@ export default function MainPage() {
         <div style={dividerStyle}></div>
         <Section7 />
       </div>
-      <footer style={footerStyle(showFooter)}>
-        <img src={kert_logo} alt="KERT Logo" style={{ height: '40px', marginRight: '10px' }} />
-        <span>© 2024 KERT. All Rights Reserved.</span>
-      </footer>
+      <Footer showFooter={showFooter}>
+        <LogoAddressCopyrightContainer>
+          <LogoAddressContainer>
+            <Logo />
+          </LogoAddressContainer>
+          {/* Add more content to Footer as needed */}
+        </LogoAddressCopyrightContainer>
+      </Footer>
     </>
   );
 }

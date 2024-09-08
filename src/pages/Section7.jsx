@@ -38,8 +38,8 @@ const ProfilesWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
-  width: 60%; 
-  gap: 8px;
+  width: 65%; 
+  gap: 5px;
 `;
 
 const ProfileContainer = styled.div`
@@ -51,7 +51,7 @@ const ProfileContainer = styled.div`
   &:nth-child(even) {
     align-self: flex-end;
   }
-  gap: 20px;
+  gap: 15px;
 `;
 
 const ProfileContainerReverse = styled(ProfileContainer)`
@@ -105,9 +105,44 @@ const DateStyled = styled.div`
   font-weight: bold;
 `;
 
+const StyledButton = styled.button`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 30px;
 
+  position: absolute;
+  width: 174px;
+  height: 45px;
+  top:85%;
+  left:67%;
+
+  /* General/Primary Color */
+  background: #213EA6;
+  border-radius: 26px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  
+`;
 
 export default function Section7() {
+    const navigate = useNavigate();
+
+    function handleClick() {
+        navigate('/executive');
+    }
     return (
         <BackFirstStyle>
             <Title>KERT 25기 임원진을 소개합니다</Title>
@@ -205,6 +240,9 @@ export default function Section7() {
                     </ProfileDescription>
                 </ProfileContainer>
             </ProfilesWrapper>
+            <StyledButton onClick={handleClick}>
+                역대 임원진 보기
+            </StyledButton>
         </BackFirstStyle>
     );
 }

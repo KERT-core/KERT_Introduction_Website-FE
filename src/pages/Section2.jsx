@@ -117,7 +117,7 @@ const lockIconContainerStyle = {
   display: 'flex',
   zIndex: 1,
   opacity: 0.9,
-  overflow: 'hidden', // This ensures the gradient overlay is properly contained
+  overflow: 'hidden', 
 };
 
 const statsStyle = {
@@ -126,8 +126,7 @@ const statsStyle = {
   alignItems: 'flex-start',
   fontSize: '0.5em',
   marginTop: '20px',
-  //transform: 'translateX(50%)',
-  flexDirection: 'column', // Align elements vertically
+  flexDirection: 'column', // 요소 수직 정렬
 };
 
 
