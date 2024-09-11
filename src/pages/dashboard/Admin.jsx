@@ -173,7 +173,10 @@ export default function Admin() {
             </>
           ) : (
             admins.map((admin) => (
-              <AdminCard key={admin.student_id} admin={admin} />
+              <AdminCard
+                key={admin.student_id.toString() + admin.description}
+                admin={admin}
+              />
             ))
           )}
         </AdminList>
