@@ -29,8 +29,7 @@ export const HistoryList = () => {
   const { history, refined_history, saveHistory } = useHistory();
 
   const { openAlert } = useAlert();
-  const { openConfirm, closeConfirm, confirm_label, confirm_color } =
-    useConfirm();
+  const { openConfirm, closeConfirm } = useConfirm();
   const { showLoading, hideLoading } = useLoading();
 
   // confirm 모달이 표시될 때
@@ -53,6 +52,7 @@ export const HistoryList = () => {
   // 유저가 confirm 모달에서 삭제를 눌렀을 때
   const onConfirm = (target_delete_history) => {
     console.log(target_delete_history);
+    closeConfirm();
     showLoading('');
 
     // 서버로 삭제를 요청합니다.
@@ -60,7 +60,6 @@ export const HistoryList = () => {
       .then()
       .then(() => {
         hideLoading();
-        closeConfirm();
         openAlert({
           title: '연혁 삭제됨',
           content: (

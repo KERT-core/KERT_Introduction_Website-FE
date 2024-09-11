@@ -64,7 +64,7 @@ export default function History() {
 
   const { openAlert, closeAlert } = useAlert();
   const { openConfirm, closeConfirm } = useConfirm();
-  const { showLoading, hideLoading, message } = useLoading();
+  const { showLoading, hideLoading } = useLoading();
 
   // 추가 버튼을 눌렀을 때
   const handleAddClick = () => {
@@ -73,6 +73,8 @@ export default function History() {
       content: <NewHistoryInputForms ref={refs} />,
       onConfirm: onConfirm,
       onCancel: closeConfirm,
+      confirm_label: '추가',
+      cancel_label: '취소',
     });
   };
 
@@ -100,6 +102,7 @@ export default function History() {
       content: newContent,
     };
 
+    closeConfirm();
     showLoading({ message: '연혁 정보를 전송하고 있어요...' }); // 서버 요청 하기전 로딩 표시
 
     // 서버로 추가를 요청합니다.
@@ -107,7 +110,6 @@ export default function History() {
       .then()
       .then(() => {
         hideLoading();
-        closeConfirm();
         openAlert({
           title: '연혁 추가 성공',
           content: (

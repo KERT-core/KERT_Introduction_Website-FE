@@ -12,7 +12,7 @@ import { create } from 'zustand';
  * @param {string} confirm_color 확인 버튼 색
  * @param {string} cancel_color 취소 버튼 색
  */
-const useConfirm = create((set) => ({
+const useConfirm = create((set, get) => ({
   isOpen: false, // 모달의 초기 상태
   title: '',
   content: null,
@@ -34,7 +34,15 @@ const useConfirm = create((set) => ({
     cancel_label = '아니오',
     cancel_color = 'var(--container-border)',
   }) => {
-    console.log('사용자 확인창 열림');
+    const { isOpen, closeConfirm } = get();
+
+    if (isOpen) {
+      closeConfirm();
+      console.warn(
+        '이미 열려있는 Confirm입니다. 기존 Confirm를 닫고 새로운 Confirm을 표시합니다.',
+      );
+    }
+
     set({
       isOpen: true,
       title: title,
@@ -50,6 +58,12 @@ const useConfirm = create((set) => ({
 
   // 모달을 닫은 후 내용 초기화하여 메모리 절약
   closeConfirm: () => {
+    const { isOpen } = get();
+
+    if (!isOpen) {
+      console.warn('이미 닫혀있는 Confirm입니다.');
+      return;
+    }
     set({
       isOpen: false,
       title: '',
