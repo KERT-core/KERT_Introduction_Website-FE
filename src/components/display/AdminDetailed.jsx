@@ -49,7 +49,7 @@ const Name = styled(Span).attrs({
 const CreatedAt_UpdatedAt = ({ raw_created_at, raw_updated_at }) => {
   return (
     <Text size="s" color="--secondary-text-color">
-      <b>등록</b> {formatDate(raw_created_at)}ㆍ<b>수정</b>{' '}
+      <b>가입</b> {formatDate(raw_created_at)}ㆍ<b>계정 수정</b>{' '}
       {formatDate(raw_updated_at)}
     </Text>
   );
@@ -185,7 +185,7 @@ export const AdminDetailed = ({ admin, refs }) => {
           />
           <HintedInput
             ref={generation_ref}
-            label="동아리 가입"
+            label="동아리 가입연월"
             defaultValue={admin.generation}
             onChange={(e) => {
               setGeneration(e.target.value);
