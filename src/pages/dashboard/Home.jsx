@@ -3,8 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 // 사용자 정의 컴포넌트
 import { Header } from './Dashboard.styled';
-import { Container } from '../../components/forms/Container';
-import { ContainerHeader, Button, BoardColumn } from './Home.styled';
+import {
+  ContainerHeader,
+  HomeContainer,
+  Button,
+  BoardColumn,
+} from './Home.styled';
 import { NumberDisplay } from '../../components/display/NumberDisplay';
 import HomeLoading from './Home.Loading';
 
@@ -12,7 +16,7 @@ import useHome from '../../stores/dashboard/useHome';
 
 const HistoryBoard = ({ name, data, navigate }) => {
   return (
-    <Container>
+    <HomeContainer>
       <ContainerHeader>{name}</ContainerHeader>
       <div
         style={{
@@ -32,13 +36,13 @@ const HistoryBoard = ({ name, data, navigate }) => {
       >
         연혁 추가/제거로 이동
       </Button>
-    </Container>
+    </HomeContainer>
   );
 };
 
 const ExecutiveBoard = ({ name, data, navigate }) => {
   return (
-    <Container>
+    <HomeContainer>
       <ContainerHeader>{name}</ContainerHeader>
       <div
         style={{
@@ -58,13 +62,13 @@ const ExecutiveBoard = ({ name, data, navigate }) => {
       >
         임원진 추가/제거로 이동
       </Button>
-    </Container>
+    </HomeContainer>
   );
 };
 
 const AdminBoard = ({ name, data, navigate }) => {
   return (
-    <Container>
+    <HomeContainer>
       <ContainerHeader>{name}</ContainerHeader>
       <div
         style={{
@@ -83,13 +87,13 @@ const AdminBoard = ({ name, data, navigate }) => {
       >
         관리자 추가/제거로 이동
       </Button>
-    </Container>
+    </HomeContainer>
   );
 };
 
 const UserBoard = ({ name, data, navigate }) => {
   return (
-    <Container>
+    <HomeContainer>
       <ContainerHeader>{name}</ContainerHeader>
       <div
         style={{
@@ -108,13 +112,13 @@ const UserBoard = ({ name, data, navigate }) => {
       >
         회원 관리로 이동
       </Button>
-    </Container>
+    </HomeContainer>
   );
 };
 
 const PostBoard = ({ name, data, navigate }) => {
   return (
-    <Container>
+    <HomeContainer>
       <ContainerHeader>{name}</ContainerHeader>
       <div
         style={{
@@ -142,7 +146,7 @@ const PostBoard = ({ name, data, navigate }) => {
       >
         소식지 페이지로 이동
       </Button>
-    </Container>
+    </HomeContainer>
   );
 };
 

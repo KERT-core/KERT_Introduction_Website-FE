@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 // 사용자 정의 컴포넌트
 import { Span } from '../../components/typograph/Text';
+import { Container } from '../../components/forms/Container';
 
 /**
  * 컨테이너 헤더
@@ -11,6 +12,35 @@ export const ContainerHeader = styled(Span).attrs({
   $size: 'l',
   $weight: 'bold',
 })``;
+
+export const HomeContainer = styled(Container).attrs({
+  id: 'dashboard-home-container',
+})`
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  & > * {
+    animation: show 0.75s ease-in-out;
+  }
+
+  width: 360px;
+
+  margin: 0;
+  padding: 30px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
 
 /**
  * 대시보드용 반투명 버튼

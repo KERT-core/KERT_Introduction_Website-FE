@@ -1,15 +1,9 @@
-import { useRef } from 'react';
 import styled from 'styled-components';
 
-import { Text } from '../typograph/Text';
+import { Text } from '../../typograph/Text';
 
-import { GenerateColorByString } from '../../utils/generateColor';
-import { ColorProfile } from './ColorProfile';
-
-import useAlert from '../../stores/useAlert';
-import useConfirm from '../../stores/useConfirm';
-import useLoading from '../../stores/useLoading';
-import { API } from '../../utils/api';
+import { GenerateColorByString } from '../../../utils/generateColor';
+import { ColorProfile } from '../ColorProfile';
 
 const CardWrapper = styled.div`
   transition: background-color 0.1s ease-in-out;

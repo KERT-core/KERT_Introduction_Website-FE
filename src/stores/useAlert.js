@@ -37,7 +37,7 @@ const useAlert = create((set, get) => ({
     set({
       isOpen: true,
       title: title,
-      onClose: onClose,
+      onClose: onClose ?? closeAlert,
       content: content,
       ok_label: ok_label,
       ok_color: ok_color,

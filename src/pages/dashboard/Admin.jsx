@@ -15,7 +15,7 @@ import {
 import {
   AdminCard,
   AdminCardLoading,
-} from '../../components/display/AdminCard.jsx';
+} from '../../components/display/dashboard/AdminCard.jsx';
 
 // SVG 아이콘
 import { RefreshIcon } from '../../assets/icons';

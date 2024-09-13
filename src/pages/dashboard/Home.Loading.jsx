@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 
 // 사용자 정의 컴포넌트
-import { Container } from '../../components/forms/Container';
+import { HomeContainer } from './Home.styled';
 
 import { Header } from './Dashboard.styled';
 import { BoardColumn } from './Home.styled';
 
-const SkeletonBox = styled(Container)`
+const SkeletonBox = styled(HomeContainer)`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
 
