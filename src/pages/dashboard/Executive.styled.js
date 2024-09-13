@@ -1,7 +1,7 @@
-// History.styled.js와 동일하게 스타일링합니다.
-
 import styled from 'styled-components';
-import { Container } from './Dashboard.styled';
+
+// 사용자 정의 컴포넌트
+import { Container } from '../../components/forms/Container';
 
 export const ManageExecutive = styled(Container)`
   width: 100%;

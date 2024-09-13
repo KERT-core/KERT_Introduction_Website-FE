@@ -1,8 +1,3 @@
-// DashboardLayout.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-
-// 외부 라이브러리에서 import
-import React, { useEffect } from 'react';
 import { createRef } from 'react';
 import { useOutlet } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -10,9 +5,9 @@ import styled from 'styled-components';
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
 import { DashboardNav } from '../navigation/DashboardNav';
-import { Alert } from '../display/modal/Alert';
-import { Confirm } from '../display/modal/Confirm';
-import { Loading } from '../display/modal/Loading';
+import { Alert } from '../forms/modal/Alert';
+import { Confirm } from '../forms/modal/Confirm';
+import { Loading } from '../forms/modal/Loading';
 
 // 전환 애니메이션
 import '../../transitions/fade-slide.css';

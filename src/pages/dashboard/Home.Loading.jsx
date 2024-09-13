@@ -1,12 +1,10 @@
-// Home.Loading.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-
-// 외부 라이브러리에서 import
 import styled from 'styled-components';
 
-// 사용자가 생성한 컴포넌트 및 JS파일 import
-import { Container } from './Dashboard.styled';
-import { Header, BoardColumn } from './Dashboard.styled';
+// 사용자 정의 컴포넌트
+import { Container } from '../../components/forms/Container';
+
+import { Header } from './Dashboard.styled';
+import { BoardColumn } from './Home.styled';
 
 const SkeletonBox = styled(Container)`
   width: ${(props) => props.width};

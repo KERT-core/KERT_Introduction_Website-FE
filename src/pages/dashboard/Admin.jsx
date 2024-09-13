@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
+// 사용자 정의 컴포넌트
 import { Text } from '../../components/typograph/Text.jsx';
 import { Button } from '../../components/forms/Button.jsx';
 import { Input } from '../../components/forms/Input.jsx';
-import { RefreshIcon } from '../../assets/icons';
 
 import { Header } from './Dashboard.styled.js';
 import {
@@ -12,7 +12,13 @@ import {
   AdminList,
   ControlBox,
 } from './Admin.styled.js';
-import { AdminCard } from '../../components/display/AdminCard.jsx';
+import {
+  AdminCard,
+  AdminCardLoading,
+} from '../../components/display/AdminCard.jsx';
+
+// SVG 아이콘
+import { RefreshIcon } from '../../assets/icons';
 
 import { API } from '../../utils/api.js';
 import useAdmin from '../../stores/dashboard/useAdmin.js';
@@ -165,11 +171,11 @@ export default function Admin() {
         <AdminList>
           {loading ? (
             <>
-              <AdminCard loading={loading} />
-              <AdminCard loading={loading} />
-              <AdminCard loading={loading} />
-              <AdminCard loading={loading} />
-              <AdminCard loading={loading} />
+              <AdminCardLoading />
+              <AdminCardLoading />
+              <AdminCardLoading />
+              <AdminCardLoading />
+              <AdminCardLoading />
             </>
           ) : (
             admins.map((admin) => (

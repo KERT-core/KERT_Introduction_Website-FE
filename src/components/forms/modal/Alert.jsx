@@ -3,7 +3,7 @@ import useAlert from '../../../stores/useAlert';
 import styled from 'styled-components';
 
 import { ModalLayout } from '../../layouts/ModalLayout';
-import { Button } from '../../forms/Button';
+import { Button } from '../Button';
 import { Span } from '../../typograph/Text';
 
 const ModalContainer = styled.div`
