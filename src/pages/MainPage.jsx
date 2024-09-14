@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import kert_logo from '../assets/kert_logos/White_Icon.png';
 import Section2 from './Section2.jsx';
 import Section1 from './Section1.jsx';
@@ -42,104 +43,9 @@ const footerStyle = (showFooter) => ({
   opacity: showFooter ? 1 : 0,
 });
 
-const LogoAddressCopyrightContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 85px;
-  width: 294px;
-  height: 200px;
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-`;
-
-const LogoAddressContainer = styled.div`
-  margin: 0 auto;
-  width: 279px;
-  height: 100px;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-`;
-
-const AddressEmailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 6px;
-  position: absolute;
-  height: 42px;
-  left: 0%;
-  right: 5.1%;
-  top: calc(50% - 42px / 2 - 21px);
-`;
-
-const AddressText = styled.p`
-  width: 279px;
-  height: 18px;
-  font-family: 'NanumSquare Neo';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  color: #ffffff;
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
-`;
-
-const EmailText = styled.p`
-  width: 279px;
-  height: 18px;
-  font-family: 'NanumSquare Neo';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  color: #ffffff;
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-`;
-
-const Logo = styled.div`
-  position: relative;
-  height: 40px;
-  margin-right: 10px;
-  background-image: url(${kert_logo});
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: flex-start;
-`;
-
-const CopyrightText = styled.p`
-  margin: 0 auto;
-  width: 294px;
-  height: 13px;
-  font-family: 'NanumSquare Neo';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 13px;
-  letter-spacing: -0.02em;
-  color: #83878b;
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-`;
-
 const Footer = styled.footer`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 0 20px;
   width: 100%;
@@ -151,6 +57,98 @@ const Footer = styled.footer`
   position: fixed;
   bottom: 0;
 `;
+
+const LogoAddressCopyrightContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 10px;
+  width: 294px;
+  height: 100px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+`;
+
+const LogoAddressContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+`;
+
+const AddressText = styled.div`
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #ffffff;
+`;
+
+const Logo = styled.div`
+  height: 40px;
+  background-image: url(${kert_logo});
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 50px;
+  margin-bottom: 5px;
+`;
+
+const CopyrightText = styled.div`
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 200;
+  font-size: 12px;
+  color: #83878b;
+`;
+
+const HreyferContainer=styled.div`
+/* 외부링크 / 라이선스 */
+
+  /* Auto layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 87px;
+
+  width: 156px;
+  height: 200px;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+`
+
+const TextHreyfer=styled(Link)`
+  width: 156px;
+  height: 18px;
+
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+  /* identical to box height */
+
+  /* Color4Theme/Secondary Text Color */
+  color: #83878B;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+
+`
 
 export default function MainPage() {
   const outerDivRef = useRef();
@@ -257,7 +255,7 @@ export default function MainPage() {
       }
 
       // Footer 표시 여부 결정
-      const shouldShowFooter = scrollTop >= pageHeight * 6;
+      const shouldShowFooter = scrollTop >= pageHeight * 6; // Display after Section 7
       setShowFooter(shouldShowFooter);
     };
 
@@ -297,9 +295,13 @@ export default function MainPage() {
         <LogoAddressCopyrightContainer>
           <LogoAddressContainer>
             <Logo />
+            <AddressText>대구광역시 북구 대학로80(경북대학교)</AddressText>
           </LogoAddressContainer>
-          {/* Add more content to Footer as needed */}
+          <CopyrightText>Copyright 2024. KERT from KNU all rights reserved.</CopyrightText>
         </LogoAddressCopyrightContainer>
+        <HreyferContainer>
+        
+        </HreyferContainer>
       </Footer>
     </>
   );
