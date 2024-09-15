@@ -12,6 +12,7 @@ import {
 } from './History.styled';
 import { HistoryElement } from '../../components/display/dashboard/history/HistoryElement';
 import { AddHistory } from '../../components/display/dashboard/history/AddHistory';
+import { ErrorModal } from '../../components/display/dashboard/ErrorModal';
 
 // 외부 훅
 import { API } from '../../utils/api';
@@ -46,18 +47,11 @@ export default function History() {
         .then((api_res) => {
           saveHistory(api_res); // API 데이터를 Zustand 상태에 반영
         })
-        .catch((error) => {
+        .catch((err) => {
           // 오류 발생 시 안내
           openAlert({
             title: '통신 에러',
-            content: (
-              <Text>
-                오류가 발생했습니다. 다시 시도해주세요.
-                <br />
-                <br />
-                메시지 : {error.message}
-              </Text>
-            ),
+            content: <ErrorModal error={err} />,
           });
         })
         .finally(() => {
@@ -108,18 +102,11 @@ export default function History() {
               onClose: () => window.location.reload(),
             });
           })
-          .catch((error) => {
+          .catch((err) => {
             // 오류 발생 시 안내
             openAlert({
               title: '통신 에러',
-              content: (
-                <Text>
-                  오류가 발생했습니다. 다시 시도해주세요.
-                  <br />
-                  <br />
-                  메시지 : {error.message}
-                </Text>
-              ),
+              content: <ErrorModal error={err} />,
             });
           })
           .finally(() => {

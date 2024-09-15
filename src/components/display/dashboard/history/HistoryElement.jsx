@@ -4,12 +4,13 @@ import styled from 'styled-components';
 import { Span, Text } from '../../../typograph/Text';
 
 import { EditHistory } from './EditHistory';
+import { UpdatedHistory } from './UpdatedHistory';
+import { ErrorModal } from '../ErrorModal';
 
 import { API } from '../../../../utils/api';
 import useConfirm from '../../../../stores/useConfirm';
 import useAlert from '../../../../stores/useAlert';
 import useLoading from '../../../../stores/useLoading';
-import { UpdatedHistory } from './UpdatedHistory';
 
 const CardWrapper = styled.div.attrs({
   id: 'dashboard-history-card',
@@ -135,18 +136,11 @@ export const HistoryElement = ({ history }) => {
           onClose: () => window.location.reload(),
         });
       })
-      .catch((error) => {
+      .catch((err) => {
         // 오류 발생 시 안내
         openAlert({
           title: '통신 에러',
-          content: (
-            <Text>
-              오류가 발생했습니다. 다시 시도해주세요.
-              <br />
-              <br />
-              메시지 : {error.message}
-            </Text>
-          ),
+          content: <ErrorModal error={err} />,
         });
       })
       .finally(() => {
@@ -168,18 +162,11 @@ export const HistoryElement = ({ history }) => {
           onClose: () => window.location.reload(),
         });
       })
-      .catch((error) => {
+      .catch((err) => {
         // 오류 발생 시 안내
         openAlert({
           title: '통신 에러',
-          content: (
-            <Text>
-              오류가 발생했습니다. 다시 시도해주세요.
-              <br />
-              <br />
-              메시지 : {error.message}
-            </Text>
-          ),
+          content: <ErrorModal error={err} />,
         });
       })
       .finally(() => {

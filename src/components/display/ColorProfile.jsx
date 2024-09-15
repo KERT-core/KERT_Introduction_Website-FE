@@ -8,7 +8,7 @@ const ColorProfile_ = styled.div`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
 
-  border-radius: 100%;
+  border-radius: ${(props) => props.radius};
 
   background-color: ${(props) => props.color};
 
@@ -31,6 +31,18 @@ const ColorProfile_ = styled.div`
   }
 `;
 
-export const ColorProfile = ({ width = '48px', height = '48px', color }) => {
-  return <ColorProfile_ width={width} height={height} color={color} />;
+export const ColorProfile = ({
+  width = '48px',
+  height = '48px',
+  color,
+  radius = '100%',
+}) => {
+  return (
+    <ColorProfile_
+      width={width}
+      height={height}
+      color={color}
+      radius={radius}
+    />
+  );
 };

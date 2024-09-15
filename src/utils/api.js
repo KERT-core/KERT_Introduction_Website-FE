@@ -21,7 +21,7 @@ async function request(endpoint, method = 'GET', data = null, headers = {}) {
 
     // 응답이 성공적이지 않은 경우 오류를 던집니다.
     if (!response.ok) {
-      throw new Error(`서버 오류 : ${response.status}`);
+      throw new Error(`${response.status} ${response.statusText}`);
     }
 
     // 응답 데이터를 JSON으로 반환합니다.

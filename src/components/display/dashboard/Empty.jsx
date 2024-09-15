@@ -21,12 +21,12 @@ const Wrapper = styled(Container).attrs({
   gap: 20px;
 `;
 
-export const Empty = () => {
+export const Empty = ({ message = '텅! 비어있네요...' }) => {
   return (
     <Wrapper>
       <EmptySVG fill="var(--primary-text-color)" />
       <Text size="l" weight="extrabold" color="--secondary-text-color">
-        텅! 비어있네요...
+        {message}
       </Text>
     </Wrapper>
   );

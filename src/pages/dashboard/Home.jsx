@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // 사용자 정의 컴포넌트
+import { Text } from '../../components/typograph/Text';
 import { Header } from './Dashboard.styled';
 import {
   ContainerHeader,
@@ -13,6 +14,7 @@ import { NumberDisplay } from '../../components/display/NumberDisplay';
 import HomeLoading from './Home.Loading';
 
 import useHome from '../../stores/dashboard/useHome';
+import useAlert from '../../stores/useAlert';
 
 const HistoryBoard = ({ name, data, navigate }) => {
   return (
@@ -157,11 +159,24 @@ export default function Home() {
   // 다른 컴포넌트에서 URL 이동을 할 수 있도록 navigate를 넙깁니다.
   const navigate = useNavigate();
 
-  // API 요청을 날리기 전 isLoading을 True로 설정합니다.
+  const { openAlert } = useAlert();
   const [isLoading, setLoading] = useState(true);
 
   // 컴포넌트가 마운트되면
   useEffect(() => {
+    openAlert({
+      title: '준비중',
+      content: (
+        <>
+          <Text>Home은 아직 준비하고 있어요!</Text>,
+          <Text>
+            빨리 만들어 달라고요? <del>싫어요 (장난)</del>
+          </Text>
+          ,
+        </>
+      ),
+    });
+
     // 만약 이전에 받은 API 데이터가 없다면 API 요청 후 데이터를 store에 저장
     if (home == null) {
       console.log('API 데이터가 없으므로 API 응답을 요청합니다.');
