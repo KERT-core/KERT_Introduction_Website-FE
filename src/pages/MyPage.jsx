@@ -3,7 +3,10 @@
 
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
+
+import { Button } from '../components/forms/Button';
 
 const Container = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
@@ -145,7 +148,8 @@ const EditButton = styled.button`
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  width: 100%;
+  width: 200px;
+  margin-left: 940px;
 `;
 
 const WarningMessage = styled.p`
@@ -158,28 +162,33 @@ export default function MyPage() {
   const [userInfo, setUserInfo] = useState({
     name: '',
     studentNumber: '',
-    profilePic: null,
+    profile: null,
   });
 
   const [imagePreview, setImagePreview] = useState(null);
-  
+  const [passwordError, setPasswordError] = useState('');
+
+  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+
   // Fetch user data after login
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('/user');
+        const response = await axios.get('/users');
         setUserInfo({
+          studentNumber: response.data.student_id,
           name: response.data.name,
-          studentNumber: response.data.studentNumber,
-          profilePic: response.data.profilePic || '../assets/icons/menu/Executive.png',
+          email: response.data.email,
+          profilePic: response.data.profile_picture || '../assets/icons/menu/Executive.png',
         });
-        setImagePreview(response.data.profilePic || '../assets/icons/menu/Executive.png');
+        setImagePreview(response.data.profile_picture || '../assets/icons/menu/Executive.png');
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
     };
     fetchUserData();
   }, []);
+
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -189,7 +198,7 @@ export default function MyPage() {
       const formData = new FormData();
       formData.append('profilePic', file);
 
-      axios.post('/upload-profile-pic-endpoint', formData)
+      axios.post(`/passwords/${userInfo.studentNumber}`, formData)
         .then(response => {
           console.log('Image uploaded successfully');
         })
@@ -200,9 +209,9 @@ export default function MyPage() {
   };
 
   const handleDeleteImage = () => {
-    setImagePreview('../assets/menu/Executive.png'); // Reset to default
+    setImagePreview('../assets/menu/Executive.png');
 
-    axios.post('/delete-profile-pic-endpoint')
+    axios.delete(`/users/${userInfo.studentNumber}/profile_picture`)
       .then(response => {
         console.log('Image deleted successfully');
       })
@@ -210,6 +219,45 @@ export default function MyPage() {
         console.error('Image deletion failed:', error);
       });
   };
+
+  const onSubmit = async (data) => {
+    setPasswordError('');
+
+    if (data.newPassword !== data.confirmPassword) {
+      setPasswordError('새로운 비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    try {
+      // 서버로 로그인 정보를 전송
+      const response = await axios.post('155.230.118.35', data);
+      console.log('로그인 성공:', response.data);
+    } catch (error) {
+      // 404 상태 코드가 반환되면 로그인 불일치 처리
+      if (error.response && error.response.status === 404) {
+        console.error('로그인 정보가 일치하지 않습니다.');
+        alert('로그인 정보가 일치하지 않습니다. 다시 시도해주세요.');
+      } else {
+        console.error('오류 발생:', error);
+        alert('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    const confirmDelete = window.confirm("계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`/users/${userInfo.studentNumber}`);
+        alert("계정이 성공적으로 삭제되었습니다.");
+
+      } catch (error) {
+        console.error('계정 삭제 실패:', error);
+        alert("계정 삭제에 실패했습니다. 다시 시도해주세요.");
+      }
+    }
+  };
+
 
   return (
     <Container>
@@ -265,46 +313,74 @@ export default function MyPage() {
           <SectionTitle>
             비밀번호 변경 <span className="section-title-en">Change Password</span>
           </SectionTitle>
-          <Form>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <InputGroupLong>
               <label htmlFor="current-password">현재 비밀번호 입력</label>
-              <input type="password" id="current-password" name="current-password" />
+              <input
+                type="password"
+                id="current-password"
+                placeholder="현재 비밀번호"
+                {...register('currentPassword', {
+                  required: '현재 비밀번호를 입력해주세요.',
+                  pattern: {
+                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                  }
+                })}
+              />
+              {errors.currentPassword && <WarningMessage>{errors.currentPassword.message}</WarningMessage>}
             </InputGroupLong>
             <InputRow>
               <InputGroup>
-                <label htmlFor="new-password">새로운 비밀번호 입력</label>
-                <input type="password" id="new-password" name="new-password" />
+                <label htmlFor="new-password">새 비밀번호 입력</label>
+                <input
+                  type="password"
+                  id="new-password"
+                  placeholder="새 비밀번호"
+                  {...register('newPassword', {
+                    required: '새 비밀번호를 입력해주세요.',
+                    pattern: {
+                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    }
+                  })}
+                />
+                {errors.newPassword && <WarningMessage>{errors.newPassword.message}</WarningMessage>}
               </InputGroup>
 
               <InputGroup>
-                <label htmlFor="confirm-password">새로운 비밀번호 확인</label>
-                <input type="password" id="confirm-password" name="confirm-password" />
+                <label htmlFor="confirm-password">새 비밀번호 확인</label>
+                <input
+                  type="password"
+                  id="confirm-password"
+                  placeholder="비밀번호 확인"
+                  {...register('confirmPassword', {
+                    required: '새 비밀번호 확인을 입력해주세요.',
+                    pattern: {
+                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    }
+                  })}
+                />
+                {errors.confirmPassword && <WarningMessage>{errors.confirmPassword.message}</WarningMessage>}
               </InputGroup>
             </InputRow>
-            <EditButton type="button">저장</EditButton>
+
+            {passwordError && <WarningMessage>{passwordError}</WarningMessage>}
+
+            <EditButton type="submit">비밀번호 변경</EditButton>
+            {/* <Button type="outline" width="200px" color="--secondary-color"></Button> */}
           </Form>
         </Section>
 
         {/* Delete Account Section */}
         <Section>
           <SectionTitle>
-            계정 탈퇴 <span className="section-title-en">Delete Account</span>
+            계정 삭제 <span className="section-title-en">Delete Account</span>
           </SectionTitle>
-          <WarningMessage>
-            KERT 계정을 삭제합니다. 삭제된 계정은 복구가 불가능하며 동일 이메일로 계정을 새로 생성해야 합니다.
-          </WarningMessage>
           <Form>
-            <InputRow>
-              <InputGroup>
-                <label htmlFor="delete-email">이메일</label>
-                <input type="email" id="delete-email" name="delete-email" value="test@koreatech.ac.kr" />
-              </InputGroup>
-              <InputGroup>
-                <label htmlFor="current-password">비밀번호</label>
-                <input type="password" id="current-password" name="current-password" value="****" />
-              </InputGroup>
-            </InputRow>
-            <EditButton type="button">계정 삭제</EditButton>
+            <WarningMessage>계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.</WarningMessage>
+            <EditButton type="button" onClick={handleDeleteAccount}>계정 삭제</EditButton>
           </Form>
         </Section>
       </MyPageContainer>
