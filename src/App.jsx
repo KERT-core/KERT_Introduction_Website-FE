@@ -39,7 +39,7 @@ export default function App() {
           <Route path="/board" element={<Board />} />
           <Route path="/articles/:id" element={<Article />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<SignUp />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/dashboard" element={<DashboardLayout />}>

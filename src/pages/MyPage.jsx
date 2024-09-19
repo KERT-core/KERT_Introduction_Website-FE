@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 const Container = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: 'NanumSquare', sans-serif;
   background-color: #0d0e14;
   color: #ffffff;
   margin: 0;

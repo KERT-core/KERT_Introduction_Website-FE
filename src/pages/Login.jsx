@@ -1,72 +1,164 @@
-// Login.jsx
-// 코드 작성자 : GiHhub @huisuu
-
+import { useState } from 'react';
+import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 
-import '../styles/Login.css';
-import '../styles/font.css';
+const Container = styled.div`
+  background-color: #080f17;
+  font-family: 'NanumSquare', Helvetica;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+`;
+
+const LoginContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+`;
+
+const LoginBox = styled.div`
+  background-color: #10141c;
+  padding: 50px;
+  border-radius: 10px;
+  width: 450px;
+`;
+
+const LoginHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+    color: #ffffff;
+  }
+
+  h2 {
+    margin: 10px 0 20px 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffffff;
+  }
+`;
+
+const KertLogo = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+`;
+
+const InputGroup = styled.div`
+  margin-right: 25px;
+  margin-bottom: 20px;
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #ffffff;
+  }
+
+  input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #1c1f25;
+    color: white;
+  }
+`;
+
+const ErrorMessage = styled.p`
+  color: #ff4d4d;
+  font-size: 14px;
+  margin-top: 10px;
+`;
+
+const LoginButton = styled.button`
+  width: 100%;
+  padding: 15px;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-right: 25px;
+`;
+
+const SignupLink = styled.div`
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #ccc;
+`;
 
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const [error, setError] = useState('');
 
   const onSubmit = async (data) => {
     try {
-      // 서버로 로그인 정보를 전송합니다.
-      const response = await axios.post('155.230.118.35', data);
-      console.log('Sign up successful:', response.data);
-
-      // 로그인 성공 시 메인 페이지로 이동합니다.
+      const response = await axios.post('http://155.230.118.35/login', data);
+      console.log('Login successful:', response.data);
+      setError('');
       navigate('/Mainpage');
     } catch (error) {
       console.error('Error:', error);
+      setError('로그인에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <div className="login-header">
-          <div className="header-text">
-            <h1>Login to KERT</h1>
-            <h2>로그인</h2>
-          </div>
-          <div className="kert-logo">
-            <img src="../logo/white_square.png" alt="kert-logo" />
-          </div>
-        </div>
-        <div className="login-form">
+    <Container>
+      <LoginContainer>
+        <LoginBox>
+          <LoginHeader>
+            <div className="header-text">
+              <h1>Login to KERT</h1>
+              <h2>로그인</h2>
+            </div>
+            <KertLogo>
+              <img src="../logo/white_square.png" alt="kert-logo" />
+            </KertLogo>
+          </LoginHeader>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* student number */}
-            <div className="input-group">
+            <InputGroup>
               <label>학번</label>
               <input
                 type="text"
                 placeholder="학번"
                 {...register('student', {
-                  minLength: {
-                    value: 10,
-                    message: '학번은 10자리 숫자여야 합니다.',
-                  },
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: '학번은 10자리 숫자여야 합니다.',
-                  },
+                  minLength: { value: 10, message: '학번은 10자리 숫자여야 합니다.' },
+                  pattern: { value: /^[0-9]{10}$/, message: '학번은 10자리 숫자여야 합니다.' },
                 })}
               />
-              {errors.student && (
-                <p className="error-message">{errors.student.message}</p>
-              )}
-            </div>
-            {/* pw */}
-            <div className="input-group">
+              {errors.student && <ErrorMessage>{errors.student.message}</ErrorMessage>}
+            </InputGroup>
+
+            <InputGroup>
               <label>비밀번호</label>
               <input
                 type="password"
@@ -82,17 +174,17 @@ export default function Login() {
                   },
                 })}
               />
-              {errors.password && (
-                <p className="error-message">{errors.password.message}</p>
-              )}
-            </div>
-            <button className="login-button">로그인</button>
+              {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+            </InputGroup>
+
+            <LoginButton>로그인</LoginButton>
           </form>
-          <div className="signup-link">
-            계정이 없으신가요? <Link to="/login">회원가입</Link>
-          </div>
-        </div>
-      </div>
-    </div>
+
+          <SignupLink>
+            계정이 없으신가요? <Link to="/signup">회원가입</Link>
+          </SignupLink>
+        </LoginBox>
+      </LoginContainer>
+    </Container>
   );
 }
