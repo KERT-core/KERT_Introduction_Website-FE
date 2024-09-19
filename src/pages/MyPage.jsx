@@ -6,8 +6,6 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
-import { Button } from '../components/forms/Button';
-
 const Container = styled.div`
   font-family: 'Noto Sans KR', sans-serif;
   background-color: #0d0e14;
@@ -174,7 +172,7 @@ export default function MyPage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('/users');
+        const response = await axios.get('http://155.230.118.35/users');
         setUserInfo({
           studentNumber: response.data.student_id,
           name: response.data.name,
@@ -198,7 +196,7 @@ export default function MyPage() {
       const formData = new FormData();
       formData.append('profilePic', file);
 
-      axios.post(`/passwords/${userInfo.studentNumber}`, formData)
+      axios.post('http://155.230.118.35/passwords/${userInfo.studentNumber}', formData)
         .then(response => {
           console.log('Image uploaded successfully');
         })
@@ -211,13 +209,19 @@ export default function MyPage() {
   const handleDeleteImage = () => {
     setImagePreview('../assets/menu/Executive.png');
 
-    axios.delete(`/users/${userInfo.studentNumber}/profile_picture`)
-      .then(response => {
+    axios.put(`http://155.230.118.35/users/${userInfo.studentNumber}`, {
+      name: userInfo.name,
+      email: userInfo.email,
+      profile_picture: "",  // 빈 문자열로 설정하여 이미지 제거
+      generation: userInfo.generation,
+      major: userInfo.major,
+    })
+    .then(response => {
         console.log('Image deleted successfully');
-      })
-      .catch(error => {
-        console.error('Image deletion failed:', error);
-      });
+    })
+    .catch(error => {
+      console.error('Image deletion failed:', error);
+    });
   };
 
   const onSubmit = async (data) => {
@@ -229,11 +233,11 @@ export default function MyPage() {
     }
 
     try {
-      // 서버로 로그인 정보를 전송
-      const response = await axios.post('155.230.118.35', data);
+      // 서버로 비밀번호 정보를 전송
+      const response = await axios.post('http://155.230.118.35/users/${userInfo.studentNumber}', data);
       console.log('로그인 성공:', response.data);
     } catch (error) {
-      // 404 상태 코드가 반환되면 로그인 불일치 처리
+      // 404 상태 코드가 반환되면 비밀번호 불일치 처리
       if (error.response && error.response.status === 404) {
         console.error('로그인 정보가 일치하지 않습니다.');
         alert('로그인 정보가 일치하지 않습니다. 다시 시도해주세요.');
