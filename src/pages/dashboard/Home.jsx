@@ -168,11 +168,7 @@ export default function Home() {
       title: '준비중',
       content: (
         <>
-          <Text>Home은 아직 준비하고 있어요!</Text>,
-          <Text>
-            빨리 만들어 달라고요? <del>싫어요 (장난)</del>
-          </Text>
-          ,
+          <Text>Home은 아직 준비하고 있어요!</Text>
         </>
       ),
     });

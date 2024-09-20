@@ -44,7 +44,6 @@ export const DeleteAdmin = forwardRef(({ admin }, ref) => {
     admin.student_id,
     admin.generation,
     admin.role,
-    admin.description,
   );
 
   return (
@@ -72,9 +71,7 @@ export const DeleteAdmin = forwardRef(({ admin }, ref) => {
             {admin.name != '' ? admin.name : '비어있음'}
           </Description>
           <Info>
-            <b>학번</b> {admin.student_id}
-            <br />
-            <b>메일</b> {admin.email}
+            {admin.role}ㆍ{admin.description}
           </Info>
         </div>
       </Preview>
