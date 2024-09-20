@@ -30,7 +30,7 @@ const SignUpContainer = styled.div`
 `;
 
 const SignUpBox = styled.div`
-  background-color: #10141c;
+  background-color: #1b1e27;
   padding: 50px;
   border-radius: 10px;
   width: 500px;
@@ -119,13 +119,23 @@ export default function SignUp() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://155.230.118.35', data);
-      console.log('Sign up successful:', response.data);
+      const formData = {
+        student_id: data.student,
+        name: data.username,
+        email: data.mail,
+        profile_picture: '',
+        generation: data.generation,
+        major: data.major,
+        password: data.password,
+      };
+
+      const response = await axios.post('http://155.230.118.35/register', formData);
+      console.log('서버로 전송:', response.data);
+      alert('회원가입 요청이 완료되었습니다!');
       navigate('/Mainpage');
     } catch (error) {
       console.error('Error:', error);
     }
-    alert('회원가입 요청이 완료되었습니다!');
   };
 
   return (
@@ -241,7 +251,7 @@ export default function SignUp() {
                 {...register('password', {
                   required: '비밀번호를 입력해주세요.',
                   pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8}$/,
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
                     message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
                   },
                 })}
