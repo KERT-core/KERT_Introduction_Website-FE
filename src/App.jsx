@@ -23,7 +23,7 @@ import {
 import DevDocument from './pages/DevDocument';
 import Board from './pages/Board';
 import Article from './pages/Article';
-import NewArticle from './pages/NewArticle';
+import NewArticleEditor from './pages/NewArticleEditor';
 
 export default function App() {
   return (
@@ -35,7 +35,7 @@ export default function App() {
           <Route path="/developer" element={<DevDocument />} />
           <Route path="/board">
             <Route index path="/board" element={<Board />} />
-            <Route path="/board/new" element={<NewArticle />} />
+            <Route path="/board/new" element={<NewArticleEditor />} />
           </Route>
           <Route path="/articles/:id" element={<Article />} />
           <Route path="*" element={<NotFound />} />

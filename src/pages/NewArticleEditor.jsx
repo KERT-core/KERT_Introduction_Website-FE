@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import useTheme from '../hooks/useTheme';
 
 import { Editor } from '@toast-ui/react-editor';
@@ -49,10 +49,7 @@ const Container = styled.div`
 export default function NewArticle() {
   const theme = useTheme();
 
-  console.log(theme);
-
   useEffect(() => {
-    console.log(theme);
     const editorEl = document.getElementsByClassName(
       'toastui-editor-defaultUI',
     )[0];
