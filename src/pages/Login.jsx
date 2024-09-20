@@ -27,7 +27,7 @@ const LoginContainer = styled.div`
 `;
 
 const LoginBox = styled.div`
-  background-color: #10141c;
+  background-color: #1b1e27;
   padding: 50px;
   border-radius: 10px;
   width: 450px;
@@ -121,8 +121,8 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://155.230.118.35/login', data);
-      console.log('Login successful:', response.data);
+      const response = await axios.post(`http://155.230.118.35/login`, data);
+      console.log('서버로 전송:', response.data);
       setError('');
       navigate('/Mainpage');
     } catch (error) {

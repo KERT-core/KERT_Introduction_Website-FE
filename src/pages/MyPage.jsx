@@ -158,9 +158,12 @@ const WarningMessage = styled.p`
 
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState({
-    name: '',
     studentNumber: '',
-    profile: null,
+    name: '',
+    email: '',
+    generation: '',
+    major: '',
+    profilePic: null,
   });
 
   const [imagePreview, setImagePreview] = useState(null);
@@ -172,11 +175,13 @@ export default function MyPage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get('http://155.230.118.35/users');
+        const response = await axios.get(`http://155.230.118.35/users`);
         setUserInfo({
           studentNumber: response.data.student_id,
           name: response.data.name,
           email: response.data.email,
+          generation: response.data.generation,
+          major: response.data.major,
           profilePic: response.data.profile_picture || '../assets/icons/menu/Executive.png',
         });
         setImagePreview(response.data.profile_picture || '../assets/icons/menu/Executive.png');
@@ -191,13 +196,21 @@ export default function MyPage() {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImagePreview(URL.createObjectURL(file));
+      setImagePreview(URL.createObjectURL(file));  // Update image preview
 
       const formData = new FormData();
       formData.append('profilePic', file);
 
-      axios.post('http://155.230.118.35/passwords/${userInfo.studentNumber}', formData)
+      axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, formData)
         .then(response => {
+          setUserInfo({
+            studentNumber: response.data.student_id,
+            name: response.data.name,
+            email: response.data.email,
+            generation: response.data.generation,
+            major: response.data.major,
+            profilePic: response.data.profile_picture || '../assets/icons/menu/Executive.png',
+          });
           console.log('Image uploaded successfully');
         })
         .catch(error => {
@@ -212,12 +225,20 @@ export default function MyPage() {
     axios.put(`http://155.230.118.35/users/${userInfo.studentNumber}`, {
       name: userInfo.name,
       email: userInfo.email,
-      profile_picture: "",  // 빈 문자열로 설정하여 이미지 제거
       generation: userInfo.generation,
       major: userInfo.major,
+      profile_picture: "",  // 빈 문자열로 설정하여 이미지 제거
     })
     .then(response => {
-        console.log('Image deleted successfully');
+      setUserInfo({
+        studentNumber: response.data.student_id,
+        name: response.data.name,
+        email: response.data.email,
+        generation: response.data.generation,
+        major: response.data.major,
+        profilePic: response.data.profile_picture || '../assets/menu/Executive.png',
+      });
+      console.log('Image deleted successfully');
     })
     .catch(error => {
       console.error('Image deletion failed:', error);
@@ -234,16 +255,16 @@ export default function MyPage() {
 
     try {
       // 서버로 비밀번호 정보를 전송
-      const response = await axios.post('http://155.230.118.35/users/${userInfo.studentNumber}', data);
-      console.log('로그인 성공:', response.data);
+      const response = await axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, data);
+      console.log('서버로 전송:', response.data);
     } catch (error) {
       // 404 상태 코드가 반환되면 비밀번호 불일치 처리
       if (error.response && error.response.status === 404) {
-        console.error('로그인 정보가 일치하지 않습니다.');
-        alert('로그인 정보가 일치하지 않습니다. 다시 시도해주세요.');
+        console.error('비밀번호 정보가 일치하지 않습니다.');
+        alert('비밀번호 정보가 일치하지 않습니다. 다시 시도해주세요.');
       } else {
         console.error('오류 발생:', error);
-        alert('로그인에 실패했습니다. 다시 시도해주세요.');
+        alert('비밀번호 재설정에 실패했습니다. 다시 시도해주세요.');
       }
     }
   };
@@ -254,14 +275,12 @@ export default function MyPage() {
       try {
         await axios.delete(`/users/${userInfo.studentNumber}`);
         alert("계정이 성공적으로 삭제되었습니다.");
-
       } catch (error) {
         console.error('계정 삭제 실패:', error);
         alert("계정 삭제에 실패했습니다. 다시 시도해주세요.");
       }
     }
   };
-
 
   return (
     <Container>
@@ -327,8 +346,8 @@ export default function MyPage() {
                 {...register('currentPassword', {
                   required: '현재 비밀번호를 입력해주세요.',
                   pattern: {
-                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
                   }
                 })}
               />
