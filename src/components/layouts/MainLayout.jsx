@@ -5,6 +5,7 @@ import { Navigation } from '../navigation/Navigation';
 
 export const Main = styled.main`
   width: 100vw;
+  height: 100vh;
   margin: 0px auto;
 `;
 

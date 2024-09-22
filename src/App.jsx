@@ -16,6 +16,7 @@ import { DashboardLayout } from './components/layouts/DashboardLayout';
 import { Dashboard } from './pages/dashboard';
 import DevDocument from './pages/DevDocument';
 import Board from './pages/Board';
+import Article from './pages/Article';
 
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
@@ -29,6 +30,7 @@ export default function App() {
           <Route index path="/" element={<MainPage />} />
           <Route path="/developer" element={<DevDocument />} />
           <Route path="/board" element={<Board />} />
+          <Route path="/articles/:id" element={<Article />} />
           <Route path="*" element={<NotFound />} />
 
           {/* 대시보드 페이지 */}
