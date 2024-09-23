@@ -201,7 +201,7 @@ export default function MyPage() {
       const formData = new FormData();
       formData.append('profilePic', file);
 
-      axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, formData)
+      const response = axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, formData)
         .then(response => {
           setUserInfo({
             studentNumber: response.data.student_id,
