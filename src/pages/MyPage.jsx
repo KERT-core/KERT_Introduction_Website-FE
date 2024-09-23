@@ -1,13 +1,13 @@
 // MyPage.jsx
 // 코드 작성자 : GiHhub @huisuu
 
-import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import '../font/main_font.css';
 import axios from 'axios';
 
 const Container = styled.div`
-  font-family: 'Noto Sans KR', sans-serif;
   background-color: #0d0e14;
   color: #ffffff;
   margin: 0;
@@ -75,6 +75,7 @@ const PicButtons = styled.div`
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
   }
 `;
 
@@ -177,9 +178,9 @@ export default function MyPage() {
           studentNumber: response.data.student_id,
           name: response.data.name,
           email: response.data.email,
-          profilePic: response.data.profile_picture || '../assets/icons/menu/Executive.png',
+          profilePic: response.data.profile_picture || '../assets/icons/menu/User.png',
         });
-        setImagePreview(response.data.profile_picture || '../assets/icons/menu/Executive.png');
+        setImagePreview(response.data.profile_picture || '../assets/icons/menu/User.png');
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
@@ -207,7 +208,7 @@ export default function MyPage() {
   };
 
   const handleDeleteImage = () => {
-    setImagePreview('../assets/menu/Executive.png');
+    setImagePreview('../assets/menu/User.png');
 
     axios.put(`http://155.230.118.35/users/${userInfo.studentNumber}`, {
       name: userInfo.name,
@@ -261,7 +262,6 @@ export default function MyPage() {
       }
     }
   };
-
 
   return (
     <Container>
@@ -327,8 +327,8 @@ export default function MyPage() {
                 {...register('currentPassword', {
                   required: '현재 비밀번호를 입력해주세요.',
                   pattern: {
-                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
                   }
                 })}
               />
