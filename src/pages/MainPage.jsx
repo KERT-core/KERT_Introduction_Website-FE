@@ -153,19 +153,19 @@ const SNSLinkContainer = styled.div`
   padding: 0;
 `;
 
-const SNSIcon = styled.div`
-  width: 20px; /* Adjust the size of the icons */
+const SNSIcon = styled.a`
+  width: 20px;
   height: 20px;
   background-color: #080f17;
-  border-radius: 50%; /* Circular icons */
+  border-radius: 50%;
   background-image: url(${props => props.backgroundImage});
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0.8; /* Adjust opacity */
+  opacity: 0.8;
   transition: opacity 0.3s ease;
 
   &:hover {
-    opacity: 1; /* On hover, make the icon fully opaque */
+    opacity: 1;
   }
 `;
 
@@ -328,12 +328,13 @@ export default function MainPage() {
           <TextHreyfer to="https://hspace.io/login">HSpace</TextHreyfer>
           <Text size="xs" weight="light">오픈소스 라이선스</Text>
         </HreyferContainer>
-        <SNSLinkContainer>
-          <SNSIcon backgroundImage={Github}/>
-          <SNSIcon backgroundImage={Youtube}/>
-          <SNSIcon backgroundImage={Facebook}/>
-          <SNSIcon backgroundImage={Instagream}/>
-        </SNSLinkContainer>
+          <SNSLinkContainer>
+            <SNSIcon href="https://github.com/KERT-core" backgroundImage={Github} target="_blank" />
+            <SNSIcon href="https://youtube.com/@kert_knu593" backgroundImage={Youtube} target="_blank" />
+            <SNSIcon href="https://www.facebook.com/KNU.KERT" backgroundImage={Facebook} target="_blank" />
+            <SNSIcon href="https://instagram.com/knu_kert" backgroundImage={Instagream} target="_blank" />
+          </SNSLinkContainer>
+
       </Footer>
     </>
   );
