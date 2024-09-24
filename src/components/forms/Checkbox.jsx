@@ -1,11 +1,4 @@
-// Checkbox.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-
-// 외부 라이브러리에서 import
 import styled from 'styled-components';
-
-// 사용자가 생성한 컴포넌트 및 JS파일 import
-import Checkmark from '/icon/checked.svg';
 
 /**
  * @typedef {"xs" | "s" | "m" | "l" | "xl" | string} Size
@@ -56,7 +49,7 @@ const ICheckbox = styled.input.attrs((props) => ({
         return props.$color ?? 'var(--primary-color)';
       }
     }};
-    background-image: url(${Checkmark});
+    background-image: url(/src/assets/icons/checked.svg);
     background-size: cover;
     border: 2px solid
       ${(props) => {
