@@ -77,7 +77,7 @@ export const Navigation = () => {
             <Link to="/mypage" style={menu_style}>
               마이페이지
             </Link>
-            <Link to="/logout" style={menu_style}>
+            <Link to="/login" style={menu_style}>
               로그아웃
             </Link>
           </>

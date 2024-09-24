@@ -1,12 +1,15 @@
+// Login.jsx
+// 코드 작성자 : GiHhub @huisuu
+
 import { useState } from 'react';
-import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import styled from 'styled-components';
+import '../styles/font.css';
 
 const Container = styled.div`
   background-color: #080f17;
-  font-family: 'NanumSquare', Helvetica;
   margin: 0;
   padding: 0;
   display: flex;
@@ -121,10 +124,10 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await axios.post(`http://155.230.118.35/login`, data);
-      console.log('서버로 전송:', response.data);
+      // const response = await axios.post(`/login`, data);
+      // console.log('서버로 전송:', response.data);
       setError('');
-      navigate('/Mainpage');
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
