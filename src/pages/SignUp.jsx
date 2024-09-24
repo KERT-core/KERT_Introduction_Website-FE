@@ -1,114 +1,273 @@
-import { useState } from 'react';
-import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
+// SignUp.jsx
+// 코드 작성자 : GiHhub @huisuu
 
-import '../styles/SignUp.css';
+import { useForm } from 'react-hook-form';
+import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+import styled from 'styled-components';
+import { Text } from '../components/typograph/Text';
+import '../font/main_font.css';
+
+const Container = styled.div`
+  background-color: #080f17;
+  font-family: 'NanumSquare', Helvetica;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+`;
+
+const SignUpContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+  top: 120px;
+`;
+
+const SignUpBox = styled.div`
+  background-color: #1b1e27;
+  padding: 50px;
+  border-radius: 10px;
+  width: 500px;
+`;
+
+const SignUpHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  padding-bottom: 20px;
+`;
+
+const KertLogo = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+`;
+
+const SignUpForm = styled.form`
+  .input-group {
+    margin-bottom: 25px;
+    margin-right: 30px;
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 18px;
+      color: #ffffff;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #1c1f25;
+      color: white;
+    }
+
+    input::placeholder {
+      font-size: 16px;
+    }
+
+    .error-message {
+      color: #ff4d4d;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  }
+`;
+
+const SignUpButton = styled.button`
+  width: 100%;
+  padding: 15px;
+  background-color: #4a90e2;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  margin-top: 20px;
+`;
+
+const LoginLink = styled.div`
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #ccc;
+`;
 
 export default function SignUp() {
-  const [username, setUsername] = useState('');
-  const [mail, setMail] = useState('');
-  const [password, setPassword] = useState('');
-  const [student, setStudenet] = useState('');
-  const [major, setMajor] = useState('');
-  const [generation, setGE] = useState('');
-  // const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const handleSignUp = async () => {
+  const navigate = useNavigate();
+
+  const onSubmit = async (data) => {
     try {
-      const userData = {
-        username: username,
-        mail: mail,
-        password: password,
-        student: student,
-        major: major,
-        generation: generation,
+      const formData = {
+        student_id: data.student,
+        name: data.username,
+        email: data.mail,
+        profile_picture: '',
+        generation: data.generation,
+        major: data.major,
+        password: data.password,
       };
 
-      // 서버로 회원가입 정보를 전송합니다.
-      const response = await axios.post('155.230.118.35', userData);
-      console.log('Sign up successful:', response.data);
-
-      // 회원가입 성공 시 ~page로 이동합니다.
-      // navigate("/page");
+      const response = await axios.post('http://155.230.118.35/register', formData);
+      console.log('서버로 전송:', response.data);
+      alert('회원가입 요청이 완료되었습니다!');
+      navigate('/Mainpage');
     } catch (error) {
       console.error('Error:', error);
     }
-    alert('회원가입 요청이 완료되었습니다!');
   };
 
   return (
-    <div className="SignUp">
-      <div className="div">
-        <div className="middleSide">
-          <div className="view">
-            <div className="text-signup">회원가입</div>
+    <Container>
+      <SignUpContainer>
+        <SignUpBox>
+          <SignUpHeader>
+            <div>
+              <Text size="l" weight="bold" color="#ffffff">Sign Up to KERT</Text>
+              <Text size="sxl" weight="bold" color="#ffffff">회원가입</Text>
+            </div>
+            <KertLogo>
+              <img src="../logo/white_square.png" alt="kert-logo" />
+            </KertLogo>
+          </SignUpHeader>
+          <SignUpForm onSubmit={handleSubmit(onSubmit)}>
             {/* name */}
-            <div className="input-NAME">
+            <div className="input-group">
+              <label>이름</label>
               <input
-                className="input-name"
                 type="text"
-                placeholder="이름"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                placeholder="홍길동"
+                {...register('username', {
+                  required: '이름을 입력해주세요.',
+                  pattern: {
+                    value: /^[가-힣]{2,5}$/,
+                    message: '올바른 이름을 입력해주세요. (한글 2~5자)',
+                  },
+                })}
               />
-            </div>
-            {/* e-mail */}
-            <div className="input-MAIL">
-              <input
-                className="input-mail"
-                type="mail"
-                placeholder="mail"
-                value={mail}
-                onChange={(e) => setMail(e.target.value)}
-              />
-            </div>
-            {/* pw */}
-            <div className="input-PW">
-              <input
-                className="input-pw"
-                type="password"
-                placeholder="비밀번호"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              {errors.username && (
+                <p className="error-message">{errors.username.message}</p>
+              )}
             </div>
             {/* student number */}
-            <div className="input-SN">
+            <div className="input-group">
+              <label>학번</label>
               <input
-                className="input-sn"
-                type="student"
-                placeholder="학번"
-                value={student}
-                onChange={(e) => setStudenet(e.target.value)}
+                type="text"
+                placeholder="2024000000"
+                {...register('student', {
+                  required: '학번을 입력해주세요.',
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: '학번은 숫자 10자리로 입력해주세요.',
+                  },
+                })}
               />
+              {errors.student && (
+                <p className="error-message">{errors.student.message}</p>
+              )}
+            </div>
+            {/* e-mail */}
+            <div className="input-group">
+              <label>이메일</label>
+              <input
+                type="email"
+                placeholder="kert@gmail.com"
+                {...register('mail', {
+                  required: '이메일을 입력해주세요.',
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: '올바른 이메일 형식을 입력해주세요.',
+                  },
+                })}
+              />
+              {errors.mail && (
+                <p className="error-message">{errors.mail.message}</p>
+              )}
             </div>
             {/* major */}
-            <div className="input-MAJOR">
+            <div className="input-group">
+              <label>전공</label>
               <input
-                className="input-major"
-                type="major"
-                placeholder="전공"
-                value={major}
-                onChange={(e) => setMajor(e.target.value)}
+                type="text"
+                placeholder="심컴/글솝/플솝"
+                {...register('major', {
+                  required: '전공을 입력해주세요.',
+                  pattern: {
+                    value: /^[가-힣]{2}$/,
+                    message: '올바른 형식으로 입력해주세요. ',
+                  },
+                })}
               />
+              {errors.major && (
+                <p className="error-message">{errors.major.message}</p>
+              )}
             </div>
             {/* generation */}
-            <div className="input-GE">
+            <div className="input-group">
+              <label>기수</label>
               <input
-                className="input-ge"
-                type="generation"
-                placeholder="기수"
-                value={generation}
-                onChange={(e) => setGE(e.target.value)}
+                type="text"
+                placeholder="2024-1"
+                {...register('generation', {
+                  required: '기수를 입력해주세요.',
+                  pattern: {
+                    value: /^(20\d{2})-(1|2)$/,
+                    message: '기수는 "연도-학기" 형식으로 입력해주세요. 예: 2024-1',
+                  },
+                })}
               />
+              {errors.generation && (
+                <p className="error-message">{errors.generation.message}</p>
+              )}
+            </div>
+            {/* password */}
+            <div className="input-group">
+              <label>비밀번호</label>
+              <input
+                type="password"
+                placeholder="비밀번호"
+                {...register('password', {
+                  required: '비밀번호를 입력해주세요.',
+                  pattern: {
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
+                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                  },
+                })}
+              />
+              {errors.password && (
+                <p className="error-message">{errors.password.message}</p>
+              )}
             </div>
 
-            <button className="click-button" onClick={handleSignUp}>
-              회원가입
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+            <SignUpButton type="submit">회원가입</SignUpButton>
+            <LoginLink>
+              이미 계정이 있으신가요? <Link to="/login">로그인</Link>
+            </LoginLink>
+          </SignUpForm>
+        </SignUpBox>
+      </SignUpContainer>
+    </Container>
   );
 }
