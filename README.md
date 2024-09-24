@@ -40,24 +40,6 @@ npm install
 ```shell
 npm run dev -- --open
 ```
-### dev 브랜치에서 기타 브랜치로 생성하는 방법
-1. dev 브랜치로 이동
-```shell
-git checkout dev
-```
-2. dev 브랜치 최신 내용 가져오기
-```shell
-git pull origin dev
-```
-3. 브랜치 생성 후 이동
-```shell
-git checkout -b [브랜치명]
-```
-4. 새 브랜치 최종 업로드
-```shell
-git push origin [브랜치명]
-```
-
 
 ### 최종 수정을 끝내고 레포지토리에 올릴 때
 1. 변경 사항 추가
