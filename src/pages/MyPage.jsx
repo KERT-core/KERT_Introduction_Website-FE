@@ -11,14 +11,14 @@ const Container = styled.div`
   background-color: #0d0e14;
   color: #ffffff;
   margin: 0;
-  padding-top: 60px;
+  padding-top: 100px;
   display: flex;
   justify-content: center;
 `;
 
 const MyPageContainer = styled.div`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 50px;
 `;
@@ -148,7 +148,7 @@ const EditButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   width: 200px;
-  margin-left: 940px;
+  margin-left: 740px;
 `;
 
 const WarningMessage = styled.p`
