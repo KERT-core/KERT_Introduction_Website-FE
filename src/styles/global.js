@@ -1,25 +1,15 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-    :root {
-        --white: #FFFFFF;
-        --black: #000000;
-        --primary-color: #213EA6;
-        --secondary-color: #283259;
-        --danger-color: #FF6565;
-        --warning-color: #F1C40F;
-        --success-color: #2ECC71;
-        --container-border-width: 1px;
-    }
-
     body {
-        background-color: var(--body-background);
+        background-color: #080f17;
     }
 
     body, button, p, span {
         margin: 0;
         padding: 0;
         font-family: 'NanumSquareNeo', sans-serif;
+        color: white;
     }
 
     *::-webkit-scrollbar {
@@ -33,7 +23,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     *::-webkit-scrollbar-track {
-        background: #ffffff05;  /*스크롤바 뒷 배경 색상*/
+        background: #ffffff5;  /*스크롤바 뒷 배경 색상*/
     }
 
     *::-webkit-scrollbar-corner {

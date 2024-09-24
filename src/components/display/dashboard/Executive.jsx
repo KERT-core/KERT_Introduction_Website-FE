@@ -1,21 +1,21 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import useDashboard from '../../../stores/dashboard';
+import useDashboard from "../../../stores/dashboard";
 
 export default function DashboardExecutive() {
-  const { moveExecutive } = useDashboard();
+    const { moveExecutive } = useDashboard();
 
-  useEffect(() => {
-    moveExecutive();
-  }, []);
+    useEffect(() => {
+        moveExecutive();
+    }, []);
 
-  const ScrollTestPTag = Array.from({ length: 200 }, (_, i) => i + 1);
+    const ScrollTestPTag = Array.from({ length: 200 }, (_, i) => i + 1);
 
-  return (
-    <>
-      {ScrollTestPTag.map((number) => (
-        <p key={number}>EXECUTIVES {number}</p>
-      ))}
-    </>
-  );
+    return (
+        <>
+            {ScrollTestPTag.map(number => (
+                <p key={number}>EXECUTIVES {number}</p>
+            ))}
+        </>
+    )
 }
