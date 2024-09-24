@@ -29,6 +29,11 @@ const Logo = styled.div`
   height: 30px;
 `;
 
+const AuthLinks = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
 const menu_style = {
   textDecoration: 'none',
   color: 'var(--primary-text-color)',
@@ -43,6 +48,8 @@ const Menus = styled.div`
   font-size: 16px;
   font-weight: lighter;
 `;
+
+const isLoggedIn = false;
 
 export const Navigation = () => {
   const { theme, toggleTheme } = useTheme();
@@ -64,7 +71,27 @@ export const Navigation = () => {
           문의
         </Link>
       </Menus>
-      <Toggle onChange={toggleTheme} checked={theme === 'dark'} />
+      <AuthLinks>
+        {isLoggedIn ? (
+          <>
+            <Link to="/mypage" style={menu_style}>
+              마이페이지
+            </Link>
+            <Link to="/login" style={menu_style}>
+              로그아웃
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link to="/login" style={menu_style}>
+              로그인
+            </Link>
+            <Link to="/signup" style={menu_style}>
+              회원가입
+            </Link>
+          </>
+        )}
+      </AuthLinks>
     </Nav>
   );
 };
