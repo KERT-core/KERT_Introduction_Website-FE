@@ -1,5 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Text } from '../components/typograph/Text';
 import { Link } from 'react-router-dom';
+import Github from "../assets/icons/Github.png";
+import Instagream from "../assets/icons/Instagram.png";
+import Facebook from "../assets/icons/Facebook.png";
+import Youtube from "../assets/icons/Youtube.png";
 import kert_logo from '../assets/kert_logos/White_Icon.png';
 import Section2 from './Section2.jsx';
 import Section1 from './Section1.jsx';
@@ -65,7 +70,7 @@ const LogoAddressCopyrightContainer = styled.div`
   align-items: flex-start;
   padding: 0px;
   gap: 10px;
-  width: 294px;
+  width: 500px;
   height: 100px;
   flex: none;
   order: 0;
@@ -106,49 +111,66 @@ const CopyrightText = styled.div`
   color: #83878b;
 `;
 
-const HreyferContainer=styled.div`
-/* 외부링크 / 라이선스 */
-
-  /* Auto layout */
+const HreyferContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: flex-start;
-  padding: 0px;
-  gap: 87px;
+  padding: 0;
+  gap: 12px;
 
-  width: 156px;
-  height: 200px;
+  margin: 0 auto;
+  width: 500px;
+  height: 150px;
 
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-`
-
-const TextHreyfer=styled(Link)`
-  width: 156px;
-  height: 18px;
-
-  font-family: 'NanumSquare Neo';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
-  /* identical to box height */
-
-  /* Color4Theme/Secondary Text Color */
-  color: #83878B;
-
-  /* Inside auto layout */
   flex: none;
   order: 0;
-  align-self: stretch;
   flex-grow: 0;
+`;
 
+
+const TextHreyfer=styled(Link)`
+  font-family: 'NanumSquare Neo';
+  font-style: normal;
+  font-weight: 200;
+  font-size: 11px;
+  line-height: 18px;
+  color: #83878B;
+  text-decoration: none;
+
+    &:focus, &:hover, &:visited, &:link, &:active {
+        text-decoration: none;
+    }
 `
+
+const SNSLinkContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;  /* Aligns icons to the left */
+  align-items: center;
+  gap: 50px;
+  width: 100%; /* Make sure the container stretches across the full width */
+  height: auto; /* Adjust the height to be dynamic */
+  padding: 0;
+`;
+
+const SNSIcon = styled.div`
+  width: 20px; /* Adjust the size of the icons */
+  height: 20px;
+  background-color: #080f17;
+  border-radius: 50%; /* Circular icons */
+  background-image: url(${props => props.backgroundImage});
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8; /* Adjust opacity */
+  transition: opacity 0.3s ease;
+
+  &:hover {
+    opacity: 1; /* On hover, make the icon fully opaque */
+  }
+`;
+
+
+
 
 export default function MainPage() {
   const outerDivRef = useRef();
@@ -300,8 +322,18 @@ export default function MainPage() {
           <CopyrightText>Copyright 2024. KERT from KNU all rights reserved.</CopyrightText>
         </LogoAddressCopyrightContainer>
         <HreyferContainer>
-        
+          <TextHreyfer to="https://www.knu.ac.kr/wbbs/wbbs/main/main.action">경북대학교</TextHreyfer>
+          <TextHreyfer to="https://cse.knu.ac.kr/index.php">경북대학교 컴퓨터학부</TextHreyfer>
+          <TextHreyfer to="https://github.com/KERT-core">KERT 깃허브</TextHreyfer>
+          <TextHreyfer to="https://hspace.io/login">HSpace</TextHreyfer>
+          <Text size="xs" weight="light">오픈소스 라이선스</Text>
         </HreyferContainer>
+        <SNSLinkContainer>
+          <SNSIcon backgroundImage={Github}/>
+          <SNSIcon backgroundImage={Youtube}/>
+          <SNSIcon backgroundImage={Facebook}/>
+          <SNSIcon backgroundImage={Instagream}/>
+        </SNSLinkContainer>
       </Footer>
     </>
   );
