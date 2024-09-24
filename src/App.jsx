@@ -18,6 +18,10 @@ import DevDocument from './pages/DevDocument';
 import Board from './pages/Board';
 import Article from './pages/Article';
 
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import MyPage from './pages/MyPage';
+
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
   const location = useLocation();
@@ -31,6 +35,9 @@ export default function App() {
           <Route path="/developer" element={<DevDocument />} />
           <Route path="/board" element={<Board />} />
           <Route path="/articles/:id" element={<Article />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/mypage" element={<MyPage />} />
           <Route path="*" element={<NotFound />} />
 
           {/* 대시보드 페이지 */}
