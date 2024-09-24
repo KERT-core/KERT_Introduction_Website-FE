@@ -1,24 +1,24 @@
 // MyPage.jsx
 // 코드 작성자 : GiHhub @huisuu
 
-import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import '../font/main_font.css';
 import axios from 'axios';
 
 const Container = styled.div`
-  font-family: 'NanumSquare', sans-serif;
   background-color: #0d0e14;
   color: #ffffff;
   margin: 0;
-  padding-top: 60px;
+  padding-top: 100px;
   display: flex;
   justify-content: center;
 `;
 
 const MyPageContainer = styled.div`
   width: 100%;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 50px;
 `;
@@ -75,6 +75,7 @@ const PicButtons = styled.div`
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 16px;
   }
 `;
 
@@ -147,7 +148,7 @@ const EditButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   width: 200px;
-  margin-left: 940px;
+  margin-left: 740px;
 `;
 
 const WarningMessage = styled.p`
@@ -182,9 +183,9 @@ export default function MyPage() {
           email: response.data.email,
           generation: response.data.generation,
           major: response.data.major,
-          profilePic: response.data.profile_picture || '../assets/icons/menu/Executive.png',
+          profilePic: response.data.profile_picture || '../assets/icons/menu/User.png',
         });
-        setImagePreview(response.data.profile_picture || '../assets/icons/menu/Executive.png');
+        setImagePreview(response.data.profile_picture || '../assets/icons/menu/User.png');
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
@@ -220,7 +221,7 @@ export default function MyPage() {
   };
 
   const handleDeleteImage = () => {
-    setImagePreview('../assets/menu/Executive.png');
+    setImagePreview('../assets/menu/User.png');
 
     axios.put(`http://155.230.118.35/users/${userInfo.studentNumber}`, {
       name: userInfo.name,
