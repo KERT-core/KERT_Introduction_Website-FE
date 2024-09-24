@@ -17,6 +17,7 @@ import { Dashboard } from './pages/dashboard';
 import DevDocument from './pages/DevDocument';
 import Board from './pages/Board';
 import Article from './pages/Article';
+import NewArticleEditor from './pages/NewArticleEditor';
 
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -33,7 +34,10 @@ export default function App() {
         <Route path="/" element={<MainLayout />}>
           <Route index path="/" element={<MainPage />} />
           <Route path="/developer" element={<DevDocument />} />
-          <Route path="/board" element={<Board />} />
+          <Route path="/board">
+            <Route index path="/board" element={<Board />} />
+            <Route path="/board/new" element={<NewArticleEditor />} />
+          </Route>
           <Route path="/articles/:id" element={<Article />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
