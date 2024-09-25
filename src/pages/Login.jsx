@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAuth } from '../components/navigation/AuthContext';
 import '../styles/font.css';
 
 const Container = styled.div`
@@ -118,19 +119,31 @@ const SignupLink = styled.div`
 `;
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const navigate = useNavigate();
+  const { login } = useAuth(); // AuthContext에서 login 함수 호출
   const [error, setError] = useState('');
 
   const onSubmit = async (data) => {
     try {
-      // const response = await axios.post(`/login`, data);
-      // console.log('서버로 전송:', response.data);
-      setError('');
+      // 서버에 로그인 요청 보내기
+      // const response = await axios.post('http://155.230.118.35/login', data);
+      // const token = response.data.token;
+      // const userInfo = response.data.user;
+
+      // 로그인 성공 시 AuthContext의 login 함수 호출
+      // login(token, userInfo);
+      login(true, "userInfo");
+      setError(''); // 에러 초기화
       navigate('/');
     } catch (error) {
+      // 입력창 비우기
+      setValue('student', '');
+      setValue('password', '');
+      // 에러 처리
       console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
+      // alert('로그인에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -179,6 +192,9 @@ export default function Login() {
               />
               {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
             </InputGroup>
+
+            {/* 에러 메시지 표시 */}
+            {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <LoginButton>로그인</LoginButton>
           </form>

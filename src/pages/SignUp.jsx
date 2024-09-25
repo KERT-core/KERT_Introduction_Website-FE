@@ -10,7 +10,6 @@ import '../font/main_font.css';
 
 const Container = styled.div`
   background-color: #080f17;
-  font-family: 'NanumSquare', Helvetica;
   display: flex;
   justify-content: center;
   width: 100%;

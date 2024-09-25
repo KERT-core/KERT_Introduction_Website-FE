@@ -210,7 +210,7 @@ export default function MyPage() {
             email: response.data.email,
             generation: response.data.generation,
             major: response.data.major,
-            profilePic: response.data.profile_picture || '../assets/icons/menu/Executive.png',
+            profilePic: response.data.profile_picture || '../assets/icons/menu/User.png',
           });
           console.log('Image uploaded successfully');
         })
@@ -237,7 +237,8 @@ export default function MyPage() {
         email: response.data.email,
         generation: response.data.generation,
         major: response.data.major,
-        profilePic: response.data.profile_picture || '../assets/menu/Executive.png',
+        // profilePic: response.data.profile_picture || '../assets/menu/User.png',
+        profilePic: '../assets/menu/User.png',
       });
       console.log('Image deleted successfully');
     })

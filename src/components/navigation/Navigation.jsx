@@ -1,9 +1,8 @@
+import { useAuth } from './AuthContext';
 import styled from 'styled-components';
-
-import useTheme from '../../hooks/useTheme';
-
 import { Link } from 'react-router-dom';
 import { Toggle } from '../forms/Toggle';
+import useTheme from '../../hooks/useTheme';
 
 const Nav = styled.div`
   position: fixed;
@@ -32,6 +31,11 @@ const Logo = styled.div`
 const AuthLinks = styled.div`
   display: flex;
   gap: 20px;
+  font-size: 16px;
+  
+  /* 비율 고정 */
+  flex-grow: 0;
+  flex-shrink: 0;
 `;
 
 const menu_style = {
@@ -47,16 +51,21 @@ const Menus = styled.div`
 
   font-size: 16px;
   font-weight: lighter;
+
+  /* 비율 고정 */
+  flex-grow: 0;
+  flex-shrink: 0;
 `;
 
-const isLoggedIn = false;
-
 export const Navigation = () => {
+  const { isLoggedIn, logout, user } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   return (
     <Nav>
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
       <Menus>
         <Link to="/" style={menu_style}>
           연혁
@@ -75,9 +84,9 @@ export const Navigation = () => {
         {isLoggedIn ? (
           <>
             <Link to="/mypage" style={menu_style}>
-              마이페이지
+              {user.name}님
             </Link>
-            <Link to="/login" style={menu_style}>
+            <Link to="/login" style={menu_style} onClick={logout}>
               로그아웃
             </Link>
           </>
@@ -95,3 +104,5 @@ export const Navigation = () => {
     </Nav>
   );
 };
+
+export default Navigation;

@@ -9,6 +9,9 @@ import { GlobalStyle } from './styles/global';
 import { MainLayout } from './components/layouts/MainLayout';
 import './styles/font.css';
 
+import { AuthProvider } from './Components/navigation/AuthContext';
+import Navigator from './Components/navigation/Navigation';
+
 import MainPage from './pages/MainPage';
 import NotFound from './pages/NotFound';
 
@@ -29,35 +32,38 @@ export default function App() {
 
   return (
     <>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index path="/" element={<MainPage />} />
-          <Route path="/developer" element={<DevDocument />} />
-          <Route path="/board">
-            <Route index path="/board" element={<Board />} />
-            <Route path="/board/new" element={<NewArticleEditor />} />
-          </Route>
-          <Route path="/articles/:id" element={<Article />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="*" element={<NotFound />} />
+      <AuthProvider>
+        <GlobalStyle />
+        <Navigator />
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index path="/" element={<MainPage />} />
+            <Route path="/developer" element={<DevDocument />} />
+            <Route path="/board">
+              <Route index path="/board" element={<Board />} />
+              <Route path="/board/new" element={<NewArticleEditor />} />
+            </Route>
+            <Route path="/articles/:id" element={<Article />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/mypage" element={<MyPage />} />
+            <Route path="*" element={<NotFound />} />
 
-          {/* 대시보드 페이지 */}
-          <Route element={<DashboardLayout location={location} />}>
-            <Route index path="/dashboard" element={<Dashboard.Home />} />
-            <Route path="/dashboard/history" element={<Dashboard.History />} />
-            <Route
-              path="/dashboard/executive"
-              element={<Dashboard.Executive />}
-            />
-            <Route path="/dashboard/admin" element={<Dashboard.Admin />} />
-            <Route path="/dashboard/users" element={<Dashboard.Users />} />
-            <Route path="/dashboard/*" element={<NotFound />} />
+            {/* 대시보드 페이지 */}
+            <Route element={<DashboardLayout location={location} />}>
+              <Route index path="/dashboard" element={<Dashboard.Home />} />
+              <Route path="/dashboard/history" element={<Dashboard.History />} />
+              <Route
+                path="/dashboard/executive"
+                element={<Dashboard.Executive />}
+              />
+              <Route path="/dashboard/admin" element={<Dashboard.Admin />} />
+              <Route path="/dashboard/users" element={<Dashboard.Users />} />
+              <Route path="/dashboard/*" element={<NotFound />} />
+            </Route>
           </Route>
-        </Route>
-      </Routes>
+        </Routes>
+      </AuthProvider>
     </>
   );
 }
