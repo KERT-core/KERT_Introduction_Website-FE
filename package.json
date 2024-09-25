@@ -41,7 +41,7 @@
     "vite-plugin-svgr": "^4.2.0"
   },
   "optionalDependencies": {
-    "@rollup/rollup-darwin-arm64": "^4.22.4",
-    "@rollup/rollup-linux-x64-gnu": "^4.22.4"
+    "@rollup/rollup-linux-x64-gnu": "^4.22.4",
+    "@rollup/rollup-darwin-arm64": "^4.22.4"
   }
 }
