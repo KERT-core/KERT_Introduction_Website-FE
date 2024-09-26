@@ -44,7 +44,6 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="test" element={<Section6 />} />
 
           {/* 대시보드 페이지 */}
           <Route element={<DashboardLayout location={location} />}>
