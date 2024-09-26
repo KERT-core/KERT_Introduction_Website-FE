@@ -76,6 +76,7 @@ export const DashboardLayout = ({ location }) => {
           key={location.key}
           timeout={{ enter: 500, exit: 300 }}
           classNames="fade-slide"
+          style={{ width: '100%', position: 'absolute' }}
         >
           <div ref={nodeRef} style={{ width: '100%' }}>
             {/* 전환 후 표시될 컴포넌트 */}

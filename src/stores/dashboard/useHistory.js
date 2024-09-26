@@ -35,6 +35,8 @@ const useHistory = create((set) => ({
   saveHistory: (api_res) => {
     const refined_histories = refineHistories(api_res);
     set({ histories: refined_histories });
+    return refined_histories;
+    // console.log(refined_histories);
   },
 }));
 

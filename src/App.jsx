@@ -1,7 +1,7 @@
 // 라우팅을 담당하는 App입니다.
 // 페이지를 제작할 때 Navigation의 높이만큼 padding 또는 margin을 추가해야 페이지의 내용이 내비바 아래에 보여지게 됩니다.
 // padding 같은 추가적인 작업이 없다면 내용이 내비바보다 더 높은 위치에서부터 표시되어 일부 내용이 보이지 않습니다.
-// 내비바의 높이는 60px입니다.
+// 내비바의 높이는 80px입니다.
 
 import { Routes, Route, useLocation } from 'react-router-dom';
 
@@ -22,6 +22,7 @@ import NewArticleEditor from './pages/NewArticleEditor';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
+import Section6 from './pages/Section6';
 
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
@@ -43,6 +44,7 @@ export default function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="test" element={<Section6 />} />
 
           {/* 대시보드 페이지 */}
           <Route element={<DashboardLayout location={location} />}>

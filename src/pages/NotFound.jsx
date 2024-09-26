@@ -2,12 +2,11 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
-import { keyframes } from 'styled-components';
 
 import { Span } from '../components/typograph/Text';
 
-import Square from '../assets/kert_logos/Square.svg?react';
-import NotFoundIcon from '../assets/404.svg?react';
+import Square from '../assets/kert_logos/Square.svg';
+import NotFoundIcon from '../assets/404.svg';
 
 const Wrapper = styled.div`
   position: relative;
