@@ -18,7 +18,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
 `;
 
 const LoginContainer = styled.div`
@@ -89,6 +89,12 @@ const InputGroup = styled.div`
     border-radius: 5px;
     background-color: #1c1f25;
     color: white;
+    outline: none;
+  }
+
+  input:focus {
+    border: 1px solid #4a90e2;  /* 파란색 테두리 */
+    box-shadow: none;  /* 흰색 테두리 제거 */
   }
 `;
 
@@ -200,7 +206,7 @@ export default function Login() {
           </form>
 
           <SignupLink>
-            계정이 없으신가요? <Link to="/signup">회원가입</Link>
+            계정이 없으신가요?<Link to="/signup"> 회원가입</Link>
           </SignupLink>
         </LoginBox>
       </LoginContainer>

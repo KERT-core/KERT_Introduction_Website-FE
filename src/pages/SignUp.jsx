@@ -12,8 +12,8 @@ const Container = styled.div`
   background-color: #080f17;
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
 `;
@@ -26,6 +26,8 @@ const SignUpContainer = styled.div`
   height: 100%;
   position: relative;
   top: 120px;
+  padding-top: 60px;
+  padding-bottom: 150px;
 `;
 
 const SignUpBox = styled.div`
@@ -74,6 +76,13 @@ const SignUpForm = styled.form`
       border-radius: 5px;
       background-color: #1c1f25;
       color: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+      box-shadow: none;
+      background-color: #1c1f25; /* 배경색은 유지 */
     }
 
     input::placeholder {

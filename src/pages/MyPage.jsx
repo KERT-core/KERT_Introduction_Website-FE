@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import '../font/main_font.css';
 import axios from 'axios';
 
+import { Button } from '../components/forms/Button';
+
 const Container = styled.div`
   background-color: #0d0e14;
   color: #ffffff;
@@ -25,7 +27,7 @@ const MyPageContainer = styled.div`
 
 const Section = styled.div`
   background-color: #1b1e27;
-  padding: 30px;
+  padding: 40px;
   border-radius: 20px;
   margin-bottom: 30px;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
@@ -81,17 +83,21 @@ const PicButtons = styled.div`
 
 const Form = styled.form`
   margin-top: 20px;
-  margin-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  // margin-right: 20px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const InputRow = styled.div`
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+  gap: 38px;
+  align-items: center;
 `;
 
 const InputGroup = styled.div`
-  width: 48%;
+  width: 47%;
 
   label {
     font-size: 16px;
@@ -107,17 +113,21 @@ const InputGroup = styled.div`
     border: none;
     border-radius: 10px;
     color: #ffffff;
+    outline: none;
 
     &:read-only {
       background-color: #2c2f3e;
       color: #777;
+    }
+    &:focus {
+      border: 1px solid #4a90e2;
+      box-shadow: none;
     }
   }
 `;
 
 const InputGroupLong = styled.div`
-  width: 100%;
-
+  width: 98%;
   label {
     font-size: 16px;
     margin-bottom: 10px;
@@ -132,11 +142,17 @@ const InputGroupLong = styled.div`
     border: none;
     border-radius: 10px;
     color: #ffffff;
+    outline: none;
 
     &:read-only {
       background-color: #2c2f3e;
       color: #777;
+      outline: none;
     }
+
+    &:focus {
+      border: 1px solid #4a90e2;
+      box-shadow: none;
   }
 `;
 
@@ -148,7 +164,9 @@ const EditButton = styled.button`
   border-radius: 10px;
   cursor: pointer;
   width: 200px;
-  margin-left: 740px;
+  margin-left: auto;
+  // margin-left: auto;
+  matgin-top: auto;
 `;
 
 const WarningMessage = styled.p`
@@ -381,10 +399,7 @@ export default function MyPage() {
                   placeholder="비밀번호 확인"
                   {...register('confirmPassword', {
                     required: '새 비밀번호 확인을 입력해주세요.',
-                    pattern: {
-                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                    }
+                    validate: value => value === getValues('newPassword') || '비밀번호가 일치하지 않습니다.'
                   })}
                 />
                 {errors.confirmPassword && <WarningMessage>{errors.confirmPassword.message}</WarningMessage>}
@@ -394,7 +409,7 @@ export default function MyPage() {
             {passwordError && <WarningMessage>{passwordError}</WarningMessage>}
 
             <EditButton type="submit">비밀번호 변경</EditButton>
-            {/* <Button type="outline" width="200px" color="--secondary-color"></Button> */}
+            {/* <Button type="outline" width="200px" color="--secondary-color">비밀번호 변경</Button> */}
           </Form>
         </Section>
 
