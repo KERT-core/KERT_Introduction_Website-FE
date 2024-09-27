@@ -118,7 +118,11 @@ const SignupLink = styled.div`
 `;
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
@@ -154,11 +158,19 @@ export default function Login() {
                 type="text"
                 placeholder="학번"
                 {...register('student', {
-                  minLength: { value: 10, message: '학번은 10자리 숫자여야 합니다.' },
-                  pattern: { value: /^[0-9]{10}$/, message: '학번은 10자리 숫자여야 합니다.' },
+                  minLength: {
+                    value: 10,
+                    message: '학번은 10자리 숫자여야 합니다.',
+                  },
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: '학번은 10자리 숫자여야 합니다.',
+                  },
                 })}
               />
-              {errors.student && <ErrorMessage>{errors.student.message}</ErrorMessage>}
+              {errors.student && (
+                <ErrorMessage>{errors.student.message}</ErrorMessage>
+              )}
             </InputGroup>
 
             <InputGroup>
@@ -169,15 +181,20 @@ export default function Login() {
                 {...register('password', {
                   minLength: {
                     value: 8,
-                    message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    message:
+                      '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
                   },
                   pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                    message:
+                      '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
                   },
                 })}
               />
-              {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+              {errors.password && (
+                <ErrorMessage>{errors.password.message}</ErrorMessage>
+              )}
             </InputGroup>
 
             <LoginButton>로그인</LoginButton>

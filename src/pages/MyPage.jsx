@@ -170,7 +170,12 @@ export default function MyPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [passwordError, setPasswordError] = useState('');
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
   // Fetch user data after login
   useEffect(() => {
@@ -183,9 +188,12 @@ export default function MyPage() {
           email: response.data.email,
           generation: response.data.generation,
           major: response.data.major,
-          profilePic: response.data.profile_picture || '../assets/icons/menu/User.png',
+          profilePic:
+            response.data.profile_picture || '../assets/icons/menu/User.png',
         });
-        setImagePreview(response.data.profile_picture || '../assets/icons/menu/User.png');
+        setImagePreview(
+          response.data.profile_picture || '../assets/icons/menu/User.png',
+        );
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
@@ -193,28 +201,30 @@ export default function MyPage() {
     fetchUserData();
   }, []);
 
-
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImagePreview(URL.createObjectURL(file));  // Update image preview
+      setImagePreview(URL.createObjectURL(file)); // Update image preview
 
       const formData = new FormData();
       formData.append('profilePic', file);
 
-      const response = axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, formData)
-        .then(response => {
+      const response = axios
+        .post(`http://155.230.118.35/users/${userInfo.studentNumber}`, formData)
+        .then((response) => {
           setUserInfo({
             studentNumber: response.data.student_id,
             name: response.data.name,
             email: response.data.email,
             generation: response.data.generation,
             major: response.data.major,
-            profilePic: response.data.profile_picture || '../assets/icons/menu/Executive.png',
+            profilePic:
+              response.data.profile_picture ||
+              '../assets/icons/menu/Executive.png',
           });
           console.log('Image uploaded successfully');
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Image upload failed:', error);
         });
     }
@@ -223,27 +233,29 @@ export default function MyPage() {
   const handleDeleteImage = () => {
     setImagePreview('../assets/menu/User.png');
 
-    axios.put(`http://155.230.118.35/users/${userInfo.studentNumber}`, {
-      name: userInfo.name,
-      email: userInfo.email,
-      generation: userInfo.generation,
-      major: userInfo.major,
-      profile_picture: "",  // 빈 문자열로 설정하여 이미지 제거
-    })
-    .then(response => {
-      setUserInfo({
-        studentNumber: response.data.student_id,
-        name: response.data.name,
-        email: response.data.email,
-        generation: response.data.generation,
-        major: response.data.major,
-        profilePic: response.data.profile_picture || '../assets/menu/Executive.png',
+    axios
+      .put(`http://155.230.118.35/users/${userInfo.studentNumber}`, {
+        name: userInfo.name,
+        email: userInfo.email,
+        generation: userInfo.generation,
+        major: userInfo.major,
+        profile_picture: '', // 빈 문자열로 설정하여 이미지 제거
+      })
+      .then((response) => {
+        setUserInfo({
+          studentNumber: response.data.student_id,
+          name: response.data.name,
+          email: response.data.email,
+          generation: response.data.generation,
+          major: response.data.major,
+          profilePic:
+            response.data.profile_picture || '../assets/menu/Executive.png',
+        });
+        console.log('Image deleted successfully');
+      })
+      .catch((error) => {
+        console.error('Image deletion failed:', error);
       });
-      console.log('Image deleted successfully');
-    })
-    .catch(error => {
-      console.error('Image deletion failed:', error);
-    });
   };
 
   const onSubmit = async (data) => {
@@ -256,7 +268,10 @@ export default function MyPage() {
 
     try {
       // 서버로 비밀번호 정보를 전송
-      const response = await axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, data);
+      const response = await axios.post(
+        `http://155.230.118.35/users/${userInfo.studentNumber}`,
+        data,
+      );
       console.log('서버로 전송:', response.data);
     } catch (error) {
       // 404 상태 코드가 반환되면 비밀번호 불일치 처리
@@ -271,14 +286,16 @@ export default function MyPage() {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmDelete = window.confirm("계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?");
+    const confirmDelete = window.confirm(
+      '계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?',
+    );
     if (confirmDelete) {
       try {
         await axios.delete(`/users/${userInfo.studentNumber}`);
-        alert("계정이 성공적으로 삭제되었습니다.");
+        alert('계정이 성공적으로 삭제되었습니다.');
       } catch (error) {
         console.error('계정 삭제 실패:', error);
-        alert("계정 삭제에 실패했습니다. 다시 시도해주세요.");
+        alert('계정 삭제에 실패했습니다. 다시 시도해주세요.');
       }
     }
   };
@@ -301,8 +318,12 @@ export default function MyPage() {
                 style={{ display: 'none' }}
                 onChange={handleImageUpload}
               />
-              <label htmlFor="image-upload" className="change-pic-btn">이미지 업로드</label>
-              <button className="delete-pic-btn" onClick={handleDeleteImage}>사진 제거</button>
+              <label htmlFor="image-upload" className="change-pic-btn">
+                이미지 업로드
+              </label>
+              <button className="delete-pic-btn" onClick={handleDeleteImage}>
+                사진 제거
+              </button>
             </PicButtons>
           </ProfilePicContainer>
           <Form>
@@ -335,7 +356,8 @@ export default function MyPage() {
         {/* Change Password Section */}
         <Section>
           <SectionTitle>
-            비밀번호 변경 <span className="section-title-en">Change Password</span>
+            비밀번호 변경{' '}
+            <span className="section-title-en">Change Password</span>
           </SectionTitle>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <InputGroupLong>
@@ -348,11 +370,16 @@ export default function MyPage() {
                   required: '현재 비밀번호를 입력해주세요.',
                   pattern: {
                     value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                  }
+                    message:
+                      '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                  },
                 })}
               />
-              {errors.currentPassword && <WarningMessage>{errors.currentPassword.message}</WarningMessage>}
+              {errors.currentPassword && (
+                <WarningMessage>
+                  {errors.currentPassword.message}
+                </WarningMessage>
+              )}
             </InputGroupLong>
             <InputRow>
               <InputGroup>
@@ -365,11 +392,14 @@ export default function MyPage() {
                     required: '새 비밀번호를 입력해주세요.',
                     pattern: {
                       value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                    }
+                      message:
+                        '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    },
                   })}
                 />
-                {errors.newPassword && <WarningMessage>{errors.newPassword.message}</WarningMessage>}
+                {errors.newPassword && (
+                  <WarningMessage>{errors.newPassword.message}</WarningMessage>
+                )}
               </InputGroup>
 
               <InputGroup>
@@ -382,11 +412,16 @@ export default function MyPage() {
                     required: '새 비밀번호 확인을 입력해주세요.',
                     pattern: {
                       value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                    }
+                      message:
+                        '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    },
                   })}
                 />
-                {errors.confirmPassword && <WarningMessage>{errors.confirmPassword.message}</WarningMessage>}
+                {errors.confirmPassword && (
+                  <WarningMessage>
+                    {errors.confirmPassword.message}
+                  </WarningMessage>
+                )}
               </InputGroup>
             </InputRow>
 
@@ -403,8 +438,12 @@ export default function MyPage() {
             계정 삭제 <span className="section-title-en">Delete Account</span>
           </SectionTitle>
           <Form>
-            <WarningMessage>계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.</WarningMessage>
-            <EditButton type="button" onClick={handleDeleteAccount}>계정 삭제</EditButton>
+            <WarningMessage>
+              계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.
+            </WarningMessage>
+            <EditButton type="button" onClick={handleDeleteAccount}>
+              계정 삭제
+            </EditButton>
           </Form>
         </Section>
       </MyPageContainer>

@@ -117,7 +117,7 @@ const lockIconContainerStyle = {
   display: 'flex',
   zIndex: 1,
   opacity: 0.9,
-  overflow: 'hidden', 
+  overflow: 'hidden',
 };
 
 const statsStyle = {
@@ -128,7 +128,6 @@ const statsStyle = {
   marginTop: '20px',
   flexDirection: 'column', // 요소 수직 정렬
 };
-
 
 export default function MainPage() {
   return (

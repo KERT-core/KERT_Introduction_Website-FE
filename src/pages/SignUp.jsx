@@ -129,7 +129,10 @@ export default function SignUp() {
         password: data.password,
       };
 
-      const response = await axios.post('http://155.230.118.35/register', formData);
+      const response = await axios.post(
+        'http://155.230.118.35/register',
+        formData,
+      );
       console.log('서버로 전송:', response.data);
       alert('회원가입 요청이 완료되었습니다!');
       navigate('/Mainpage');
@@ -144,8 +147,12 @@ export default function SignUp() {
         <SignUpBox>
           <SignUpHeader>
             <div>
-              <Text size="l" weight="bold" color="#ffffff">Sign Up to KERT</Text>
-              <Text size="sxl" weight="bold" color="#ffffff">회원가입</Text>
+              <Text size="l" weight="bold" color="#ffffff">
+                Sign Up to KERT
+              </Text>
+              <Text size="sxl" weight="bold" color="#ffffff">
+                회원가입
+              </Text>
             </div>
             <KertLogo>
               <img src="../logo/white_square.png" alt="kert-logo" />
@@ -234,7 +241,8 @@ export default function SignUp() {
                   required: '기수를 입력해주세요.',
                   pattern: {
                     value: /^(20\d{2})-(1|2)$/,
-                    message: '기수는 "연도-학기" 형식으로 입력해주세요. 예: 2024-1',
+                    message:
+                      '기수는 "연도-학기" 형식으로 입력해주세요. 예: 2024-1',
                   },
                 })}
               />
@@ -251,8 +259,10 @@ export default function SignUp() {
                 {...register('password', {
                   required: '비밀번호를 입력해주세요.',
                   pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
-                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
+                    message:
+                      '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
                   },
                 })}
               />
