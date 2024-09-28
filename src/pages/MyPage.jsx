@@ -194,7 +194,7 @@ export default function MyPage() {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://155.230.118.35/users`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/users`);
         setUserInfo({
           studentNumber: response.data.student_id,
           name: response.data.name,
@@ -215,12 +215,12 @@ export default function MyPage() {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImagePreview(URL.createObjectURL(file));  // Update image preview
+      setImagePreview(URL.createObjectURL(file));
 
       const formData = new FormData();
       formData.append('profilePic', file);
 
-      const response = axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, formData)
+      const response = axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, formData)
         .then(response => {
           setUserInfo({
             studentNumber: response.data.student_id,
@@ -241,7 +241,7 @@ export default function MyPage() {
   const handleDeleteImage = () => {
     setImagePreview('../assets/menu/User.png');
 
-    axios.put(`http://155.230.118.35/users/${userInfo.studentNumber}`, {
+    axios.put(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, {
       name: userInfo.name,
       email: userInfo.email,
       generation: userInfo.generation,
@@ -255,8 +255,8 @@ export default function MyPage() {
         email: response.data.email,
         generation: response.data.generation,
         major: response.data.major,
-        // profilePic: response.data.profile_picture || '../assets/menu/User.png',
-        profilePic: '../assets/menu/User.png',
+        profilePic: response.data.profile_picture || '../assets/menu/User.png',
+        // profilePic: '../assets/menu/User.png',
       });
       console.log('Image deleted successfully');
     })
@@ -275,7 +275,7 @@ export default function MyPage() {
 
     try {
       // 서버로 비밀번호 정보를 전송
-      const response = await axios.post(`http://155.230.118.35/users/${userInfo.studentNumber}`, data);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, data);
       console.log('서버로 전송:', response.data);
     } catch (error) {
       // 404 상태 코드가 반환되면 비밀번호 불일치 처리

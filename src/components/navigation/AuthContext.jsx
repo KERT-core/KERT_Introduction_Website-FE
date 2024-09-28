@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       // 서버에 로그아웃 요청
-      await axios.post('http://155.230.118.35/logout', {}, {
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/logout`, {}, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -127,19 +127,19 @@ const SignupLink = styled.div`
 export default function Login() {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const { login } = useAuth(); // AuthContext에서 login 함수 호출
+  const { login, userInfo } = useAuth(); // AuthContext에서 login 함수 호출
   const [error, setError] = useState('');
 
   const onSubmit = async (data) => {
     try {
       // 서버에 로그인 요청 보내기
-      // const response = await axios.post('http://155.230.118.35/login', data);
-      // const token = response.data.token;
-      // const userInfo = response.data.user;
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data);
+      const token = response.data.token;
+      const userInfo = response.data.user;
 
       // 로그인 성공 시 AuthContext의 login 함수 호출
       // login(token, userInfo);
-      login(true, "userInfo");
+      login(true, userInfo);
       setError(''); // 에러 초기화
       navigate('/');
     } catch (error) {
@@ -149,7 +149,7 @@ export default function Login() {
       // 에러 처리
       console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
-      // alert('로그인에 실패했습니다. 다시 시도해주세요.');
+      login(true, userInfo);
     }
   };
 
@@ -173,6 +173,7 @@ export default function Login() {
                 type="text"
                 placeholder="학번"
                 {...register('student', {
+                  required: '학번을 입력해주세요.',
                   minLength: { value: 10, message: '학번은 10자리 숫자여야 합니다.' },
                   pattern: { value: /^[0-9]{10}$/, message: '학번은 10자리 숫자여야 합니다.' },
                 })}
@@ -186,14 +187,9 @@ export default function Login() {
                 type="password"
                 placeholder="비밀번호"
                 {...register('password', {
-                  minLength: {
-                    value: 8,
-                    message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                  },
-                  pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                  },
+                  required: '비밀번호를 입력해주세요',
+                  minLength: { value: 8, message: '비밀번호는 8자리 이상이여야 합니다. '},
+                  pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.'},
                 })}
               />
               {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}

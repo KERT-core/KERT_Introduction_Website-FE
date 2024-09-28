@@ -184,50 +184,52 @@ export default function Section6() {
     }
 
     return (
-        <BackgroundWrapper>
-            <BackgroundImageLayer />
-            <GraphImageLayer />
-            <ContentWrapper>
-                <LeftContentContainer>
-                    <Text size="sxl" weight="extrabold">KERT는 <br/>매년 성장하고 있어요</Text>
-                    <Text size="m" weight="light" color="rgba(255, 255, 255, 0.7)">작년보다 더 뛰어난 동아리로 발전하고 있답니다.</Text>
-                    <Button onClick={handleClick}>
-                        상세 연혁 보기
-                    </Button>
-                </LeftContentContainer>
-                <RightContentContainer>
-                    <HistoryYear>
-                        <YearText>2024
-                        </YearText>
-                        <Dot active={true} />
-                        <CombinedHistoryLine/>
-                        <EventCard>
-                            <EventDate>2024.05</EventDate>
-                            정보보호대학동아리연합 KUCIS 소속
-                        </EventCard>
-                        <EventCard>
-                            <EventDate>2024.04</EventDate>
-                            전국사이버보안연합 CCA 소속
-                        </EventCard>
+        <div id="section6">
+            <BackgroundWrapper>
+                <BackgroundImageLayer />
+                <GraphImageLayer />
+                <ContentWrapper>
+                    <LeftContentContainer>
+                        <Text size="sxl" weight="extrabold">KERT는 <br/>매년 성장하고 있어요</Text>
+                        <Text size="m" weight="light" color="rgba(255, 255, 255, 0.7)">작년보다 더 뛰어난 동아리로 발전하고 있답니다.</Text>
+                        <Button onClick={handleClick}>
+                            상세 연혁 보기
+                        </Button>
+                    </LeftContentContainer>
+                    <RightContentContainer>
+                        <HistoryYear>
+                            <YearText>2024
+                            </YearText>
+                            <Dot active={true} />
+                            <CombinedHistoryLine/>
+                            <EventCard>
+                                <EventDate>2024.05</EventDate>
+                                정보보호대학동아리연합 KUCIS 소속
+                            </EventCard>
+                            <EventCard>
+                                <EventDate>2024.04</EventDate>
+                                전국사이버보안연합 CCA 소속
+                            </EventCard>
 
-                    </HistoryYear>
-                    
-                    <HistoryYear>
-                        <YearText>2023</YearText>
-                        <PassDot />
-                    </HistoryYear>
-                    
-                    <HistoryYear>
-                        <YearText>2021</YearText>
-                        <PassDot />
-                    </HistoryYear>
-                    
-                    <HistoryYear>
-                        <YearText>2018</YearText>
-                        <PassDot />
-                    </HistoryYear>
-                </RightContentContainer>
-            </ContentWrapper>
-        </BackgroundWrapper>
+                        </HistoryYear>
+                        
+                        <HistoryYear>
+                            <YearText>2023</YearText>
+                            <PassDot />
+                        </HistoryYear>
+                        
+                        <HistoryYear>
+                            <YearText>2021</YearText>
+                            <PassDot />
+                        </HistoryYear>
+                        
+                        <HistoryYear>
+                            <YearText>2018</YearText>
+                            <PassDot />
+                        </HistoryYear>
+                    </RightContentContainer>
+                </ContentWrapper>
+            </BackgroundWrapper>
+        </div>
     );
 }

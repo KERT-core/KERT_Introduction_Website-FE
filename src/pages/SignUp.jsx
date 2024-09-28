@@ -1,6 +1,7 @@
 // SignUp.jsx
 // 코드 작성자 : GiHhub @huisuu
 
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
@@ -120,6 +121,7 @@ export default function SignUp() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -137,12 +139,18 @@ export default function SignUp() {
         password: data.password,
       };
 
-      const response = await axios.post('http://155.230.118.35/register', formData);
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, formData);
       console.log('서버로 전송:', response.data);
       alert('회원가입 요청이 완료되었습니다!');
-      navigate('/Mainpage');
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
+      setValue('username', '');
+      setValue('student', '');
+      setValue('password', '');
+      setValue('mail', '');
+      setValue('generation', '');
+      setValue('major', '');
     }
   };
 

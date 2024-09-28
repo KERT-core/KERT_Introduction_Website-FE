@@ -76,19 +76,22 @@ const subtitleStyle = {
 
 export default function Section1() {
   return (
-    <BackFirst>
-      <div style={backgroundStyle}></div>
-      <div style={contentStyle}>
-        <div style={headerStyle}>
-          <h1>KERT</h1>
+    <div id="section1">
+      <BackFirst>
+        <div style={backgroundStyle}></div>
+        <div style={contentStyle}>
+          <div style={headerStyle}>
+            <h1>KERT</h1>
+          </div>
+          <div style={subtitleStyle}>
+            <p>KNU Computer Emergency Response Team</p>
+          </div>
         </div>
-        <div style={subtitleStyle}>
-          <p>KNU Computer Emergency Response Team</p>
+        <div style={logoContainerStyle}>
+          <img src={kert_logo} alt="KERT Logo" style={blurredLogoStyle} />
         </div>
-      </div>
-      <div style={logoContainerStyle}>
-        <img src={kert_logo} alt="KERT Logo" style={blurredLogoStyle} />
-      </div>
-    </BackFirst>
+      </BackFirst>
+    </div>
+
   );
 }

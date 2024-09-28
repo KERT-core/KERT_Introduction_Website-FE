@@ -143,106 +143,108 @@ export default function Section7() {
     function handleClick() {
         navigate('/executive');
     }
-    return (
-        <BackFirstStyle>
-            <Title>KERT 25기 임원진을 소개합니다</Title>
-            <ProfilesWrapper>
-                {/* 회장 Profile */}
-                <ProfileContainer>
-                    <ProfileImage imageUrl={president} />
-                    <ProfileDescription>
-                        <NameMajorBatchContainer>
-                            <PositionNameContainer>
-                                <Text size="m" weight="regular" background-image="linear-gradient(to right, #FFFFFF, #6F8CB8)">회장</Text>
-                                <Text size="xl" weight="bold">박소현</Text>
-                            </PositionNameContainer>
-                            <BatchMajorContainer>
-                                <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 24기 심화컴퓨터 23학번</Text>
-                            </BatchMajorContainer>
-                        </NameMajorBatchContainer>
-                        <Text size="m" weight="bold"> KERT를 운영하며 전반적인 활동을 총괄해요.<br/>
-                        항상 새로운 콘텐츠를 제시하고 기획도 하죠.
-                        </Text>
-                    </ProfileDescription>
-                </ProfileContainer>
+  return (
+    <div id="section7">
+      <BackFirstStyle>
+        <Title>KERT 25기 임원진을 소개합니다</Title>
+        <ProfilesWrapper>
+          {/* 회장 Profile */}
+          <ProfileContainer>
+            <ProfileImage imageUrl={president} />
+            <ProfileDescription>
+              <NameMajorBatchContainer>
+                <PositionNameContainer>
+                  <Text size="m" weight="regular" background-image="linear-gradient(to right, #FFFFFF, #6F8CB8)">회장</Text>
+                  <Text size="xl" weight="bold">박소현</Text>
+                </PositionNameContainer>
+                <BatchMajorContainer>
+                  <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 24기 심화컴퓨터 23학번</Text>
+                </BatchMajorContainer>
+              </NameMajorBatchContainer>
+              <Text size="m" weight="bold"> KERT를 운영하며 전반적인 활동을 총괄해요.<br/>
+                항상 새로운 콘텐츠를 제시하고 기획도 하죠.
+              </Text>
+            </ProfileDescription>
+          </ProfileContainer>
 
-                {/* 총무부장 Profile - 오른쪽 정렬 */}
-                <ProfileContainerReverse>
-                    <ProfileImage imageUrl={affairs_manger} />
-                    <ProfileDescriptionReverse>
-                        <NameMajorBatchContainer>
-                            <PositionNameContainer>
-                                <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">총무부장</Text>
-                                <Text size="xl" weight="bold">박규연</Text>
-                            </PositionNameContainer>
-                            <BatchMajorContainer>
-                                <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 심화컴퓨터 22학번</Text>
-                            </BatchMajorContainer>
-                        </NameMajorBatchContainer>
-                        <Text size="m" weight="bold"> KERT의 각종 행사를 계획하고 준비해요.<br/>
-                        또한 내부 재정을 관리하기도 해요.
-                        </Text>
-                    </ProfileDescriptionReverse>
-                </ProfileContainerReverse>
+          {/* 총무부장 Profile - 오른쪽 정렬 */}
+          <ProfileContainerReverse>
+            <ProfileImage imageUrl={affairs_manger} />
+            <ProfileDescriptionReverse>
+              <NameMajorBatchContainer>
+                <PositionNameContainer>
+                  <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">총무부장</Text>
+                  <Text size="xl" weight="bold">박규연</Text>
+                </PositionNameContainer>
+                <BatchMajorContainer>
+                  <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 심화컴퓨터 22학번</Text>
+                </BatchMajorContainer>
+              </NameMajorBatchContainer>
+              <Text size="m" weight="bold"> KERT의 각종 행사를 계획하고 준비해요.<br/>
+                또한 내부 재정을 관리하기도 해요.
+              </Text>
+            </ProfileDescriptionReverse>
+          </ProfileContainerReverse>
 
-                {/* 기술부장 Profile */}
-                <ProfileContainer>
-                    <ProfileImage imageUrl={technic_director} />
-                    <ProfileDescription>
-                        <NameMajorBatchContainer>
-                            <PositionNameContainer>
-                                <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">기술부장</Text>
-                                <Text size="xl" weight="bold">시연우</Text>
-                            </PositionNameContainer>
-                            <BatchMajorContainer>
-                                <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 심화컴퓨터 22학번</Text>
-                            </BatchMajorContainer>
-                        </NameMajorBatchContainer>
-                        <Text size="m" weight="bold"> KERT의 웹사이트, 서버와 같은 IT 시스템을 관리해요.</Text>
-                    </ProfileDescription>
-                </ProfileContainer>
+          {/* 기술부장 Profile */}
+          <ProfileContainer>
+            <ProfileImage imageUrl={technic_director} />
+            <ProfileDescription>
+              <NameMajorBatchContainer>
+                <PositionNameContainer>
+                  <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">기술부장</Text>
+                  <Text size="xl" weight="bold">시연우</Text>
+                </PositionNameContainer>
+                <BatchMajorContainer>
+                  <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 심화컴퓨터 22학번</Text>
+                </BatchMajorContainer>
+              </NameMajorBatchContainer>
+              <Text size="m" weight="bold"> KERT의 웹사이트, 서버와 같은 IT 시스템을 관리해요.</Text>
+            </ProfileDescription>
+          </ProfileContainer>
 
-                {/* 홍보부장 Profile - 오른쪽 정렬 */}
-                <ProfileContainerReverse>
-                    <ProfileImage imageUrl={PR_director} />
-                    <ProfileDescriptionReverse>
-                        <NameMajorBatchContainer>
-                            <PositionNameContainer>
-                                <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">홍보부장</Text>
-                                <Text size="xl" weight="bold">조은정</Text>
-                            </PositionNameContainer>
-                            <BatchMajorContainer>
-                                <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 심화컴퓨터 22학번</Text>
-                            </BatchMajorContainer>
-                        </NameMajorBatchContainer>
-                        <Text size="m" weight="bold"> KERT의 인스타그램,페이스북과 같은 SNS를 관리해요.<br/>
-                        활동 홍보 자료를 제작하고 업로드해요.
-                        </Text>
-                    </ProfileDescriptionReverse>
-                </ProfileContainerReverse>
+          {/* 홍보부장 Profile - 오른쪽 정렬 */}
+          <ProfileContainerReverse>
+            <ProfileImage imageUrl={PR_director} />
+            <ProfileDescriptionReverse>
+              <NameMajorBatchContainer>
+                <PositionNameContainer>
+                  <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">홍보부장</Text>
+                  <Text size="xl" weight="bold">조은정</Text>
+                </PositionNameContainer>
+                <BatchMajorContainer>
+                  <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 심화컴퓨터 22학번</Text>
+                </BatchMajorContainer>
+              </NameMajorBatchContainer>
+              <Text size="m" weight="bold"> KERT의 인스타그램,페이스북과 같은 SNS를 관리해요.<br/>
+                활동 홍보 자료를 제작하고 업로드해요.
+              </Text>
+            </ProfileDescriptionReverse>
+          </ProfileContainerReverse>
 
-                {/* 학술부장 Profile */}
-                <ProfileContainer>
-                    <ProfileImage imageUrl={study_director} />
-                    <ProfileDescription>
-                        <NameMajorBatchContainer>
-                            <PositionNameContainer>
-                            <Text size="m"  weight="regular">
-                                학술부장
-                            </Text>
-                                <Text size="xl" weight="bold">김수진</Text>
-                            </PositionNameContainer>
-                            <BatchMajorContainer>
-                                <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 글로벌소프트웨어 22학번</Text>
-                            </BatchMajorContainer>
-                        </NameMajorBatchContainer>
-                        <Text size="m" weight="bold"> 정기 세미나, 프로젝트 및 스터디를 관리해요.</Text>
-                    </ProfileDescription>
-                </ProfileContainer>
-            </ProfilesWrapper>
-            <StyledButton onClick={handleClick}>
-                역대 임원진 보기
-            </StyledButton>
-        </BackFirstStyle>
-    );
+          {/* 학술부장 Profile */}
+          <ProfileContainer>
+            <ProfileImage imageUrl={study_director} />
+            <ProfileDescription>
+              <NameMajorBatchContainer>
+                <PositionNameContainer>
+                  <Text size="m"  weight="regular">
+                    학술부장
+                  </Text>
+                  <Text size="xl" weight="bold">김수진</Text>
+                </PositionNameContainer>
+                <BatchMajorContainer>
+                  <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">KERT 23기 글로벌소프트웨어 22학번</Text>
+                </BatchMajorContainer>
+              </NameMajorBatchContainer>
+              <Text size="m" weight="bold"> 정기 세미나, 프로젝트 및 스터디를 관리해요.</Text>
+            </ProfileDescription>
+          </ProfileContainer>
+        </ProfilesWrapper>
+        <StyledButton onClick={handleClick}>
+          역대 임원진 보기
+        </StyledButton>
+      </BackFirstStyle>
+    </div>
+  );
 }

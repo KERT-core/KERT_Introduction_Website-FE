@@ -299,7 +299,7 @@ export default function MainPage() {
           paddingBottom: '150px', // Footer 공간을 위해 padding 추가
         }}
       >
-        <Section1 />
+        <Section1 id="section1" />
         <div style={dividerStyle}></div>
         <Section2 />
         <div style={dividerStyle}></div>
@@ -307,11 +307,11 @@ export default function MainPage() {
         <div style={dividerStyle}></div>
         <Section4 />
         <div style={dividerStyle}></div>
-        <Section5 />
+        <Section5 id="section5" />
         <div style={dividerStyle}></div>
-        <Section6 />
+        <Section6 id="section6" />
         <div style={dividerStyle}></div>
-        <Section7 />
+        <Section7 id="section7" />
       </div>
       <Footer showFooter={showFooter}>
         <LogoAddressCopyrightContainer>
