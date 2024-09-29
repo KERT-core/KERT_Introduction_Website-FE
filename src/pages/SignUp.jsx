@@ -266,10 +266,8 @@ export default function SignUp() {
                 placeholder="비밀번호"
                 {...register('password', {
                   required: '비밀번호를 입력해주세요.',
-                  pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
-                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                  },
+                  minLength: { value: 8, message: '비밀번호는 8자리 이상이여야 합니다. '},
+                  pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/, message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.'},
                 })}
               />
               {errors.password && (

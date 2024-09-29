@@ -4,10 +4,8 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import '../font/main_font.css';
 import axios from 'axios';
-
-import { Button } from '../components/forms/Button';
+import defaultProfilePic from '../assets/icons/menu/User.png';
 
 const Container = styled.div`
   background-color: #0d0e14;
@@ -165,7 +163,6 @@ const EditButton = styled.button`
   cursor: pointer;
   width: 200px;
   margin-left: auto;
-  // margin-left: auto;
   matgin-top: auto;
 `;
 
@@ -188,22 +185,14 @@ export default function MyPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [passwordError, setPasswordError] = useState('');
 
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
 
   // Fetch user data after login
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/users`);
-        setUserInfo({
-          studentNumber: response.data.student_id,
-          name: response.data.name,
-          email: response.data.email,
-          generation: response.data.generation,
-          major: response.data.major,
-          profilePic: response.data.profile_picture || '../assets/icons/menu/User.png',
-        });
-        setImagePreview(response.data.profile_picture || '../assets/icons/menu/User.png');
+        updateUserState(response.data);
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
@@ -211,6 +200,17 @@ export default function MyPage() {
     fetchUserData();
   }, []);
 
+  const updateUserState = (data) => {
+    setUserInfo({
+      studentNumber: data.student_id,
+      name: data.name,
+      email: data.email,
+      generation: data.generation,
+      major: data.major,
+      profilePic: data.profile_picture || defaultProfilePic,
+    });
+    setImagePreview(data.profile_picture || defaultProfilePic);
+  };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -218,51 +218,46 @@ export default function MyPage() {
       setImagePreview(URL.createObjectURL(file));
 
       const formData = new FormData();
-      formData.append('profilePic', file);
+      formData.append('name', userInfo.name);
+      formData.append('email', userInfo.email);
+      formData.append('generation', userInfo.generation);
+      formData.append('major', userInfo.major);
+      formData.append('profile_picture', file); // 이미지 파일을 추가
 
-      const response = axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, formData)
-        .then(response => {
-          setUserInfo({
-            studentNumber: response.data.student_id,
-            name: response.data.name,
-            email: response.data.email,
-            generation: response.data.generation,
-            major: response.data.major,
-            profilePic: response.data.profile_picture || '../assets/icons/menu/User.png',
-          });
+      axios
+        .put(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then((response) => {
+          updateUserState(response.data);
           console.log('Image uploaded successfully');
         })
-        .catch(error => {
+        .catch((error) => {
           console.error('Image upload failed:', error);
         });
     }
   };
 
   const handleDeleteImage = () => {
-    setImagePreview('../assets/menu/User.png');
+    // setImagePreview(defaultProfilePic);
 
-    axios.put(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, {
-      name: userInfo.name,
-      email: userInfo.email,
-      generation: userInfo.generation,
-      major: userInfo.major,
-      profile_picture: "",  // 빈 문자열로 설정하여 이미지 제거
-    })
-    .then(response => {
-      setUserInfo({
-        studentNumber: response.data.student_id,
-        name: response.data.name,
-        email: response.data.email,
-        generation: response.data.generation,
-        major: response.data.major,
-        profilePic: response.data.profile_picture || '../assets/menu/User.png',
-        // profilePic: '../assets/menu/User.png',
+    axios
+      .put(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, {
+        name: userInfo.name,
+        email: userInfo.email,
+        generation: userInfo.generation,
+        major: userInfo.major,
+        profile_picture: "",  // 삭제 시 빈 문자열을 보냄
+      })
+      .then((response) => {
+        updateUserState(response.data);
+        console.log('Image deleted successfully');
+      })
+      .catch((error) => {
+        console.error('Image deletion failed:', error);
       });
-      console.log('Image deleted successfully');
-    })
-    .catch(error => {
-      console.error('Image deletion failed:', error);
-    });
   };
 
   const onSubmit = async (data) => {
@@ -278,14 +273,8 @@ export default function MyPage() {
       const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, data);
       console.log('서버로 전송:', response.data);
     } catch (error) {
-      // 404 상태 코드가 반환되면 비밀번호 불일치 처리
-      if (error.response && error.response.status === 404) {
-        console.error('비밀번호 정보가 일치하지 않습니다.');
-        alert('비밀번호 정보가 일치하지 않습니다. 다시 시도해주세요.');
-      } else {
-        console.error('오류 발생:', error);
-        alert('비밀번호 재설정에 실패했습니다. 다시 시도해주세요.');
-      }
+      console.error('오류 발생:', error);
+      alert('비밀번호 재설정에 실패했습니다. 다시 시도해주세요.');
     }
   };
 
@@ -293,7 +282,7 @@ export default function MyPage() {
     const confirmDelete = window.confirm("계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?");
     if (confirmDelete) {
       try {
-        await axios.delete(`/users/${userInfo.studentNumber}`);
+        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`);
         alert("계정이 성공적으로 삭제되었습니다.");
       } catch (error) {
         console.error('계정 삭제 실패:', error);
@@ -311,7 +300,7 @@ export default function MyPage() {
             계정 정보 <span className="section-title-en">Account Info</span>
           </SectionTitle>
           <ProfilePicContainer>
-            <ProfilePic src={imagePreview} alt="Profile" />
+            <ProfilePic src={userInfo.profilePic} alt="Profile" />
             <PicButtons>
               <input
                 type="file"
@@ -366,7 +355,7 @@ export default function MyPage() {
                 {...register('currentPassword', {
                   required: '현재 비밀번호를 입력해주세요.',
                   pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
+                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
                     message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
                   }
                 })}
@@ -382,10 +371,8 @@ export default function MyPage() {
                   placeholder="새 비밀번호"
                   {...register('newPassword', {
                     required: '새 비밀번호를 입력해주세요.',
-                    pattern: {
-                      value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/,
-                      message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                    }
+                    minLength: { value: 8, message: '비밀번호는 8자리 이상이여야 합니다. '},
+                    pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/, message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.'},
                   })}
                 />
                 {errors.newPassword && <WarningMessage>{errors.newPassword.message}</WarningMessage>}
@@ -398,7 +385,7 @@ export default function MyPage() {
                   id="confirm-password"
                   placeholder="비밀번호 확인"
                   {...register('confirmPassword', {
-                    required: '새 비밀번호 확인을 입력해주세요.',
+                    required: '새 비밀번호를 다시 입력해주세요.',
                     validate: value => value === getValues('newPassword') || '비밀번호가 일치하지 않습니다.'
                   })}
                 />
@@ -409,7 +396,6 @@ export default function MyPage() {
             {passwordError && <WarningMessage>{passwordError}</WarningMessage>}
 
             <EditButton type="submit">비밀번호 변경</EditButton>
-            {/* <Button type="outline" width="200px" color="--secondary-color">비밀번호 변경</Button> */}
           </Form>
         </Section>
 
