@@ -112,7 +112,7 @@ const lockIconContainerStyle = {
   bottom: '-60px', //이미지 아래로
   left: '50%',
   transform: 'translateX(85%)',
-  width: '500px',
+  width: '700px',
   height: '500px',
   display: 'flex',
   zIndex: 1,

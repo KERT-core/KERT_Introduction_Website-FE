@@ -32,6 +32,7 @@ const Title = styled(Span).attrs({
     $color: '--primary-text-color',
   })`
     margin-bottom: 20px;
+    margin-Top:50px;
   `;
 
 const ProfilesWrapper = styled.div`
@@ -64,6 +65,18 @@ const ProfileDescription = styled.div`
   align-items: flex-start;
   gap: 10px;
 `;
+
+const PositionName = styled(Span).attrs({
+  $weight: 'bold',
+})`
+  font-size: clamp(16px, 2vw, 20px);
+  word-break: keep-all;
+  background-image: ${({ colorGradient }) => colorGradient || 'linear-gradient(to right, #FFFFFF, #0047FF)'};
+  -webkit-background-clip: text;
+  color: transparent;
+`;
+
+
 
 const ProfileDescriptionReverse = styled(ProfileDescription)`
   align-items: flex-end;
@@ -153,7 +166,7 @@ export default function Section7() {
                     <ProfileDescription>
                         <NameMajorBatchContainer>
                             <PositionNameContainer>
-                                <Text size="m" weight="regular" background-image="linear-gradient(to right, #FFFFFF, #6F8CB8)">회장</Text>
+                                <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#0047FF)">회장</PositionName>
                                 <Text size="xl" weight="bold">박소현</Text>
                             </PositionNameContainer>
                             <BatchMajorContainer>
@@ -172,7 +185,7 @@ export default function Section7() {
                     <ProfileDescriptionReverse>
                         <NameMajorBatchContainer>
                             <PositionNameContainer>
-                                <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">총무부장</Text>
+                            <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#FA00FF)">총무부장</PositionName>
                                 <Text size="xl" weight="bold">박규연</Text>
                             </PositionNameContainer>
                             <BatchMajorContainer>
@@ -191,7 +204,7 @@ export default function Section7() {
                     <ProfileDescription>
                         <NameMajorBatchContainer>
                             <PositionNameContainer>
-                                <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">기술부장</Text>
+                            <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#00FF0A)">기술부장</PositionName>
                                 <Text size="xl" weight="bold">시연우</Text>
                             </PositionNameContainer>
                             <BatchMajorContainer>
@@ -208,7 +221,7 @@ export default function Section7() {
                     <ProfileDescriptionReverse>
                         <NameMajorBatchContainer>
                             <PositionNameContainer>
-                                <Text size="m" weight="regular" background="linear-gradient(to right,#FFFFFF,#0047FF)">홍보부장</Text>
+                            <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#FFF500)">홍보부장</PositionName>
                                 <Text size="xl" weight="bold">조은정</Text>
                             </PositionNameContainer>
                             <BatchMajorContainer>
@@ -227,9 +240,7 @@ export default function Section7() {
                     <ProfileDescription>
                         <NameMajorBatchContainer>
                             <PositionNameContainer>
-                            <Text size="m"  weight="regular">
-                                학술부장
-                            </Text>
+                            <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#0094FF)">학술부장</PositionName>
                                 <Text size="xl" weight="bold">김수진</Text>
                             </PositionNameContainer>
                             <BatchMajorContainer>

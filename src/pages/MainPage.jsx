@@ -119,7 +119,7 @@ const HreyferContainer = styled.div`
   gap: 12px;
 
   margin: 0 auto;
-  width: 500px;
+  width: 700px;
   height: 150px;
 
   flex: none;
@@ -148,8 +148,8 @@ const SNSLinkContainer = styled.div`
   justify-content: flex-start;  /* Aligns icons to the left */
   align-items: center;
   gap: 50px;
-  width: 100%; /* Make sure the container stretches across the full width */
-  height: auto; /* Adjust the height to be dynamic */
+  width: 100%; 
+  height: auto; 
   padding: 0;
 `;
 

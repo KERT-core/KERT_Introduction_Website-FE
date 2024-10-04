@@ -10,12 +10,11 @@ import '../font/main_font.css';
 
 // Dev문서 타이틀 양식 가져오기
 const Title = styled(Span).attrs({
-  id: 'title',
-  $size: 'sxl',
-  $weight: 'heavy',
-  $color: '--primary-text-color',
+  $weight: 'extrabold',
 })`
-  margin-bottom: 12px;
+  font-size: clamp(36px, 4vw, 50px);
+  word-break: keep-all;
+  margin-bottom:50px;
 `;
 
 // Container for the left content
@@ -110,19 +109,40 @@ const GroupContent = styled.div`
   text-align: left;
 `;
 
+const KertDescription = styled(Span).attrs({
+  $weight: 'light',
+  $color:'rgba(255, 255, 255, 0.8)'
+})`
+  font-size: clamp(16px, 2vw, 24px);
+  word-break: keep-all;
+`;
+
+const FirstWord=styled(Span).attrs({
+  $weight:'light',
+  $color:"rgba(255, 255, 255, 0.7)"
+})`
+  font-size: clamp(16px, 2vw, 13px);
+  word-break: keep-all;
+  margin-bottom:13px;
+
+`
+
+
+
+
 export default function Section1() {
   return (
     <BackFirstStyle>
       <ContentWrapper>
         <LeftContentContainr>
-          <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">
+          <FirstWord>
             Education Content of KERT
-          </Text>
+          </FirstWord>
           <Title>KERT, 이런 걸 배워요</Title>
-          <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.8)">
-            KERT는 보안과 관련된 다양한 활동이 준비돼있어요. 가입 후 다양한 분야
-            지식을 습득할 수 있어요.
-          </Text>
+          <KertDescription>
+            KERT는 보안과 관련된 다양한 활동이 준비돼있어요.
+            가입 후 다양한 분야지식을 습득할 수 있어요.
+          </KertDescription>
         </LeftContentContainr>
         <RightContentContainer>
           <GroupBox>
