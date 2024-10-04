@@ -1,161 +1,154 @@
 import React from 'react';
 import bg_img from '../assets/Section2_bg_img.png';
 import lock_icon from '../assets/kert_logos/White_incline_Lock.png';
-import '../font/main_font.css';
+//import { Text, Span } from '../components/typograph/Text';
 import styled from 'styled-components';
-import { Container } from '../components/forms/Container';
-import { Text, Span } from '../components/typograph/Text';
-import { Checkbox } from '../components/forms/Checkbox';
-import { Toggle } from '../components/forms/Toggle';
 
-const bg_Style = {
-  width: '100vw',
-  height: '100vh',
-  display: 'flex',
-  alignItems: 'center',
-  fontSize: '2em',
-  opacity: 0.9,
-  backgroundImage: `url(${bg_img})`,
-  backgroundSize: 'cover',
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center center',
-  position: 'relative',
-};
-
-const overlayStyle = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: '100%',
-  backgroundColor: 'rgba(0, 0, 0, 0.78)',
-  zIndex: 1,
-};
-
-const Title = styled(Span).attrs({
-  id: 'title',
-  $size: 'sxl',
-  $weight: 'heavy',
-  $color: '--primary-text-color',
-})`
-  margin-bottom: 12px;
+const BgContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+  opacity: 0.9;
+  background-image: url(${bg_img});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
 `;
 
-const contentStyle = {
-  position: 'relative',
-  zIndex: 1,
-  textAlign: 'flex-start',
-  color: '#fff',
-  fontFamily: 'NanumSquareNeo',
-  padding: '20px',
-};
+const Overlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.78);
+  z-index: 1;
+`;
 
-const lockIconStyle = {
-  width: '100%',
-  height: '100%',
-  objectFit: 'contain', // Maintains aspect ratio
-};
+const Content = styled.div`
+  position: relative;
+  z-index: 1;
+  text-align: flex-start;
+  color: #fff;
+  font-family: NanumSquareNeo;
+  padding: 20px;
+`;
 
-const lockIconOverlayStyle = {
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  width: '100%',
-  height: '50%', // Adjust as necessary
-  background:
-    'linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%)',
-};
+const LockIconContainer = styled.div`
+  position: absolute;
+  bottom: -60px;
+  left: 50%;
+  transform: translateX(85%);
+  width: 700px;
+  height: 500px;
+  display: flex;
+  z-index: 1;
+  opacity: 0.9;
+  overflow: hidden;
+`;
 
-const textStyle = {
-  marginBottom: '20px',
-  lineHeight: '1.5',
-  transform: 'translateX(65%)',
-  fontFamily: 'NanumSquareNeo',
-  fontWeight: 'extrabold',
-};
+const LockIcon = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+`;
 
-const minitextStyle = {
-  marginBottom: '1px',
-  lineHeight: '1.5',
-  transform: 'translateX(65%)',
-  fontFamily: 'NanumSquareNeo',
-  fontWeight: 'extrabold',
-};
+const LockIconOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.7) 100%);
+`;
 
-const statItemStyle = {
-  margin: '30px', // Adjust margin for spacing between items
-  textAlign: 'center',
-  fontFamily: 'NanumSquareNeo',
-  opacity: 0.6,
-  justifyContent: 'center',
-};
+const Minitext = styled.div`
+  margin-bottom: 1px;
+  line-height: 1.5;
+  transform: translateX(65%);
+  font-family: NanumSquareNeo;
+  font-weight: extrabold;
+`;
 
-const DateStyle = {
-  fontSize: '3em',
-  backgroundImage: 'linear-gradient(to right, #FFFFFF, #6F8CB8)',
-  WebkitBackgroundClip: 'text',
-  backgroundClip: 'text',
-  color: 'transparent',
-  fontWeight: 'bold',
-};
+const Text = styled.div`
+  margin-bottom: 20px;
+  line-height: 1.5;
+  transform: translateX(65%);
+  font-family: NanumSquareNeo;
+  font-weight: extrabold;
+`;
 
-const containerStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  marginTop: '20px',
-  transform: 'translateX(50%)',
-};
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  transform: translateX(50%);
+`;
 
-const lockIconContainerStyle = {
-  position: 'absolute',
-  bottom: '-60px', //이미지 아래로
-  left: '50%',
-  transform: 'translateX(85%)',
-  width: '700px',
-  height: '500px',
-  display: 'flex',
-  zIndex: 1,
-  opacity: 0.9,
-  overflow: 'hidden', 
-};
+const Stats = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 0.5em;
+  margin-top: 20px;
+  flex-direction: column;
+`;
 
-const statsStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'flex-start',
-  fontSize: '0.5em',
-  marginTop: '20px',
-  flexDirection: 'column', // 요소 수직 정렬
-};
+const StatItem = styled.div`
+  margin: 30px;
+  text-align: center;
+  font-family: NanumSquareNeo;
+  opacity: 0.6;
+  justify-content: center;
+`;
 
+const Date = styled.div`
+  font-size: 3em;
+  background-image: linear-gradient(to right, #FFFFFF, #6F8CB8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+`;
+
+const Title = styled.span`
+  margin-bottom: 12px;
+  font-size: ${({ $size }) => ($size === 'sxl' ? '2em' : '1em')};
+  font-weight: ${({ $weight }) => ($weight === 'heavy' ? '700' : '400')};
+  color: ${({ $color }) => ($color ? 'var(' + $color + ')' : '#000')};
+`;
 
 export default function MainPage() {
   return (
-    <div style={bg_Style}>
-      <div style={overlayStyle}></div>
-      <div style={contentStyle}>
-        <div style={minitextStyle}>
+    <BgContainer>
+      <Overlay />
+      <Content>
+        <Minitext>
           보안에 진심인 사람들이 모여,
           <br />
-        </div>
-        <div style={textStyle}>경북대학교의 보안을 지킵니다.</div>
+        </Minitext>
+        <Text>경북대학교의 보안을 지킵니다.</Text>
 
-        <div style={lockIconContainerStyle}>
-          <img src={lock_icon} alt="Lock Icon" style={lockIconStyle} />
-          <div style={lockIconOverlayStyle}></div>
-        </div>
-        <div style={containerStyle}>
-          <div style={statsStyle}>
-            <div style={statItemStyle}>KERT가 개설된 지</div>
-            <div style={DateStyle}>27년</div>
-          </div>
-          <div style={statsStyle}>
-            <div style={statItemStyle}>가입한 인원</div>
-            <div style={DateStyle}>61명</div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <LockIconContainer>
+          <LockIcon src={lock_icon} alt="Lock Icon" />
+          <LockIconOverlay />
+        </LockIconContainer>
+
+        <Container>
+          <Stats>
+            <StatItem>KERT가 개설된 지</StatItem>
+            <Date>27년</Date>
+          </Stats>
+          <Stats>
+            <StatItem>가입한 인원</StatItem>
+            <Date>61명</Date>
+          </Stats>
+        </Container>
+      </Content>
+    </BgContainer>
   );
 }
