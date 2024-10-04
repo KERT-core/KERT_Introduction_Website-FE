@@ -64,3 +64,5 @@ export const Input = forwardRef(({ label, value, ...props }, ref) => {
     </InputWrapper>
   );
 });
+
+Input.displayName = 'Input';
