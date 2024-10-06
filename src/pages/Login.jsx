@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { API } from '../utils/api'; 
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../components/navigation/AuthContext';
@@ -133,15 +133,20 @@ export default function Login() {
   const onSubmit = async (data) => {
     try {
       // 서버에 로그인 요청 보내기
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, data);
+      const response = await API.POST('/login', data);
+
       const token = response.data.token;
       const userInfo = response.data.user;
 
-      // 로그인 성공 시 AuthContext의 login 함수 호출
-      // login(token, userInfo);
-      login(true, userInfo);
-      setError(''); // 에러 초기화
-      navigate('/');
+      if (userInfo) {
+        login(token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
+        // console.log('login user info:', userInfo); // Log user info
+        setError(''); // 에러 초기화
+        navigate('/');
+      } else {
+        console.error('User info is undefined');
+        setError('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
     } catch (error) {
       // 입력창 비우기
       setValue('student', '');
@@ -149,7 +154,6 @@ export default function Login() {
       // 에러 처리
       console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
-      login(true, userInfo);
     }
   };
 

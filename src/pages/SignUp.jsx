@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import { API } from '../utils/api'; 
 import styled from 'styled-components';
 import { Text } from '../components/typograph/Text';
 import '../font/main_font.css';
@@ -139,8 +139,8 @@ export default function SignUp() {
         password: data.password,
       };
 
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/register`, formData);
-      console.log('서버로 전송:', response.data);
+      const response = await API.POST('/register', formData);
+      // console.log('서버로 전송:', response.data.user);
       alert('회원가입 요청이 완료되었습니다!');
       navigate('/');
     } catch (error) {
@@ -151,6 +151,7 @@ export default function SignUp() {
       setValue('mail', '');
       setValue('generation', '');
       setValue('major', '');
+      alert('회원가입이 실패했습니다. 다시 시도해주세요.');
     }
   };
 

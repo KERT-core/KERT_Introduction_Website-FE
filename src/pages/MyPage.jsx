@@ -3,8 +3,10 @@
 
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
+import { API } from '../utils/api'; 
+import { useAuth } from '../components/navigation/AuthContext';
 import defaultProfilePic from '../assets/icons/menu/User.png';
 
 const Container = styled.div`
@@ -181,24 +183,42 @@ export default function MyPage() {
     major: '',
     profilePic: null,
   });
-
+  const { isLoggedIn, user } = useAuth();
   const [imagePreview, setImagePreview] = useState(null);
   const [passwordError, setPasswordError] = useState('');
+  const navigate = useNavigate();
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
 
   // Fetch user data after login
   useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/login');
+      return;
+    }
+
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/users`);
+        const token = localStorage.getItem('token');
+        if (!token) {
+          throw new Error('No token found');
+        }
+        // console.log(user.studentNumber)
+        const response = await API.GET('/users/${user.student_id}', {
+          headers: {
+            Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
+          },
+        });
+
         updateUserState(response.data);
+        console.log('Success to fetch user data:');
+        console.log(response.data);
       } catch (error) {
         console.error('Failed to fetch user data:', error);
       }
     };
     fetchUserData();
-  }, []);
+  }, [isLoggedIn, navigate]);
 
   const updateUserState = (data) => {
     setUserInfo({
@@ -217,34 +237,46 @@ export default function MyPage() {
     if (file) {
       setImagePreview(URL.createObjectURL(file));
 
-      const formData = new FormData();
-      formData.append('name', userInfo.name);
-      formData.append('email', userInfo.email);
-      formData.append('generation', userInfo.generation);
-      formData.append('major', userInfo.major);
-      formData.append('profile_picture', file); // 이미지 파일을 추가
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        const base64String = reader.result; // Base64 인코딩된 문자열
 
-      axios
-        .put(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then((response) => {
-          updateUserState(response.data);
-          console.log('Image uploaded successfully');
-        })
-        .catch((error) => {
-          console.error('Image upload failed:', error);
-        });
+        const formData = {
+          name: userInfo.name,
+          email: userInfo.email,
+          generation: userInfo.generation,
+          major: userInfo.major,
+          profile_picture: base64String, // Base64 문자열로 전송
+        };
+
+        API
+          .PUT('/users/${userInfo.studentNumber}', formData, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data',
+            },
+          })
+          .then((response) => {
+            updateUserState(response.data);
+            console.log('Image uploaded successfully');
+          })
+          .catch((error) => {
+            console.error('Image upload failed:', error);
+          });
+      };
     }
   };
 
   const handleDeleteImage = () => {
-    // setImagePreview(defaultProfilePic);
+    setImagePreview(defaultProfilePic);
 
-    axios
-      .put(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, {
+    API
+      .PUT('/users/${userInfo.studentNumber}', {
+        headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data',
+            },
         name: userInfo.name,
         email: userInfo.email,
         generation: userInfo.generation,
@@ -270,7 +302,7 @@ export default function MyPage() {
 
     try {
       // 서버로 비밀번호 정보를 전송
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`, data);
+      const response = await API.POST('/users/${userInfo.studentNumber}', data);
       console.log('서버로 전송:', response.data);
     } catch (error) {
       console.error('오류 발생:', error);
@@ -282,7 +314,7 @@ export default function MyPage() {
     const confirmDelete = window.confirm("계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?");
     if (confirmDelete) {
       try {
-        await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`);
+        await API.DELETE(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`);
         alert("계정이 성공적으로 삭제되었습니다.");
       } catch (error) {
         console.error('계정 삭제 실패:', error);
