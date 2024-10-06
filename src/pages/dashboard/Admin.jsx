@@ -34,10 +34,14 @@ export default function Admin() {
   const { openConfirm, closeConfirm } = useConfirm();
   const { openAlert } = useAlert();
 
-  const { data, isLoading } = useQuery('admin', async () => {
-    const data = await API.GET('/admin');
-    return data;
-  });
+  const { data, isLoading, isError } = useQuery(
+    'admin',
+    async () => {
+      const data = await API.GET('/admin');
+      return data;
+    },
+    { retry: 2 },
+  );
 
   const refs = {
     student_id: useRef(),
@@ -145,13 +149,17 @@ export default function Admin() {
           </ControlBox>
         </AdminHeader>
         {/* 관리자 리스트 */}
-        <AdminList>
-          {isLoading
-            ? [0, 1, 2, 3, 4].map((e, i) => <AdminElementLoading key={i} />)
-            : data.map((admin, index) => (
-                <AdminElement key={index} admin={admin} />
-              ))}
-        </AdminList>
+        {isError ? (
+          <></>
+        ) : (
+          <AdminList>
+            {isLoading
+              ? [0, 1, 2, 3, 4].map((e, i) => <AdminElementLoading key={i} />)
+              : data.map((admin, index) => (
+                  <AdminElement key={index} admin={admin} />
+                ))}
+          </AdminList>
+        )}
       </AdminListContainer>
     </>
   );

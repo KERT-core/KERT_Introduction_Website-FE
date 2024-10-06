@@ -12,10 +12,14 @@ import { API } from '../../utils/api.js';
 import { useQuery } from 'react-query';
 
 export default function User() {
-  const { data, isLoading } = useQuery('user', async () => {
-    const data = await API.GET('/users');
-    return data;
-  });
+  const { data, isLoading, isError } = useQuery(
+    'user',
+    async () => {
+      const data = await API.GET('/users');
+      return data;
+    },
+    { retry: 2 },
+  );
 
   return (
     <>
@@ -33,19 +37,23 @@ export default function User() {
           </div>
         </UserHeader>
         {/* 유저 리스트 */}
-        <UserList>
-          {!isLoading && data ? (
-            data.map((user, index) => <UserElement key={index} user={user} />)
-          ) : (
-            <>
-              <UserElementLoading />
-              <UserElementLoading />
-              <UserElementLoading />
-              <UserElementLoading />
-              <UserElementLoading />
-            </>
-          )}
-        </UserList>
+        {isError ? (
+          <></>
+        ) : (
+          <UserList>
+            {!isLoading && data ? (
+              data.map((user, index) => <UserElement key={index} user={user} />)
+            ) : (
+              <>
+                <UserElementLoading />
+                <UserElementLoading />
+                <UserElementLoading />
+                <UserElementLoading />
+                <UserElementLoading />
+              </>
+            )}
+          </UserList>
+        )}
       </UserListContainer>
     </>
   );

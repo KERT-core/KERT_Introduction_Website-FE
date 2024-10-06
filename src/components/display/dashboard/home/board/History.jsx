@@ -15,10 +15,14 @@ import { refineHistories } from '../../../../../utils/refineHistory';
 export const History = () => {
   const navigate = useNavigate();
 
-  const { data, isLoading } = useQuery('history', async () => {
-    const data = await API.GET('/histories');
-    return data;
-  });
+  const { data, isLoading } = useQuery(
+    'history',
+    async () => {
+      const data = await API.GET('/histories');
+      return data;
+    },
+    { retry: 2 },
+  );
 
   if (isLoading) {
     return <SkeletonBoardContainer width="360px" height="240px" />;

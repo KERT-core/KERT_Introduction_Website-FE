@@ -12,10 +12,14 @@ import { API } from '../../../../../utils/api';
 
 export const User = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery('user', async () => {
-    const data = await API.GET('/users');
-    return data;
-  });
+  const { data, isLoading } = useQuery(
+    'user',
+    async () => {
+      const data = await API.GET('/users');
+      return data;
+    },
+    { retry: 2 },
+  );
 
   if (isLoading) {
     return <SkeletonBoardContainer width="360px" height="240px" />;
