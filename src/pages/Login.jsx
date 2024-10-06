@@ -133,12 +133,15 @@ export default function Login() {
   const onSubmit = async (data) => {
     try {
       // 서버에 로그인 요청 보내기
-      const response = await API.POST('/login', data);
+      const response = await API.POST('/login', {
+        student_id: data.student,
+        password: data.password,
+      });
 
       const token = response.data.token;
       const userInfo = response.data.user;
 
-      if (userInfo) {
+      if (token && userInfo) {
         login(token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
         // console.log('login user info:', userInfo); // Log user info
         setError(''); // 에러 초기화
