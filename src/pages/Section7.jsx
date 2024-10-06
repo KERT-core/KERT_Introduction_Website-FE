@@ -5,7 +5,6 @@ import PR_director from "../assets/PR_director.png"; // 홍보부장 이미지
 import study_director from "../assets/study_director.png"; // 학술부장 이미지
 import technic_director from "../assets/technic_director.png"; // 기술부장 이미지
 import affairs_manger from "../assets/affairs_manger.png"; // 총무부장 이미지
-import '../font/main_font.css';
 import styled from 'styled-components';
 import { Text, Span } from '../components/typograph/Text';
 import { useNavigate } from 'react-router-dom';
@@ -21,8 +20,19 @@ const BackFirstStyle = styled.div`
   background-position: center center;
   background-image: url(${bg_img});
   background-size: cover;
-  padding-top: 60px;
+  padding-top: 70px;
   padding-left: 60px;
+
+  @media (max-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 120px; 
+  }
+
+  @media (max-width: 480px) {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 `;
 
 const Title = styled(Span).attrs({
@@ -33,6 +43,11 @@ const Title = styled(Span).attrs({
   })`
     margin-bottom: 20px;
     margin-Top:50px;
+
+    @media (max-width: 768px) {
+    font-size: 1.5em;
+    margin-top: 20px;
+  }
   `;
 
 const ProfilesWrapper = styled.div`
@@ -41,6 +56,11 @@ const ProfilesWrapper = styled.div`
   align-items: flex-start; 
   width: 65%; 
   gap: 5px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 10px;
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -53,6 +73,11 @@ const ProfileContainer = styled.div`
     align-self: flex-end;
   }
   gap: 15px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const ProfileContainerReverse = styled(ProfileContainer)`
@@ -64,6 +89,11 @@ const ProfileDescription = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    text-align: center;
+  }
 `;
 
 const PositionName = styled(Span).attrs({
@@ -147,6 +177,14 @@ const StyledButton = styled.button`
     transform: scale(0.98);
   }
 
+  @media (max-width: 768px) {
+    margin-top: 30px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
   
 `;
 
