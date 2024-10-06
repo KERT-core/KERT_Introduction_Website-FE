@@ -1,7 +1,6 @@
 import { createRef } from 'react';
 import { useOutlet } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { QueryClient, QueryClientProvider } from 'react-query';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -51,9 +50,6 @@ const Content = styled(TransitionGroup).attrs({
   }
 `;
 
-// API 요청을 위한 QueryClient 생성
-const queryClient = new QueryClient();
-
 /**
  * 대시보드 레이아
  */
@@ -67,34 +63,32 @@ export const DashboardLayout = ({ location }) => {
   const currentOutlet = useOutlet();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <Layout>
-        <Confirm />
-        <Alert />
-        <Loading />
-        {/* 내비바 */}
-        <DashboardNav />
-        {/* 콘텐츠 */}
-        <Content>
-          {/* location.key로 랜덤한 index를 부여하여 화면 전환 시 컴포넌트 충돌이 없도록 예방합니다. */}
-          <CSSTransition
-            nodeRef={nodeRef}
-            key={location.key}
-            timeout={{ enter: 500, exit: 300 }}
-            classNames="fade-slide"
-            style={{
-              width: 'calc(100% - 80px)',
-              position: 'absolute',
-            }}
-          >
-            <div ref={nodeRef}>
-              {/* 전환 후 표시될 컴포넌트 */}
-              {currentOutlet}
-            </div>
-          </CSSTransition>
-        </Content>
-      </Layout>
-    </QueryClientProvider>
+    <Layout>
+      <Confirm />
+      <Alert />
+      <Loading />
+      {/* 내비바 */}
+      <DashboardNav />
+      {/* 콘텐츠 */}
+      <Content>
+        {/* location.key로 랜덤한 index를 부여하여 화면 전환 시 컴포넌트 충돌이 없도록 예방합니다. */}
+        <CSSTransition
+          nodeRef={nodeRef}
+          key={location.key}
+          timeout={{ enter: 500, exit: 300 }}
+          classNames="fade-slide"
+          style={{
+            width: 'calc(100% - 80px)',
+            position: 'absolute',
+          }}
+        >
+          <div ref={nodeRef}>
+            {/* 전환 후 표시될 컴포넌트 */}
+            {currentOutlet}
+          </div>
+        </CSSTransition>
+      </Content>
+    </Layout>
   );
 };
 
