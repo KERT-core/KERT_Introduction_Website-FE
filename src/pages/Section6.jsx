@@ -25,7 +25,6 @@ const Graph = styled(GraphSVG)`
   display: block;
   width: 100%;
   height: 100%;
-}
 `;
 
 const Content = styled.div`
