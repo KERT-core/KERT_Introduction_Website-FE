@@ -203,8 +203,8 @@ export default function MyPage() {
         if (!token) {
           throw new Error('No token found');
         }
-        // console.log(user.studentNumber)
-        const response = await API.GET('/users/${user.student_id}', {
+        // console.log(user.student_id)
+        const response = await API.GET(`/users/${user.student_id}`, {
           headers: {
             Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
           },
@@ -232,15 +232,16 @@ export default function MyPage() {
     setImagePreview(data.profile_picture || defaultProfilePic);
   };
 
-  const handleImageUpload = (event) => {
+  const handleImageUpload = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setImagePreview(URL.createObjectURL(file));
 
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         const base64String = reader.result; // Base64 인코딩된 문자열
+        const token = localStorage.getItem('token');
 
         const formData = {
           name: userInfo.name,
@@ -250,47 +251,46 @@ export default function MyPage() {
           profile_picture: base64String, // Base64 문자열로 전송
         };
 
-        API
-          .PUT('/users/${userInfo.studentNumber}', formData, {
+        try {
+          const response = await API.PUT(`/users/${user.student_id}`, formData, {
             headers: {
               Authorization: `Bearer ${token}`,
               'Content-Type': 'multipart/form-data',
             },
-          })
-          .then((response) => {
-            updateUserState(response.data);
-            console.log('Image uploaded successfully');
-          })
-          .catch((error) => {
-            console.error('Image upload failed:', error);
           });
+          updateUserState(response.data);
+          console.log('Image uploaded successfully');
+        } catch (error) {
+          console.error('Image upload failed:', error);
+        }
       };
     }
   };
 
-  const handleDeleteImage = () => {
+  const handleDeleteImage = async () => {
     setImagePreview(defaultProfilePic);
+    const token = localStorage.getItem('token');
 
-    API
-      .PUT('/users/${userInfo.studentNumber}', {
-        headers: {
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'multipart/form-data',
-            },
+    try {
+      const response = await API.PUT(`/users/${user.student_id}`, {
         name: userInfo.name,
         email: userInfo.email,
         generation: userInfo.generation,
         major: userInfo.major,
         profile_picture: "",  // 삭제 시 빈 문자열을 보냄
-      })
-      .then((response) => {
-        updateUserState(response.data);
-        console.log('Image deleted successfully');
-      })
-      .catch((error) => {
-        console.error('Image deletion failed:', error);
+      }, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
       });
+      updateUserState(response.data);
+      console.log('Image deleted successfully');
+    } catch (error) {
+      console.error('Image deletion failed:', error);
+    }
   };
+
 
   const onSubmit = async (data) => {
     setPasswordError('');
@@ -300,9 +300,16 @@ export default function MyPage() {
       return;
     }
 
+    const token = localStorage.getItem('token');
+
     try {
       // 서버로 비밀번호 정보를 전송
-      const response = await API.POST('/users/${userInfo.studentNumber}', data);
+      const response = await API.POST(`/users/${user.student_id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       console.log('서버로 전송:', response.data);
     } catch (error) {
       console.error('오류 발생:', error);
@@ -314,7 +321,12 @@ export default function MyPage() {
     const confirmDelete = window.confirm("계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?");
     if (confirmDelete) {
       try {
-        await API.DELETE(`${import.meta.env.VITE_BACKEND_URL}/users/${userInfo.studentNumber}`);
+        const token = localStorage.getItem('token');
+        await API.DELETE(`/users/${user.student_id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         alert("계정이 성공적으로 삭제되었습니다.");
       } catch (error) {
         console.error('계정 삭제 실패:', error);
