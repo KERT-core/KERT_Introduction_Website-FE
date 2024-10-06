@@ -183,7 +183,7 @@ export default function MyPage() {
     major: '',
     profilePic: null,
   });
-  const { isLoggedIn, user } = useAuth();
+  const { isLoggedIn, logout, user } = useAuth();
   const [imagePreview, setImagePreview] = useState(null);
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
@@ -203,7 +203,6 @@ export default function MyPage() {
         if (!token) {
           throw new Error('No token found');
         }
-        // console.log(user.student_id)
         const response = await API.GET(`/users/${user.student_id}`, {
           headers: {
             Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
@@ -328,6 +327,8 @@ export default function MyPage() {
           },
         });
         alert("계정이 성공적으로 삭제되었습니다.");
+        logout();
+        navigate('/login');
       } catch (error) {
         console.error('계정 삭제 실패:', error);
         alert("계정 삭제에 실패했습니다. 다시 시도해주세요.");
