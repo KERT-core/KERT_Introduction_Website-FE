@@ -3,7 +3,7 @@ import { Header } from './Dashboard.styled';
 import { Column, Row } from './Home.styled';
 
 // 홈에 표시될 보드들
-import { Board } from '../../components/display/dashboard/home/Board';
+import { Board } from '../../components/display/dashboard/home/board';
 
 export default function Home() {
   return (
