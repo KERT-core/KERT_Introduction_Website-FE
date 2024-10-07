@@ -22,7 +22,6 @@ import NewArticleEditor from './pages/NewArticleEditor';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
-import Section6 from './pages/Section6';
 
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.

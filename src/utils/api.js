@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8000'; // API의 기본 URL을 정의합니다.
+const API_URL = import.meta.env.VITE_BACKEND_URL; // API의 기본 URL을 .env에서 불러옵니다.
 
 // 기본적인 Fetch 요청 처리 함수
 async function request(endpoint, method = 'GET', data = null, headers = {}) {

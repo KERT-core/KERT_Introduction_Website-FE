@@ -1,19 +1,22 @@
 import { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Text } from '../typograph/Text';
 
-import useHistory from '../../stores/dashboard/useHistory';
 import { API } from '../../utils/api';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import '../../transitions/fade-slide.css';
+import SAMPLE_HISTORIES from '../../utils/sampleHistories';
+import { useQuery } from 'react-query';
+import { refineHistories } from '../../utils/refineHistory';
 
 const PreviewWrapper = styled.div`
-  width: 600px;
+  width: 500px;
   height: 300px;
   display: flex;
-  gap: 80px;
+  gap: min(5vw, 80px);
 `;
 
 const YearListWrapper = styled.div`
@@ -25,19 +28,25 @@ const YearListWrapper = styled.div`
 const HistoryListWrapper = styled.div``;
 
 const HistoryElementWrapper = styled.div`
+  width: 100%;
   padding: 15px 20px;
   background-color: #ffffff10;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 6px;
   margin-bottom: 10px;
+
+  & > span {
+    word-break: keep-all;
+  }
 `;
 
 const YearWrapper = styled.button`
   display: flex;
   align-items: center;
-  gap: 34px;
+  gap: 2vw;
   background-color: transparent;
   outline: none;
   border: none;
@@ -64,7 +73,7 @@ const Year = styled.span`
   transition: color 0.2s ease-in-out;
   width: 63px;
   font-weight: 800;
-  font-size: 22px;
+  font-size: clamp(16px, 2vw, 24px);
   text-align: left;
   color: white;
 `;
@@ -104,164 +113,53 @@ const HistoryElement = ({ history }) => {
   );
 };
 
+HistoryElement.propTypes = {
+  history: PropTypes.shape({
+    year: PropTypes.number.isRequired,
+    month: PropTypes.number.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 export const HistoryPreview = () => {
   const nodeRef = createRef(null);
   const [display_year, setDisplayYear] = useState();
-  const { saveHistory, histories } = useHistory(); // 불러온 데이터를 저장할 상태
+  const [display_key, setDisplayKey] = useState();
+
+  const [sampleData] = useState(refineHistories(SAMPLE_HISTORIES));
+
+  const { data, isLoading, isError } = useQuery(
+    'mainpage_history',
+    async () => {
+      let data = await API.GET('/histories');
+
+      // 만약 서버에 저장된 연혁이 없으면 기본 데이터 반환
+      if (data.length > 0) {
+        data = refineHistories(data);
+      } else {
+        data = sampleData;
+      }
+
+      return data;
+    },
+    {
+      retry: false,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      refetchOnReconnect: false,
+      refetchInterval: false,
+    },
+  );
 
   useEffect(() => {
-    // 만약 이전에 받은 API 데이터가 없다면 API 요청 후 데이터를 store에 저장
-    if (Object.keys(histories).length === 0) {
-      API.GET('/histories')
-        .then((api_res) => {
-          const return_value = saveHistory(api_res); // API 데이터를 Zustand 상태에 반영
-          setDisplayYear(Object.keys(return_value).reverse().at(0));
-          console.log(api_res);
-        })
-        .catch((err) => {
-          // 오류 발생 시 안내
-          console.warn('History API 통신 실패. 기본 데이터를 사용합니다.', err);
-          const return_value = saveHistory([
-            {
-              id: 0,
-              year: 1997,
-              month: 11,
-              description: '동아리 창립',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 1,
-              year: 2006,
-              month: 4,
-              description: '정보보호대학동아리엽학 KUCIS 소속',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 2,
-              year: 2008,
-              month: 8,
-              description: '한국정보보호진흥원 S/W 보안취약점 찾기 대회 우수상',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 3,
-              year: 2013,
-              month: 4,
-              description: '삼성소프트웨어프렌드쉽',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 4,
-              year: 2016,
-              month: 2,
-              description: '대경강원권 연합창업경진대회 최우수상',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 5,
-              year: 2016,
-              month: 4,
-              description: 'Naver D2 Campus 파트너 선정',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 6,
-              year: 2016,
-              month: 4,
-              description: '정보보호대학동아리연합 KUCIS 소속',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 7,
-              year: 2016,
-              month: 7,
-              description: 'KERPERENCE S/S 주최',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 8,
-              year: 2016,
-              month: 12,
-              description: 'KERPERENCE W/W 주최',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 9,
-              year: 2017,
-              month: 2,
-              description: 'KNU 창업 비즈니스 플랜 경진대회 대상',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 10,
-              year: 2017,
-              month: 4,
-              description: '정보보호대학 동아리 연합 KUCIS 소속',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 11,
-              year: 2018,
-              month: 4,
-              description: 'Naver D2 Campus 파트너 선정',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 12,
-              year: 2021,
-              month: 9,
-              description: '제2회 KOSPO 웹서비스 정보보안 경진대회 최우수상',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 13,
-              year: 2023,
-              month: 4,
-              description: 'HSpace 파트너십 체결',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 14,
-              year: 2024,
-              month: 4,
-              description: '전국사이버보안연합 CCA 소속',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-            {
-              id: 15,
-              year: 2024,
-              month: 5,
-              description: '정보보호대학동아리연합 KUCIS 소속',
-              created_at: '2024-09-26T23:48:50.068140',
-              updated_at: '2024-09-26T23:48:50.068140',
-            },
-          ]);
-          setDisplayYear(Object.keys(return_value).reverse().at(0));
-        })
-        .finally(() => {
-          console.log('History API 통신 종료');
-        });
-    } else {
-      console.info('이미 API 데이터가 있으므로 API 응답을 요청하지 않습니다.');
-    }
-  }, [histories, saveHistory]);
+    const keys = Object.keys(data ?? sampleData).reverse();
+    setDisplayYear(keys[0]);
+    setDisplayKey(keys.slice(0, 4));
+  }, [data, sampleData]);
 
-  const display_key = Object.keys(histories).reverse().slice(0, 4);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <PreviewWrapper>
@@ -286,11 +184,13 @@ export const HistoryPreview = () => {
           style={{ position: 'absolute' }}
         >
           <HistoryListWrapper ref={nodeRef}>
-            {histories[
-              display_year ?? Object.keys(histories).reverse().at(0)
-            ]?.map((history, i) => (
-              <HistoryElement key={i} history={history} />
-            ))}
+            {isError
+              ? sampleData[display_year]?.map((history, i) => (
+                  <HistoryElement key={i} history={history} />
+                ))
+              : data[display_year].map((history, i) => (
+                  <HistoryElement key={i} history={history} />
+                ))}
           </HistoryListWrapper>
         </CSSTransition>
       </TransitionGroup>
