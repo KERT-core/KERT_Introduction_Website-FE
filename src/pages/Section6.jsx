@@ -25,7 +25,6 @@ const Graph = styled(GraphSVG)`
   display: block;
   width: 100%;
   height: 100%;
-}
 `;
 
 const Content = styled.div`
@@ -39,7 +38,7 @@ const Content = styled.div`
   justify-content: space-around;
   align-items: center;
   gap: 10px;
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     & {
       flex-direction: column; /* 화면이 작아지면 세로 방향 */
       justify-content: center;
@@ -51,17 +50,22 @@ const Content = styled.div`
 `;
 
 const LeftContent = styled.div`
+  margin: 20px;
+
   display: flex;
   flex-direction: column;
   gap: 80px;
 
-  @media (max-width: 900px) {
+  @media (max-width: 1000px) {
     & {
       gap: 30px;
+      align-items: center;
     }
   }
 `;
-const RightContent = styled.div``;
+const RightContent = styled.div`
+  margin: 20px;
+`;
 
 const Title = styled(Span).attrs({
   $weight: 'extrabold',
