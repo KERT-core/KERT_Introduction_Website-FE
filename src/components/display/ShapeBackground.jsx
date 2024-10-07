@@ -14,7 +14,6 @@ const Container = styled.div.attrs({ className: 'shape-background' })`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: black;
   width: max(118vw, 195vh);
   height: max(118vw, 195vh);
 `;
@@ -31,7 +30,7 @@ const Shape = styled.div`
   border-radius: ${({ radius }) => radius || '20px'};
   background-color: ${({ color }) => color || '#213EA6'};
 
-  opacity: 0.1;
+  opacity: 0.03;
   overflow: hidden;
 
   animation: ${({ $startAngle, $direction }) => rotate($startAngle, $direction)}
