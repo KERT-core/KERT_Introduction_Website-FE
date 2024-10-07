@@ -22,7 +22,8 @@ import NewArticleEditor from './pages/NewArticleEditor';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
-import Section6 from './pages/Section6';
+
+import History from './pages/History';
 
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
@@ -43,6 +44,9 @@ export default function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/mypage" element={<MyPage />} />
+
+          <Route path="/history" element={<History />} />
+
           <Route path="*" element={<NotFound />} />
 
           {/* 대시보드 페이지 */}
