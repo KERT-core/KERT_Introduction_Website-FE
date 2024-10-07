@@ -1,13 +1,15 @@
 // SignUp.jsx
 // 코드 작성자 : GiHhub @huisuu
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import { API } from '../utils/api'; 
 import styled from 'styled-components';
 import { Text } from '../components/typograph/Text';
 import '../font/main_font.css';
+import useAlert from '../stores/useAlert';
+import { Alert } from '../components/forms/modal/Alert';
 
 const Container = styled.div`
   background-color: #080f17;
@@ -126,6 +128,7 @@ export default function SignUp() {
   } = useForm();
 
   const navigate = useNavigate();
+  const { openAlert, closeAlert, isOpen } = useAlert();
 
   const onSubmit = async (data) => {
     try {
@@ -141,7 +144,13 @@ export default function SignUp() {
 
       const response = await API.POST('/register', formData);
       // console.log('서버로 전송:', response.data.user);
-      alert('회원가입 요청이 완료되었습니다!');
+      setTimeout(() => {
+        openAlert({
+          title: '회원가입 요청 완료',
+          content: <Text>회원가입 요청이 완료되었습니다!</Text>,
+          onClose: () => closeAlert(),
+        });
+      }, 100);
       navigate('/');
     } catch (error) {
       console.error('Error:', error);
@@ -151,7 +160,15 @@ export default function SignUp() {
       setValue('mail', '');
       setValue('generation', '');
       setValue('major', '');
-      alert('회원가입이 실패했습니다. 다시 시도해주세요.');
+
+      // 100ms 후 새로운 Alert 열기
+      setTimeout(() => {
+        openAlert({
+          title: '회원가입 실패',
+          content: <Text>회원가입에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: () => closeAlert(),
+        });
+      }, 100);
     }
   };
 
@@ -282,6 +299,8 @@ export default function SignUp() {
             </LoginLink>
           </SignUpForm>
         </SignUpBox>
+        {/* Alert 컴포넌트 렌더링 */}
+        <Alert isOpen={isOpen} closeAlert={closeAlert} />
       </SignUpContainer>
     </Container>
   );

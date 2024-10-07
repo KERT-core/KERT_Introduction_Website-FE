@@ -5,7 +5,10 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { API } from '../utils/api'; 
+import { Text } from '../components/typograph/Text';
+import { API } from '../utils/api';
+import useAlert from '../stores/useAlert';
+import { Alert } from '../components/forms/modal/Alert';
 import { useAuth } from '../components/navigation/AuthContext';
 import defaultProfilePic from '../assets/icons/menu/User.png';
 
@@ -187,6 +190,7 @@ export default function MyPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
+  const { openAlert, closeAlert, isOpen } = useAlert(); 
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
 
@@ -309,10 +313,23 @@ export default function MyPage() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      console.log('서버로 전송:', response.data);
+      // console.log('서버로 전송:', response.data);
+      setTimeout(() => {
+        openAlert({
+          title: '비밀번호 변경',
+          content: <Text>비밀번호가 성공적으로 변경되었습니다.</Text>,
+          onClose: () => closeAlert(),
+        });
+      }, 100);
     } catch (error) {
       console.error('오류 발생:', error);
-      alert('비밀번호 재설정에 실패했습니다. 다시 시도해주세요.');
+      setTimeout(() => {
+        openAlert({
+          title: '비밀번호 재설정 실패',
+          content: <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: () => closeAlert(),
+        });
+      }, 100);
     }
   };
 
@@ -326,12 +343,25 @@ export default function MyPage() {
             Authorization: `Bearer ${token}`,
           },
         });
-        alert("계정이 성공적으로 삭제되었습니다.");
+        // 100ms 후 새로운 Alert 열기
+        setTimeout(() => {
+          openAlert({
+            title: '계정 삭제',
+            content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
+            onClose: () => closeAlert(),
+          });
+        }, 100);
         logout();
         navigate('/login');
       } catch (error) {
         console.error('계정 삭제 실패:', error);
-        alert("계정 삭제에 실패했습니다. 다시 시도해주세요.");
+        setTimeout(() => {
+          openAlert({
+            title: '계정 삭제 실패',
+            content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
+            onClose: () => closeAlert(),
+          });
+        }, 100);
       }
     }
   };
@@ -454,6 +484,7 @@ export default function MyPage() {
             <EditButton type="button" onClick={handleDeleteAccount}>계정 삭제</EditButton>
           </Form>
         </Section>
+        <Alert isOpen={isOpen} closeAlert={closeAlert} />
       </MyPageContainer>
     </Container>
   );
