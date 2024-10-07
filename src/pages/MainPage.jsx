@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Text } from '../components/typograph/Text';
+import { Text, Span } from '../components/typograph/Text';
 import { Link } from 'react-router-dom';
 import Github from "../assets/icons/Github.png";
 import Instagream from "../assets/icons/Instagram.png";
@@ -25,11 +25,6 @@ const back_first_Style = {
   height: '100vh',
   position: 'relative',
   overflow: 'hidden',
-};
-
-const dividerStyle = {
-  height: `${DIVIDER_HEIGHT}px`,
-  backgroundColor: 'transparent',
 };
 
 const footerStyle = (showFooter) => ({
@@ -61,6 +56,11 @@ const Footer = styled.footer`
   opacity: ${({ showFooter }) => (showFooter ? 1 : 0)};
   position: fixed;
   bottom: 0;
+`;
+
+const Divider = styled.div`
+  height: ${DIVIDER_HEIGHT}px;
+  background-color: transparent;
 `;
 
 const LogoAddressCopyrightContainer = styled.div`
@@ -119,7 +119,7 @@ const HreyferContainer = styled.div`
   gap: 12px;
 
   margin: 0 auto;
-  width: 500px;
+  width: 700px;
   height: 150px;
 
   flex: none;
@@ -127,8 +127,7 @@ const HreyferContainer = styled.div`
   flex-grow: 0;
 `;
 
-
-const TextHreyfer=styled(Link)`
+const TextHreyfer = styled(Link)`
   font-family: 'NanumSquare Neo';
   font-style: normal;
   font-weight: 200;
@@ -137,10 +136,10 @@ const TextHreyfer=styled(Link)`
   color: #83878B;
   text-decoration: none;
 
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-`
+  &:focus, &:hover, &:visited, &:link, &:active {
+    text-decoration: none;
+  }
+`;
 
 const SNSLinkContainer = styled.div`
   display: flex;
@@ -148,8 +147,8 @@ const SNSLinkContainer = styled.div`
   justify-content: flex-start;  /* Aligns icons to the left */
   align-items: center;
   gap: 50px;
-  width: 100%; /* Make sure the container stretches across the full width */
-  height: auto; /* Adjust the height to be dynamic */
+  width: 100%; 
+  height: auto; 
   padding: 0;
 `;
 
@@ -168,9 +167,6 @@ const SNSIcon = styled.a`
     opacity: 1;
   }
 `;
-
-
-
 
 export default function MainPage() {
   const outerDivRef = useRef();
@@ -300,17 +296,17 @@ export default function MainPage() {
         }}
       >
         <Section1 />
-        <div style={dividerStyle}></div>
+        <Divider />
         <Section2 />
-        <div style={dividerStyle}></div>
+        <Divider />
         <Section3 />
-        <div style={dividerStyle}></div>
+        <Divider />
         <Section4 />
-        <div style={dividerStyle}></div>
+        <Divider />
         <Section5 />
-        <div style={dividerStyle}></div>
+        <Divider />
         <Section6 />
-        <div style={dividerStyle}></div>
+        <Divider />
         <Section7 />
       </div>
       <Footer showFooter={showFooter}>
@@ -328,13 +324,12 @@ export default function MainPage() {
           <TextHreyfer to="https://hspace.io/login">HSpace</TextHreyfer>
           <Text size="xs" weight="light">오픈소스 라이선스</Text>
         </HreyferContainer>
-          <SNSLinkContainer>
-            <SNSIcon href="https://github.com/KERT-core" backgroundImage={Github} target="_blank" />
-            <SNSIcon href="https://youtube.com/@kert_knu593" backgroundImage={Youtube} target="_blank" />
-            <SNSIcon href="https://www.facebook.com/KNU.KERT" backgroundImage={Facebook} target="_blank" />
-            <SNSIcon href="https://instagram.com/knu_kert" backgroundImage={Instagream} target="_blank" />
-          </SNSLinkContainer>
-
+        <SNSLinkContainer>
+          <SNSIcon href="https://github.com/KERT-core" backgroundImage={Github} target="_blank" />
+          <SNSIcon href="https://youtube.com/@kert_knu593" backgroundImage={Youtube} target="_blank" />
+          <SNSIcon href="https://www.facebook.com/KNU.KERT" backgroundImage={Facebook} target="_blank" />
+          <SNSIcon href="https://instagram.com/knu_kert" backgroundImage={Instagream} target="_blank" />
+        </SNSLinkContainer>
       </Footer>
     </>
   );
