@@ -4,6 +4,7 @@
 // 내비바의 높이는 60px입니다.
 
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 
 import { GlobalStyle } from './styles/global';
 import { MainLayout } from './components/layouts/MainLayout';
