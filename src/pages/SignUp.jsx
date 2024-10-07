@@ -4,7 +4,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
-import { API } from '../utils/api'; 
+import { API } from '../utils/api';
 import styled from 'styled-components';
 import { Text } from '../components/typograph/Text';
 import '../font/main_font.css';
@@ -139,7 +139,7 @@ export default function SignUp() {
         password: data.password,
       };
 
-      const response = await API.POST('/register', formData);
+      const response = await API.POST('/users/signup', formData);
       // console.log('서버로 전송:', response.data.user);
       alert('회원가입 요청이 완료되었습니다!');
       navigate('/');
@@ -161,8 +161,12 @@ export default function SignUp() {
         <SignUpBox>
           <SignUpHeader>
             <div>
-              <Text size="l" weight="bold" color="#ffffff">Sign Up to KERT</Text>
-              <Text size="sxl" weight="bold" color="#ffffff">회원가입</Text>
+              <Text size="l" weight="bold" color="#ffffff">
+                Sign Up to KERT
+              </Text>
+              <Text size="sxl" weight="bold" color="#ffffff">
+                회원가입
+              </Text>
             </div>
             <KertLogo>
               <img src="../logo/white_square.png" alt="kert-logo" />
@@ -251,7 +255,8 @@ export default function SignUp() {
                   required: '기수를 입력해주세요.',
                   pattern: {
                     value: /^(20\d{2})-(1|2)$/,
-                    message: '기수는 "연도-학기" 형식으로 입력해주세요. 예: 2024-1',
+                    message:
+                      '기수는 "연도-학기" 형식으로 입력해주세요. 예: 2024-1',
                   },
                 })}
               />
@@ -267,8 +272,16 @@ export default function SignUp() {
                 placeholder="비밀번호"
                 {...register('password', {
                   required: '비밀번호를 입력해주세요.',
-                  minLength: { value: 8, message: '비밀번호는 8자리 이상이여야 합니다. '},
-                  pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/, message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.'},
+                  minLength: {
+                    value: 8,
+                    message: '비밀번호는 8자리 이상이여야 합니다. ',
+                  },
+                  pattern: {
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                    message:
+                      '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
+                  },
                 })}
               />
               {errors.password && (

@@ -24,8 +24,14 @@ async function request(endpoint, method = 'GET', data = null, headers = {}) {
       throw new Error(`${response.status} ${response.statusText}`);
     }
 
+    let contentType = response.headers.get('Content-Type');
+
     // 응답 데이터를 JSON으로 반환합니다.
-    return await response.json();
+    if (contentType.includes('application/json')) {
+      return await response.json();
+    } else {
+      return await response.text();
+    }
   } catch (error) {
     console.error('요청 실패:', error);
     throw error; // 오류를 호출한 곳으로 다시 던집니다.

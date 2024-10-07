@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { API } from '../utils/api'; 
+import { API } from '../utils/api';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAuth } from '../components/navigation/AuthContext';
@@ -93,8 +93,8 @@ const InputGroup = styled.div`
   }
 
   input:focus {
-    border: 1px solid #4a90e2;  /* 파란색 테두리 */
-    box-shadow: none;  /* 흰색 테두리 제거 */
+    border: 1px solid #4a90e2; /* 파란색 테두리 */
+    box-shadow: none; /* 흰색 테두리 제거 */
   }
 `;
 
@@ -125,7 +125,12 @@ const SignupLink = styled.div`
 `;
 
 export default function Login() {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
   const { login, userInfo } = useAuth(); // AuthContext에서 login 함수 호출
   const [error, setError] = useState('');
@@ -133,13 +138,15 @@ export default function Login() {
   const onSubmit = async (data) => {
     try {
       // 서버에 로그인 요청 보내기
-      const response = await API.POST('/login', {
+      const response = await API.POST('/users/login', {
         student_id: data.student,
         password: data.password,
       });
 
-      const token = response.data.token;
-      const userInfo = response.data.user;
+      // get string body
+      const token = response;
+
+      console.log('token:', token);
 
       if (token && userInfo) {
         login(token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
@@ -181,11 +188,19 @@ export default function Login() {
                 placeholder="학번"
                 {...register('student', {
                   required: '학번을 입력해주세요.',
-                  minLength: { value: 10, message: '학번은 10자리 숫자여야 합니다.' },
-                  pattern: { value: /^[0-9]{10}$/, message: '학번은 10자리 숫자여야 합니다.' },
+                  minLength: {
+                    value: 10,
+                    message: '학번은 10자리 숫자여야 합니다.',
+                  },
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: '학번은 10자리 숫자여야 합니다.',
+                  },
                 })}
               />
-              {errors.student && <ErrorMessage>{errors.student.message}</ErrorMessage>}
+              {errors.student && (
+                <ErrorMessage>{errors.student.message}</ErrorMessage>
+              )}
             </InputGroup>
 
             <InputGroup>
@@ -195,11 +210,21 @@ export default function Login() {
                 placeholder="비밀번호"
                 {...register('password', {
                   required: '비밀번호를 입력해주세요',
-                  minLength: { value: 8, message: '비밀번호는 8자리 이상이여야 합니다. '},
-                  pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/, message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.'},
+                  minLength: {
+                    value: 8,
+                    message: '비밀번호는 8자리 이상이여야 합니다. ',
+                  },
+                  pattern: {
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                    message:
+                      '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
+                  },
                 })}
               />
-              {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+              {errors.password && (
+                <ErrorMessage>{errors.password.message}</ErrorMessage>
+              )}
             </InputGroup>
 
             {/* 에러 메시지 표시 */}
