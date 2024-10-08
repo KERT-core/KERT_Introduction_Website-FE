@@ -4,6 +4,7 @@ import { Text } from '../components/typograph/Text';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import urlJoin from 'url-join';
+import { API } from '../utils/api';
 
 const Container = styled.div`
   width: 100%;
@@ -106,7 +107,7 @@ export default function Board() {
   const [tag, setTag] = useState('전체');
 
   useEffect(() => {
-    axios.get(urlJoin(import.meta.env.BACKEND_URL, '/posts')).then((r) => {
+    API.GET('/posts').then((r) => {
       setPosts(r.data);
     });
   }, []);
