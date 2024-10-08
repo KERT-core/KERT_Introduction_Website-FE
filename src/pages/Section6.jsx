@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { Span } from '../components/typograph/Text';
 import GraphSVG from '../assets/graph.svg';
 import { Link } from 'react-router-dom';
@@ -93,7 +94,9 @@ const StyledLink = styled(Link)`
 export default function Section6() {
   return (
     <SectionWrapper>
+      {/* Scale 100% Fixed */}
       <Graph />
+      {/* Center Fixed */}
       <Content>
         <LeftContent>
           <Title>
