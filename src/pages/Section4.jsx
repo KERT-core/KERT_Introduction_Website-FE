@@ -10,39 +10,30 @@ import '../font/main_font.css';
 
 // Dev문서 타이틀 양식 가져오기
 const Title = styled(Span).attrs({
-  $weight: 'extrabold',
+  id: 'title',
+  $size: 'sxl',
+  $weight: 'heavy',
+  $color: '--primary-text-color',
 })`
-  font-size: clamp(36px, 4vw, 50px);
-  word-break: keep-all;
-  margin-bottom: 50px;
+  margin-bottom: 12px;
 `;
 
-
+// Container for the left content
 const LeftContentContainr = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
   padding: 0 50px;
-
-  @media (max-width: 768px) {
-    padding: 0 20px;
-    align-items: center; /* 작은 화면에서는 가운데 정렬 */
-  }
 `;
 
-
+// Container to wrap the left and right content containers
 const ContentWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   padding: 0 10%;
-
-  @media (max-width: 768px) {
-    flex-direction: column; /* 작은 화면에서는 세로로 배치 */
-    padding: 0 5%;
-  }
 `;
 
 // MainPage 양식과 호환될 수 있도록 바탕 설정
@@ -58,21 +49,16 @@ const BackFirstStyle = styled.div`
   background-size: cover;
 `;
 
-
+// Container for the right content boxes
 const RightContentContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   justify-content: flex-start;
   margin-left: 100px;
-  gap: 20px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-
-  @media (max-width: 768px) {
-    margin-left: 0;
-    justify-content: center;
-  }
+  gap: 20px; /* GroupBox 간의 간격을 설정 */
+  margin-top: 20px; /* 상단 간격 추가 */
+  margin-bottom: 20px; /* 하단 간격 추가 */
 `;
 
 const GroupBox = styled.div`
@@ -84,22 +70,22 @@ const GroupBox = styled.div`
   gap: 20px;
   width: 250px;
   height: auto;
+
   background: rgba(255, 255, 255, 0.1);
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(5px);
   border-radius: 20px;
 
-  @media (max-width: 768px) {
-    width: 100%;
-    max-width: 350px; 
-  }
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 `;
 
 const HeaderIcon = styled.img`
   display: block;
   width: 50px;
   height: 50px;
-  margin-bottom: 30px;
+  margin-bottom: 30px; /* HeaderIcon과 GroupTitle 사이의 간격 설정 */
 `;
 
 const GroupTitle = styled.div`
@@ -124,34 +110,19 @@ const GroupContent = styled.div`
   text-align: left;
 `;
 
-const KertDescription = styled(Span).attrs({
-  $weight: 'light',
-  $color: 'rgba(255, 255, 255, 0.8)',
-})`
-  font-size: clamp(16px, 2vw, 24px);
-  word-break: keep-all;
-`;
-
-const FirstWord = styled(Span).attrs({
-  $weight: 'light',
-  $color: 'rgba(255, 255, 255, 0.7)',
-})`
-  font-size: clamp(16px, 2vw, 13px);
-  word-break: keep-all;
-  margin-bottom: 13px;
-`;
-
 export default function Section1() {
   return (
     <BackFirstStyle>
       <ContentWrapper>
         <LeftContentContainr>
-          <FirstWord>Education Content of KERT</FirstWord>
+          <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">
+            Education Content of KERT
+          </Text>
           <Title>KERT, 이런 걸 배워요</Title>
-          <KertDescription>
-            KERT는 보안과 관련된 다양한 활동이 준비돼있어요. 가입 후 다양한
-            분야지식을 습득할 수 있어요.
-          </KertDescription>
+          <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.8)">
+            KERT는 보안과 관련된 다양한 활동이 준비돼있어요. 가입 후 다양한 분야
+            지식을 습득할 수 있어요.
+          </Text>
         </LeftContentContainr>
         <RightContentContainer>
           <GroupBox>
@@ -160,8 +131,8 @@ export default function Section1() {
               Web 기초
             </Text>
             <Text size="xs" weight="regular" color="rgba(255, 255, 255, 0.5)">
-              웹 서버 코드를 작성/수정하고 브라우저 개발자 도구로 분석해요.
-              통신 프로토콜, 쿠키, 세션 등 Web 동작 방식을 배워요.
+              웹 서버 코드를 작성/수정하고 브라우저 개발자 도구로 분석해요. 통신
+              프로토콜, 쿠키, 세션 등 Web 동작 방식을 배워요.
             </Text>
           </GroupBox>
           <GroupBox>
@@ -170,8 +141,8 @@ export default function Section1() {
               암호학 Crypto
             </Text>
             <Text size="xs" weight="regular" color="rgba(255, 255, 255, 0.5)">
-              AES, 비/대칭키 등 유저와 서버 간의 통신에서 사용하는 암호화
-              방식을 배우고, 암호화된 데이터를 복호화해요.
+              AES, 비/대칭키 등 유저와 서버 간의 통신에서 사용하는 암호화 방식을
+              배우고, 암호화된 데이터를 복호화해요.
             </Text>
           </GroupBox>
           <GroupBox>
@@ -180,8 +151,8 @@ export default function Section1() {
               리버싱 Reversing
             </Text>
             <Text size="xs" weight="regular" color="rgba(255, 255, 255, 0.5)">
-              IDA, Ghidra 등의 도구로 소프트웨어의 동작 원리를 분석하고 발생할 수
-              있는 보안 취약점을 찾는 기술을 배워요.
+              IDA, Ghidra 등의 도구로 소프트웨어의 동작 원리를 분석하고 발생할
+              수 있는 보안 취약점을 찾는 기술을 배워요.
             </Text>
           </GroupBox>
           <GroupBox>
