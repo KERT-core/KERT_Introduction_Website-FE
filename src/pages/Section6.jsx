@@ -94,9 +94,7 @@ const StyledLink = styled(Link)`
 export default function Section6() {
   return (
     <SectionWrapper>
-      {/* Scale 100% Fixed */}
       <Graph />
-      {/* Center Fixed */}
       <Content>
         <LeftContent>
           <Title>
