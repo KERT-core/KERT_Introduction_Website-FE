@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { Button } from '../components/forms/Button';
 import { Text } from '../components/typograph/Text';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import urlJoin from 'url-join';
+import { API } from '../utils/api';
 
 const Container = styled.div`
   width: 100%;
@@ -98,6 +102,16 @@ const PostCard = ({ title, description, author, image }) => {
 };
 
 export default function Board() {
+  const [posts, setPosts] = useState([]);
+
+  const [tag, setTag] = useState('전체');
+
+  useEffect(() => {
+    API.GET('/posts').then((r) => {
+      setPosts(r.data);
+    });
+  }, []);
+
   return (
     <Container>
       <TitleBox>
@@ -117,12 +131,12 @@ export default function Board() {
         </Button>
       </ButtonGroup>
       <PostItems>
-        {Array.from({ length: 9 }).map((_, index) => (
+        {posts.map((post, index) => (
           <PostCard
             key={index}
-            title="여기에 제목 입력"
-            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit....."
-            author="KERT 관리자"
+            title={post.title}
+            description={post.content}
+            author={post.admin_id}
             image={`https://picsum.photos/200?random=${index}`}
           />
         ))}
