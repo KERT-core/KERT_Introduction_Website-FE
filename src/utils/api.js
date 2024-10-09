@@ -49,7 +49,8 @@ async function request(endpoint, method = 'GET', data = null, headers = {}) {
 
 // GET 요청
 async function GET(endpoint, data = { body: {}, headers: {} }) {
-  return await request(endpoint, 'GET', data.body, data.headers);
+  // GET 요청은 body를 사용하지 않습니다.
+  return await request(endpoint, 'GET', null, data.headers);
 }
 
 // POST 요청
@@ -64,7 +65,8 @@ async function PUT(endpoint, data = { body: {}, headers: {} }) {
 
 // DELETE 요청
 async function DELETE(endpoint, data = { body: {}, headers: {} }) {
-  return await request(endpoint, 'DELETE', data.body, data.headers);
+  // DELETE 요청은 body를 사용하지 않습니다.
+  return await request(endpoint, 'DELETE', null, data.headers);
 }
 
 export const API = {
