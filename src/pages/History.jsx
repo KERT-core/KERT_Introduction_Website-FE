@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { ShapeBackground } from '../components/display/ShapeBackground';
 import { Text, Span } from '../components/typograph/Text';
+import React, { useEffect, useRef, useState } from 'react';
 
 const BackgroundWrapper = styled.div`
   width: 100vw;
@@ -35,8 +36,9 @@ const Year = styled(Span).attrs({
 })`
   font-size: clamp(36px, 4vw, 40px);
   word-break: keep-all;
-`;
+  color: ${(props) => props.$color || '#FFFFFF'}; 
 
+`
 
 const TitleContainer = styled.div`
   display: flex;
@@ -52,28 +54,28 @@ const TitleContainer = styled.div`
   top: 150px;
 `;
 
-const HistoryFrame = styled.div`
+
+const YearHistoryContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0px;
-  gap: 50px;
-
-  width: 920px;
-  height: 136px;
-
-  position: absolute; 
-  top: 300px;
-  left: calc(50% - 460px); /*중앙 정렬*/
-  transform: translateX(10%);
-  
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
+  gap: 50px; 
+  width: 100%;
 `;
 
 
+const HistoryFrame = styled.div`
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start;
+  padding: 0px;
+  gap: 50px; 
+
+  position: absolute; 
+  top: 300px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
 
 const HistoryCardContainer = styled.div`
   display: flex;
@@ -85,12 +87,6 @@ const HistoryCardContainer = styled.div`
   gap: 20px;
 
   width: 700px;
-  height: 136px;
-
-  /* Inside auto layout */
-  flex: none;
-  order: 1;
-  flex-grow: 1;
 `;
 
 const HistoryCard = styled.div`
@@ -103,7 +99,7 @@ const HistoryCard = styled.div`
   padding: 20px;
   gap: 10px;
 
-  width: 459px;
+  width: auto; 
   height: 58px;
 
   background: rgba(255, 255, 255, 0.1);
@@ -111,52 +107,94 @@ const HistoryCard = styled.div`
   backdrop-filter: blur(10px);
 
   border-radius: 10px;
-
-
-  flex: none;
-  order: 1;
-  flex-grow: 0;
 `;
 
-const Month = styled(Span).attrs({
+const Month = styled(Span).attrs((props) => ({
   $weight: 'bold',
-})`
+  $color: props.$color || '#FFFFFF', 
+}))`
   font-size: clamp(18px, 2vw, 12px);
   word-break: keep-all;
+  color: ${(props) => props.$color}; 
 `;
 
-const HistoryContent=styled(Span).attrs({
+const HistoryContent = styled(Span).attrs((props) => ({
   $weight: 'regular',
-})`
+  $color: props.$color || '#FFFFFF', 
+}))`
   font-size: clamp(14px, 2vw, 12px);
   word-break: keep-all;
+  color: ${(props) => props.$color}; 
+`;
 
-`
+
+
 
 export default function History() {
+  
   return (
-    <>
-      <BackgroundWrapper>
-        <TitleContainer>
-          <Title>KERT 연혁</Title>
-          <Description>KERT는 매년 성장하는 동아리입니다</Description>
-        </TitleContainer>
-        <HistoryFrame>
+    <BackgroundWrapper>
+      <TitleContainer>
+        <Title>KERT 연혁</Title>
+        <Description>KERT는 매년 성장하는 동아리입니다</Description>
+      </TitleContainer>
+
+      {/*Histroy 전체 컨테이너 시작 지점입니다. */}
+      <HistoryFrame>
+        {/* 2024 */}
+
+        <YearHistoryContainer>
           <Year>2024</Year>
           <HistoryCardContainer>
             <HistoryCard>
               <Month>4월</Month>
               <HistoryContent>전국 사이버 보안 연합 CCA 소속</HistoryContent>
             </HistoryCard>
-
             <HistoryCard>
               <Month>5월</Month>
               <HistoryContent>정보 보호 대학 동아리 연합 KUCIS 소속</HistoryContent>
             </HistoryCard>
           </HistoryCardContainer>
-        </HistoryFrame>
-        <ShapeBackground />
-      </BackgroundWrapper>
-    </>
+        </YearHistoryContainer>
+
+
+        {/* 2023 */}
+        <YearHistoryContainer>
+          <Year $color="rgba(255, 255, 255, 0.3)">2023</Year>
+          <HistoryCardContainer>
+            <HistoryCard>
+              <Month $color="rgba(255, 255, 255, 0.4)">3월</Month>
+              <HistoryContent $color="rgba(255, 255, 255, 0.4)" >HSpace 파트너쉽 체결</HistoryContent>
+            </HistoryCard>
+          </HistoryCardContainer>
+        </YearHistoryContainer>
+
+        {/* 2021 */}
+        <YearHistoryContainer>
+          <Year $color="rgba(255, 255, 255, 0.3)">2021</Year>
+          <HistoryCardContainer>
+            <HistoryCard>
+              <Month $color="rgba(255, 255, 255, 0.4)">9월</Month>
+              <HistoryContent $color="rgba(255, 255, 255, 0.4)" >제2회 KOSPO 웹서비스 정보 보안 경진대회 최우수상</HistoryContent>
+            </HistoryCard>
+          </HistoryCardContainer>
+        </YearHistoryContainer>
+
+        {/*2018*/}
+        <YearHistoryContainer>
+          <Year $color="rgba(255, 255, 255, 0.3)">2018</Year>
+          <HistoryCardContainer>
+            <HistoryCard>
+              <Month $color="rgba(255, 255, 255, 0.4)">4월</Month>
+              <HistoryContent $color="rgba(255, 255, 255, 0.4)" >Naver D2 Campus Parter 선정</HistoryContent>
+            </HistoryCard>
+          </HistoryCardContainer>
+        </YearHistoryContainer>
+
+        
+      </HistoryFrame>
+
+      <ShapeBackground />
+    </BackgroundWrapper>
   );
 }
