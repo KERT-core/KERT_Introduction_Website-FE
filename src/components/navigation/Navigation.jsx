@@ -7,7 +7,7 @@ import useTheme from '../../hooks/useTheme';
 
 import Profile from './Profile';
 
-import { scrollToSection } from '../../utils/scrollToSection'; 
+import { scrollToSection } from '../../utils/scrollToSection';
 
 const Nav = styled.div`
   position: fixed;
@@ -83,13 +83,25 @@ export const Navigation = () => {
         <Logo />
       </Link>
       <Menus>
-        <Link to="/" style={menu_style} onClick={() => scrollToSection('section6')}>
+        <Link
+          to="/"
+          style={menu_style}
+          onClick={() => scrollToSection('section6')}
+        >
           연혁
         </Link>
-        <Link to="/" style={menu_style} onClick={() => scrollToSection('section7')}>
+        <Link
+          to="/"
+          style={menu_style}
+          onClick={() => scrollToSection('section7')}
+        >
           임원진
         </Link>
-        <Link to="/" style={menu_style} onClick={() => scrollToSection('section5')}>
+        <Link
+          to="/"
+          style={menu_style}
+          onClick={() => scrollToSection('section5')}
+        >
           활동
         </Link>
         <Link to="/board" style={menu_style}>
@@ -99,8 +111,8 @@ export const Navigation = () => {
       <AuthLinks>
         {isLoggedIn ? (
           <>
-            {/* <Profile userName={user.name} logout={logout} /> */}
-            <Profile userName="홍길동" logout={logout} />
+            <Profile userName={user.name} logout={logout} />
+            {/* <Profile userName="홍길동" logout={logout} /> */}
           </>
         ) : (
           <>

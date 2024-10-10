@@ -80,7 +80,9 @@ export const AdminElement = ({ admin }) => {
   const { openConfirm, closeConfirm } = useConfirm();
 
   const { data, isLoading } = useQuery(`user-${admin.student_id}`, async () => {
-    const data = await API.GET(`/users/${admin.student_id}`);
+    const data = await API.GET(`/users/${admin.student_id}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    });
     return { ...admin, ...data };
   });
 
@@ -176,7 +178,10 @@ export const AdminElement = ({ admin }) => {
     // 문제가 없다면 서버 요청 시작
     showLoading({ message: '관리자 정보를 수정하는 중...' });
 
-    API.PUT(`/admin/${data.student_id}`, updated_admin)
+    API.PUT(`/admin/${data.student_id}`, {
+      body: { ...updated_admin },
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then((api_res) => {
         closeConfirm();
         openAlert({

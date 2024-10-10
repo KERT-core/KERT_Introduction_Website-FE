@@ -71,7 +71,7 @@ export const HistoryElement = ({ history }) => {
   const refs = {
     year: useRef(),
     month: useRef(),
-    description: useRef(),
+    content: useRef(),
   };
 
   // 연혁 요소를 눌렀을 때 이벤트
@@ -93,7 +93,7 @@ export const HistoryElement = ({ history }) => {
       ...history,
       year: parseInt(refs.year.current.value),
       month: parseInt(refs.month.current.value),
-      description: refs.description.current.value,
+      content: refs.content.current.value,
     };
 
     // 만약 변경된 내용 없이 기존과 같다면 중단
@@ -110,7 +110,7 @@ export const HistoryElement = ({ history }) => {
     if (
       !updated_history.year ||
       !updated_history.month ||
-      !updated_history.description
+      !updated_history.content
     ) {
       openAlert({
         title: '정보 부족',
@@ -177,7 +177,7 @@ export const HistoryElement = ({ history }) => {
   return (
     <CardWrapper onClick={() => onClick()}>
       <Month>{history?.month}월</Month>
-      <Description>{history?.description}</Description>
+      <Description>{history?.content}</Description>
     </CardWrapper>
   );
 };

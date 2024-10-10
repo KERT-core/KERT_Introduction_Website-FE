@@ -104,7 +104,9 @@ export const DetailUser = ({ user }) => {
     closeConfirm();
     showLoading({ message: '회원을 삭제하는 중...' });
 
-    API.DELETE(`/users/${user.student_id}`)
+    API.DELETE(`/users/${user.student_id}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then(() => {
         openAlert({
           title: '회원 삭제 완료',

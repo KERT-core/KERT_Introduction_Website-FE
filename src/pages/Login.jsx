@@ -132,21 +132,35 @@ export default function Login() {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
-  const { login, userInfo } = useAuth(); // AuthContext에서 login 함수 호출
+  const { login } = useAuth(); // AuthContext에서 login 함수 호출
   const [error, setError] = useState('');
 
   const onSubmit = async (data) => {
     try {
       // 서버에 로그인 요청 보내기
       const response = await API.POST('/users/login', {
-        student_id: data.student,
-        password: data.password,
+        body: {
+          student_id: parseInt(data.student),
+          password: data.password,
+        },
       });
 
       // get string body
       const token = response;
 
+      // 서버에 user 정보 요청
+      const response_user = await API.GET(`/users/${data.student}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      const userInfo = response_user;
+
       console.log('token:', token);
+      console.log('userInfo:', userInfo);
+
+      alert('break!');
 
       if (token && userInfo) {
         login(token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출

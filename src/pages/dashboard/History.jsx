@@ -49,7 +49,7 @@ export default function History() {
   const refs = {
     year: useRef(),
     month: useRef(),
-    description: useRef(),
+    content: useRef(),
   };
 
   // 연혁 추가 버튼을 눌렀을 때 이벤트
@@ -60,17 +60,13 @@ export default function History() {
       onConfirm: () => {
         // 추가할 연혁의 객체를 구성합니다.
         const new_history = {
-          year: refs.year.current.value,
-          month: refs.month.current.value,
-          description: refs.description.current.value,
+          year: parseInt(refs.year.current.value),
+          month: parseInt(refs.month.current.value),
+          content: refs.content.current.value,
         };
 
         // 만약 하나라도 미입력이라면 알림을 띄웁니다.
-        if (
-          !new_history.year ||
-          !new_history.month ||
-          !new_history.description
-        ) {
+        if (!new_history.year || !new_history.month || !new_history.content) {
           openAlert({
             title: '정보 부족',
             content: <Text>모든 칸을 입력해주세요</Text>,
@@ -82,7 +78,10 @@ export default function History() {
         closeConfirm();
         showLoading({ message: '연혁을 추가하는 중...' });
 
-        API.POST('/histories', new_history)
+        API.POST('/histories', {
+          body: { ...new_history },
+          headers: { Authorization: localStorage.getItem('token') },
+        })
           .then(() => {
             hideLoading();
             openAlert({
