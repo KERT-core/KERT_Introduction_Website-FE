@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
+import { useQuery } from 'react-query';
 
 import { GENERATION_REGEX, STUDENT_ID_REGEX } from '../../utils/regex.js';
 
@@ -24,18 +25,23 @@ import { ErrorModal } from '../../components/display/dashboard/ErrorModal.jsx';
 import { RefreshIcon } from '../../assets/icons';
 
 import { API } from '../../utils/api.js';
-import useAdmin from '../../stores/dashboard/useAdmin.js';
 import useAlert from '../../stores/useAlert.js';
 import useConfirm from '../../stores/useConfirm.js';
 import useLoading from '../../stores/useLoading.js';
 
 export default function Admin() {
-  const [loading, setLoading] = useState(true); // 스켈레톤 컨테이너 로딩용
-  const { admins, saveAdmins } = useAdmin();
-
   const { showLoading, hideLoading } = useLoading();
   const { openConfirm, closeConfirm } = useConfirm();
   const { openAlert } = useAlert();
+
+  const { data, isLoading, isError } = useQuery(
+    'admin',
+    async () => {
+      const data = await API.GET('/admin');
+      return data;
+    },
+    { retry: 2 },
+  );
 
   const refs = {
     student_id: useRef(),
@@ -43,42 +49,6 @@ export default function Admin() {
     role: useRef(),
     description: useRef(),
   };
-
-  // API로부터 데이터를 가져와 Zustand 상태를 업데이트합니다.
-  useEffect(() => {
-    // admin 데이터가 Store에 없는 경우 API 요청을 보냅니다.
-    if (admins.length === 0) {
-      // 1. 모든 관리자를 불러옵니다.
-      API.GET('/admin')
-        .then((adminRes) => {
-          // 2. 각 admin.student_id에 대해 추가 데이터를 가져옵니다.
-          const userRequests = adminRes.map((admin) =>
-            API.GET(`/users/${admin.student_id}`).then((userRes) => ({
-              ...userRes, // 추가로 가져온 사용자 데이터
-              ...admin, // 기존 admin 데이터
-            })),
-          );
-          // 3. 모든 요청이 완료된 후 상태에 저장
-          Promise.all(userRequests)
-            .then((adminsWithDetails) => {
-              saveAdmins(adminsWithDetails); // 병합된 데이터를 저장
-            })
-            .catch((error) => {
-              console.error('Error fetching data:', error);
-            })
-            .finally(() => {
-              setLoading(false);
-            });
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.error('Error fetching data:', error);
-        });
-    } else {
-      setLoading(false);
-      console.info('이미 API 데이터가 있으므로 API 응답을 요청하지 않습니다.');
-    }
-  }, [admins, saveAdmins]);
 
   // 새로운 관리자 추가를 눌렀을 때
   const onClick = () => {
@@ -139,7 +109,7 @@ export default function Admin() {
 
     // 위 if에 걸리지 않으면 서버 POST 요청
     API.POST('/admin', new_admin)
-      .then((res) => {
+      .then(() => {
         openAlert({
           title: '관리자 추가 성공',
           content: <Text>페이지를 다시 불러올게요.</Text>,
@@ -179,13 +149,17 @@ export default function Admin() {
           </ControlBox>
         </AdminHeader>
         {/* 관리자 리스트 */}
-        <AdminList>
-          {loading
-            ? [0, 1, 2, 3, 4].map((e, i) => <AdminElementLoading key={i} />)
-            : admins.map((admin, index) => (
-                <AdminElement key={index} admin={admin} />
-              ))}
-        </AdminList>
+        {isError ? (
+          <></>
+        ) : (
+          <AdminList>
+            {isLoading
+              ? [0, 1, 2, 3, 4].map((e, i) => <AdminElementLoading key={i} />)
+              : data.map((admin, index) => (
+                  <AdminElement key={index} admin={admin} />
+                ))}
+          </AdminList>
+        )}
       </AdminListContainer>
     </>
   );

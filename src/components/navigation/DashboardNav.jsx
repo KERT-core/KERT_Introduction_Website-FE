@@ -3,7 +3,7 @@
 
 // 외부 라이브러리에서 import
 import styled from 'styled-components';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
 import { Span } from '../typograph/Text';
@@ -220,9 +220,10 @@ export const DashboardNav = () => {
         <Menu path="/history" icon={<TimelineIcon />} shortsName="연혁">
           연혁 추가/제거
         </Menu>
-        <Menu path="/executive" icon={<PersonIcon />} shortsName="임원진">
+        {/* 임원진은 다음 개발에 진행합니다. */}
+        {/* <Menu path="/executive" icon={<PersonIcon />} shortsName="임원진">
           임원진 추가/제거
-        </Menu>
+        </Menu> */}
         <Menu path="/admin" icon={<VerifiedIcon />} shortsName="관리자">
           관리자 추가/제거
         </Menu>

@@ -23,6 +23,9 @@ dist-ssr
 *.sln
 *.sw?
 
-# 환경 변수 파일
+# Environment files
 .env
+.env.local
 .env.development
+.env.*
+!.env.example

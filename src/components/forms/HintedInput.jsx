@@ -58,3 +58,5 @@ export const HintedInput = forwardRef(
     );
   },
 );
+
+HintedInput.displayName = 'HintedInput';

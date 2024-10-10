@@ -2,12 +2,12 @@
 
 import { useState } from 'react';
 import styled from 'styled-components';
-import { keyframes } from 'styled-components';
+import { useGlitch } from 'react-powerglitch';
 
 import { Span } from '../components/typograph/Text';
 
-import Square from '../assets/kert_logos/Square.svg?react';
-import NotFoundIcon from '../assets/404.svg?react';
+import Square from '../assets/kert_logos/Square.svg';
+import NotFoundIcon from '../assets/404.svg';
 
 const Wrapper = styled.div`
   position: relative;
@@ -86,6 +86,15 @@ const Background = styled.div`
 `;
 
 export default function NotFound() {
+  const glitch = useGlitch({
+    timing: {
+      easing: 'ease-in-out',
+    },
+    slice: {
+      hueRotate: false,
+    },
+  });
+
   const example = [
     '해킹 시도는 아니시죠?',
     'URL 오타라고 생각할게요',
@@ -103,10 +112,12 @@ export default function NotFound() {
         <Square fill="var(--primary-text-color)" />
         <Square fill="var(--primary-text-color)" />
       </Background>
-      <NotFoundIcon
-        fill="var(--primary-text-color)"
-        style={{ width: '200px', opacity: '0.5' }}
-      />
+      <div ref={glitch.ref}>
+        <NotFoundIcon
+          fill="var(--primary-text-color)"
+          style={{ width: '200px', opacity: '0.5' }}
+        />
+      </div>
       <div>
         <Title>찾을 수 없는 페이지</Title>
         <Subtitle>{message}</Subtitle>
