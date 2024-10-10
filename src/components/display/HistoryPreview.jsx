@@ -188,7 +188,7 @@ export const HistoryPreview = () => {
               ? sampleData[display_year]?.map((history, i) => (
                   <HistoryElement key={i} history={history} />
                 ))
-              : data[display_year].map((history, i) => (
+              : data[display_year]?.map((history, i) => (
                   <HistoryElement key={i} history={history} />
                 ))}
           </HistoryListWrapper>
