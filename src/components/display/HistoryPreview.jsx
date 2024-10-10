@@ -107,7 +107,7 @@ const HistoryElement = ({ history }) => {
         {history.year}.{history.month}
       </Text>
       <Text size="m" color="white">
-        {history.description}
+        {history.content}
       </Text>
     </HistoryElementWrapper>
   );
@@ -117,7 +117,7 @@ HistoryElement.propTypes = {
   history: PropTypes.shape({
     year: PropTypes.number.isRequired,
     month: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
   }).isRequired,
 };
 
