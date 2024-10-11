@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import { Span } from '../components/typograph/Text';
 import GraphSVG from '../assets/graph.svg';
 import { Link } from 'react-router-dom';

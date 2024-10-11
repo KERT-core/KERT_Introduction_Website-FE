@@ -27,6 +27,8 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
 
+import History from './pages/History';
+
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
   const location = useLocation();
@@ -40,6 +42,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<MainLayout />}>
               <Route index path="/" element={<MainPage />} />
+              <Route path="/history" element={<History />} />
               <Route path="/developer" element={<DevDocument />} />
               <Route path="/board">
                 <Route index path="/board" element={<Board />} />
