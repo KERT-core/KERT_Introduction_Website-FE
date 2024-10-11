@@ -49,7 +49,7 @@ export const EditHistory = forwardRef(
       return;
     }
 
-    const [previewDesc, setPreviewDesc] = useState(history.description);
+    const [previewDesc, setPreviewDesc] = useState(history.content);
 
     return (
       <Wrapper>
@@ -79,9 +79,9 @@ export const EditHistory = forwardRef(
           />
         </div>
         <HintedInput
-          ref={ref.description}
+          ref={ref.content}
           label="내용"
-          defaultValue={history.description}
+          defaultValue={history.content}
           onChange={(e) => {
             // 사용자가 내용을 변경하면 미리보기의 내용도 변경합니다.
             setPreviewDesc(e.target.value);

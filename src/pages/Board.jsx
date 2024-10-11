@@ -131,7 +131,7 @@ export default function Board() {
         </Button>
       </ButtonGroup>
       <PostItems>
-        {posts.map((post, index) => (
+        {posts?.map((post, index) => (
           <PostCard
             key={index}
             title={post.title}

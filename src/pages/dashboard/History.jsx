@@ -79,7 +79,7 @@ export default function History() {
         showLoading({ message: '연혁을 추가하는 중...' });
 
         API.POST('/histories', {
-          body: { ...new_history },
+          body: new_history,
           headers: { Authorization: localStorage.getItem('token') },
         })
           .then(() => {

@@ -190,9 +190,14 @@ export default function MyPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
-  const { openAlert, closeAlert, isOpen } = useAlert(); 
+  const { openAlert, closeAlert, isOpen } = useAlert();
 
-  const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm();
 
   // Fetch user data after login
   useEffect(() => {
@@ -209,7 +214,7 @@ export default function MyPage() {
         }
         const response = await API.GET(`/users/${user.student_id}`, {
           headers: {
-            Authorization: `Bearer ${token}`, // 토큰을 Authorization 헤더에 포함
+            Authorization: token, // 토큰을 Authorization 헤더에 포함
           },
         });
 
@@ -255,9 +260,10 @@ export default function MyPage() {
         };
 
         try {
-          const response = await API.PUT(`/users/${user.student_id}`, formData, {
+          const response = await API.PUT(`/users/${user.student_id}`, {
+            body: formData,
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: token,
               'Content-Type': 'multipart/form-data',
             },
           });
@@ -276,14 +282,15 @@ export default function MyPage() {
 
     try {
       const response = await API.PUT(`/users/${user.student_id}`, {
-        name: userInfo.name,
-        email: userInfo.email,
-        generation: userInfo.generation,
-        major: userInfo.major,
-        profile_picture: "",  // 삭제 시 빈 문자열을 보냄
-      }, {
+        body: {
+          name: userInfo.name,
+          email: userInfo.email,
+          generation: userInfo.generation,
+          major: userInfo.major,
+          profile_picture: '', // 삭제 시 빈 문자열을 보냄
+        },
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: token,
           'Content-Type': 'multipart/form-data',
         },
       });
@@ -293,7 +300,6 @@ export default function MyPage() {
       console.error('Image deletion failed:', error);
     }
   };
-
 
   const onSubmit = async (data) => {
     setPasswordError('');
@@ -307,10 +313,11 @@ export default function MyPage() {
 
     try {
       // 서버로 비밀번호 정보를 전송
-      const response = await API.POST(`/users/${user.student_id}`, data, {
+      const response = await API.POST(`/users/${user.student_id}`, {
+        body: data,
         headers: {
-          Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
+          Authorization: token,
         },
       });
       // console.log('서버로 전송:', response.data);
@@ -326,7 +333,9 @@ export default function MyPage() {
       setTimeout(() => {
         openAlert({
           title: '비밀번호 재설정 실패',
-          content: <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>,
+          content: (
+            <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>
+          ),
           onClose: () => closeAlert(),
         });
       }, 100);
@@ -334,13 +343,15 @@ export default function MyPage() {
   };
 
   const handleDeleteAccount = async () => {
-    const confirmDelete = window.confirm("계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?");
+    const confirmDelete = window.confirm(
+      '계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?',
+    );
     if (confirmDelete) {
       try {
         const token = localStorage.getItem('token');
         await API.DELETE(`/users/${user.student_id}`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: token,
           },
         });
         // 100ms 후 새로운 Alert 열기
@@ -384,8 +395,12 @@ export default function MyPage() {
                 style={{ display: 'none' }}
                 onChange={handleImageUpload}
               />
-              <label htmlFor="image-upload" className="change-pic-btn">이미지 업로드</label>
-              <button className="delete-pic-btn" onClick={handleDeleteImage}>사진 제거</button>
+              <label htmlFor="image-upload" className="change-pic-btn">
+                이미지 업로드
+              </label>
+              <button className="delete-pic-btn" onClick={handleDeleteImage}>
+                사진 제거
+              </button>
             </PicButtons>
           </ProfilePicContainer>
           <Form>
@@ -418,7 +433,8 @@ export default function MyPage() {
         {/* Change Password Section */}
         <Section>
           <SectionTitle>
-            비밀번호 변경 <span className="section-title-en">Change Password</span>
+            비밀번호 변경{' '}
+            <span className="section-title-en">Change Password</span>
           </SectionTitle>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <InputGroupLong>
@@ -430,12 +446,18 @@ export default function MyPage() {
                 {...register('currentPassword', {
                   required: '현재 비밀번호를 입력해주세요.',
                   pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
-                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                  }
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                    message:
+                      '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                  },
                 })}
               />
-              {errors.currentPassword && <WarningMessage>{errors.currentPassword.message}</WarningMessage>}
+              {errors.currentPassword && (
+                <WarningMessage>
+                  {errors.currentPassword.message}
+                </WarningMessage>
+              )}
             </InputGroupLong>
             <InputRow>
               <InputGroup>
@@ -446,11 +468,21 @@ export default function MyPage() {
                   placeholder="새 비밀번호"
                   {...register('newPassword', {
                     required: '새 비밀번호를 입력해주세요.',
-                    minLength: { value: 8, message: '비밀번호는 8자리 이상이여야 합니다. '},
-                    pattern: { value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/, message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.'},
+                    minLength: {
+                      value: 8,
+                      message: '비밀번호는 8자리 이상이여야 합니다. ',
+                    },
+                    pattern: {
+                      value:
+                        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                      message:
+                        '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
+                    },
                   })}
                 />
-                {errors.newPassword && <WarningMessage>{errors.newPassword.message}</WarningMessage>}
+                {errors.newPassword && (
+                  <WarningMessage>{errors.newPassword.message}</WarningMessage>
+                )}
               </InputGroup>
 
               <InputGroup>
@@ -461,10 +493,16 @@ export default function MyPage() {
                   placeholder="비밀번호 확인"
                   {...register('confirmPassword', {
                     required: '새 비밀번호를 다시 입력해주세요.',
-                    validate: value => value === getValues('newPassword') || '비밀번호가 일치하지 않습니다.'
+                    validate: (value) =>
+                      value === getValues('newPassword') ||
+                      '비밀번호가 일치하지 않습니다.',
                   })}
                 />
-                {errors.confirmPassword && <WarningMessage>{errors.confirmPassword.message}</WarningMessage>}
+                {errors.confirmPassword && (
+                  <WarningMessage>
+                    {errors.confirmPassword.message}
+                  </WarningMessage>
+                )}
               </InputGroup>
             </InputRow>
 
@@ -480,8 +518,12 @@ export default function MyPage() {
             계정 삭제 <span className="section-title-en">Delete Account</span>
           </SectionTitle>
           <Form>
-            <WarningMessage>계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.</WarningMessage>
-            <EditButton type="button" onClick={handleDeleteAccount}>계정 삭제</EditButton>
+            <WarningMessage>
+              계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.
+            </WarningMessage>
+            <EditButton type="button" onClick={handleDeleteAccount}>
+              계정 삭제
+            </EditButton>
           </Form>
         </Section>
         <Alert isOpen={isOpen} closeAlert={closeAlert} />

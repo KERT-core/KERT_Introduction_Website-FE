@@ -43,14 +43,14 @@ const Content = styled(Span).attrs({
 export const UpdatedHistory = ({ current_history, updated_history }) => {
   return (
     <>
-      <ID>History ID {updated_history.id}</ID>
+      <ID>History ID {updated_history.history_id}</ID>
       <Description>연혁이 다음과 같이 수정되었습니다.</Description>
       {/* 기존 연혁 */}
       <Display style={{ opacity: '0.5' }}>
         <Date>
           {current_history.year}년 {current_history.month}월
         </Date>
-        <Content>{current_history.description}</Content>
+        <Content>{current_history.content}</Content>
       </Display>
       {/* 화살표 */}
       <div style={{ margin: '10px 0', width: '100%', textAlign: 'center' }}>
@@ -61,7 +61,7 @@ export const UpdatedHistory = ({ current_history, updated_history }) => {
         <Date>
           {updated_history.year}년 {updated_history.month}월
         </Date>
-        <Content>{updated_history.description}</Content>
+        <Content>{updated_history.content}</Content>
       </Display>
     </>
   );

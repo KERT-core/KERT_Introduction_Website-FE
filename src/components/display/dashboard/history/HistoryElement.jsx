@@ -122,7 +122,10 @@ export const HistoryElement = ({ history }) => {
     // 문제가 없다면 서버 요청 시작
     showLoading({ message: '연혁을 수정하는 중...' });
 
-    API.PUT(`/histories/${history.id}`, updated_history)
+    API.PUT(`/histories/${history.history_id}`, {
+      body: updated_history,
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then((api_res) => {
         closeConfirm();
         openAlert({
@@ -154,7 +157,9 @@ export const HistoryElement = ({ history }) => {
     closeConfirm();
     showLoading({ message: '연혁을 삭제하는 중...' });
 
-    API.DELETE(`/histories/${history.id}`)
+    API.DELETE(`/histories/${history.history_id}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then((api_res) => {
         openAlert({
           title: '연혁 삭제됨',

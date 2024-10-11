@@ -28,7 +28,7 @@ export const AddHistory = forwardRef(({ ...props }, ref) => {
         />
       </div>
       <Input
-        ref={ref.description}
+        ref={ref.content}
         label="내용"
         placeholder="연혁 내용 입력"
         defaultValue={history.description}

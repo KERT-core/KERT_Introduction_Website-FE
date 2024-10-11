@@ -179,7 +179,7 @@ export const AdminElement = ({ admin }) => {
     showLoading({ message: '관리자 정보를 수정하는 중...' });
 
     API.PUT(`/admin/${data.student_id}`, {
-      body: { ...updated_admin },
+      body: updated_admin,
       headers: { Authorization: localStorage.getItem('token') },
     })
       .then((api_res) => {

@@ -133,7 +133,7 @@ export default function SignUp() {
   const onSubmit = async (data) => {
     try {
       const formData = {
-        student_id: data.student,
+        student_id: parseInt(data.student),
         name: data.username,
         email: data.mail,
         profile_picture: '',
@@ -142,7 +142,7 @@ export default function SignUp() {
         password: data.password,
       };
 
-      const response = await API.POST('/users/signup', formData);
+      const response = await API.POST('/users/signup', { body: formData });
       // console.log('서버로 전송:', response.data.user);
       setTimeout(() => {
         openAlert({

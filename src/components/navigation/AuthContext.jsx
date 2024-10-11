@@ -8,13 +8,13 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
-  
+
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem('user');
     try {
       return storedUser ? JSON.parse(storedUser) : null; // user가 존재하면 파싱, 없으면 null
     } catch (error) {
-      console.error("Error parsing user data:", error); // 파싱 실패 시 오류 처리
+      console.error('Error parsing user data:', error); // 파싱 실패 시 오류 처리
       return null;
     }
   });
@@ -28,9 +28,9 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await API.POST('/logout', {}, {
+      await API.POST('/logout', {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          Authorization: localStorage.getItem('token'),
         },
       });
     } catch (error) {
