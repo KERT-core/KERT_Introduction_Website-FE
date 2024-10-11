@@ -16,7 +16,9 @@ export const Admin = () => {
   const { data, isLoading } = useQuery(
     'admin',
     async () => {
-      const data = await API.GET('/admin');
+      const data = await API.GET('/admin', {
+        headers: { Authorization: localStorage.getItem('token') },
+      });
       return data;
     },
     { retry: 2 },

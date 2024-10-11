@@ -37,7 +37,9 @@ export default function Admin() {
   const { data, isLoading, isError } = useQuery(
     'admin',
     async () => {
-      const data = await API.GET('/admin');
+      const data = await API.GET('/admin', {
+        headers: { Authorization: localStorage.getItem('token') },
+      });
       return data;
     },
     { retry: 2 },
@@ -108,7 +110,10 @@ export default function Admin() {
     showLoading({ message: '새로운 관리자를 추가하고 있어요...' });
 
     // 위 if에 걸리지 않으면 서버 POST 요청
-    API.POST('/admin', new_admin)
+    API.POST('/admin', {
+      body: new_admin,
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then(() => {
         openAlert({
           title: '관리자 추가 성공',

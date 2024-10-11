@@ -3,9 +3,10 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+import { API } from '../utils/api';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAuth } from '../components/navigation/AuthContext';
 import '../styles/font.css';
 
 const Container = styled.div`
@@ -17,7 +18,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   height: 100vh;
-  width: 100%;
+  width: 100vw;
 `;
 
 const LoginContainer = styled.div`
@@ -88,6 +89,12 @@ const InputGroup = styled.div`
     border-radius: 5px;
     background-color: #1c1f25;
     color: white;
+    outline: none;
+  }
+
+  input:focus {
+    border: 1px solid #4a90e2; /* 파란색 테두리 */
+    box-shadow: none; /* 흰색 테두리 제거 */
   }
 `;
 
@@ -118,17 +125,57 @@ const SignupLink = styled.div`
 `;
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm();
   const navigate = useNavigate();
+  const { login } = useAuth(); // AuthContext에서 login 함수 호출
   const [error, setError] = useState('');
 
   const onSubmit = async (data) => {
     try {
-      // const response = await axios.post(`/login`, data);
-      // console.log('서버로 전송:', response.data);
-      setError('');
-      navigate('/');
+      // 서버에 로그인 요청 보내기
+      const response = await API.POST('/users/login', {
+        body: {
+          student_id: parseInt(data.student),
+          password: data.password,
+        },
+      });
+
+      // get string body
+      const token = response;
+
+      // 서버에 user 정보 요청
+      const response_user = await API.GET(`/users/${data.student}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      const userInfo = response_user;
+
+      console.log('token:', token);
+      console.log('userInfo:', userInfo);
+
+      alert('break!');
+
+      if (token && userInfo) {
+        login(token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
+        // console.log('login user info:', userInfo); // Log user info
+        setError(''); // 에러 초기화
+        navigate('/');
+      } else {
+        console.error('User info is undefined');
+        setError('로그인에 실패했습니다. 다시 시도해주세요.');
+      }
     } catch (error) {
+      // 입력창 비우기
+      setValue('student', '');
+      setValue('password', '');
+      // 에러 처리
       console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
     }
@@ -154,11 +201,20 @@ export default function Login() {
                 type="text"
                 placeholder="학번"
                 {...register('student', {
-                  minLength: { value: 10, message: '학번은 10자리 숫자여야 합니다.' },
-                  pattern: { value: /^[0-9]{10}$/, message: '학번은 10자리 숫자여야 합니다.' },
+                  required: '학번을 입력해주세요.',
+                  minLength: {
+                    value: 10,
+                    message: '학번은 10자리 숫자여야 합니다.',
+                  },
+                  pattern: {
+                    value: /^[0-9]{10}$/,
+                    message: '학번은 10자리 숫자여야 합니다.',
+                  },
                 })}
               />
-              {errors.student && <ErrorMessage>{errors.student.message}</ErrorMessage>}
+              {errors.student && (
+                <ErrorMessage>{errors.student.message}</ErrorMessage>
+              )}
             </InputGroup>
 
             <InputGroup>
@@ -167,24 +223,32 @@ export default function Login() {
                 type="password"
                 placeholder="비밀번호"
                 {...register('password', {
+                  required: '비밀번호를 입력해주세요',
                   minLength: {
                     value: 8,
-                    message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    message: '비밀번호는 8자리 이상이여야 합니다. ',
                   },
                   pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                    message: '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                    message:
+                      '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
                   },
                 })}
               />
-              {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+              {errors.password && (
+                <ErrorMessage>{errors.password.message}</ErrorMessage>
+              )}
             </InputGroup>
+
+            {/* 에러 메시지 표시 */}
+            {error && <ErrorMessage>{error}</ErrorMessage>}
 
             <LoginButton>로그인</LoginButton>
           </form>
 
           <SignupLink>
-            계정이 없으신가요? <Link to="/signup">회원가입</Link>
+            계정이 없으신가요?<Link to="/signup"> 회원가입</Link>
           </SignupLink>
         </LoginBox>
       </LoginContainer>

@@ -4,10 +4,14 @@
 // 내비바의 높이는 80px입니다.
 
 import { Routes, Route, useLocation } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 
 import { GlobalStyle } from './styles/global';
 import { MainLayout } from './components/layouts/MainLayout';
 import './styles/font.css';
+
+import { AuthProvider } from './components/navigation/AuthContext';
+import Navigator from './components/navigation/Navigation';
 
 import MainPage from './pages/MainPage';
 import NotFound from './pages/NotFound';
@@ -31,38 +35,44 @@ export default function App() {
 
   return (
     <>
-      <GlobalStyle />
-      <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index path="/" element={<MainPage />} />
-          <Route path="/developer" element={<DevDocument />} />
-          <Route path="/board">
-            <Route index path="/board" element={<Board />} />
-            <Route path="/board/new" element={<NewArticleEditor />} />
-          </Route>
-          <Route path="/articles/:id" element={<Article />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/mypage" element={<MyPage />} />
+      <CookiesProvider>
+        <AuthProvider>
+          <GlobalStyle />
+          <Navigator />
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index path="/" element={<MainPage />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/developer" element={<DevDocument />} />
+              <Route path="/board">
+                <Route index path="/board" element={<Board />} />
+                <Route path="/board/new" element={<NewArticleEditor />} />
+              </Route>
+              <Route path="/articles/:id" element={<Article />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="*" element={<NotFound />} />
 
-          <Route path="/history" element={<History />} />
-
-          <Route path="*" element={<NotFound />} />
-
-          {/* 대시보드 페이지 */}
-          <Route element={<DashboardLayout location={location} />}>
-            <Route index path="/dashboard" element={<Dashboard.Home />} />
-            <Route path="/dashboard/history" element={<Dashboard.History />} />
-            <Route
-              path="/dashboard/executive"
-              element={<Dashboard.Executive />}
-            />
-            <Route path="/dashboard/admin" element={<Dashboard.Admin />} />
-            <Route path="/dashboard/users" element={<Dashboard.Users />} />
-            <Route path="/dashboard/*" element={<NotFound />} />
-          </Route>
-        </Route>
-      </Routes>
+              {/* 대시보드 페이지 */}
+              <Route element={<DashboardLayout location={location} />}>
+                <Route index path="/dashboard" element={<Dashboard.Home />} />
+                <Route
+                  path="/dashboard/history"
+                  element={<Dashboard.History />}
+                />
+                <Route
+                  path="/dashboard/executive"
+                  element={<Dashboard.Executive />}
+                />
+                <Route path="/dashboard/admin" element={<Dashboard.Admin />} />
+                <Route path="/dashboard/users" element={<Dashboard.Users />} />
+                <Route path="/dashboard/*" element={<NotFound />} />
+              </Route>
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </CookiesProvider>
     </>
   );
 }

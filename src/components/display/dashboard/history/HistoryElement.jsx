@@ -71,7 +71,7 @@ export const HistoryElement = ({ history }) => {
   const refs = {
     year: useRef(),
     month: useRef(),
-    description: useRef(),
+    content: useRef(),
   };
 
   // 연혁 요소를 눌렀을 때 이벤트
@@ -93,7 +93,7 @@ export const HistoryElement = ({ history }) => {
       ...history,
       year: parseInt(refs.year.current.value),
       month: parseInt(refs.month.current.value),
-      description: refs.description.current.value,
+      content: refs.content.current.value,
     };
 
     // 만약 변경된 내용 없이 기존과 같다면 중단
@@ -110,7 +110,7 @@ export const HistoryElement = ({ history }) => {
     if (
       !updated_history.year ||
       !updated_history.month ||
-      !updated_history.description
+      !updated_history.content
     ) {
       openAlert({
         title: '정보 부족',
@@ -122,7 +122,10 @@ export const HistoryElement = ({ history }) => {
     // 문제가 없다면 서버 요청 시작
     showLoading({ message: '연혁을 수정하는 중...' });
 
-    API.PUT(`/histories/${history.id}`, updated_history)
+    API.PUT(`/histories/${history.history_id}`, {
+      body: updated_history,
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then((api_res) => {
         closeConfirm();
         openAlert({
@@ -154,7 +157,9 @@ export const HistoryElement = ({ history }) => {
     closeConfirm();
     showLoading({ message: '연혁을 삭제하는 중...' });
 
-    API.DELETE(`/histories/${history.id}`)
+    API.DELETE(`/histories/${history.history_id}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then((api_res) => {
         openAlert({
           title: '연혁 삭제됨',
@@ -177,7 +182,7 @@ export const HistoryElement = ({ history }) => {
   return (
     <CardWrapper onClick={() => onClick()}>
       <Month>{history?.month}월</Month>
-      <Description>{history?.description}</Description>
+      <Description>{history?.content}</Description>
     </CardWrapper>
   );
 };
