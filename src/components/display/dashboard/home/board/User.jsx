@@ -15,7 +15,9 @@ export const User = () => {
   const { data, isLoading } = useQuery(
     'user',
     async () => {
-      const data = await API.GET('/users');
+      const data = await API.GET('/users', {
+        headers: { Authorization: localStorage.getItem('token') },
+      });
       return data;
     },
     { retry: 2 },

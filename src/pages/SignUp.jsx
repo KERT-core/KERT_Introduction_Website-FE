@@ -1,20 +1,22 @@
 // SignUp.jsx
 // 코드 작성자 : GiHhub @huisuu
 
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
+import { API } from '../utils/api';
 import styled from 'styled-components';
 import { Text } from '../components/typograph/Text';
 import '../font/main_font.css';
+import useAlert from '../stores/useAlert';
+import { Alert } from '../components/forms/modal/Alert';
 
 const Container = styled.div`
   background-color: #080f17;
-  font-family: 'NanumSquare', Helvetica;
   display: flex;
   justify-content: center;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
 `;
@@ -27,6 +29,8 @@ const SignUpContainer = styled.div`
   height: 100%;
   position: relative;
   top: 120px;
+  padding-top: 60px;
+  padding-bottom: 150px;
 `;
 
 const SignUpBox = styled.div`
@@ -75,6 +79,13 @@ const SignUpForm = styled.form`
       border-radius: 5px;
       background-color: #1c1f25;
       color: white;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #3b82f6;
+      box-shadow: none;
+      background-color: #1c1f25; /* 배경색은 유지 */
     }
 
     input::placeholder {
@@ -112,15 +123,17 @@ export default function SignUp() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
+  const { openAlert, closeAlert, isOpen } = useAlert();
 
   const onSubmit = async (data) => {
     try {
       const formData = {
-        student_id: data.student,
+        student_id: parseInt(data.student),
         name: data.username,
         email: data.mail,
         profile_picture: '',
@@ -129,12 +142,33 @@ export default function SignUp() {
         password: data.password,
       };
 
-      const response = await axios.post('http://155.230.118.35/register', formData);
-      console.log('서버로 전송:', response.data);
-      alert('회원가입 요청이 완료되었습니다!');
-      navigate('/Mainpage');
+      const response = await API.POST('/users/signup', { body: formData });
+      // console.log('서버로 전송:', response.data.user);
+      setTimeout(() => {
+        openAlert({
+          title: '회원가입 요청 완료',
+          content: <Text>회원가입 요청이 완료되었습니다!</Text>,
+          onClose: () => closeAlert(),
+        });
+      }, 100);
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
+      setValue('username', '');
+      setValue('student', '');
+      setValue('password', '');
+      setValue('mail', '');
+      setValue('generation', '');
+      setValue('major', '');
+
+      // 100ms 후 새로운 Alert 열기
+      setTimeout(() => {
+        openAlert({
+          title: '회원가입 실패',
+          content: <Text>회원가입에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: () => closeAlert(),
+        });
+      }, 100);
     }
   };
 
@@ -144,8 +178,12 @@ export default function SignUp() {
         <SignUpBox>
           <SignUpHeader>
             <div>
-              <Text size="l" weight="bold" color="#ffffff">Sign Up to KERT</Text>
-              <Text size="sxl" weight="bold" color="#ffffff">회원가입</Text>
+              <Text size="l" weight="bold" color="#ffffff">
+                Sign Up to KERT
+              </Text>
+              <Text size="sxl" weight="bold" color="#ffffff">
+                회원가입
+              </Text>
             </div>
             <KertLogo>
               <img src="../logo/white_square.png" alt="kert-logo" />
@@ -234,7 +272,8 @@ export default function SignUp() {
                   required: '기수를 입력해주세요.',
                   pattern: {
                     value: /^(20\d{2})-(1|2)$/,
-                    message: '기수는 "연도-학기" 형식으로 입력해주세요. 예: 2024-1',
+                    message:
+                      '기수는 "연도-학기" 형식으로 입력해주세요. 예: 2024-1',
                   },
                 })}
               />
@@ -250,9 +289,15 @@ export default function SignUp() {
                 placeholder="비밀번호"
                 {...register('password', {
                   required: '비밀번호를 입력해주세요.',
+                  minLength: {
+                    value: 8,
+                    message: '비밀번호는 8자리 이상이여야 합니다. ',
+                  },
                   pattern: {
-                    value: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/,
-                    message: '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                    message:
+                      '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
                   },
                 })}
               />
@@ -267,6 +312,8 @@ export default function SignUp() {
             </LoginLink>
           </SignUpForm>
         </SignUpBox>
+        {/* Alert 컴포넌트 렌더링 */}
+        <Alert isOpen={isOpen} closeAlert={closeAlert} />
       </SignUpContainer>
     </Container>
   );

@@ -105,7 +105,9 @@ export const EditAdmin = forwardRef(({ admin, ...props }, ref) => {
     closeConfirm();
     showLoading({ message: '관리자를 삭제하는 중...' });
 
-    API.DELETE(`/admin/${admin.student_id}`)
+    API.DELETE(`/admin/${admin.student_id}`, {
+      headers: { Authorization: localStorage.getItem('token') },
+    })
       .then((api_res) => {
         openAlert({
           title: '관리자 삭제 완료',
@@ -164,7 +166,6 @@ export const EditAdmin = forwardRef(({ admin, ...props }, ref) => {
       <div style={{ display: 'flex' }}>
         <HintedInput
           ref={ref.generation}
-          type="number"
           label="가입 기수"
           defaultValue={admin.generation}
           onChange={(e) => {

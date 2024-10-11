@@ -65,24 +65,26 @@ const StyledImage = styled.img`
 
 export default function Section1() {
   return (
-    <BackFirstStyle>
-      <TitleWrapper>
-        <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">
-          Major Content of KERT
-        </Text>
-        <SubTitle size="sxl" weight="extrabold">
-          다같이 즐겁게 활동해요
-        </SubTitle>
-        <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.78)">
-          KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등 <br/>
-          모두에게 유익하고 재미있는 여러 활동들이 준비돼 있어요.
-        </Text>
-      </TitleWrapper>
-      <ImageWrapper>
-        <StyledImage src={activ_img1} alt="Activity 1" />
-        <StyledImage src={activ_img2} alt="Activity 2" />
-        <StyledImage src={activ_img3} alt="Activity 3" />
-      </ImageWrapper>
-    </BackFirstStyle>
+    <div id="section5">
+      <BackFirstStyle>
+        <TitleWrapper>
+          <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">
+            Major Content of KERT
+          </Text>
+          <SubTitle size="sxl" weight="extrabold">
+            다같이 즐겁게 활동해요
+          </SubTitle>
+          <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.78)">
+            KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등 <br/>
+            모두에게 유익하고 재미있는 여러 활동들이 준비돼 있어요.
+          </Text>
+        </TitleWrapper>
+        <ImageWrapper>
+          <StyledImage src={activ_img1} alt="Activity 1" />
+          <StyledImage src={activ_img2} alt="Activity 2" />
+          <StyledImage src={activ_img3} alt="Activity 3" />
+        </ImageWrapper>
+      </BackFirstStyle>
+    </div>
   );
 }
