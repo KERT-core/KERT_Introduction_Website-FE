@@ -2,6 +2,7 @@ import { createRef } from 'react';
 import { useOutlet } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 // 사용자가 생성한 컴포넌트 및 JS파일 import
 import { DashboardNav } from '../navigation/DashboardNav';
@@ -50,7 +51,7 @@ const Content = styled(TransitionGroup).attrs({
 `;
 
 /**
- * 대시보드 레이아웃
+ * 대시보드 레이아
  */
 export const DashboardLayout = ({ location }) => {
   // Warning: findDOMNode is deprecated and will be remove 해제
@@ -76,9 +77,12 @@ export const DashboardLayout = ({ location }) => {
           key={location.key}
           timeout={{ enter: 500, exit: 300 }}
           classNames="fade-slide"
-          style={{ width: '100%', position: 'absolute' }}
+          style={{
+            width: 'calc(100% - 80px)',
+            position: 'absolute',
+          }}
         >
-          <div ref={nodeRef} style={{ width: '100%' }}>
+          <div ref={nodeRef}>
             {/* 전환 후 표시될 컴포넌트 */}
             {currentOutlet}
           </div>
@@ -86,4 +90,8 @@ export const DashboardLayout = ({ location }) => {
       </Content>
     </Layout>
   );
+};
+
+DashboardLayout.propTypes = {
+  location: PropTypes.object.isRequired,
 };

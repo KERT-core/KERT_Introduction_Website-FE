@@ -1,5 +1,7 @@
 import { useRef } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Text } from '../../../typograph/Text';
 
@@ -77,11 +79,10 @@ export const AdminElement = ({ admin }) => {
   const { openAlert } = useAlert();
   const { openConfirm, closeConfirm } = useConfirm();
 
-  // 만약 admin이 없다면 </> 반환
-  if (!admin) {
-    console.warn('admin 객체를 받지 못했습니다.');
-    return <></>;
-  }
+  const { data, isLoading } = useQuery(`user-${admin.student_id}`, async () => {
+    const data = await API.GET(`/users/${admin.student_id}`);
+    return { ...admin, ...data };
+  });
 
   // 관리자 편집을 위한 Reference
   const refs = {
@@ -90,17 +91,31 @@ export const AdminElement = ({ admin }) => {
     description: useRef(),
   };
 
+  // 만약 admin이 없다면 </> 반환
+  if (!admin) {
+    console.warn('admin 객체를 받지 못했습니다.');
+    return <></>;
+  }
+
+  if (isLoading) {
+    return (
+      <>
+        <AdminElementLoading />
+      </>
+    );
+  }
+
   const profile_color = GenerateColorByString(
-    admin.student_id,
-    admin.generation,
-    admin.role,
+    data?.student_id,
+    data?.generation,
+    data?.role,
   );
 
   // 관리자 요소를 눌렀을 때 이벤트
   function onClick() {
     openConfirm({
       title: '관리자 수정',
-      content: <EditAdmin ref={refs} admin={admin} />,
+      content: <EditAdmin ref={refs} admin={data} />,
       onConfirm: () => UpdateAdmin(),
       confirm_label: '수정',
       cancel_label: '취소',
@@ -161,15 +176,15 @@ export const AdminElement = ({ admin }) => {
     // 문제가 없다면 서버 요청 시작
     showLoading({ message: '관리자 정보를 수정하는 중...' });
 
-    API.PUT(`/admin/${admin.student_id}`, updated_admin)
+    API.PUT(`/admin/${data.student_id}`, updated_admin)
       .then((api_res) => {
         closeConfirm();
         openAlert({
           title: '관리자 정보 수정됨',
           content: (
             <UpdatedAdmin
-              current_admin={admin}
-              updated_admin={{ ...admin, ...api_res }}
+              current_admin={data}
+              updated_admin={{ ...data, ...api_res }}
             />
           ),
           onClose: () => window.location.reload(),
@@ -190,11 +205,11 @@ export const AdminElement = ({ admin }) => {
   return (
     <CardWrapper onClick={onClick}>
       {/* 프로필 사진이 없으면 Color Profile로 대체 */}
-      {!admin.profile_picture ? (
+      {!data.profile_picture ? (
         <ColorProfile color={profile_color} radius="10px" />
       ) : (
         <img
-          src={admin.profile_picture}
+          src={data.profile_picture}
           width="48px"
           height="48px"
           style={{ borderRadius: '10px' }}
@@ -203,12 +218,21 @@ export const AdminElement = ({ admin }) => {
       {/* 계정 정보 */}
       <Info>
         <Text size="m" weight="bold">
-          {admin.name} ({admin.student_id})
+          {data.name} ({data.student_id})
         </Text>
         <Text size="s" color="--secondary-text-color">
-          {admin.role} · {admin.email}
+          {data.role} · {data.email}
         </Text>
       </Info>
     </CardWrapper>
   );
+};
+
+AdminElement.propTypes = {
+  admin: PropTypes.shape({
+    student_id: PropTypes.number.isRequired,
+    generation: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    description: PropTypes.string,
+  }).isRequired,
 };

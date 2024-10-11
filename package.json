@@ -21,9 +21,11 @@
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.53.0",
     "react-powerglitch": "^1.0.3",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.25.1",
     "react-transition-group": "^4.4.5",
     "styled-components": "^6.1.12",
+    "url-join": "^5.0.0",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
@@ -38,7 +40,7 @@
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
     "prettier": "^3.3.3",
-    "vite": "^5.3.4",
+    "vite": "^5.4.8",
     "vite-plugin-svgr": "^4.2.0"
   },
   "optionalDependencies": {
