@@ -10,8 +10,8 @@ import { GlobalStyle } from './styles/global';
 import { MainLayout } from './components/layouts/MainLayout';
 import './styles/font.css';
 
-import { AuthProvider } from './Components/navigation/AuthContext';
-import Navigator from './Components/navigation/Navigation';
+import { AuthProvider } from './components/navigation/AuthContext';
+import Navigator from './components/navigation/Navigation';
 
 import MainPage from './pages/MainPage';
 import NotFound from './pages/NotFound';
