@@ -1,12 +1,11 @@
-import React from 'react';
-import bg_img from '../assets/Section2_bg_img.png';
-import lock_icon from '../assets/kert_logos/White_incline_Lock.png';
-import '../font/main_font.css';
 import styled from 'styled-components';
-import { Container } from '../components/forms/Container';
-import { Text, Span } from '../components/typograph/Text';
-import { Checkbox } from '../components/forms/Checkbox';
-import { Toggle } from '../components/forms/Toggle';
+
+import { Span } from '@components/typograph/Text';
+
+import bg_img from '@/assets/Section2_bg_img.png';
+import lock_icon from '@/assets/kert_logos/White_incline_Lock.png';
+
+import '@/font/main_font.css';
 
 const bg_Style = {
   width: '100vw',
@@ -117,7 +116,7 @@ const lockIconContainerStyle = {
   display: 'flex',
   zIndex: 1,
   opacity: 0.9,
-  overflow: 'hidden', 
+  overflow: 'hidden',
 };
 
 const statsStyle = {
@@ -128,7 +127,6 @@ const statsStyle = {
   marginTop: '20px',
   flexDirection: 'column', // 요소 수직 정렬
 };
-
 
 export default function MainPage() {
   return (

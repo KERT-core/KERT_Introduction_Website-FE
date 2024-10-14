@@ -1,8 +1,7 @@
 // import { useNavigate } from 'react-router-dom';
 
-import { Text } from '../../../../typograph/Text';
-import { NumberDisplay } from '../../../NumberDisplay';
-import { BoardButton, BoardContainer, BoardHeader } from './Board.styled';
+import { Text } from '@components/typograph/Text';
+import { BoardContainer, BoardHeader } from './Board.styled';
 
 /* 임원진은 다음 개발에 진행합니다. */
 export const Executive = () => {

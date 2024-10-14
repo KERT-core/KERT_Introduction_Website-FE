@@ -1,11 +1,10 @@
 import { useRef } from 'react';
 import { useQuery } from 'react-query';
 
-import { GENERATION_REGEX, STUDENT_ID_REGEX } from '../../utils/regex.js';
+import { GENERATION_REGEX, STUDENT_ID_REGEX } from '@/utils/regex.js';
 
-// 사용자 정의 컴포넌트
-import { Text } from '../../components/typograph/Text.jsx';
-import { Button } from '../../components/forms/Button.jsx';
+import { Text } from '@components/typograph/Text.jsx';
+import { Button } from '@components/forms/Button.jsx';
 
 import { Header } from './Dashboard.styled.js';
 import {
@@ -17,17 +16,16 @@ import {
 import {
   AdminElement,
   AdminElementLoading,
-} from '../../components/display/dashboard/admin/AdminElement.jsx';
-import { AddAdmin } from '../../components/display/dashboard/admin/AddAdmin.jsx';
-import { ErrorModal } from '../../components/display/dashboard/ErrorModal.jsx';
+} from '@components/display/dashboard/admin/AdminElement.jsx';
+import { AddAdmin } from '@components/display/dashboard/admin/AddAdmin.jsx';
+import { ErrorModal } from '@components/display/dashboard/ErrorModal.jsx';
 
-// SVG 아이콘
-import { RefreshIcon } from '../../assets/icons';
+import { RefreshIcon } from '@/assets/icons';
 
-import { API } from '../../utils/api.js';
-import useAlert from '../../stores/useAlert.js';
-import useConfirm from '../../stores/useConfirm.js';
-import useLoading from '../../stores/useLoading.js';
+import { API } from '@/utils/api.js';
+import useAlert from '@/stores/useAlert.js';
+import useConfirm from '@/stores/useConfirm.js';
+import useLoading from '@/stores/useLoading.js';
 
 export default function Admin() {
   const { showLoading, hideLoading } = useLoading();

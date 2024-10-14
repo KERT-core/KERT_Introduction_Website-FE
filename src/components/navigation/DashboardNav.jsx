@@ -1,19 +1,14 @@
-// DashboardNav.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-
-// 외부 라이브러리에서 import
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-// 사용자가 생성한 컴포넌트 및 JS파일 import
-import { Span } from '../typograph/Text';
+import { Span } from '@components/typograph/Text';
 import {
   HomeIcon,
   TimelineIcon,
   PersonIcon,
   VerifiedIcon,
   AccountIcon,
-} from '../../assets/icons';
+} from '@/assets/icons';
 
 const cubicBezier = 'cubic-bezier(.43,.53,.16,.96)';
 

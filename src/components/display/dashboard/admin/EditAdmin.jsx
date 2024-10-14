@@ -1,21 +1,21 @@
 import { forwardRef, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { Span, Text } from '../../../typograph/Text';
-import { Button } from '../../../forms/Button';
-import { HintedInput } from '../../../forms/HintedInput';
-import { Container } from '../../../forms/Container';
+import { Span, Text } from '@components/typograph/Text';
+import { Button } from '@components/forms/Button';
+import { HintedInput } from '@components/forms/HintedInput';
+import { Container } from '@components/forms/Container';
 
-import { ColorProfile } from '../../ColorProfile';
-import { DeleteAdmin } from './DeleteAdmin';
+import { ColorProfile } from '@components/display/ColorProfile';
+import { DeleteAdmin } from '@components/display/dashboard/admin/DeleteAdmin';
 
-import { ErrorModal } from '../ErrorModal';
+import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
-import { API } from '../../../../utils/api';
-import { GenerateColorByString } from '../../../../utils/generateColor';
-import useConfirm from '../../../../stores/useConfirm';
-import useAlert from '../../../../stores/useAlert';
-import useLoading from '../../../../stores/useLoading';
+import { API } from '@/utils/api';
+import { GenerateColorByString } from '@/utils/generateColor';
+import useConfirm from '@/stores/useConfirm';
+import useAlert from '@/stores/useAlert';
+import useLoading from '@/stores/useLoading';
 
 const Wrapper = styled.div`
   margin: 40px 0;

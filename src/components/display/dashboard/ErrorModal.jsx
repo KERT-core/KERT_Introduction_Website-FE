@@ -1,4 +1,4 @@
-import { Text } from '../../typograph/Text';
+import { Text } from '@components/typograph/Text';
 
 export const ErrorModal = ({ error }) => {
   return (

@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useQuery } from 'react-query';
 
-// 사용자 정의 컴포넌트
-import { Text } from '../../components/typograph/Text';
+import { Text } from '@components/typograph/Text';
 
 import { Header } from './Dashboard.styled';
 import {
@@ -11,19 +10,17 @@ import {
   YearContainer,
   YearContainerLoading,
 } from './History.styled';
-import { HistoryElement } from '../../components/display/dashboard/history/HistoryElement';
-import { AddHistory } from '../../components/display/dashboard/history/AddHistory';
-import { ErrorModal } from '../../components/display/dashboard/ErrorModal';
+import { HistoryElement } from '@components/display/dashboard/history/HistoryElement';
+import { AddHistory } from '@components/display/dashboard/history/AddHistory';
+import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
-// 외부 훅
-import { API } from '../../utils/api';
-import useAlert from '../../stores/useAlert';
-import useConfirm from '../../stores/useConfirm';
-import useLoading from '../../stores/useLoading';
-import { refineHistories } from '../../utils/refineHistory';
+import { API } from '@/utils/api';
+import useAlert from '@/stores/useAlert';
+import useConfirm from '@/stores/useConfirm';
+import useLoading from '@/stores/useLoading';
+import { refineHistories } from '@/utils/refineHistory';
 
-// SVG 아이콘
-import { AddIcon, RefreshIcon } from '../../assets/icons';
+import { AddIcon, RefreshIcon } from '@/assets/icons';
 
 export default function History() {
   const { openAlert } = useAlert();

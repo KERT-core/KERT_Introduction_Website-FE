@@ -1,16 +1,17 @@
-// MyPage.jsx
-// 코드 작성자 : GiHhub @huisuu
-
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { Text } from '../components/typograph/Text';
-import { API } from '../utils/api';
-import useAlert from '../stores/useAlert';
-import { Alert } from '../components/forms/modal/Alert';
-import { useAuth } from '../components/navigation/AuthContext';
-import defaultProfilePic from '../assets/icons/menu/User.png';
+
+import useAlert from '@/stores/useAlert';
+import { useAuth } from '@components/navigation/AuthContext';
+
+import { Text } from '@/components/typograph/Text';
+import { Alert } from '@components/forms/modal/Alert';
+
+import defaultProfilePic from '@/assets/icons/menu/User.png';
+
+import { API } from '@/utils/api';
 
 const Container = styled.div`
   background-color: #0d0e14;

@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 
 import styled from 'styled-components';
-import { Span } from '../typograph/Text';
+import { Span } from '@components/typograph/Text';
 
 const InputWrapper = styled.div`
   width: 100%;

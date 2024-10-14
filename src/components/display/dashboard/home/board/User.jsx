@@ -1,14 +1,14 @@
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { NumberDisplay } from '../../../NumberDisplay';
+import { NumberDisplay } from '@components/display/NumberDisplay';
 import {
   BoardButton,
   BoardContainer,
   BoardHeader,
   SkeletonBoardContainer,
 } from './Board.styled';
-import { API } from '../../../../../utils/api';
+import { API } from '@/utils/api';
 
 export const User = () => {
   const navigate = useNavigate();

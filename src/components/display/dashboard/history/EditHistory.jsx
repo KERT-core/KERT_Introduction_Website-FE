@@ -1,12 +1,12 @@
 import { forwardRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { Span } from '../../../typograph/Text';
-import { Button } from '../../../forms/Button';
+import { Span } from '@components/typograph/Text';
+import { Button } from '@components/forms/Button';
 
-import { formatDate } from '../../../../utils/formatDate';
-import { HintedInput } from '../../../forms/HintedInput';
-import { Container } from '../../../forms/Container';
+import { formatDate } from '@/utils/formatDate';
+import { HintedInput } from '@components/forms/HintedInput';
+import { Container } from '@components/forms/Container';
 
 const Wrapper = styled.div`
   margin: 40px 0;

@@ -1,10 +1,10 @@
-import useConfirm from '../../../stores/useConfirm';
+import useConfirm from '@/stores/useConfirm';
 
 import styled from 'styled-components';
 
-import { ModalLayout } from '../../layouts/ModalLayout';
-import { Span } from '../../typograph/Text';
-import { IButton } from '../../forms/Button';
+import { ModalLayout } from '@components/layouts/ModalLayout';
+import { Span } from '@components/typograph/Text';
+import { IButton } from '@components/forms/Button';
 
 const ModalContainer = styled.div`
   position: relative;

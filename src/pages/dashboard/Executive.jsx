@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 
-// 사용자 정의 컴포넌트
-import { Text } from '../../components/typograph/Text';
+import { Text } from '@components/typograph/Text';
 import { Header } from './Dashboard.styled';
 
-import { Empty } from '../../components/display/dashboard/Empty';
+import { Empty } from '@components/display/dashboard/Empty';
 
-import useAlert from '../../stores/useAlert';
+import useAlert from '@/stores/useAlert';
 
 export default function Executive() {
   const { openAlert, closeAlert } = useAlert();

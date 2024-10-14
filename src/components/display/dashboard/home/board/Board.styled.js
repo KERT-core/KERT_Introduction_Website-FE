@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-// 사용자 정의 컴포넌트
-import { Container } from '../../../../forms/Container';
-import { Span } from '../../../../typograph/Text';
+import { Container } from '@components/forms/Container';
+import { Span } from '@components/typograph/Text';
 
 export const BoardContainer = styled(Container).attrs({
   id: 'dashboard-home-container',

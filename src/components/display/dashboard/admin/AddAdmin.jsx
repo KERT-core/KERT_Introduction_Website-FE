@@ -1,7 +1,7 @@
-import { forwardRef, useState } from 'react';
+import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-import { Input } from '../../../forms/Input';
+import { Input } from '@components/forms/Input';
 
 const Wrapper = styled.div`
   margin: 40px 0;

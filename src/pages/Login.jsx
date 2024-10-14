@@ -1,13 +1,13 @@
-// Login.jsx
-// 코드 작성자 : GiHhub @huisuu
-
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { API } from '../utils/api';
-import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAuth } from '../components/navigation/AuthContext';
-import '../styles/font.css';
+import { useNavigate, Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+
+import { useAuth } from '@components/navigation/AuthContext';
+
+import { API } from '@/utils/api';
+
+import '@/styles/font.css';
 
 const Container = styled.div`
   background-color: #080f17;

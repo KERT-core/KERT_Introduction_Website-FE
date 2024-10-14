@@ -1,16 +1,16 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
 
-import { Span, Text } from '../../../typograph/Text';
+import { Span, Text } from '@components/typograph/Text';
 
-import { EditHistory } from './EditHistory';
-import { UpdatedHistory } from './UpdatedHistory';
-import { ErrorModal } from '../ErrorModal';
+import { EditHistory } from '@components/display/dashboard/history/EditHistory';
+import { UpdatedHistory } from '@components/display/dashboard/history/UpdatedHistory';
+import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
-import { API } from '../../../../utils/api';
-import useConfirm from '../../../../stores/useConfirm';
-import useAlert from '../../../../stores/useAlert';
-import useLoading from '../../../../stores/useLoading';
+import { API } from '@/utils/api';
+import useConfirm from '@/stores/useConfirm';
+import useAlert from '@/stores/useAlert';
+import useLoading from '@/stores/useLoading';
 
 const CardWrapper = styled.div.attrs({
   id: 'dashboard-history-card',

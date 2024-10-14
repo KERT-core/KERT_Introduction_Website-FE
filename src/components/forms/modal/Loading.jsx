@@ -1,11 +1,11 @@
-import useLoading from '../../../stores/useLoading';
+import useLoading from '@/stores/useLoading';
 
 import styled, { keyframes } from 'styled-components';
 
-import { ModalLayout } from '../../layouts/ModalLayout';
-import { Text } from '../../typograph/Text';
+import { ModalLayout } from '@components/layouts/ModalLayout';
+import { Text } from '@components/typograph/Text';
 
-import { SquareLogo } from '../../../assets/kert_logos';
+import { SquareLogo } from '@/assets/kert_logos';
 
 const LoadingContainer = styled.div`
   position: relative;

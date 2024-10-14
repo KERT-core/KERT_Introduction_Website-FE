@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { ShapeBackground } from '../components/display/ShapeBackground';
-import { Text, Span } from '../components/typograph/Text';
-import React, { useEffect, useRef, useState } from 'react';
+
+import { ShapeBackground } from '@components/display/ShapeBackground';
+import { Span } from '@components/typograph/Text';
 
 const BackgroundWrapper = styled.div`
   width: 100vw;
@@ -24,11 +24,11 @@ const Title = styled(Span).attrs({
 
 const Description = styled(Span).attrs({
   $weight: 'light',
-  $color:"rgba(255, 255, 255, 0.7)"
+  $color: 'rgba(255, 255, 255, 0.7)',
 })`
   font-size: clamp(16px, 2vw, 18px);
   word-break: keep-all;
-  margin-top: 10px; 
+  margin-top: 10px;
 `;
 
 const Year = styled(Span).attrs({
@@ -36,9 +36,8 @@ const Year = styled(Span).attrs({
 })`
   font-size: clamp(36px, 4vw, 40px);
   word-break: keep-all;
-  color: ${(props) => props.$color || '#FFFFFF'}; 
-
-`
+  color: ${(props) => props.$color || '#FFFFFF'};
+`;
 
 const TitleContainer = styled.div`
   display: flex;
@@ -54,24 +53,22 @@ const TitleContainer = styled.div`
   top: 150px;
 `;
 
-
 const YearHistoryContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  gap: 50px; 
+  gap: 50px;
   width: 100%;
 `;
 
-
 const HistoryFrame = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: flex-start;
   padding: 0px;
-  gap: 50px; 
+  gap: 50px;
 
-  position: absolute; 
+  position: absolute;
   top: 300px;
   left: 50%;
   transform: translateX(-50%);
@@ -99,11 +96,13 @@ const HistoryCard = styled.div`
   padding: 20px;
   gap: 10px;
 
-  width: auto; 
+  width: auto;
   height: 58px;
 
   background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1), inset 4px 4px 20px rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0px 0px 20px rgba(0, 0, 0, 0.1),
+    inset 4px 4px 20px rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
 
   border-radius: 10px;
@@ -111,27 +110,23 @@ const HistoryCard = styled.div`
 
 const Month = styled(Span).attrs((props) => ({
   $weight: 'bold',
-  $color: props.$color || '#FFFFFF', 
+  $color: props.$color || '#FFFFFF',
 }))`
   font-size: clamp(18px, 2vw, 12px);
   word-break: keep-all;
-  color: ${(props) => props.$color}; 
+  color: ${(props) => props.$color};
 `;
 
 const HistoryContent = styled(Span).attrs((props) => ({
   $weight: 'regular',
-  $color: props.$color || '#FFFFFF', 
+  $color: props.$color || '#FFFFFF',
 }))`
   font-size: clamp(14px, 2vw, 12px);
   word-break: keep-all;
-  color: ${(props) => props.$color}; 
+  color: ${(props) => props.$color};
 `;
 
-
-
-
 export default function History() {
-  
   return (
     <BackgroundWrapper>
       <TitleContainer>
@@ -152,11 +147,12 @@ export default function History() {
             </HistoryCard>
             <HistoryCard>
               <Month>5월</Month>
-              <HistoryContent>정보 보호 대학 동아리 연합 KUCIS 소속</HistoryContent>
+              <HistoryContent>
+                정보 보호 대학 동아리 연합 KUCIS 소속
+              </HistoryContent>
             </HistoryCard>
           </HistoryCardContainer>
         </YearHistoryContainer>
-
 
         {/* 2023 */}
         <YearHistoryContainer>
@@ -164,7 +160,9 @@ export default function History() {
           <HistoryCardContainer>
             <HistoryCard>
               <Month $color="rgba(255, 255, 255, 0.4)">3월</Month>
-              <HistoryContent $color="rgba(255, 255, 255, 0.4)" >HSpace 파트너쉽 체결</HistoryContent>
+              <HistoryContent $color="rgba(255, 255, 255, 0.4)">
+                HSpace 파트너쉽 체결
+              </HistoryContent>
             </HistoryCard>
           </HistoryCardContainer>
         </YearHistoryContainer>
@@ -175,7 +173,9 @@ export default function History() {
           <HistoryCardContainer>
             <HistoryCard>
               <Month $color="rgba(255, 255, 255, 0.4)">9월</Month>
-              <HistoryContent $color="rgba(255, 255, 255, 0.4)" >제2회 KOSPO 웹서비스 정보 보안 경진대회 최우수상</HistoryContent>
+              <HistoryContent $color="rgba(255, 255, 255, 0.4)">
+                제2회 KOSPO 웹서비스 정보 보안 경진대회 최우수상
+              </HistoryContent>
             </HistoryCard>
           </HistoryCardContainer>
         </YearHistoryContainer>
@@ -186,12 +186,12 @@ export default function History() {
           <HistoryCardContainer>
             <HistoryCard>
               <Month $color="rgba(255, 255, 255, 0.4)">4월</Month>
-              <HistoryContent $color="rgba(255, 255, 255, 0.4)" >Naver D2 Campus Parter 선정</HistoryContent>
+              <HistoryContent $color="rgba(255, 255, 255, 0.4)">
+                Naver D2 Campus Parter 선정
+              </HistoryContent>
             </HistoryCard>
           </HistoryCardContainer>
         </YearHistoryContainer>
-
-        
       </HistoryFrame>
 
       <ShapeBackground />

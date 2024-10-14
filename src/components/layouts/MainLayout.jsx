@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 
 import styled from 'styled-components';
-import { Navigation } from '../navigation/Navigation';
+import { Navigation } from '@components/navigation/Navigation';
 
 export const Main = styled.main`
   width: 100%;

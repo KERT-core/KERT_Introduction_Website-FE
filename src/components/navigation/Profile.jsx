@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from '../forms/Button'; 
-import { Container } from '../forms/Container'; 
-import { Toggle } from '../forms/Toggle';
-import useAlert from '../../stores/useAlert';
-
+import { Button } from '@components/forms/Button';
+import { Container } from '@components/forms/Container';
+import { Toggle } from '@components/forms/Toggle';
+import useAlert from '@/stores/useAlert';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -19,7 +18,7 @@ const ProfileButton = styled.button`
   border-radius: 50%;
   border: none;
   padding: 0;
-  background-image: url('../assets/icons/menu/User.png');
+  background-image: url('@/assets/icons/menu/User.png');
   background-size: cover;
   background-position: center;
   border: 2px solid #e0e0e0;

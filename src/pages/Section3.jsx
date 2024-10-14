@@ -1,13 +1,15 @@
-import React from 'react';
-import bg_img from '../assets/Section3_bg_img.png';
-import Hspace from '../assets/HSpace.png';
-import KUCIS from '../assets/KUCIS.png';
-import CCA from '../assets/CCA.png';
-import Computer from '../assets/Computer.png';
-import GroupCard from '../assets/GroupCard.png';
 import styled from 'styled-components';
-import { Text, Span } from '../components/typograph/Text';
-import '../font/main_font.css';
+
+import { Text, Span } from '@components/typograph/Text';
+
+import bg_img from '@/assets/Section3_bg_img.png';
+import Hspace from '@/assets/HSpace.png';
+import KUCIS from '@/assets/KUCIS.png';
+import CCA from '@/assets/CCA.png';
+import Computer from '@/assets/Computer.png';
+import GroupCard from '@/assets/GroupCard.png';
+
+import '@/font/main_font.css';
 
 //Dev문서 타이틀 양식 가져오기
 const Title = styled(Span).attrs({

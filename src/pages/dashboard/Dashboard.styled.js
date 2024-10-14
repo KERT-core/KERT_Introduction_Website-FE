@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-// 사용자 정의 컴포넌트
-import { Span } from '../../components/typograph/Text';
+import { Span } from '@components/typograph/Text';
 
 /**
  * 대시보드 헤더

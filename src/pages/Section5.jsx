@@ -1,11 +1,13 @@
-import React from 'react';
-import bg_img from '../assets/Section5_bg_img.png';
-import '../font/main_font.css';
 import styled from 'styled-components';
-import { Text } from '../components/typograph/Text';
-import activ_img1 from "../assets/activ_pic1.png";
-import activ_img2 from "../assets/activ_pic2.png";
-import activ_img3 from "../assets/activ_pic3.png";
+
+import { Text } from '@components/typograph/Text';
+
+import bg_img from '@/assets/Section5_bg_img.png';
+import activ_img1 from '@/assets/activ_pic1.png';
+import activ_img2 from '@/assets/activ_pic2.png';
+import activ_img3 from '@/assets/activ_pic3.png';
+
+import '@/font/main_font.css';
 
 // MainPage 양식과 호환될 수 있도록 바탕 설정
 const BackFirstStyle = styled.div`
@@ -20,7 +22,7 @@ const BackFirstStyle = styled.div`
 
   /* Background overlay */
   &::before {
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 0;
@@ -44,7 +46,7 @@ const TitleWrapper = styled.div`
 `;
 
 const SubTitle = styled(Text)`
-  margin-bottom: 50px; 
+  margin-bottom: 50px;
 `;
 
 /* Image Wrapper */
@@ -60,7 +62,7 @@ const StyledImage = styled.img`
   width: 300px;
   height: 200px;
   object-fit: cover;
-  border-radius:25px;
+  border-radius: 25px;
 `;
 
 export default function Section1() {
@@ -75,7 +77,7 @@ export default function Section1() {
             다같이 즐겁게 활동해요
           </SubTitle>
           <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.78)">
-            KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등 <br/>
+            KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등 <br />
             모두에게 유익하고 재미있는 여러 활동들이 준비돼 있어요.
           </Text>
         </TitleWrapper>
