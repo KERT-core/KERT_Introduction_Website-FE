@@ -80,7 +80,7 @@ export default function History() {
 
         API.POST('/histories', {
           body: new_history,
-          headers: { Authorization: localStorage.getItem('token') },
+          headers: { Authorization: localStorage.getItem('accessToken') },
         })
           .then(() => {
             hideLoading();

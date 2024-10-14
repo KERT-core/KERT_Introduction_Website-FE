@@ -208,7 +208,7 @@ export default function MyPage() {
 
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
         if (!token) {
           throw new Error('No token found');
         }
@@ -249,7 +249,7 @@ export default function MyPage() {
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
         const base64String = reader.result; // Base64 인코딩된 문자열
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
 
         const formData = {
           name: userInfo.name,
@@ -278,7 +278,7 @@ export default function MyPage() {
 
   const handleDeleteImage = async () => {
     setImagePreview(defaultProfilePic);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
 
     try {
       const response = await API.PUT(`/users/${user.student_id}`, {
@@ -309,7 +309,7 @@ export default function MyPage() {
       return;
     }
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
 
     try {
       // 서버로 비밀번호 정보를 전송
@@ -348,7 +348,7 @@ export default function MyPage() {
     );
     if (confirmDelete) {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
         await API.DELETE(`/users/${user.student_id}`, {
           headers: {
             Authorization: token,

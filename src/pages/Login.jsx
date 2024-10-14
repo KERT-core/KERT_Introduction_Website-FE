@@ -145,8 +145,10 @@ export default function Login() {
         },
       });
 
+      // console.log('response:', response);
+
       // get string body
-      const token = response;
+      const token = response.access_token;
 
       // 서버에 user 정보 요청
       const response_user = await API.GET(`/users/${data.student}`, {

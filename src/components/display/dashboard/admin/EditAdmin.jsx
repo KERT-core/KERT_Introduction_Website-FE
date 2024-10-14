@@ -106,7 +106,7 @@ export const EditAdmin = forwardRef(({ admin, ...props }, ref) => {
     showLoading({ message: '관리자를 삭제하는 중...' });
 
     API.DELETE(`/admin/${admin.student_id}`, {
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: localStorage.getItem('accessToken') },
     })
       .then((api_res) => {
         openAlert({

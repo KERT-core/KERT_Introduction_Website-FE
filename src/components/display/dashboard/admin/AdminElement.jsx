@@ -81,7 +81,7 @@ export const AdminElement = ({ admin }) => {
 
   const { data, isLoading } = useQuery(`user-${admin.student_id}`, async () => {
     const data = await API.GET(`/users/${admin.student_id}`, {
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: localStorage.getItem('accessToken') },
     });
     return { ...admin, ...data };
   });
@@ -180,7 +180,7 @@ export const AdminElement = ({ admin }) => {
 
     API.PUT(`/admin/${data.student_id}`, {
       body: updated_admin,
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: localStorage.getItem('accessToken') },
     })
       .then((api_res) => {
         closeConfirm();

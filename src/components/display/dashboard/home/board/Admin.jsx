@@ -17,7 +17,7 @@ export const Admin = () => {
     'admin',
     async () => {
       const data = await API.GET('/admin', {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: { Authorization: localStorage.getItem('accessToken') },
       });
       return data;
     },

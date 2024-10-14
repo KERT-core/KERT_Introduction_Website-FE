@@ -16,7 +16,7 @@ export default function User() {
     'user',
     async () => {
       const data = await API.GET('/users', {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: { Authorization: localStorage.getItem('accessToken') },
       });
       return data;
     },
