@@ -1,11 +1,12 @@
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+
+import { useHistoriesQuery } from '@/hooks/histories/query';
 
 import { ShapeBackground } from '@components/display/ShapeBackground';
 import { Span } from '@components/typograph/Text';
 
-const BackgroundWrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
+const Wrapper = styled.div`
   overflow: hidden;
 
   & > div.shape-background {
@@ -15,10 +16,17 @@ const BackgroundWrapper = styled.div`
   }
 `;
 
+const TitleWrapper = styled.div`
+  margin-top: 200px;
+  margin-bottom: 150px;
+`;
+
 const Title = styled(Span).attrs({
   $weight: 'extrabold',
 })`
-  font-size: clamp(36px, 4vw, 40px);
+  display: block;
+  text-align: center;
+  font-size: clamp(36px, 5vw, 52px);
   word-break: keep-all;
 `;
 
@@ -26,31 +34,26 @@ const Description = styled(Span).attrs({
   $weight: 'light',
   $color: 'rgba(255, 255, 255, 0.7)',
 })`
-  font-size: clamp(16px, 2vw, 18px);
+  display: block;
+  text-align: center;
+  font-size: clamp(16px, 2.5vw, 24px);
   word-break: keep-all;
   margin-top: 10px;
+`;
+
+const HistoriesWrapper = styled.div`
+  width: fit-content;
+  margin: auto;
 `;
 
 const Year = styled(Span).attrs({
   $weight: 'bold',
 })`
+  width: 100px;
+  text-align: left;
   font-size: clamp(36px, 4vw, 40px);
   word-break: keep-all;
   color: ${(props) => props.$color || '#FFFFFF'};
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0px;
-  gap: 12px;
-
-  position: absolute;
-  width: 378px;
-  height: 96px;
-  left: calc(50% - 189px);
-  top: 150px;
 `;
 
 const YearHistoryContainer = styled.div`
@@ -58,32 +61,22 @@ const YearHistoryContainer = styled.div`
   flex-direction: row;
   align-items: flex-start;
   gap: 50px;
-  width: 100%;
-`;
-
-const HistoryFrame = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 50px;
-
-  position: absolute;
-  top: 300px;
-  left: 50%;
-  transform: translateX(-50%);
+  margin-bottom: 180px;
+  opacity: ${(props) => (props.$isVisible ? 1 : 0)};
+  transform: translateX(${(props) => (props.$isVisible ? '0px' : '20px')});
+  transition:
+    opacity 0.6s ease-in-out 0.1s,
+    transform 0.6s ease-out 0.1s;
 `;
 
 const HistoryCardContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;
   align-content: flex-start;
   padding: 0px;
   gap: 20px;
-
-  width: 700px;
 `;
 
 const HistoryCard = styled.div`
@@ -127,74 +120,69 @@ const HistoryContent = styled(Span).attrs((props) => ({
 `;
 
 export default function History() {
+  const { data, isFetched } = useHistoriesQuery();
+  const [visibleYears, setVisibleYears] = useState({});
+
+  const handleIntersection = (entries) => {
+    entries.forEach((entry) => {
+      setVisibleYears((prev) => ({
+        ...prev,
+        [entry.target.dataset.year]: entry.isIntersecting, // 화면에 보이면 true, 안보이면 false
+      }));
+    });
+  };
+
+  const observer = useRef(null);
+
+  useEffect(() => {
+    observer.current = new IntersectionObserver(handleIntersection, {
+      threshold: 0.1, // 필요한 threshold 값을 설정 (0.1은 요소가 10% 보일 때 trigger)
+    });
+
+    const yearContainers = document.querySelectorAll('[data-year]');
+    yearContainers.forEach((container) => {
+      observer.current.observe(container);
+    });
+
+    return () => {
+      yearContainers.forEach((container) => {
+        if (observer.current) observer.current.unobserve(container);
+      });
+    };
+  }, [data]);
+
   return (
-    <BackgroundWrapper>
-      <TitleContainer>
+    <Wrapper>
+      <ShapeBackground />
+      <TitleWrapper>
         <Title>KERT 연혁</Title>
         <Description>KERT는 매년 성장하는 동아리입니다</Description>
-      </TitleContainer>
-
-      {/*Histroy 전체 컨테이너 시작 지점입니다. */}
-      <HistoryFrame>
-        {/* 2024 */}
-
-        <YearHistoryContainer>
-          <Year>2024</Year>
-          <HistoryCardContainer>
-            <HistoryCard>
-              <Month>4월</Month>
-              <HistoryContent>전국 사이버 보안 연합 CCA 소속</HistoryContent>
-            </HistoryCard>
-            <HistoryCard>
-              <Month>5월</Month>
-              <HistoryContent>
-                정보 보호 대학 동아리 연합 KUCIS 소속
-              </HistoryContent>
-            </HistoryCard>
-          </HistoryCardContainer>
-        </YearHistoryContainer>
-
-        {/* 2023 */}
-        <YearHistoryContainer>
-          <Year $color="rgba(255, 255, 255, 0.3)">2023</Year>
-          <HistoryCardContainer>
-            <HistoryCard>
-              <Month $color="rgba(255, 255, 255, 0.4)">3월</Month>
-              <HistoryContent $color="rgba(255, 255, 255, 0.4)">
-                HSpace 파트너쉽 체결
-              </HistoryContent>
-            </HistoryCard>
-          </HistoryCardContainer>
-        </YearHistoryContainer>
-
-        {/* 2021 */}
-        <YearHistoryContainer>
-          <Year $color="rgba(255, 255, 255, 0.3)">2021</Year>
-          <HistoryCardContainer>
-            <HistoryCard>
-              <Month $color="rgba(255, 255, 255, 0.4)">9월</Month>
-              <HistoryContent $color="rgba(255, 255, 255, 0.4)">
-                제2회 KOSPO 웹서비스 정보 보안 경진대회 최우수상
-              </HistoryContent>
-            </HistoryCard>
-          </HistoryCardContainer>
-        </YearHistoryContainer>
-
-        {/*2018*/}
-        <YearHistoryContainer>
-          <Year $color="rgba(255, 255, 255, 0.3)">2018</Year>
-          <HistoryCardContainer>
-            <HistoryCard>
-              <Month $color="rgba(255, 255, 255, 0.4)">4월</Month>
-              <HistoryContent $color="rgba(255, 255, 255, 0.4)">
-                Naver D2 Campus Parter 선정
-              </HistoryContent>
-            </HistoryCard>
-          </HistoryCardContainer>
-        </YearHistoryContainer>
-      </HistoryFrame>
-
-      <ShapeBackground />
-    </BackgroundWrapper>
+      </TitleWrapper>
+      <HistoriesWrapper>
+        {!isFetched ? (
+          <></>
+        ) : (
+          Object.keys(data)
+            .reverse()
+            .map((year) => (
+              <YearHistoryContainer
+                key={year}
+                data-year={year}
+                $isVisible={visibleYears[year]}
+              >
+                <Year>{year}</Year>
+                <HistoryCardContainer>
+                  {data[year].map((history, i) => (
+                    <HistoryCard key={i}>
+                      <Month>{history.month}월</Month>
+                      <HistoryContent>{history.content}</HistoryContent>
+                    </HistoryCard>
+                  ))}
+                </HistoryCardContainer>
+              </YearHistoryContainer>
+            ))
+        )}
+      </HistoriesWrapper>
+    </Wrapper>
   );
 }

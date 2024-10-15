@@ -132,6 +132,7 @@ export const HistoryPreview = () => {
     'mainpage_history',
     async () => {
       let data = await API.GET('/histories');
+      console.log(data);
 
       // 만약 서버에 저장된 연혁이 없으면 기본 데이터 반환
       if (data.length > 0) {
