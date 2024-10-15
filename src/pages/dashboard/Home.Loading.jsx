@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-// 사용자 정의 컴포넌트
 import { HomeContainer } from './Home.styled';
 
 import { Header } from './Dashboard.styled';

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import useTheme from '../hooks/useTheme';
+import useTheme from '@/hooks/useTheme';
 
-import { Text } from '../components/typograph/Text';
+import { Text } from '@components/typograph/Text';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
@@ -26,7 +26,7 @@ import 'prismjs/components/prism-jsx.min'; // JSX 언어 지원을 포함합니�
 
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'; // 코드 블럭에 줄 번호를 추가하기 위해 이 줄을 추가합니다
 import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
-import { Button } from '../components/forms/Button';
+import { Button } from '@components/forms/Button';
 
 const Container = styled.div`
   width: 100%;

@@ -1,14 +1,13 @@
-// 사용자 정의 컴포넌트
-import { Text } from '../../components/typograph/Text.jsx';
+import { Text } from '@components/typograph/Text.jsx';
 
 import { Header } from './Dashboard.styled.js';
 import { UserListContainer, UserHeader, UserList } from './Users.styled.js';
 import {
   UserElement,
   UserElementLoading,
-} from '../../components/display/dashboard/user/UserElement.jsx';
+} from '@components/display/dashboard/user/UserElement.jsx';
 
-import { API } from '../../utils/api.js';
+import { API } from '@/utils/api.js';
 import { useQuery } from 'react-query';
 
 export default function User() {
@@ -16,7 +15,7 @@ export default function User() {
     'user',
     async () => {
       const data = await API.GET('/users', {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: { Authorization: localStorage.getItem('accessToken') },
       });
       return data;
     },

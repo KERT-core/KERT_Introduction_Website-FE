@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
 
-import { Span } from '../typograph/Text';
+import { Span } from '@components/typograph/Text';
 
 const HintedInputWrapper = styled.div`
   transition: background-color 0.2s ease-in-out;

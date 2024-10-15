@@ -1,15 +1,14 @@
-// SignUp.jsx
-// 코드 작성자 : GiHhub @huisuu
-
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
-import { API } from '../utils/api';
 import styled from 'styled-components';
-import { Text } from '../components/typograph/Text';
-import '../font/main_font.css';
-import useAlert from '../stores/useAlert';
-import { Alert } from '../components/forms/modal/Alert';
+
+import useAlert from '@/stores/useAlert';
+
+import { Text } from '@components/typograph/Text';
+import { Alert } from '@components/forms/modal/Alert';
+
+import { API } from '@/utils/api';
+import '@/font/main_font.css';
 
 const Container = styled.div`
   background-color: #080f17;

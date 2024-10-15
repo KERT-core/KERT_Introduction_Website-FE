@@ -3,19 +3,19 @@ import { useQuery } from 'react-query';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { Text } from '../../../typograph/Text';
+import { Text } from '@components/typograph/Text';
 
-import { GenerateColorByString } from '../../../../utils/generateColor';
-import { ColorProfile } from '../../ColorProfile';
-import { EditAdmin } from './EditAdmin';
-import { UpdatedAdmin } from './UpdatedAdmin';
-import { ErrorModal } from '../ErrorModal';
+import { GenerateColorByString } from '@/utils/generateColor';
+import { ColorProfile } from '@components/display/ColorProfile';
+import { EditAdmin } from '@components/display/dashboard/admin/EditAdmin';
+import { UpdatedAdmin } from '@components/display/dashboard/admin/UpdatedAdmin';
+import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
-import { GENERATION_REGEX } from '../../../../utils/regex';
-import { API } from '../../../../utils/api';
-import useAlert from '../../../../stores/useAlert';
-import useConfirm from '../../../../stores/useConfirm';
-import useLoading from '../../../../stores/useLoading';
+import { GENERATION_REGEX } from '@/utils/regex';
+import { API } from '@/utils/api';
+import useAlert from '@/stores/useAlert';
+import useConfirm from '@/stores/useConfirm';
+import useLoading from '@/stores/useLoading';
 
 const CardWrapper = styled.div`
   transition: background-color 0.1s ease-in-out;
@@ -81,7 +81,7 @@ export const AdminElement = ({ admin }) => {
 
   const { data, isLoading } = useQuery(`user-${admin.student_id}`, async () => {
     const data = await API.GET(`/users/${admin.student_id}`, {
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: localStorage.getItem('accessToken') },
     });
     return { ...admin, ...data };
   });
@@ -180,7 +180,7 @@ export const AdminElement = ({ admin }) => {
 
     API.PUT(`/admin/${data.student_id}`, {
       body: updated_admin,
-      headers: { Authorization: localStorage.getItem('token') },
+      headers: { Authorization: localStorage.getItem('accessToken') },
     })
       .then((api_res) => {
         closeConfirm();

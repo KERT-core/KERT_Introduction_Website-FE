@@ -1,12 +1,14 @@
-import React from 'react';
-import bg_img from '../assets/Section4_bg_img.png';
 import styled from 'styled-components';
-import { Text, Span } from '../components/typograph/Text';
-import web from '../assets/icons/Web.png';
-import Crypto from '../assets/icons/Crypto.png';
-import Reversing from '../assets/icons/Reversing.png';
-import Linux from '../assets/icons/Linux.png';
-import '../font/main_font.css';
+
+import { Text, Span } from '@components/typograph/Text';
+
+import bg_img from '@/assets/Section4_bg_img.png';
+import web from '@/assets/icons/Web.png';
+import Crypto from '@/assets/icons/Crypto.png';
+import Reversing from '@/assets/icons/Reversing.png';
+import Linux from '@/assets/icons/Linux.png';
+
+import '@/font/main_font.css';
 
 // Dev문서 타이틀 양식 가져오기
 const Title = styled(Span).attrs({

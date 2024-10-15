@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import { Span } from '../components/typograph/Text';
-import GraphSVG from '../assets/graph.svg';
 import { Link } from 'react-router-dom';
-import { HistoryPreview } from '../components/display/HistoryPreview';
+
+import { Span } from '@components/typograph/Text';
+import { HistoryPreview } from '@components/display/HistoryPreview';
+
+import GraphSVG from '@/assets/graph.svg';
 
 const SectionWrapper = styled.div`
   position: relative;

@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import { Button } from '../components/forms/Button';
-import { Text } from '../components/typograph/Text';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
-import urlJoin from 'url-join';
-import { API } from '../utils/api';
+import styled from 'styled-components';
+
+import { Button } from '@/components/forms/Button';
+import { Text } from '@/components/typograph/Text';
+
+import { API } from '@/utils/api';
 
 const Container = styled.div`
   width: 100%;

@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { Span } from '../../../typograph/Text';
+import { Span } from '@components/typograph/Text';
 
-import DownIcon from '../../../../assets/icons/down.svg';
+import DownIcon from '@/assets/icons/down.svg';
 
 const ID = styled(Span).attrs({
   $size: 's',

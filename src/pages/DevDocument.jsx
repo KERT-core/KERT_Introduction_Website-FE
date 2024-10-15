@@ -1,14 +1,9 @@
-// DevDocument.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-// 외부 라이브러리에서 import
-import React from 'react';
 import styled from 'styled-components';
-// 사용자가 생성한 컴포넌트 및 JS파일 import
-import { Container } from '../components/forms/Container';
-import { Text, Span } from '../components/typograph/Text';
-import { Checkbox } from '../components/forms/Checkbox';
-import { Toggle } from '../components/forms/Toggle';
-import { Button } from '../components/forms/Button';
+
+import { Container } from '@components/forms/Container';
+import { Text, Span } from '@components/typograph/Text';
+import { Checkbox } from '@components/forms/Checkbox';
+import { Toggle } from '@components/forms/Toggle';
 
 const Section = styled(Container)`
   display: flex;

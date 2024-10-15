@@ -1,13 +1,14 @@
-import React from 'react';
-import bg_img from '../assets/Section7_bg_img.png';
-import president from '../assets/president.png'; // 회장 이미지
-import PR_director from '../assets/PR_director.png'; // 홍보부장 이미지
-import study_director from '../assets/study_director.png'; // 학술부장 이미지
-import technic_director from '../assets/technic_director.png'; // 기술부장 이미지
-import affairs_manger from '../assets/affairs_manger.png'; // 총무부장 이미지
 import styled from 'styled-components';
-import { Text, Span } from '../components/typograph/Text';
 import { useNavigate } from 'react-router-dom';
+
+import { Text, Span } from '@components/typograph/Text';
+
+import bg_img from '@/assets/Section7_bg_img.png';
+import president from '@/assets/president.png'; // 회장 이미지
+import PR_director from '@/assets/PR_director.png'; // 홍보부장 이미지
+import study_director from '@/assets/study_director.png'; // 학술부장 이미지
+import technic_director from '@/assets/technic_director.png'; // 기술부장 이미지
+import affairs_manger from '@/assets/affairs_manger.png'; // 총무부장 이미지
 
 // MainPage 양식과 호환될 수 있도록 바탕 설정
 const BackFirstStyle = styled.div`

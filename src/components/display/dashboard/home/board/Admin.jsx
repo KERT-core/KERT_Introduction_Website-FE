@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
-import { NumberDisplay } from '../../../NumberDisplay';
+import { NumberDisplay } from '@components/display/NumberDisplay';
 import {
   BoardButton,
   BoardContainer,
@@ -9,7 +9,7 @@ import {
   SkeletonBoardContainer,
 } from './Board.styled';
 
-import { API } from '../../../../../utils/api';
+import { API } from '@/utils/api';
 
 export const Admin = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const Admin = () => {
     'admin',
     async () => {
       const data = await API.GET('/admin', {
-        headers: { Authorization: localStorage.getItem('token') },
+        headers: { Authorization: localStorage.getItem('accessToken') },
       });
       return data;
     },

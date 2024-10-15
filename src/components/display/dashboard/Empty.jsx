@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-import { Text } from '../../typograph/Text';
+import { Text } from '@components/typograph/Text';
 
-import EmptySVG from '../../../assets/empty.svg';
-import { Container } from '../../forms/Container';
+import EmptySVG from '@/assets/empty.svg';
+import { Container } from '@components/forms/Container';
 
 const Wrapper = styled(Container).attrs({
   id: 'dashboard-empty',

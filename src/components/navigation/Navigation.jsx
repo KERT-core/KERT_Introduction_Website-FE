@@ -1,13 +1,12 @@
-import React from 'react';
-import { useAuth } from './AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Toggle } from '../forms/Toggle';
-import useTheme from '../../hooks/useTheme';
 
-import Profile from './Profile';
+import { useAuth } from '@components/navigation/AuthContext';
+import useTheme from '@/hooks/useTheme';
 
-import { scrollToSection } from '../../utils/scrollToSection';
+import Profile from '@components/navigation/Profile';
+
+import { scrollToSection } from '@/utils/scrollToSection';
 
 const Nav = styled.div`
   position: fixed;

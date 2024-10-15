@@ -1,13 +1,12 @@
-// AuthContext.jsx
-// 코드 작성자 : GiHhub @huisuu
-
-import React, { createContext, useState, useContext } from 'react';
-import { API } from '../../utils/api';
+import { createContext, useState, useContext } from 'react';
+import { API } from '@/utils/api';
 
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem('accessToken'),
+  );
 
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem('user');
@@ -30,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await API.POST('/logout', {
         headers: {
-          Authorization: localStorage.getItem('token'),
+          Authorization: localStorage.getItem('accessToken'),
         },
       });
     } catch (error) {

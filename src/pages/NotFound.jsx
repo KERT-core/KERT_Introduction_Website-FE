@@ -4,10 +4,10 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { useGlitch } from 'react-powerglitch';
 
-import { Span } from '../components/typograph/Text';
+import { Span } from '@components/typograph/Text';
 
-import Square from '../assets/kert_logos/Square.svg';
-import NotFoundIcon from '../assets/404.svg';
+import Square from '@/assets/kert_logos/Square.svg';
+import NotFoundIcon from '@/assets/404.svg';
 
 const Wrapper = styled.div`
   position: relative;

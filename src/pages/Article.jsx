@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Text } from '../components/typograph/Text';
+import { Text } from '@components/typograph/Text';
 
 const ArticleContainer = styled.div`
   width: 100%;

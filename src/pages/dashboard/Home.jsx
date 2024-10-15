@@ -1,9 +1,7 @@
-// 사용자 정의 컴포넌트
 import { Header } from './Dashboard.styled';
 import { Column, Row } from './Home.styled';
 
-// 홈에 표시될 보드들
-import { Board } from '../../components/display/dashboard/home/board';
+import { Board } from '@components/display/dashboard/home/board';
 
 export default function Home() {
   return (

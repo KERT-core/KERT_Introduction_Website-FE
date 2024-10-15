@@ -1,6 +1,3 @@
-// src/pages/dashboard/index.js
-// 코드 작성자 : GiHhub @whitedev77773
-
 import Admin from './Admin.jsx';
 import Executive from './Executive.jsx';
 import History from './History.jsx';

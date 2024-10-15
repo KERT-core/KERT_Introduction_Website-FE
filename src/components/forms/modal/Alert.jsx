@@ -1,10 +1,10 @@
-import useAlert from '../../../stores/useAlert';
+import useAlert from '@/stores/useAlert';
 
 import styled from 'styled-components';
 
-import { ModalLayout } from '../../layouts/ModalLayout';
-import { Button } from '../Button';
-import { Span } from '../../typograph/Text';
+import { ModalLayout } from '@components/layouts/ModalLayout';
+import { Button } from '@components/forms/Button';
+import { Span } from '@components/typograph/Text';
 
 const ModalContainer = styled.div`
   position: relative;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Span } from '../typograph/Text';
+import { Span } from '@components/typograph/Text';
 
 const HoverToRevealWrapper = styled.div`
   position: relative;

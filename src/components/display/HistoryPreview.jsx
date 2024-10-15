@@ -2,15 +2,15 @@ import { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { Text } from '../typograph/Text';
+import { Text } from '@components/typograph/Text';
 
-import { API } from '../../utils/api';
+import { API } from '@/utils/api';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import '../../transitions/fade-slide.css';
-import SAMPLE_HISTORIES from '../../utils/sampleHistories';
+import '@/transitions/fade-slide.css';
+import SAMPLE_HISTORIES from '@/utils/sampleHistories';
 import { useQuery } from 'react-query';
-import { refineHistories } from '../../utils/refineHistory';
+import { refineHistories } from '@/utils/refineHistory';
 
 const PreviewWrapper = styled.div`
   width: 500px;

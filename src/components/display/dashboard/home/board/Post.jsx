@@ -1,7 +1,7 @@
 // import { useNavigate } from 'react-router-dom';
 
-import { Text } from '../../../../typograph/Text';
-import { NumberDisplay } from '../../../NumberDisplay';
+import { Text } from '@components/typograph/Text';
+import { NumberDisplay } from '@components/display/NumberDisplay';
 import { BoardButton, BoardContainer, BoardHeader } from './Board.styled';
 
 export const Post = () => {

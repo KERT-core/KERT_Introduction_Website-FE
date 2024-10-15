@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { Text } from '../../../typograph/Text';
+import { Text } from '@components/typograph/Text';
 
-import { GenerateColorByString } from '../../../../utils/generateColor';
-import { ColorProfile } from '../../ColorProfile';
+import { GenerateColorByString } from '@/utils/generateColor';
+import { ColorProfile } from '@components/display/ColorProfile';
 
-import useAlert from '../../../../stores/useAlert';
+import useAlert from '@/stores/useAlert';
 import { DetailUser } from './DetailUser';
 
 const CardWrapper = styled.div`

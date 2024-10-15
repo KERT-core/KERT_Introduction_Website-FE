@@ -1,20 +1,24 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Text } from '../components/typograph/Text';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import Github from "../assets/icons/Github.png";
-import Instagream from "../assets/icons/Instagram.png";
-import Facebook from "../assets/icons/Facebook.png";
-import Youtube from "../assets/icons/Youtube.png";
-import kert_logo from '../assets/kert_logos/White_Icon.png';
+import styled from 'styled-components';
+
+import { Text } from '@/components/typograph/Text';
+
+import Github from '@/assets/icons/Github.png';
+import Instagream from '@/assets/icons/Instagram.png';
+import Facebook from '@/assets/icons/Facebook.png';
+import Youtube from '@/assets/icons/Youtube.png';
+import kert_logo from '@/assets/kert_logos/White_Icon.png';
+
 import Section2 from './Section2.jsx';
 import Section1 from './Section1.jsx';
 import Section3 from './Section3.jsx';
 import Section4 from './Section4.jsx';
-import Section5 from "./Section5.jsx";
-import Section6 from "./Section6.jsx";
-import Section7 from "./Section7.jsx";
-import '../font/main_font.css';
-import styled from 'styled-components';
+import Section5 from './Section5.jsx';
+import Section6 from './Section6.jsx';
+import Section7 from './Section7.jsx';
+
+import '@/font/main_font.css';
 
 // Constants for styling and functionality
 const DIVIDER_HEIGHT = 5;
@@ -127,25 +131,28 @@ const HreyferContainer = styled.div`
   flex-grow: 0;
 `;
 
-
-const TextHreyfer=styled(Link)`
+const TextHreyfer = styled(Link)`
   font-family: 'NanumSquare Neo';
   font-style: normal;
   font-weight: 200;
   font-size: 11px;
   line-height: 18px;
-  color: #83878B;
+  color: #83878b;
   text-decoration: none;
 
-    &:focus, &:hover, &:visited, &:link, &:active {
-        text-decoration: none;
-    }
-`
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
 
 const SNSLinkContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;  /* Aligns icons to the left */
+  justify-content: flex-start; /* Aligns icons to the left */
   align-items: center;
   gap: 50px;
   width: 100%; /* Make sure the container stretches across the full width */
@@ -158,7 +165,7 @@ const SNSIcon = styled.a`
   height: 20px;
   background-color: #080f17;
   border-radius: 50%;
-  background-image: url(${props => props.backgroundImage});
+  background-image: url(${(props) => props.backgroundImage});
   background-size: contain;
   background-repeat: no-repeat;
   opacity: 0.8;
@@ -168,9 +175,6 @@ const SNSIcon = styled.a`
     opacity: 1;
   }
 `;
-
-
-
 
 export default function MainPage() {
   const outerDivRef = useRef();
@@ -319,22 +323,47 @@ export default function MainPage() {
             <Logo />
             <AddressText>대구광역시 북구 대학로80(경북대학교)</AddressText>
           </LogoAddressContainer>
-          <CopyrightText>Copyright 2024. KERT from KNU all rights reserved.</CopyrightText>
+          <CopyrightText>
+            Copyright 2024. KERT from KNU all rights reserved.
+          </CopyrightText>
         </LogoAddressCopyrightContainer>
         <HreyferContainer>
-          <TextHreyfer to="https://www.knu.ac.kr/wbbs/wbbs/main/main.action">경북대학교</TextHreyfer>
-          <TextHreyfer to="https://cse.knu.ac.kr/index.php">경북대학교 컴퓨터학부</TextHreyfer>
-          <TextHreyfer to="https://github.com/KERT-core">KERT 깃허브</TextHreyfer>
+          <TextHreyfer to="https://www.knu.ac.kr/wbbs/wbbs/main/main.action">
+            경북대학교
+          </TextHreyfer>
+          <TextHreyfer to="https://cse.knu.ac.kr/index.php">
+            경북대학교 컴퓨터학부
+          </TextHreyfer>
+          <TextHreyfer to="https://github.com/KERT-core">
+            KERT 깃허브
+          </TextHreyfer>
           <TextHreyfer to="https://hspace.io/login">HSpace</TextHreyfer>
-          <Text size="xs" weight="light">오픈소스 라이선스</Text>
+          <Text size="xs" weight="light">
+            오픈소스 라이선스
+          </Text>
         </HreyferContainer>
-          <SNSLinkContainer>
-            <SNSIcon href="https://github.com/KERT-core" backgroundImage={Github} target="_blank" />
-            <SNSIcon href="https://youtube.com/@kert_knu593" backgroundImage={Youtube} target="_blank" />
-            <SNSIcon href="https://www.facebook.com/KNU.KERT" backgroundImage={Facebook} target="_blank" />
-            <SNSIcon href="https://instagram.com/knu_kert" backgroundImage={Instagream} target="_blank" />
-          </SNSLinkContainer>
-
+        <SNSLinkContainer>
+          <SNSIcon
+            href="https://github.com/KERT-core"
+            backgroundImage={Github}
+            target="_blank"
+          />
+          <SNSIcon
+            href="https://youtube.com/@kert_knu593"
+            backgroundImage={Youtube}
+            target="_blank"
+          />
+          <SNSIcon
+            href="https://www.facebook.com/KNU.KERT"
+            backgroundImage={Facebook}
+            target="_blank"
+          />
+          <SNSIcon
+            href="https://instagram.com/knu_kert"
+            backgroundImage={Instagream}
+            target="_blank"
+          />
+        </SNSLinkContainer>
       </Footer>
     </>
   );

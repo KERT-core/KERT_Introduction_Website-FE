@@ -1,16 +1,17 @@
-// MyPage.jsx
-// 코드 작성자 : GiHhub @huisuu
-
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { Text } from '../components/typograph/Text';
-import { API } from '../utils/api';
-import useAlert from '../stores/useAlert';
-import { Alert } from '../components/forms/modal/Alert';
-import { useAuth } from '../components/navigation/AuthContext';
-import defaultProfilePic from '../assets/icons/menu/User.png';
+
+import useAlert from '@/stores/useAlert';
+import { useAuth } from '@components/navigation/AuthContext';
+
+import { Text } from '@/components/typograph/Text';
+import { Alert } from '@components/forms/modal/Alert';
+
+import defaultProfilePic from '@/assets/icons/menu/User.png';
+
+import { API } from '@/utils/api';
 
 const Container = styled.div`
   background-color: #0d0e14;
@@ -208,7 +209,7 @@ export default function MyPage() {
 
     const fetchUserData = async () => {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
         if (!token) {
           throw new Error('No token found');
         }
@@ -249,7 +250,7 @@ export default function MyPage() {
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
         const base64String = reader.result; // Base64 인코딩된 문자열
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
 
         const formData = {
           name: userInfo.name,
@@ -278,7 +279,7 @@ export default function MyPage() {
 
   const handleDeleteImage = async () => {
     setImagePreview(defaultProfilePic);
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
 
     try {
       const response = await API.PUT(`/users/${user.student_id}`, {
@@ -309,7 +310,7 @@ export default function MyPage() {
       return;
     }
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('accessToken');
 
     try {
       // 서버로 비밀번호 정보를 전송
@@ -348,7 +349,7 @@ export default function MyPage() {
     );
     if (confirmDelete) {
       try {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('accessToken');
         await API.DELETE(`/users/${user.student_id}`, {
           headers: {
             Authorization: token,

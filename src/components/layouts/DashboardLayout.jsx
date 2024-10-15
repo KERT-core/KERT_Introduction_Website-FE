@@ -4,14 +4,12 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-// 사용자가 생성한 컴포넌트 및 JS파일 import
-import { DashboardNav } from '../navigation/DashboardNav';
-import { Alert } from '../forms/modal/Alert';
-import { Confirm } from '../forms/modal/Confirm';
-import { Loading } from '../forms/modal/Loading';
+import { DashboardNav } from '@components/navigation/DashboardNav';
+import { Alert } from '@components/forms/modal/Alert';
+import { Confirm } from '@components/forms/modal/Confirm';
+import { Loading } from '@components/forms/modal/Loading';
 
-// 전환 애니메이션
-import '../../transitions/fade-slide.css';
+import '@/transitions/fade-slide.css';
 
 const Layout = styled.div.attrs({
   id: 'dashboard',

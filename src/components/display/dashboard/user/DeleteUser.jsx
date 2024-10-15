@@ -2,15 +2,15 @@ import { forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { Span, Text } from '../../../typograph/Text';
-import { Container } from '../../../forms/Container';
+import { Span, Text } from '@components/typograph/Text';
+import { Container } from '@components/forms/Container';
 
-import { ColorProfile } from '../../ColorProfile';
+import { ColorProfile } from '@components/display/ColorProfile';
 
-import { GenerateColorByString } from '../../../../utils/generateColor';
+import { GenerateColorByString } from '@/utils/generateColor';
 
-import { HoverToReveal } from '../../../forms/HoverToReveal';
-import { Input } from '../../../forms/Input';
+import { HoverToReveal } from '@components/forms/HoverToReveal';
+import { Input } from '@components/forms/Input';
 
 const Preview = styled(Container)`
   margin: 0;
