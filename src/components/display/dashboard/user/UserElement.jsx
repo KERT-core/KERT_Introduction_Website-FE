@@ -6,7 +6,7 @@ import { Text } from '@components/typograph/Text';
 import { GenerateColorByString } from '@/utils/generateColor';
 import { ColorProfile } from '@components/display/ColorProfile';
 
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 import { DetailUser } from './DetailUser';
 
 const CardWrapper = styled.div`

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useEffect } from 'react';
-import useTheme from '@/hooks/useTheme';
+import useTheme from '@/hooks/theme/useTheme';
 
 import { Text } from '@components/typograph/Text';
 import { Editor } from '@toast-ui/react-editor';

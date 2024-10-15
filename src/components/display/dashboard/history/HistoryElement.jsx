@@ -8,9 +8,9 @@ import { UpdatedHistory } from '@components/display/dashboard/history/UpdatedHis
 import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
 import { API } from '@/utils/api';
-import useConfirm from '@/stores/useConfirm';
-import useAlert from '@/stores/useAlert';
-import useLoading from '@/stores/useLoading';
+import useConfirm from '@/hooks/modal/useConfirm';
+import useAlert from '@/hooks/modal/useAlert';
+import useLoading from '@/hooks/modal/useLoading';
 
 const CardWrapper = styled.div.attrs({
   id: 'dashboard-history-card',

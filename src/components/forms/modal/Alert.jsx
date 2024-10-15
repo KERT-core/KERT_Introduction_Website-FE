@@ -1,4 +1,4 @@
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 
 import styled from 'styled-components';
 

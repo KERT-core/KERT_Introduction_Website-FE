@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button } from '@components/forms/Button';
 import { Container } from '@components/forms/Container';
 import { Toggle } from '@components/forms/Toggle';
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 
 const ProfileContainer = styled.div`
   display: flex;

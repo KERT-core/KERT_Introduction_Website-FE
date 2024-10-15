@@ -14,9 +14,9 @@ import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
 import { API } from '@/utils/api';
 import { GenerateColorByString } from '@/utils/generateColor';
-import useConfirm from '@/stores/useConfirm';
-import useAlert from '@/stores/useAlert';
-import useLoading from '@/stores/useLoading';
+import useConfirm from '@/hooks/modal/useConfirm';
+import useAlert from '@/hooks/modal/useAlert';
+import useLoading from '@/hooks/modal/useLoading';
 
 const Wrapper = styled.div`
   margin: 40px 0;

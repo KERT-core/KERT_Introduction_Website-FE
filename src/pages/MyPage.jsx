@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 import { useAuth } from '@components/navigation/AuthContext';
 
 import { Text } from '@/components/typograph/Text';

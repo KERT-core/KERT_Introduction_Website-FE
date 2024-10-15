@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 
 import { Text } from '@components/typograph/Text';
 import { Alert } from '@components/forms/modal/Alert';
