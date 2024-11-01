@@ -10,7 +10,7 @@ const rotate = ($startAngle, $direction) => keyframes`
 `;
 
 const Container = styled.div.attrs({ className: 'shape-background' })`
-  position: relative;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: center;
