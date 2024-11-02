@@ -29,6 +29,11 @@ const Section = styled.section`
   }
 
   overflow: hidden;
+
+  @media (max-width: 1280px) {
+    height: fit-content;
+    padding: 500px 0;
+  }
 `;
 
 const Content = styled.div`
@@ -43,6 +48,10 @@ const Content = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media (max-width: 1280px) {
+    flex-direction: column;
+  }
 `;
 
 const LeftContent = styled.div`
@@ -50,12 +59,10 @@ const LeftContent = styled.div`
   flex-direction: column;
   justify-content: left;
   gap: 100px;
-`;
 
-const RightContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
+  @media (max-width: 1280px) {
+    align-items: center;
+  }
 `;
 
 const TitleWrapper = styled.div`
@@ -67,6 +74,12 @@ const TitleWrapper = styled.div`
   justify-content: left;
   align-items: left;
   gap: 8px;
+
+  @media (max-width: 1280px) {
+    margin-top: 0px;
+    align-items: center;
+    gap: 16px;
+  }
 `;
 
 const LockIcon = styled.img.attrs({
@@ -77,6 +90,18 @@ const LockIcon = styled.img.attrs({
   opacity: 0.25;
   transform: rotate(-15deg);
   mask-image: linear-gradient(150deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+
+  @media (max-width: 1280px) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+
+    width: 600px;
+    height: 600px;
+
+    opacity: 0.1;
+  }
 `;
 
 const StackWrapper = styled.div`
@@ -87,8 +112,11 @@ const StackWrapper = styled.div`
 const Stats = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 6px;
+
+  @media (max-width: 1280px) {
+    align-items: center;
+  }
 `;
 
 const GradientText = styled(Span)`
@@ -139,9 +167,7 @@ export default function MainPage() {
             </Stats>
           </StackWrapper>
         </LeftContent>
-        <RightContent>
-          <LockIcon />
-        </RightContent>
+        <LockIcon />
       </Content>
     </Section>
   );

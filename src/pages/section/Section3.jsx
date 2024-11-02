@@ -9,8 +9,6 @@ import KucisLogoURL from '@/assets/group_logo/kucis.png';
 import CcaLogoURL from '@/assets/group_logo/cca.png';
 import CseLogoURL from '@/assets/group_logo/cse.png';
 
-import '@/font/main_font.css';
-
 const Section = styled.section`
   position: relative;
 

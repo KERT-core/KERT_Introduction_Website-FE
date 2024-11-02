@@ -43,6 +43,11 @@ const Content = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 75px;
+
+  @media (max-width: 1280px) {
+    flex-direction: column;
+  }
 `;
 
 const LeftContent = styled.div`
@@ -51,32 +56,67 @@ const LeftContent = styled.div`
   justify-content: center;
   align-items: left;
   gap: 100px;
+
+  @media (max-width: 1280px) {
+    align-items: center;
+    gap: 50px;
+  }
 `;
 
 const TitleWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  @media (max-width: 1280px) {
+    align-items: center;
+  }
 `;
 
 const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+
+  @media (max-width: 1280px) {
+    align-items: center;
+  }
 `;
 
 const RightContent = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 30px;
-  margin: 20px 0 20px 100px;
+
+  @media (max-width: 1280px) {
+  }
 `;
 
 const ImageWrapper = styled.div`
+  position: relative;
+
   display: flex;
   justify-content: center;
   gap: 25px;
   margin-top: 90px;
+
+  @media (max-width: 1280px) {
+    // 좌우가 점점 검정색으로 흐리게
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        #04000c 0%,
+        rgba(4, 0, 12, 0) 50%,
+        #04000c 100%
+      );
+    }
+  }
 `;
 
 const Image = styled.img`
@@ -158,7 +198,7 @@ export default function Section4() {
             다같이 즐겁게 활동해요
           </Text>
         </TitleWrapper>
-        <DescriptionWrapper style={{ marginTop: '60px' }}>
+        <DescriptionWrapper>
           <Text size="l" weight="light" color="white">
             KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등
           </Text>
