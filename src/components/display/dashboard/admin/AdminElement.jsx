@@ -13,9 +13,9 @@ import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
 import { GENERATION_REGEX } from '@/utils/regex';
 import { API } from '@/utils/api';
-import useAlert from '@/stores/useAlert';
-import useConfirm from '@/stores/useConfirm';
-import useLoading from '@/stores/useLoading';
+import useAlert from '@/hooks/modal/useAlert';
+import useConfirm from '@/hooks/modal/useConfirm';
+import useLoading from '@/hooks/modal/useLoading';
 
 const CardWrapper = styled.div`
   transition: background-color 0.1s ease-in-out;

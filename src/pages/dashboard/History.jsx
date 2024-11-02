@@ -15,9 +15,9 @@ import { AddHistory } from '@components/display/dashboard/history/AddHistory';
 import { ErrorModal } from '@components/display/dashboard/ErrorModal';
 
 import { API } from '@/utils/api';
-import useAlert from '@/stores/useAlert';
-import useConfirm from '@/stores/useConfirm';
-import useLoading from '@/stores/useLoading';
+import useAlert from '@/hooks/modal/useAlert';
+import useConfirm from '@/hooks/modal/useConfirm';
+import useLoading from '@/hooks/modal/useLoading';
 import { refineHistories } from '@/utils/refineHistory';
 
 import { AddIcon, RefreshIcon } from '@/assets/icons';
