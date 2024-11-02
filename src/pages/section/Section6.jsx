@@ -95,7 +95,7 @@ export default function Section7() {
       group_number: 23,
       major: '심화컴퓨터',
       student_id_year: 22,
-      description: ['정기 세미나, 프로젝트 및 스터디를 관리해요.', ' '],
+      description: '정기 세미나, 프로젝트 및 스터디를 관리해요.',
       image_url: StutyManagerImage,
       color: '#0094FF',
     },
