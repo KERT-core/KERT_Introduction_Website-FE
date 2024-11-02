@@ -1,8 +1,7 @@
 import styled from 'styled-components';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useTheme from '@/hooks/theme/useTheme';
 
-import { Text } from '@components/typograph/Text';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
@@ -27,6 +26,9 @@ import 'prismjs/components/prism-jsx.min'; // JSX 언어 지원을 포함합니�
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'; // 코드 블럭에 줄 번호를 추가하기 위해 이 줄을 추가합니다
 import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 import { Button } from '@components/forms/Button';
+
+import { API } from '@/utils/api';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -103,6 +105,22 @@ const DescriptionInput = styled.input`
   color: var(--secondary-text-color);
 `;
 
+const CategoryInput = styled.input`
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--secondary-text-color);
+  background: none;
+  border: none;
+  outline: none;
+
+  transition: all 0.2s ease-in-out;
+  padding: 0.3rem 0;
+
+  &:focus {
+    border-bottom: 1px solid var(--primary-text-color);
+  }
+`;
+
 const BottomBarWrapper = styled.div`
   margin-bottom: 2.5rem;
 `;
@@ -125,6 +143,21 @@ const BottomBarContainer = styled.div`
 
 export default function NewArticle() {
   const theme = useTheme();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const ref = useRef(null);
+
+  const handleSubmit = async () => {
+    API.POST('/posts', {
+      body: {
+        title,
+        description,
+        tag: category,
+        content: ref.current.getInstance().getMarkdown(),
+      },
+    });
+  };
 
   useEffect(() => {
     const editorEl = document.getElementsByClassName(
@@ -150,17 +183,31 @@ export default function NewArticle() {
   return (
     <Container>
       <ArticleHeader>
-        <Text size="18px" weight="bold" color="--secondary-text-color">
-          카테고리
-        </Text>
+        <CategoryInput
+          onChange={(e) => {
+            setCategory(e.target.value);
+          }}
+          placeholder="카테고리 입력"
+        />
         <ArticleTitleGroup>
-          <TitleInput placeholder="제목을 입력하세요" />
-          <DescriptionInput placeholder="카드에 표시될 설명을 입력하세요" />
+          <TitleInput
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            placeholder="제목을 입력하세요"
+          />
+          <DescriptionInput
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            placeholder="카드에 표시될 설명을 입력하세요"
+          />
         </ArticleTitleGroup>
       </ArticleHeader>
       <ArticleHorizontalLine />
 
       <Editor
+        ref={ref}
         height="600px"
         initialEditType="wysiwyg"
         usageStatistics={false}
@@ -172,8 +219,10 @@ export default function NewArticle() {
 
       <BottomBarWrapper>
         <BottomBarContainer>
-          <Button type="translucent">취소</Button>
-          <Button>글 게시</Button>
+          <Link to="/board">
+            <Button type="translucent">취소</Button>
+          </Link>
+          <Button onClick={handleSubmit}>글 게시</Button>
         </BottomBarContainer>
       </BottomBarWrapper>
     </Container>
