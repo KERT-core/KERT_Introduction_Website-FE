@@ -40,11 +40,27 @@ const Title = styled(Span).attrs({
   $size: '36px',
   $weight: 'extrabold',
   $color: 'white',
-})``;
+})`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    text-align: center;
+    font-size: 30px;
+    word-break: keep-all;
+  }
+`;
 
 const ProfilesWrapper = styled.div`
   width: 100%;
   max-width: 900px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    box-sizing: border-box;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
 `;
 
 export default function Section7() {

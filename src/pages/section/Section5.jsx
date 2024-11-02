@@ -6,7 +6,9 @@ import { HistoryPreview } from '@components/display/HistoryPreview';
 
 import GraphSVG from '@/assets/graph.svg';
 
-const SectionWrapper = styled.div`
+const SectionWrapper = styled.section.attrs({
+  id: 'history',
+})`
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -28,16 +30,18 @@ const Graph = styled(GraphSVG)`
 
 const Content = styled.div`
   position: absolute;
-  width: 100%;
-  max-width: 1280px;
-  height: max-content;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  width: 100%;
+  max-width: 1280px;
+  height: max-content;
+
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
+
   @media (max-width: 1280px) {
     & {
       flex-direction: column; /* 화면이 작아지면 세로 방향 */
@@ -63,15 +67,18 @@ const LeftContent = styled.div`
     }
   }
 `;
-const RightContent = styled.div`
-  margin: 20px;
-`;
+const RightContent = styled.div``;
 
 const Title = styled(Span).attrs({
   $size: '45px',
   $weight: 'extrabold',
 })`
   word-break: keep-all;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 30px;
+  }
 `;
 
 const Description = styled(Span).attrs({
@@ -79,6 +86,11 @@ const Description = styled(Span).attrs({
   $weight: 'light',
 })`
   word-break: keep-all;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
 `;
 
 const StyledLink = styled(Link)`

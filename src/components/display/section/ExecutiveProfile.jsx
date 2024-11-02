@@ -9,8 +9,10 @@ const ExecutiveProfileWrapper = styled.div`
   display: flex;
   flex-direction: ${({ $reverse }) => ($reverse ? 'row-reverse' : 'row')};
   align-items: center;
-
   gap: 20px;
+
+  text-align: ${({ $reverse }) => ($reverse ? 'right' : 'left')};
+  word-break: keep-all;
 `;
 
 const ProfileDescription = styled.div`
@@ -33,6 +35,13 @@ const NameInfo = styled.div`
   gap: 6px;
 `;
 
+const Name = styled(Span)`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+`;
+
 const GradientText = styled(Span).attrs({
   $weight: 'extrabold',
 })`
@@ -40,6 +49,18 @@ const GradientText = styled(Span).attrs({
     `linear-gradient(to right bottom, #FFFFFF, ${$color})`};
   -webkit-background-clip: text;
   color: transparent;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
+`;
+
+const Info = styled(Span)`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 const Image = styled.div`
@@ -49,6 +70,12 @@ const Image = styled.div`
   background-size: cover;
   background-position: center;
   border-radius: 14px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
 `;
 
 const DescriptionWrapper = styled.div`
@@ -57,18 +84,12 @@ const DescriptionWrapper = styled.div`
   gap: 3px;
 `;
 
-/*
-profile: {
-  name: string,
-  role: string,
-  group_number: number,
-  major: string,
-  student_id_year: number,
-  description: [string],
-  image_url: string,
-  color: string,
-}
-*/
+const Description = styled(Span)`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+`;
 
 export const ExecutiveProfile = ({ profile, isReversed }) => {
   return (
@@ -77,20 +98,20 @@ export const ExecutiveProfile = ({ profile, isReversed }) => {
       <ProfileDescription $reverse={isReversed}>
         <TitleWrapper>
           <NameInfo $reverse={isReversed}>
-            <Text size="l" weight="extrabold">
+            <Name $size="l" $weight="extrabold">
               {profile.name}
-            </Text>
+            </Name>
             <GradientText $color={profile.color}>{profile.role}</GradientText>
           </NameInfo>
-          <Text size="s" weight="light" color="rgba(255, 255, 255, 0.7)">
+          <Info $size="s" $weight="light" $color="rgba(255, 255, 255, 0.7)">
             KERT {profile.group_number}기 {profile.major}{' '}
             {profile.student_id_year}학번
-          </Text>
+          </Info>
         </TitleWrapper>
         <DescriptionWrapper>
-          <Text size="m" weight="regular">
+          <Description $size="m" $weight="regular" $color="white">
             {profile.description}
-          </Text>
+          </Description>
         </DescriptionWrapper>
       </ProfileDescription>
     </ExecutiveProfileWrapper>

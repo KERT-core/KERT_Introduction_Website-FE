@@ -15,6 +15,13 @@ const FooterWrapper = styled.footer`
   align-items: center;
 
   background-color: #000;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 30px;
+  }
 `;
 
 const LeftContent = styled.div`
@@ -32,6 +39,11 @@ const LogoAddressContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 22px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 const AddressText = styled.span`
@@ -55,6 +67,14 @@ const Content = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: left;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+  }
 `;
 
 const Links = styled.div`

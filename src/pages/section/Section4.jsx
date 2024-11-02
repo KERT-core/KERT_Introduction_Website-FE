@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Text } from '@components/typograph/Text';
+import { Span, Text } from '@components/typograph/Text';
 
 import { ShapeBackground } from '../../components/display/ShapeBackground';
 import { ContentCard } from '@components/display/section/ContentCard';
@@ -73,6 +73,20 @@ const TitleWrapper = styled.div`
   }
 `;
 
+const Title = styled(Span)`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 30px;
+  }
+`;
+
+const SubTitle = styled(Span)`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+`;
+
 const DescriptionWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -83,12 +97,24 @@ const DescriptionWrapper = styled.div`
   }
 `;
 
+const Description = styled(Span)`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    word-break: keep-all;
+    font-size: 14px;
+    text-align: center;
+  }
+`;
+
 const RightContent = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 30px;
 
-  @media (max-width: 1280px) {
+  // 모바일 대응
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
   }
 `;
 
@@ -115,6 +141,15 @@ const ImageWrapper = styled.div`
         rgba(4, 0, 12, 0) 50%,
         #04000c 100%
       );
+    }
+  }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    &:after {
+      display: none;
     }
   }
 `;
@@ -161,20 +196,24 @@ export default function Section4() {
       <Content>
         <LeftContent>
           <TitleWrapper>
-            <Text size="25px" weight="light" color="rgba(255, 255, 255, 0.5)">
+            <SubTitle
+              $size="25px"
+              $weight="light"
+              $color="rgba(255, 255, 255, 0.5)"
+            >
               Education Content of KERT
-            </Text>
-            <Text size="45px" weight="extrabold" color="white">
+            </SubTitle>
+            <Title $size="45px" $weight="extrabold" $color="white">
               KERT, 이런 걸 배워요
-            </Text>
+            </Title>
           </TitleWrapper>
           <DescriptionWrapper>
-            <Text size="l" weight="light" color="white">
+            <Description $size="l" $weight="light" $color="white">
               KERT는 보안과 관련된 다양한 활동이 준비돼있어요.
-            </Text>
-            <Text size="l" weight="light" color="white">
+            </Description>
+            <Description $size="l" $weight="light" $color="white">
               가입 후 다양한 분야 지식을 습득할 수 있어요.
-            </Text>
+            </Description>
           </DescriptionWrapper>
         </LeftContent>
         <RightContent>
@@ -191,20 +230,24 @@ export default function Section4() {
       {/* Section 4.2 */}
       <Content style={{ flexDirection: 'column' }}>
         <TitleWrapper style={{ alignItems: 'center' }}>
-          <Text size="25px" weight="light" color="rgba(255, 255, 255, 0.5)">
+          <SubTitle
+            $size="25px"
+            $weight="light"
+            $color="rgba(255, 255, 255, 0.5)"
+          >
             Major Content of KERT
-          </Text>
-          <Text size="45px" weight="extrabold" color="white">
+          </SubTitle>
+          <Title $size="45px" $weight="extrabold" $color="white">
             다같이 즐겁게 활동해요
-          </Text>
+          </Title>
         </TitleWrapper>
         <DescriptionWrapper>
-          <Text size="l" weight="light" color="white">
+          <Description $size="l" $weight="light" $color="white">
             KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등
-          </Text>
-          <Text size="l" weight="light" color="white">
+          </Description>
+          <Description $size="l" $weight="light" $color="white">
             모두에게 유익하고 재미있는 여러 활동들이 준비돼 있어요.
-          </Text>
+          </Description>
         </DescriptionWrapper>
         <ImageWrapper>
           <Image src={activ_img1} alt="Activity 1" />

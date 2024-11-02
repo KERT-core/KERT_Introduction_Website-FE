@@ -34,6 +34,11 @@ const Section = styled.section`
     height: fit-content;
     padding: 500px 0;
   }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    background-size: 400%;
+  }
 `;
 
 const Content = styled.div`
@@ -80,6 +85,14 @@ const TitleWrapper = styled.div`
     align-items: center;
     gap: 16px;
   }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    gap: 8px !important;
+    & > span {
+      font-size: 26px;
+    }
+  }
 `;
 
 const LockIcon = styled.img.attrs({
@@ -102,11 +115,22 @@ const LockIcon = styled.img.attrs({
 
     opacity: 0.1;
   }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: 400px;
+    height: 400px;
+  }
 `;
 
 const StackWrapper = styled.div`
   display: flex;
   gap: 100px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    gap: 40px;
+  }
 `;
 
 const Stats = styled.div`
@@ -117,6 +141,13 @@ const Stats = styled.div`
   @media (max-width: 1280px) {
     align-items: center;
   }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    & > span {
+      font-size: 15px;
+    }
+  }
 `;
 
 const GradientText = styled(Span)`
@@ -124,6 +155,11 @@ const GradientText = styled(Span)`
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 30px !important;
+  }
 `;
 
 export default function MainPage() {

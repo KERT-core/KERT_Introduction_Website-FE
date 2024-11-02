@@ -25,6 +25,12 @@ const Section = styled.section`
   background-position: center center;
   background-image: url(${BackgroundImage});
   background-size: cover;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    height: 100%;
+    padding: 100px 0;
+  }
 `;
 
 const TitleWrapper = styled.div`
@@ -38,6 +44,12 @@ const GroupCardsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 40px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 const Title = styled(Span).attrs({
@@ -46,13 +58,26 @@ const Title = styled(Span).attrs({
   $color: 'white',
 })`
   margin-bottom: 30px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 30px;
+  }
 `;
 
 const SubTitle = styled(Span).attrs({
   $size: 'l',
   $weight: 'light',
   $color: 'white',
-})``;
+})`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: 80%;
+    word-break: keep-all;
+    font-size: 14px;
+    text-align: center;
+  }
+`;
 
 export default function Section3() {
   return (

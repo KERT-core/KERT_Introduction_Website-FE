@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { Text } from '@components/typograph/Text';
+import { Span } from '@components/typograph/Text';
 
 import BackgroundImage from '@/assets/section_bg/section_1.png';
 import { SquareLogo } from '@/assets/kert_logos';
@@ -41,10 +41,18 @@ const TitleWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
 
+  width: 100%;
+
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 40px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    top: 180px;
+    gap: 30px;
+  }
 `;
 
 const TextLogo = styled.img.attrs({
@@ -52,7 +60,25 @@ const TextLogo = styled.img.attrs({
   alt: 'KERT Logo',
   width: 344,
   height: 44,
-})``;
+})`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 26px;
+  }
+`;
+
+const SubTitle = styled(Span).attrs({
+  $size: '24px',
+  $weight: 'regular',
+  $color: '#FFFFFF88',
+})`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    font-size: 16px;
+    word-break: keep-all;
+  }
+`;
 
 const DecorationLogo = styled(SquareLogo)`
   position: absolute;
@@ -65,6 +91,13 @@ const DecorationLogo = styled(SquareLogo)`
   fill: white;
 
   mask-image: linear-gradient(150deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0));
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, 20%);
+  }
 `;
 
 export default function Section1() {
@@ -73,9 +106,7 @@ export default function Section1() {
       {/* 상단 로고와 설명 텍스트 */}
       <TitleWrapper>
         <TextLogo />
-        <Text size="24px" weight="regular" color="#FFFFFF88">
-          KNU Compuer Emergency Response Team
-        </Text>
+        <SubTitle>KNU Compuer Emergency Response Team</SubTitle>
       </TitleWrapper>
       {/* 하단 거대 로고 */}
       <DecorationLogo />
