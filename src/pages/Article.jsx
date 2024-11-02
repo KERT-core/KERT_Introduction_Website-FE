@@ -1,5 +1,27 @@
 import styled from 'styled-components';
 import { Text } from '@components/typograph/Text';
+import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { API } from '@/utils/api';
+import { Viewer } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
+import 'tui-color-picker/dist/tui-color-picker.css';
+import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import Prism from 'prismjs';
+
+import 'prismjs/themes/prism.css';
+import 'prismjs/themes/prism-okaidia.css'; // 다크 모드 테마를 추가합니다
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css'; // Toast UI 에디터 다크 모드 테마를 추가합니다
+
+import 'prismjs/components/prism-jsx.min'; // JSX 언어 지원을 포함합니다 (선택 사항)
+
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css'; // 코드 블럭에 줄 번호를 추가하기 위해 이 줄을 추가합니다
+import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 
 const ArticleContainer = styled.div`
   width: 100%;
@@ -45,25 +67,43 @@ const ArticleHorizontalLine = styled.hr`
 `;
 
 export default function Article() {
+  const { id } = useParams();
+
+  const { data, isLoading } = useQuery(['post', id], API.GET(`/posts/${id}`));
+
   return (
     <ArticleContainer>
-      <ArticleHeader>
-        <Text size="18px" weight="bold" color="--secondary-text-color">
-          카테고리
-        </Text>
-        <ArticleTitleGroup>
-          <Text size="40px" weight="extrabold">
-            제목을 입력하세요
-          </Text>
-          <Text size="m" color="--secondary-text-color">
-            카드에 표시될 설명을 입력하세요
-          </Text>
-        </ArticleTitleGroup>
-        <Text size="s" color="--secondary-text-color">
-          KERT 관리자 | 2024.07.27
-        </Text>
-      </ArticleHeader>
-      <ArticleHorizontalLine />
+      {isLoading ? (
+        <Text>불러오는 중</Text>
+      ) : (
+        <>
+          <ArticleHeader>
+            <Text size="18px" weight="bold" color="--secondary-text-color">
+              {data.tag}
+            </Text>
+            <ArticleTitleGroup>
+              <Text size="40px" weight="extrabold">
+                {data.title}
+              </Text>
+              <Text size="m" color="--secondary-text-color">
+                {data.description}
+              </Text>
+            </ArticleTitleGroup>
+            <Text size="s" color="--secondary-text-color">
+              {data.user?.name} | {new Date(data.createdAt).toLocaleString()}
+            </Text>
+          </ArticleHeader>
+          <ArticleHorizontalLine />
+          <Viewer
+            initialValue={data.content}
+            language="ko-KR"
+            plugins={[
+              colorSyntax,
+              [codeSyntaxHighlight, { highlighter: Prism }],
+            ]}
+          />
+        </>
+      )}
     </ArticleContainer>
   );
 }

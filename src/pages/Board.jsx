@@ -145,15 +145,17 @@ export default function Board() {
         </Button>
       </ButtonGroup>
       <PostItems>
-        {posts?.map((post, index) => (
-          <PostCard
-            key={index}
-            title={post.title}
-            description={post.content}
-            author={post.user?.name}
-            image={`https://picsum.photos/200?random=${index}`}
-          />
-        ))}
+        {posts
+          ?.filter((post) => tag === '전체' || post.tag === tag)
+          .map((post, index) => (
+            <PostCard
+              key={index}
+              title={post.title}
+              description={post.content}
+              author={post.user?.name}
+              image={`https://picsum.photos/200?random=${index}`}
+            />
+          ))}
       </PostItems>
     </Container>
   );
