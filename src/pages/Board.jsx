@@ -119,15 +119,29 @@ export default function Board() {
         <Description>열심히 소통하는 KERT, 자세히 알아볼 수 있어요</Description>
       </TitleBox>
       <ButtonGroup>
-        <Button type="rounded">전체</Button>
-        <Button type="rounded" color="--transparent-button-background">
+        <Button type="rounded" onClick={() => setTag('전체')}>
+          전체
+        </Button>
+        <Button
+          type="rounded"
+          color="--transparent-button-background"
+          onClick={() => setTag('공지')}
+        >
           공지
         </Button>
-        <Button type="rounded" color="--transparent-button-background">
+        <Button
+          type="rounded"
+          color="--transparent-button-background"
+          onClick={() => setTag('블로그')}
+        >
           블로그
         </Button>
-        <Button type="rounded" color="--transparent-button-background">
-          기.보.교
+        <Button
+          type="rounded"
+          color="--transparent-button-background"
+          onClick={() => setTag('기보교')}
+        >
+          기보교
         </Button>
       </ButtonGroup>
       <PostItems>
@@ -136,7 +150,7 @@ export default function Board() {
             key={index}
             title={post.title}
             description={post.content}
-            author={post.admin_id}
+            author={post.user?.name}
             image={`https://picsum.photos/200?random=${index}`}
           />
         ))}

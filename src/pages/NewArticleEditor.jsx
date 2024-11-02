@@ -28,7 +28,7 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 import { Button } from '@components/forms/Button';
 
 import { API } from '@/utils/api';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -105,7 +105,7 @@ const DescriptionInput = styled.input`
   color: var(--secondary-text-color);
 `;
 
-const CategoryInput = styled.input`
+const CategorySelect = styled.select`
   font-size: 18px;
   font-weight: bold;
   color: var(--secondary-text-color);
@@ -148,14 +148,19 @@ export default function NewArticle() {
   const [category, setCategory] = useState('');
   const ref = useRef(null);
 
+  const navigate = useNavigate();
+
   const handleSubmit = async () => {
     API.POST('/posts', {
       body: {
         title,
         description,
-        tag: category,
+        tag: category || null,
         content: ref.current.getInstance().getMarkdown(),
       },
+    }).then((r) => {
+      alert('게시글이 성공적으로 등록되었습니다');
+      navigate(`/board/${r.data.id}`);
     });
   };
 
@@ -183,12 +188,16 @@ export default function NewArticle() {
   return (
     <Container>
       <ArticleHeader>
-        <CategoryInput
+        <CategorySelect
           onChange={(e) => {
             setCategory(e.target.value);
           }}
-          placeholder="카테고리 입력"
-        />
+        >
+          <option value="">카테고리 선택</option>
+          <option value="공지">공지</option>
+          <option value="블로그">블로그</option>
+          <option value="기보교">기보교</option>
+        </CategorySelect>
         <ArticleTitleGroup>
           <TitleInput
             onChange={(e) => {
