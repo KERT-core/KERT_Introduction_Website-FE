@@ -1,174 +1,177 @@
 import styled from 'styled-components';
+import { Text } from '@components/typograph/Text';
 
-import { Text, Span } from '@components/typograph/Text';
+import { ShapeBackground } from '../../components/display/ShapeBackground';
+import { ContentCard } from '@components/display/section/ContentCard';
 
-import bg_img from '@/assets/Section4_bg_img.png';
-import web from '@/assets/icons/Web.png';
-import Crypto from '@/assets/icons/Crypto.png';
-import Reversing from '@/assets/icons/Reversing.png';
-import Linux from '@/assets/icons/Linux.png';
+import WebIcon from '@/assets/icons/Web.png';
+import CryptoIcon from '@/assets/icons/Crypto.png';
+import ReversingIcon from '@/assets/icons/Reversing.png';
+import LinuxIcon from '@/assets/icons/Linux.png';
+import activ_img1 from '@/assets/activity_img/activ_pic1.png';
+import activ_img2 from '@/assets/activity_img/activ_pic2.png';
+import activ_img3 from '@/assets/activity_img/activ_pic3.png';
 
-import '@/font/main_font.css';
-
-// Dev문서 타이틀 양식 가져오기
-const Title = styled(Span).attrs({
-  id: 'title',
-  $size: 'sxl',
-  $weight: 'heavy',
-  $color: '--primary-text-color',
-})`
-  margin-bottom: 12px;
-`;
-
-// Container for the left content
-const LeftContentContainr = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0 50px;
-`;
-
-// Container to wrap the left and right content containers
-const ContentWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0 10%;
-`;
-
-// MainPage 양식과 호환될 수 있도록 바탕 설정
-const BackFirstStyle = styled.div`
-  width: 100vw;
-  height: 100vh;
+const Section = styled.section.attrs({ id: 'education' })`
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-position: center center;
-  background-image: url(${bg_img});
-  background-size: cover;
-`;
 
-// Container for the right content boxes
-const RightContentContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin-left: 100px;
-  gap: 20px; /* GroupBox 간의 간격을 설정 */
-  margin-top: 20px; /* 상단 간격 추가 */
-  margin-bottom: 20px; /* 하단 간격 추가 */
-`;
-
-const GroupBox = styled.div`
+  width: 100vw;
+  padding: 170px 0;
   box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  padding: 20px;
-  gap: 20px;
-  width: 250px;
-  height: auto;
+  justify-content: center;
+  align-items: center;
+  gap: 200px;
 
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(5px);
-  border-radius: 20px;
+  background: linear-gradient(140deg, #000717, #04000c);
+  overflow: hidden;
 
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  & > div.shape-background {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
-const HeaderIcon = styled.img`
-  display: block;
-  width: 50px;
-  height: 50px;
-  margin-bottom: 30px; /* HeaderIcon과 GroupTitle 사이의 간격 설정 */
-`;
-
-const GroupTitle = styled.div`
+const Content = styled.div`
   width: 100%;
-  font-family: 'NanumSquare';
-  font-style: normal;
-  font-weight: 800;
-  font-size: 20px;
-  line-height: 29px;
-  color: #ffffff;
-  text-align: left;
+  max-width: 1280px;
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 `;
 
-const GroupContent = styled.div`
-  width: 100%;
-  font-family: 'NanumSquare';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 18px;
-  color: rgba(255, 255, 255, 0.5);
-  text-align: left;
+const LeftContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  gap: 100px;
 `;
 
-export default function Section1() {
+const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const DescriptionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
+const RightContent = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+  margin: 20px 0 20px 100px;
+`;
+
+const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 90px;
+`;
+
+const Image = styled.img`
+  width: 380px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 14px;
+`;
+
+export default function Section4() {
+  const contents = [
+    {
+      name: 'Web 기초',
+      description:
+        '웹 서버 코드를 작성/수정하고 브라우저 개발자 도구로 분석해요. 통신 프로토콜, 쿠키, 세션 등 Web 동작 방식을 배워요.',
+      image_url: WebIcon,
+    },
+    {
+      name: '암호학 Crypto',
+      description:
+        'AES, 비/대칭키 등 유저와 서버 간의 통신에서 사용하는 암호화 방식을 배우고, 암호화된 데이터를 복호화해요.',
+      image_url: CryptoIcon,
+    },
+    {
+      name: '리버싱 Reversing',
+      description:
+        'IDA, Ghidra 등의 도구로 소프트웨어의 동작 원리를 분석하고 발생할 수 있는 보안 취약점을 찾는 기술을 배워요.',
+      image_url: ReversingIcon,
+    },
+    {
+      name: '리눅스 Linux',
+      description:
+        'WSL2를 이용한 Netcat 연습, 리눅스의 명령어를 습득하여 다양한 모의 해킹, CTF의 문제를 풀어볼 수 있어요.',
+      image_url: LinuxIcon,
+    },
+  ];
+
   return (
-    <BackFirstStyle>
-      <ContentWrapper>
-        <LeftContentContainr>
-          <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">
-            Education Content of KERT
+    <Section>
+      <ShapeBackground />
+      {/* Section 4.1 */}
+      <Content>
+        <LeftContent>
+          <TitleWrapper>
+            <Text size="25px" weight="light" color="rgba(255, 255, 255, 0.5)">
+              Education Content of KERT
+            </Text>
+            <Text size="45px" weight="extrabold" color="white">
+              KERT, 이런 걸 배워요
+            </Text>
+          </TitleWrapper>
+          <DescriptionWrapper>
+            <Text size="l" weight="light" color="white">
+              KERT는 보안과 관련된 다양한 활동이 준비돼있어요.
+            </Text>
+            <Text size="l" weight="light" color="white">
+              가입 후 다양한 분야 지식을 습득할 수 있어요.
+            </Text>
+          </DescriptionWrapper>
+        </LeftContent>
+        <RightContent>
+          {(contents || []).map((content, idx) => (
+            <ContentCard
+              key={idx}
+              title={content.name}
+              description={content.description}
+              image_url={content.image_url}
+            />
+          ))}
+        </RightContent>
+      </Content>
+      {/* Section 4.2 */}
+      <Content style={{ flexDirection: 'column' }}>
+        <TitleWrapper style={{ alignItems: 'center' }}>
+          <Text size="25px" weight="light" color="rgba(255, 255, 255, 0.5)">
+            Major Content of KERT
           </Text>
-          <Title>KERT, 이런 걸 배워요</Title>
-          <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.8)">
-            KERT는 보안과 관련된 다양한 활동이 준비돼있어요. 가입 후 다양한 분야
-            지식을 습득할 수 있어요.
+          <Text size="45px" weight="extrabold" color="white">
+            다같이 즐겁게 활동해요
           </Text>
-        </LeftContentContainr>
-        <RightContentContainer>
-          <GroupBox>
-            <HeaderIcon src={web} alt="web_img" />
-            <Text size="l" weight="extrabold">
-              Web 기초
-            </Text>
-            <Text size="xs" weight="regular" color="rgba(255, 255, 255, 0.5)">
-              웹 서버 코드를 작성/수정하고 브라우저 개발자 도구로 분석해요. 통신
-              프로토콜, 쿠키, 세션 등 Web 동작 방식을 배워요.
-            </Text>
-          </GroupBox>
-          <GroupBox>
-            <HeaderIcon src={Crypto} alt="crypto_img" />
-            <Text size="l" weight="extrabold">
-              암호학 Crypto
-            </Text>
-            <Text size="xs" weight="regular" color="rgba(255, 255, 255, 0.5)">
-              AES, 비/대칭키 등 유저와 서버 간의 통신에서 사용하는 암호화 방식을
-              배우고, 암호화된 데이터를 복호화해요.
-            </Text>
-          </GroupBox>
-          <GroupBox>
-            <HeaderIcon src={Reversing} alt="reversing_img" />
-            <Text size="l" weight="extrabold">
-              리버싱 Reversing
-            </Text>
-            <Text size="xs" weight="regular" color="rgba(255, 255, 255, 0.5)">
-              IDA, Ghidra 등의 도구로 소프트웨어의 동작 원리를 분석하고 발생할
-              수 있는 보안 취약점을 찾는 기술을 배워요.
-            </Text>
-          </GroupBox>
-          <GroupBox>
-            <HeaderIcon src={Linux} alt="linux_img" />
-            <Text size="l" weight="extrabold">
-              리눅스 Linux
-            </Text>
-            <Text size="xs" weight="regular" color="rgba(255, 255, 255, 0.5)">
-              WSL를 이용한 Netcat 연습, 리눅스의 명령어를 습득하여 다양한 모의
-              해킹, CTF의 문제를 풀어볼 수 있어요.
-            </Text>
-          </GroupBox>
-        </RightContentContainer>
-      </ContentWrapper>
-    </BackFirstStyle>
+        </TitleWrapper>
+        <DescriptionWrapper style={{ marginTop: '60px' }}>
+          <Text size="l" weight="light" color="white">
+            KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등
+          </Text>
+          <Text size="l" weight="light" color="white">
+            모두에게 유익하고 재미있는 여러 활동들이 준비돼 있어요.
+          </Text>
+        </DescriptionWrapper>
+        <ImageWrapper>
+          <Image src={activ_img1} alt="Activity 1" />
+          <Image src={activ_img2} alt="Activity 2" />
+          <Image src={activ_img3} alt="Activity 3" />
+        </ImageWrapper>
+      </Content>
+    </Section>
   );
 }

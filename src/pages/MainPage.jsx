@@ -12,7 +12,6 @@ export default function MainPage() {
       <Section.Section4 />
       <Section.Section5 />
       <Section.Section6 />
-      <Section.Section7 />
       <Footer />
     </>
   );

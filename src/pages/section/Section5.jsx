@@ -1,92 +1,116 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-import { Text } from '@components/typograph/Text';
+import { Span } from '@components/typograph/Text';
+import { HistoryPreview } from '@components/display/HistoryPreview';
 
-import bg_img from '@/assets/Section5_bg_img.png';
-import activ_img1 from '@/assets/activ_pic1.png';
-import activ_img2 from '@/assets/activ_pic2.png';
-import activ_img3 from '@/assets/activ_pic3.png';
+import GraphSVG from '@/assets/graph.svg';
 
-import '@/font/main_font.css';
-
-// MainPage 양식과 호환될 수 있도록 바탕 설정
-const BackFirstStyle = styled.div`
+const SectionWrapper = styled.div`
+  position: relative;
   width: 100vw;
   height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  background: linear-gradient(
+    326deg,
+    rgba(0, 9, 21, 1) 0%,
+    rgba(0, 0, 0, 1) 100%
+  );
 
-  /* Background overlay */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(${bg_img});
-    background-size: cover;
-    background-position: center;
-    filter: brightness(60%);
-    z-index: -1; /* 배경효과를 뒤로 가게 하기위함 */
+  overflow: hidden;
+`;
+
+const Graph = styled(GraphSVG)`
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+`;
+
+const Content = styled.div`
+  position: absolute;
+  width: 100%;
+  max-width: 1280px;
+  height: max-content;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  @media (max-width: 1000px) {
+    & {
+      flex-direction: column; /* 화면이 작아지면 세로 방향 */
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 80px;
+    }
   }
 `;
 
-/* Title Wrapper */
-const TitleWrapper = styled.div`
-  text-align: center;
-  margin-bottom: 20px;
-  z-index: 1; /* 글자 영향 안 받게*/
-  flex-direction: column;
-  gap: 25px;
-`;
+const LeftContent = styled.div`
+  margin: 20px;
 
-const SubTitle = styled(Text)`
-  margin-bottom: 50px;
-`;
-
-/* Image Wrapper */
-const ImageWrapper = styled.div`
   display: flex;
-  justify-content: center;
-  gap: 25px;
-  margin-top: 90px;
-  z-index: 1; /*배경 흐림 영향 안 받도록 */
+  flex-direction: column;
+  gap: 80px;
+
+  @media (max-width: 1000px) {
+    & {
+      gap: 30px;
+      align-items: center;
+    }
+  }
+`;
+const RightContent = styled.div`
+  margin: 20px;
 `;
 
-const StyledImage = styled.img`
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 25px;
+const Title = styled(Span).attrs({
+  $weight: 'extrabold',
+})`
+  font-size: clamp(36px, 4vw, 60px);
+  word-break: keep-all;
 `;
 
-export default function Section1() {
+const Description = styled(Span).attrs({
+  $weight: 'light',
+})`
+  font-size: clamp(16px, 2vw, 24px);
+  word-break: keep-all;
+`;
+
+const StyledLink = styled(Link)`
+  font-weight: 300;
+  font-size: clamp(12px, 1.5vw, 20px);
+  text-decoration: none;
+  color: var(--primary-text-color);
+  opacity: 0.5;
+  width: fit-content;
+  height: fit-content;
+`;
+
+export default function Section6() {
   return (
-    <div id="section5">
-      <BackFirstStyle>
-        <TitleWrapper>
-          <Text size="xs" weight="light" color="rgba(255, 255, 255, 0.7)">
-            Major Content of KERT
-          </Text>
-          <SubTitle size="sxl" weight="extrabold">
-            다같이 즐겁게 활동해요
-          </SubTitle>
-          <Text size="s" weight="regular" color="rgba(255, 255, 255, 0.78)">
-            KERT CTF, 기초 보안 교육, ‘컬’퍼런스 등 고정 콘텐츠 등 <br />
-            모두에게 유익하고 재미있는 여러 활동들이 준비돼 있어요.
-          </Text>
-        </TitleWrapper>
-        <ImageWrapper>
-          <StyledImage src={activ_img1} alt="Activity 1" />
-          <StyledImage src={activ_img2} alt="Activity 2" />
-          <StyledImage src={activ_img3} alt="Activity 3" />
-        </ImageWrapper>
-      </BackFirstStyle>
-    </div>
+    <SectionWrapper>
+      <Graph />
+      <Content>
+        <LeftContent>
+          <Title>
+            KERT는
+            <br />
+            매년 성장하고 있어요
+          </Title>
+          <Description>
+            작년보다 더 뛰어난 동아리로 발전하고 있답니다.
+          </Description>
+          <StyledLink to="/history">상세 연혁 보기 →</StyledLink>
+        </LeftContent>
+        <RightContent>
+          <HistoryPreview />
+        </RightContent>
+      </Content>
+    </SectionWrapper>
   );
 }
