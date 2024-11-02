@@ -38,7 +38,7 @@ const Content = styled.div`
   justify-content: space-around;
   align-items: center;
   gap: 10px;
-  @media (max-width: 1000px) {
+  @media (max-width: 1280px) {
     & {
       flex-direction: column; /* 화면이 작아지면 세로 방향 */
       justify-content: center;
@@ -56,7 +56,7 @@ const LeftContent = styled.div`
   flex-direction: column;
   gap: 80px;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1280px) {
     & {
       gap: 30px;
       align-items: center;
@@ -68,16 +68,16 @@ const RightContent = styled.div`
 `;
 
 const Title = styled(Span).attrs({
+  $size: '45px',
   $weight: 'extrabold',
 })`
-  font-size: clamp(36px, 4vw, 60px);
   word-break: keep-all;
 `;
 
 const Description = styled(Span).attrs({
+  $size: 'l',
   $weight: 'light',
 })`
-  font-size: clamp(16px, 2vw, 24px);
   word-break: keep-all;
 `;
 
