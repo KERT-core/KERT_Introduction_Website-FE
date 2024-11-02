@@ -103,8 +103,8 @@ const PositionName = styled(Span).attrs({
 })`
   font-size: clamp(16px, 2vw, 20px);
   word-break: keep-all;
-  background-image: ${({ colorGradient }) =>
-    colorGradient || 'linear-gradient(to right, #FFFFFF, #0047FF)'};
+  background-image: ${({ $colorGradient }) =>
+    $colorGradient || 'linear-gradient(to right, #FFFFFF, #0047FF)'};
   -webkit-background-clip: text;
   color: transparent;
 `;
@@ -134,7 +134,7 @@ const BatchMajorContainer = styled.div`
 const ProfileImage = styled.div`
   width: 120px;
   height: 120px;
-  background: url(${(props) => props.imageUrl});
+  background: url(${(props) => props.$imageUrl});
   background-size: cover;
   background-position: center;
   border-radius: 14px;
@@ -200,11 +200,11 @@ export default function Section7() {
       <ProfilesWrapper>
         {/* 회장 Profile */}
         <ProfileContainer>
-          <ProfileImage imageUrl={president} />
+          <ProfileImage $imageUrl={president} />
           <ProfileDescription>
             <NameMajorBatchContainer>
               <PositionNameContainer>
-                <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#0047FF)">
+                <PositionName $colorGradient="linear-gradient(to right, #FFFFFF,#0047FF)">
                   회장
                 </PositionName>
                 <Text size="xl" weight="bold">
@@ -228,11 +228,11 @@ export default function Section7() {
 
         {/* 총무부장 Profile - 오른쪽 정렬 */}
         <ProfileContainerReverse>
-          <ProfileImage imageUrl={affairs_manger} />
+          <ProfileImage $imageUrl={affairs_manger} />
           <ProfileDescriptionReverse>
             <NameMajorBatchContainer>
               <PositionNameContainer>
-                <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#FA00FF)">
+                <PositionName $colorGradient="linear-gradient(to right, #FFFFFF,#FA00FF)">
                   총무부장
                 </PositionName>
                 <Text size="xl" weight="bold">
@@ -256,11 +256,11 @@ export default function Section7() {
 
         {/* 기술부장 Profile */}
         <ProfileContainer>
-          <ProfileImage imageUrl={technic_director} />
+          <ProfileImage $imageUrl={technic_director} />
           <ProfileDescription>
             <NameMajorBatchContainer>
               <PositionNameContainer>
-                <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#00FF0A)">
+                <PositionName $colorGradient="linear-gradient(to right, #FFFFFF,#00FF0A)">
                   기술부장
                 </PositionName>
                 <Text size="xl" weight="bold">
@@ -282,11 +282,11 @@ export default function Section7() {
 
         {/* 홍보부장 Profile - 오른쪽 정렬 */}
         <ProfileContainerReverse>
-          <ProfileImage imageUrl={PR_director} />
+          <ProfileImage $imageUrl={PR_director} />
           <ProfileDescriptionReverse>
             <NameMajorBatchContainer>
               <PositionNameContainer>
-                <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#FFF500)">
+                <PositionName $colorGradient="linear-gradient(to right, #FFFFFF,#FFF500)">
                   홍보부장
                 </PositionName>
                 <Text size="xl" weight="bold">
@@ -310,11 +310,11 @@ export default function Section7() {
 
         {/* 학술부장 Profile */}
         <ProfileContainer>
-          <ProfileImage imageUrl={study_director} />
+          <ProfileImage $imageUrl={study_director} />
           <ProfileDescription>
             <NameMajorBatchContainer>
               <PositionNameContainer>
-                <PositionName colorGradient="linear-gradient(to right, #FFFFFF,#0094FF)">
+                <PositionName $colorGradient="linear-gradient(to right, #FFFFFF,#0094FF)">
                   학술부장
                 </PositionName>
                 <Text size="xl" weight="bold">
