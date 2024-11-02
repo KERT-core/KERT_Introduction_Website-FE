@@ -10,11 +10,15 @@ const Section = styled.section.attrs({
   id: 'main',
 })`
   width: 100vw;
-  height: 100vh;
+  height: 100vh;w
   background-color: black;
-  background-image: url(${(props) => props.$background});
+  background-image: url(${BackgroundImage});
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   position: relative;
+
+  overflow: hidden;
 
   &::before {
     content: '';
@@ -65,7 +69,7 @@ const DecorationLogo = styled(SquareLogo)`
 
 export default function Section1() {
   return (
-    <Section $background={BackgroundImage}>
+    <Section>
       {/* 상단 로고와 설명 텍스트 */}
       <TitleWrapper>
         <TextLogo />
