@@ -124,7 +124,6 @@ export const HistoryElement = ({ history }) => {
 
     API.PUT(`/histories/${history.history_id}`, {
       body: updated_history,
-      headers: { Authorization: localStorage.getItem('accessToken') },
     })
       .then((api_res) => {
         closeConfirm();
@@ -157,9 +156,7 @@ export const HistoryElement = ({ history }) => {
     closeConfirm();
     showLoading({ message: '연혁을 삭제하는 중...' });
 
-    API.DELETE(`/histories/${history.history_id}`, {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    })
+    API.DELETE(`/histories/${history.history_id}`)
       .then((api_res) => {
         openAlert({
           title: '연혁 삭제됨',

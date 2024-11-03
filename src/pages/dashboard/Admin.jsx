@@ -35,10 +35,8 @@ export default function Admin() {
   const { data, isLoading, isError } = useQuery(
     'admin',
     async () => {
-      const data = await API.GET('/admin', {
-        headers: { Authorization: localStorage.getItem('accessToken') },
-      });
-      return data;
+      const res = await API.GET('/admin');
+      return res.data;
     },
     { retry: 2 },
   );
@@ -110,7 +108,6 @@ export default function Admin() {
     // 위 if에 걸리지 않으면 서버 POST 요청
     API.POST('/admin', {
       body: new_admin,
-      headers: { Authorization: localStorage.getItem('accessToken') },
     })
       .then(() => {
         openAlert({
