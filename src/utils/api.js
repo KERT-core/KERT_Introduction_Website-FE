@@ -33,14 +33,15 @@ api.interceptors.response.use(
     // 토큰이 만료되어 401이나 403 응답이 온 경우
     if (
       (error.response.status === 401 || error.response.status === 403) &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      refreshToken
     ) {
       originalRequest._retry = true; // 무한 루프 방지
 
       try {
         // 리프레시 토큰으로 새로운 액세스 토큰 요청
         const { data } = await axios.post(`${API_URL}/auth/refresh`, {
-          refreshToken,
+          refresh_token: refreshToken,
         });
 
         // 새로운 액세스 토큰 저장
