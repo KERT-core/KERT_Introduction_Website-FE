@@ -303,7 +303,7 @@ export default function MyPage() {
     }
   };
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     setPasswordError('');
 
     if (data.newPassword !== data.confirmPassword) {
@@ -313,26 +313,23 @@ export default function MyPage() {
 
     const token = localStorage.getItem('accessToken');
 
-    try {
-      // 서버로 비밀번호 정보를 전송
-      const response = await API.POST(`/users/${user.student_id}`, {
-        body: data,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: token,
-        },
-      });
-      // console.log('서버로 전송:', response.data);
-      setTimeout(() => {
+    // 서버로 비밀번호 정보를 전송
+    API.POST(`/users/${user.student_id}`, {
+      body: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: token,
+      },
+    })
+      .then(() => {
         openAlert({
           title: '비밀번호 변경',
           content: <Text>비밀번호가 성공적으로 변경되었습니다.</Text>,
           onClose: () => closeAlert(),
         });
-      }, 100);
-    } catch (error) {
-      console.error('오류 발생:', error);
-      setTimeout(() => {
+      })
+      .catch((error) => {
+        console.error('오류 발생:', error);
         openAlert({
           title: '비밀번호 재설정 실패',
           content: (
@@ -340,43 +337,40 @@ export default function MyPage() {
           ),
           onClose: () => closeAlert(),
         });
-      }, 100);
-    }
+      });
   };
 
-  const handleDeleteAccount = async () => {
+  const handleDeleteAccount = () => {
     const confirmDelete = window.confirm(
       '계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?',
     );
-    if (confirmDelete) {
-      try {
-        const token = localStorage.getItem('accessToken');
-        await API.DELETE(`/users/${user.student_id}`, {
-          headers: {
-            Authorization: token,
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem('accessToken');
+    API.DELETE(`/users/${user.student_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then(() => {
+        openAlert({
+          title: '계정 삭제',
+          content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
+          onClose: () => {
+            closeAlert();
+            logout();
+            navigate('/login');
           },
         });
-        // 100ms 후 새로운 Alert 열기
-        setTimeout(() => {
-          openAlert({
-            title: '계정 삭제',
-            content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
-            onClose: () => closeAlert(),
-          });
-        }, 100);
-        logout();
-        navigate('/login');
-      } catch (error) {
+      })
+      .catch((error) => {
         console.error('계정 삭제 실패:', error);
-        setTimeout(() => {
-          openAlert({
-            title: '계정 삭제 실패',
-            content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
-            onClose: () => closeAlert(),
-          });
-        }, 100);
-      }
-    }
+        openAlert({
+          title: '계정 삭제 실패',
+          content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: () => closeAlert(),
+        });
+      });
   };
 
   return (
