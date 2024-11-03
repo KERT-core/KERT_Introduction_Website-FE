@@ -194,52 +194,6 @@ export default function MyPage() {
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
   const { openAlert, closeAlert, isOpen } = useAlert();
-  const queryClient = useQueryClient();
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm();
-
-  // Fetch user data after login
-  const { isLoading } = useQuery(
-    ['userData', user?.student_id],
-    async () => {
-      const token = localStorage.getItem('accessToken');
-      if (!token) throw new Error('No token found');
-      const response = await API.GET(`/users/${user.student_id}`, {
-        headers: { Authorization: token },
-      });
-      if (!response.ok) throw new Error('Failed to fetch user data');
-      return response.data;
-    },
-    {
-      enabled: isLoggedIn,
-      onSuccess: (data) => setUserInfo({
-        studentNumber: data.student_id,
-        name: data.name,
-        email: data.email,
-        generation: data.generation,
-        major: data.major,
-        profilePic: data.profile_picture || defaultProfilePic,
-      }),
-      onError: (error) => {
-        console.error('Error fetching user data:', error); // 콘솔에서 오류 확인
-        openAlert({
-          title: '사용자 정보 불러오기 실패',
-          content: <Text>사용자 정보 불러오기에 실패했습니다. 다시 시도해주세요.</Text>,
-          onClose: closeAlert,
-        });
-      },
-    }
-  );
-
-  if (!isLoggedIn) {
-    navigate('/login');
-    return null;
-  }
 
   const imageUploadMutation = useMutation(
     async (file) => {
@@ -260,17 +214,21 @@ export default function MyPage() {
           };
 
           try {
-            const response = await API.PUT(`/users/${userInfo.student_id}`, formData, {
-              headers: {
-                Authorization: `Bearer ${token}`,
+            const response = await API.PUT(
+              `/users/${userInfo.student_id}`,
+              formData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
               },
-            });
+            );
             resolve(response.data);
           } catch (error) {
             reject(error);
           }
         };
-        reader.onerror = () => reject(new Error("이미지 변환 실패"));
+        reader.onerror = () => reject(new Error('이미지 변환 실패'));
       });
     },
     {
@@ -281,11 +239,13 @@ export default function MyPage() {
       onError: () => {
         openAlert({
           title: '이미지 업로드 실패',
-          content: <Text>이미지 업로드에 실패했습니다. 다시 시도해주세요.</Text>,
+          content: (
+            <Text>이미지 업로드에 실패했습니다. 다시 시도해주세요.</Text>
+          ),
           onClose: closeAlert,
         });
       },
-    }
+    },
   );
 
   const handleImageUpload = (event) => {
@@ -317,12 +277,62 @@ export default function MyPage() {
       onError: () => {
         openAlert({
           title: '비밀번호 재설정 실패',
-          content: <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>,
+          content: (
+            <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>
+          ),
           onClose: closeAlert,
         });
       },
-    }
+    },
   );
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm();
+
+  // Fetch user data after login
+  const { isLoading } = useQuery(
+    ['userData', user?.student_id],
+    async () => {
+      const token = localStorage.getItem('accessToken');
+      if (!token) throw new Error('No token found');
+      const response = await API.GET(`/users/${user.student_id}`, {
+        headers: { Authorization: token },
+      });
+      if (!response.ok) throw new Error('Failed to fetch user data');
+      return response.data;
+    },
+    {
+      enabled: isLoggedIn,
+      onSuccess: (data) =>
+        setUserInfo({
+          studentNumber: data.student_id,
+          name: data.name,
+          email: data.email,
+          generation: data.generation,
+          major: data.major,
+          profilePic: data.profile_picture || defaultProfilePic,
+        }),
+      onError: (error) => {
+        console.error('Error fetching user data:', error); // 콘솔에서 오류 확인
+        openAlert({
+          title: '사용자 정보 불러오기 실패',
+          content: (
+            <Text>사용자 정보 불러오기에 실패했습니다. 다시 시도해주세요.</Text>
+          ),
+          onClose: closeAlert,
+        });
+      },
+    },
+  );
+
+  if (!isLoggedIn) {
+    navigate('/login');
+    return null;
+  }
 
   const onSubmit = (data) => {
     setPasswordError('');
@@ -333,7 +343,6 @@ export default function MyPage() {
     // hash를 생성하여 data 객체를 수정
     const hashData = { hash: data.newPassword };
     passwordChangeMutation.mutate(hashData);
-  };
 
     const token = localStorage.getItem('accessToken');
 
@@ -363,7 +372,6 @@ export default function MyPage() {
           content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
           onClose: closeAlert,
         });
-
       });
   };
   const handleDeleteAccount = () => {
