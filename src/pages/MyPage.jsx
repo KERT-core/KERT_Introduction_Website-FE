@@ -157,6 +157,7 @@ const InputGroupLong = styled.div`
     &:focus {
       border: 1px solid #4a90e2;
       box-shadow: none;
+    }
   }
 `;
 
