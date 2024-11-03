@@ -213,11 +213,7 @@ export default function MyPage() {
         if (!token) {
           throw new Error('No token found');
         }
-        const response = await API.GET(`/users/${user.student_id}`, {
-          headers: {
-            Authorization: token, // 토큰을 Authorization 헤더에 포함
-          },
-        });
+        const response = await API.GET(`/users/${user.student_id}`);
 
         updateUserState(response.data);
         console.log('Success to fetch user data:');
@@ -250,7 +246,6 @@ export default function MyPage() {
       reader.readAsDataURL(file);
       reader.onloadend = async () => {
         const base64String = reader.result; // Base64 인코딩된 문자열
-        const token = localStorage.getItem('accessToken');
 
         const formData = {
           name: userInfo.name,
@@ -263,10 +258,6 @@ export default function MyPage() {
         try {
           const response = await API.PUT(`/users/${user.student_id}`, {
             body: formData,
-            headers: {
-              Authorization: token,
-              'Content-Type': 'multipart/form-data',
-            },
           });
           updateUserState(response.data);
           console.log('Image uploaded successfully');
@@ -279,7 +270,6 @@ export default function MyPage() {
 
   const handleDeleteImage = async () => {
     setImagePreview(defaultProfilePic);
-    const token = localStorage.getItem('accessToken');
 
     try {
       const response = await API.PUT(`/users/${user.student_id}`, {
@@ -289,10 +279,6 @@ export default function MyPage() {
           generation: userInfo.generation,
           major: userInfo.major,
           profile_picture: '', // 삭제 시 빈 문자열을 보냄
-        },
-        headers: {
-          Authorization: token,
-          'Content-Type': 'multipart/form-data',
         },
       });
       updateUserState(response.data);
@@ -310,16 +296,10 @@ export default function MyPage() {
       return;
     }
 
-    const token = localStorage.getItem('accessToken');
-
     try {
       // 서버로 비밀번호 정보를 전송
       const response = await API.POST(`/users/${user.student_id}`, {
         body: data,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: token,
-        },
       });
       // console.log('서버로 전송:', response.data);
       setTimeout(() => {
@@ -349,12 +329,7 @@ export default function MyPage() {
     );
     if (confirmDelete) {
       try {
-        const token = localStorage.getItem('accessToken');
-        await API.DELETE(`/users/${user.student_id}`, {
-          headers: {
-            Authorization: token,
-          },
-        });
+        await API.DELETE(`/users/${user.student_id}`);
         // 100ms 후 새로운 Alert 열기
         setTimeout(() => {
           openAlert({

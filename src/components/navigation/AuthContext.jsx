@@ -28,11 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await API.POST('/logout', {
-        headers: {
-          Authorization: localStorage.getItem('accessToken'),
-        },
-      });
+      await API.POST('/logout');
     } catch (error) {
       console.error('Error during logout:', error);
     } finally {

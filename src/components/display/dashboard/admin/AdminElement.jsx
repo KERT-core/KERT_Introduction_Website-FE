@@ -178,7 +178,6 @@ export const AdminElement = ({ admin }) => {
 
     API.PUT(`/admin/${data.student_id}`, {
       body: updated_admin,
-      headers: { Authorization: localStorage.getItem('accessToken') },
     })
       .then((api_res) => {
         closeConfirm();

@@ -108,7 +108,6 @@ export default function Admin() {
     // 위 if에 걸리지 않으면 서버 POST 요청
     API.POST('/admin', {
       body: new_admin,
-      headers: { Authorization: localStorage.getItem('accessToken') },
     })
       .then(() => {
         openAlert({
