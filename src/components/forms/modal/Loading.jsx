@@ -1,4 +1,4 @@
-import useLoading from '@/stores/useLoading';
+import useLoading from '@/hooks/modal/useLoading';
 
 import styled, { keyframes } from 'styled-components';
 

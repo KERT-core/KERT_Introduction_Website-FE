@@ -5,7 +5,7 @@ import { Header } from './Dashboard.styled';
 
 import { Empty } from '@components/display/dashboard/Empty';
 
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 
 export default function Executive() {
   const { openAlert, closeAlert } = useAlert();

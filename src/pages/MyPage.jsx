@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 import { useAuth } from '@components/navigation/AuthContext';
 
 import { Text } from '@/components/typograph/Text';
@@ -158,6 +158,7 @@ const InputGroupLong = styled.div`
     &:focus {
       border: 1px solid #4a90e2;
       box-shadow: none;
+    }
   }
 `;
 
@@ -170,7 +171,7 @@ const EditButton = styled.button`
   cursor: pointer;
   width: 200px;
   margin-left: auto;
-  matgin-top: auto;
+  margin-top: auto;
 `;
 
 const WarningMessage = styled.p`
@@ -323,7 +324,7 @@ export default function MyPage() {
     }
   );
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     setPasswordError('');
     if (data.newPassword !== data.confirmPassword) {
       setPasswordError('새로운 비밀번호가 일치하지 않습니다.');
@@ -334,15 +335,17 @@ export default function MyPage() {
     passwordChangeMutation.mutate(hashData);
   };
 
-  const deleteAccountMutation = useMutation(
-    async () => {
-      const token = localStorage.getItem('accessToken');
-      return await API.DELETE(`/users/${user.student_id}`, {
-        headers: { Authorization: token },
-      });
-    },
-    {
-      onSuccess: () => {
+    const token = localStorage.getItem('accessToken');
+
+    // 서버로 비밀번호 정보를 전송
+    API.POST(`/users/${user.student_id}`, {
+      body: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: token,
+      },
+    })
+      .then(() => {
         openAlert({
           title: '계정 삭제',
           content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
@@ -352,24 +355,48 @@ export default function MyPage() {
             navigate('/login');
           },
         });
-      },
-      onError: () => {
+      })
+      .catch((error) => {
+        console.error('오류 발생:', error);
         openAlert({
           title: '계정 삭제 실패',
           content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
           onClose: closeAlert,
         });
-      },
-    }
-  );
 
+      });
+  };
   const handleDeleteAccount = () => {
-    openAlert({
-      title: '계정 삭제 확인',
-      content: <Text>계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?</Text>,
-      ok_label: '확인',
-      onClose: deleteAccountMutation.mutate,
-    });
+    const confirmDelete = window.confirm(
+      '계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?',
+    );
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem('accessToken');
+    API.DELETE(`/users/${user.student_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then(() => {
+        openAlert({
+          title: '계정 삭제',
+          content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
+          onClose: () => {
+            closeAlert();
+            logout();
+            navigate('/login');
+          },
+        });
+      })
+      .catch((error) => {
+        console.error('계정 삭제 실패:', error);
+        openAlert({
+          title: '계정 삭제 실패',
+          content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: () => closeAlert(),
+        });
+      });
   };
 
   return (

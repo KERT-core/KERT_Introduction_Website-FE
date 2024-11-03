@@ -13,19 +13,50 @@ import { useQuery } from 'react-query';
 import { refineHistories } from '@/utils/refineHistory';
 
 const PreviewWrapper = styled.div`
-  width: 500px;
-  height: 300px;
+  width: 600px;
+  height: auto;
+
+  padding: 20px;
+
   display: flex;
-  gap: min(5vw, 80px);
+  flex-direction: row;
+  gap: 50px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const YearListWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 40px;
+  flex-direction: row;
+  gap: 20px;
+  overflow-x: auto;
+
+  @media (min-width: 768px) {
+    flex-direction: column;
+    gap: 40px;
+    overflow-x: visible;
+  }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    gap: 30px;
+  }
 `;
 
-const HistoryListWrapper = styled.div``;
+const HistoryListWrapper = styled.div`
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+`;
 
 const HistoryElementWrapper = styled.div`
   width: 100%;
@@ -40,6 +71,11 @@ const HistoryElementWrapper = styled.div`
 
   & > span {
     word-break: keep-all;
+  }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: fit-content;
   }
 `;
 
@@ -67,6 +103,17 @@ const YearWrapper = styled.button`
       rgba(48, 49, 70, 1) 100%
     );
   }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:not(.active) > div {
+      background-color: transparent;
+    }
+  }
 `;
 
 const Year = styled.span`
@@ -76,6 +123,11 @@ const Year = styled.span`
   font-size: clamp(16px, 2vw, 24px);
   text-align: left;
   color: white;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: fit-content;
+  }
 `;
 
 const Dot = styled.div`
@@ -97,6 +149,17 @@ const Dot = styled.div`
     width: 4px;
     height: 60px;
     background: #303146;
+  }
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    width: 100%;
+    height: 2px;
+    border-radius: 0px;
+
+    &:after {
+      display: none;
+    }
   }
 `;
 
@@ -176,13 +239,13 @@ export const HistoryPreview = () => {
           </YearWrapper>
         ))}
       </YearListWrapper>
-      <TransitionGroup>
+      <TransitionGroup style={{ position: 'relative', width: '100%' }}>
         <CSSTransition
           nodeRef={nodeRef}
           key={display_year}
           timeout={500}
           classNames="fade-slide"
-          style={{ position: 'absolute' }}
+          style={{ position: 'absolute', left: '0' }}
         >
           <HistoryListWrapper ref={nodeRef}>
             {isError

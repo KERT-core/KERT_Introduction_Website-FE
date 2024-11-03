@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import useAlert from '@/stores/useAlert';
+import useAlert from '@/hooks/modal/useAlert';
 
 import { Text } from '@components/typograph/Text';
 import { Alert } from '@components/forms/modal/Alert';
@@ -130,45 +130,42 @@ export default function SignUp() {
   const { openAlert, closeAlert, isOpen } = useAlert();
 
   const onSubmit = async (data) => {
-    try {
-      const formData = {
-        student_id: parseInt(data.student),
-        name: data.username,
-        email: data.mail,
-        profile_picture: '',
-        generation: data.generation,
-        major: data.major,
-        password: data.password,
-      };
+    const formData = {
+      student_id: parseInt(data.student),
+      name: data.username,
+      email: data.mail,
+      profile_picture: '',
+      generation: data.generation,
+      major: data.major,
+      password: data.password,
+    };
 
-      const response = await API.POST('/users/signup', { body: formData });
-      // console.log('서버로 전송:', response.data.user);
-      setTimeout(() => {
+    API.POST('/users/signup', { body: formData })
+      .then(() => {
         openAlert({
           title: '회원가입 요청 완료',
           content: <Text>회원가입 요청이 완료되었습니다!</Text>,
-          onClose: () => closeAlert(),
+          onClose: () => {
+            closeAlert();
+            navigate('/');
+          },
         });
-      }, 100);
-      navigate('/');
-    } catch (error) {
-      console.error('Error:', error);
-      setValue('username', '');
-      setValue('student', '');
-      setValue('password', '');
-      setValue('mail', '');
-      setValue('generation', '');
-      setValue('major', '');
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        setValue('username', '');
+        setValue('student', '');
+        setValue('password', '');
+        setValue('mail', '');
+        setValue('generation', '');
+        setValue('major', '');
 
-      // 100ms 후 새로운 Alert 열기
-      setTimeout(() => {
         openAlert({
           title: '회원가입 실패',
           content: <Text>회원가입에 실패했습니다. 다시 시도해주세요.</Text>,
           onClose: () => closeAlert(),
         });
-      }, 100);
-    }
+      });
   };
 
   return (

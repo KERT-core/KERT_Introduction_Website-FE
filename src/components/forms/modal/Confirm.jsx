@@ -1,4 +1,4 @@
-import useConfirm from '@/stores/useConfirm';
+import useConfirm from '@/hooks/modal/useConfirm';
 
 import styled from 'styled-components';
 

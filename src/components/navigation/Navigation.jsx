@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from '@components/navigation/AuthContext';
-import useTheme from '@/hooks/useTheme';
+import useTheme from '@/hooks/theme/useTheme';
 
 import Profile from '@components/navigation/Profile';
 

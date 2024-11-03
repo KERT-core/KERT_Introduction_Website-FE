@@ -23,9 +23,9 @@ import { ErrorModal } from '@components/display/dashboard/ErrorModal.jsx';
 import { RefreshIcon } from '@/assets/icons';
 
 import { API } from '@/utils/api.js';
-import useAlert from '@/stores/useAlert.js';
-import useConfirm from '@/stores/useConfirm.js';
-import useLoading from '@/stores/useLoading.js';
+import useAlert from '@/hooks/modal/useAlert.js';
+import useConfirm from '@/hooks/modal/useConfirm.js';
+import useLoading from '@/hooks/modal/useLoading.js';
 
 export default function Admin() {
   const { showLoading, hideLoading } = useLoading();
