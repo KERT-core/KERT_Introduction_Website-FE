@@ -14,10 +14,8 @@ export default function User() {
   const { data, isLoading, isError } = useQuery(
     'user',
     async () => {
-      const data = await API.GET('/users', {
-        headers: { Authorization: localStorage.getItem('accessToken') },
-      });
-      return data;
+      const res = await API.GET('/users');
+      return res.data;
     },
     { retry: 2 },
   );

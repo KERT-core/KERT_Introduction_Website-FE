@@ -17,7 +17,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers.Authorization = accessToken;
     }
     return config;
   },
@@ -44,11 +44,13 @@ api.interceptors.response.use(
         });
 
         // 새로운 액세스 토큰 저장
-        accessToken = data.accessToken;
+        accessToken = data.access_token;
+        refreshToken = data.refresh_token;
         localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
 
         // 실패했던 요청에 새로운 토큰 적용
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        originalRequest.headers.Authorization = accessToken;
 
         // 실패한 요청 다시 시도
         return api(originalRequest);

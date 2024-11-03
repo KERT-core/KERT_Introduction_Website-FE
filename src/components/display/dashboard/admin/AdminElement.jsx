@@ -80,10 +80,8 @@ export const AdminElement = ({ admin }) => {
   const { openConfirm, closeConfirm } = useConfirm();
 
   const { data, isLoading } = useQuery(`user-${admin.student_id}`, async () => {
-    const data = await API.GET(`/users/${admin.student_id}`, {
-      headers: { Authorization: localStorage.getItem('accessToken') },
-    });
-    return { ...admin, ...data };
+    const res = await API.GET(`/users/${admin.student_id}`);
+    return { ...admin, ...res.data };
   });
 
   // 관리자 편집을 위한 Reference

@@ -18,8 +18,9 @@ export const AuthProvider = ({ children }) => {
     }
   });
 
-  const login = (token, userInfo) => {
-    localStorage.setItem('token', token); // 로그인 시 토큰 저장
+  const login = (access_token, refresh_token, userInfo) => {
+    localStorage.setItem('accessToken', access_token); // 로그인 시 토큰 저장
+    localStorage.setItem('refreshToken', refresh_token); // 로그인 시 토큰 저장
     localStorage.setItem('user', JSON.stringify(userInfo)); // 사용자 정보 저장
     setUser(userInfo); // 사용자 정보 저장
     setIsLoggedIn(true);
@@ -35,7 +36,8 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       console.error('Error during logout:', error);
     } finally {
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       localStorage.removeItem('user');
       setIsLoggedIn(false);
       setUser(null);

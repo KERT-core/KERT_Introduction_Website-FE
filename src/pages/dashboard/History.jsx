@@ -30,8 +30,8 @@ export default function History() {
   const [refined_history, setRefinedHistory] = useState({});
 
   const { data, isLoading } = useQuery('history', async () => {
-    const data = await API.GET('/histories');
-    return data;
+    const res = await API.GET('/histories');
+    return res.data;
   });
 
   // data가 로드되면 refinedHistory를 업데이트
@@ -77,7 +77,6 @@ export default function History() {
 
         API.POST('/histories', {
           body: new_history,
-          headers: { Authorization: localStorage.getItem('accessToken') },
         })
           .then(() => {
             hideLoading();
