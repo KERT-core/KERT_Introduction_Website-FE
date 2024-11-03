@@ -170,7 +170,7 @@ const EditButton = styled.button`
   cursor: pointer;
   width: 200px;
   margin-left: auto;
-  matgin-top: auto;
+  margin-top: auto;
 `;
 
 const WarningMessage = styled.p`
