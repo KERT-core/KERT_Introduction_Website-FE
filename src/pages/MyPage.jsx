@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
+import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import useAlert from '@/hooks/modal/useAlert';
 import { useAuth } from '@components/navigation/AuthContext';
@@ -157,6 +158,7 @@ const InputGroupLong = styled.div`
     &:focus {
       border: 1px solid #4a90e2;
       box-shadow: none;
+    }
   }
 `;
 
@@ -169,7 +171,7 @@ const EditButton = styled.button`
   cursor: pointer;
   width: 200px;
   margin-left: auto;
-  matgin-top: auto;
+  margin-top: auto;
 `;
 
 const WarningMessage = styled.p`
@@ -193,6 +195,97 @@ export default function MyPage() {
   const navigate = useNavigate();
   const { openAlert, closeAlert, isOpen } = useAlert();
 
+  const imageUploadMutation = useMutation(
+    async (file) => {
+      const token = localStorage.getItem('accessToken');
+
+      // 파일을 base64로 변환
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      return new Promise((resolve, reject) => {
+        reader.onloadend = async () => {
+          const base64String = reader.result;
+
+          // userInfo 객체에 base64 인코딩된 이미지를 포함
+          const formData = {
+            ...userInfo,
+            profile_picture: base64String, // base64 데이터 전송
+          };
+
+          try {
+            const response = await API.PUT(
+              `/users/${userInfo.student_id}`,
+              formData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                },
+              },
+            );
+            resolve(response.data);
+          } catch (error) {
+            reject(error);
+          }
+        };
+        reader.onerror = () => reject(new Error('이미지 변환 실패'));
+      });
+    },
+    {
+      onSuccess: (data) => {
+        setUserInfo((prev) => ({ ...prev, profilePic: data.profile_picture }));
+        setImagePreview(null);
+      },
+      onError: () => {
+        openAlert({
+          title: '이미지 업로드 실패',
+          content: (
+            <Text>이미지 업로드에 실패했습니다. 다시 시도해주세요.</Text>
+          ),
+          onClose: closeAlert,
+        });
+      },
+    },
+  );
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImagePreview(URL.createObjectURL(file));
+      imageUploadMutation.mutate(file);
+    }
+  };
+
+  const passwordChangeMutation = useMutation(
+    async (data) => {
+      const token = localStorage.getItem('accessToken');
+      return await API.PUT(`/passwords/${user.student_id}`, {
+        body: data,
+        headers: {
+          Authorization: token,
+        },
+      });
+    },
+    {
+      onSuccess: () => {
+        openAlert({
+          title: '비밀번호 변경',
+          content: <Text>비밀번호가 성공적으로 변경되었습니다.</Text>,
+          onClose: closeAlert,
+        });
+      },
+      onError: () => {
+        openAlert({
+          title: '비밀번호 재설정 실패',
+          content: (
+            <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>
+          ),
+          onClose: closeAlert,
+        });
+      },
+    },
+  );
+
   const {
     register,
     handleSubmit,
@@ -201,156 +294,117 @@ export default function MyPage() {
   } = useForm();
 
   // Fetch user data after login
-  useEffect(() => {
-    if (!isLoggedIn) {
-      navigate('/login');
-      return;
-    }
-
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem('accessToken');
-        if (!token) {
-          throw new Error('No token found');
-        }
-        const response = await API.GET(`/users/${user.student_id}`);
-
-        updateUserState(response.data);
-        console.log('Success to fetch user data:');
-        console.log(response.data);
-      } catch (error) {
-        console.error('Failed to fetch user data:', error);
-      }
-    };
-    fetchUserData();
-  }, [isLoggedIn, navigate]);
-
-  const updateUserState = (data) => {
-    setUserInfo({
-      studentNumber: data.student_id,
-      name: data.name,
-      email: data.email,
-      generation: data.generation,
-      major: data.major,
-      profilePic: data.profile_picture || defaultProfilePic,
-    });
-    setImagePreview(data.profile_picture || defaultProfilePic);
-  };
-
-  const handleImageUpload = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onloadend = async () => {
-        const base64String = reader.result; // Base64 인코딩된 문자열
-
-        const formData = {
-          name: userInfo.name,
-          email: userInfo.email,
-          generation: userInfo.generation,
-          major: userInfo.major,
-          profile_picture: base64String, // Base64 문자열로 전송
-        };
-
-        try {
-          const response = await API.PUT(`/users/${user.student_id}`, {
-            body: formData,
-          });
-          updateUserState(response.data);
-          console.log('Image uploaded successfully');
-        } catch (error) {
-          console.error('Image upload failed:', error);
-        }
-      };
-    }
-  };
-
-  const handleDeleteImage = async () => {
-    setImagePreview(defaultProfilePic);
-
-    try {
-      const response = await API.PUT(`/users/${user.student_id}`, {
-        body: {
-          name: userInfo.name,
-          email: userInfo.email,
-          generation: userInfo.generation,
-          major: userInfo.major,
-          profile_picture: '', // 삭제 시 빈 문자열을 보냄
-        },
+  const { isLoading } = useQuery(
+    ['userData', user?.student_id],
+    async () => {
+      const token = localStorage.getItem('accessToken');
+      if (!token) throw new Error('No token found');
+      const response = await API.GET(`/users/${user.student_id}`, {
+        headers: { Authorization: token },
       });
-      updateUserState(response.data);
-      console.log('Image deleted successfully');
-    } catch (error) {
-      console.error('Image deletion failed:', error);
-    }
-  };
+      if (!response.ok) throw new Error('Failed to fetch user data');
+      return response.data;
+    },
+    {
+      enabled: isLoggedIn,
+      onSuccess: (data) =>
+        setUserInfo({
+          studentNumber: data.student_id,
+          name: data.name,
+          email: data.email,
+          generation: data.generation,
+          major: data.major,
+          profilePic: data.profile_picture || defaultProfilePic,
+        }),
+      onError: (error) => {
+        console.error('Error fetching user data:', error); // 콘솔에서 오류 확인
+        openAlert({
+          title: '사용자 정보 불러오기 실패',
+          content: (
+            <Text>사용자 정보 불러오기에 실패했습니다. 다시 시도해주세요.</Text>
+          ),
+          onClose: closeAlert,
+        });
+      },
+    },
+  );
 
-  const onSubmit = async (data) => {
+  if (!isLoggedIn) {
+    navigate('/login');
+    return null;
+  }
+
+  const onSubmit = (data) => {
     setPasswordError('');
-
     if (data.newPassword !== data.confirmPassword) {
       setPasswordError('새로운 비밀번호가 일치하지 않습니다.');
       return;
     }
+    // hash를 생성하여 data 객체를 수정
+    const hashData = { hash: data.newPassword };
+    passwordChangeMutation.mutate(hashData);
 
-    try {
-      // 서버로 비밀번호 정보를 전송
-      const response = await API.POST(`/users/${user.student_id}`, {
-        body: data,
+    const token = localStorage.getItem('accessToken');
+
+    // 서버로 비밀번호 정보를 전송
+    API.POST(`/users/${user.student_id}`, {
+      body: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: token,
+      },
+    })
+      .then(() => {
+        openAlert({
+          title: '계정 삭제',
+          content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
+          onClose: () => {
+            closeAlert();
+            logout();
+            navigate('/login');
+          },
+        });
+      })
+      .catch((error) => {
+        console.error('오류 발생:', error);
+        openAlert({
+          title: '계정 삭제 실패',
+          content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: closeAlert,
+        });
       });
-      // console.log('서버로 전송:', response.data);
-      setTimeout(() => {
-        openAlert({
-          title: '비밀번호 변경',
-          content: <Text>비밀번호가 성공적으로 변경되었습니다.</Text>,
-          onClose: () => closeAlert(),
-        });
-      }, 100);
-    } catch (error) {
-      console.error('오류 발생:', error);
-      setTimeout(() => {
-        openAlert({
-          title: '비밀번호 재설정 실패',
-          content: (
-            <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>
-          ),
-          onClose: () => closeAlert(),
-        });
-      }, 100);
-    }
   };
-
-  const handleDeleteAccount = async () => {
+  const handleDeleteAccount = () => {
     const confirmDelete = window.confirm(
       '계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?',
     );
-    if (confirmDelete) {
-      try {
-        await API.DELETE(`/users/${user.student_id}`);
-        // 100ms 후 새로운 Alert 열기
-        setTimeout(() => {
-          openAlert({
-            title: '계정 삭제',
-            content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
-            onClose: () => closeAlert(),
-          });
-        }, 100);
-        logout();
-        navigate('/login');
-      } catch (error) {
+    if (!confirmDelete) return;
+
+    const token = localStorage.getItem('accessToken');
+    API.DELETE(`/users/${user.student_id}`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then(() => {
+        openAlert({
+          title: '계정 삭제',
+          content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
+          onClose: () => {
+            closeAlert();
+            logout();
+            navigate('/login');
+          },
+        });
+      })
+      .catch((error) => {
         console.error('계정 삭제 실패:', error);
-        setTimeout(() => {
-          openAlert({
-            title: '계정 삭제 실패',
-            content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
-            onClose: () => closeAlert(),
-          });
-        }, 100);
-      }
-    }
+        openAlert({
+          title: '계정 삭제 실패',
+          content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: () => closeAlert(),
+        });
+      });
   };
 
   return (
@@ -374,7 +428,10 @@ export default function MyPage() {
               <label htmlFor="image-upload" className="change-pic-btn">
                 이미지 업로드
               </label>
-              <button className="delete-pic-btn" onClick={handleDeleteImage}>
+              <button
+                className="delete-pic-btn"
+                onClick={() => imageUploadMutation.mutate(null)}
+              >
                 사진 제거
               </button>
             </PicButtons>
