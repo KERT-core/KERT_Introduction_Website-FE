@@ -150,14 +150,10 @@ export default function Board() {
   const [search, setSearch] = useState('');
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data: adminData } = useQuery(
-    'admin',
-    async () => {
-      const res = await API.GET('/admin');
-      return res.data;
-    },
-    { retry: 2 },
-  );
+  const { data: adminData } = useQuery('admin', async () => {
+    const res = await API.GET('/admin');
+    return res.data;
+  });
 
   const { data, isLoading } = useQuery(
     ['posts-tag-search', tag, debouncedSearch],

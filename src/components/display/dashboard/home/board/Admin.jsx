@@ -13,14 +13,10 @@ import { API } from '@/utils/api';
 
 export const Admin = () => {
   const navigate = useNavigate();
-  const { data, isLoading } = useQuery(
-    'admin',
-    async () => {
-      const res = await API.GET('/admin');
-      return res.data;
-    },
-    { retry: 2 },
-  );
+  const { data, isLoading } = useQuery('admin', async () => {
+    const res = await API.GET('/admin');
+    return res.data;
+  });
 
   if (isLoading) {
     return <SkeletonBoardContainer width="360px" height="240px" />;

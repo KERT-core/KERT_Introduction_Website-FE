@@ -32,14 +32,10 @@ export default function Admin() {
   const { openConfirm, closeConfirm } = useConfirm();
   const { openAlert } = useAlert();
 
-  const { data, isLoading, isError } = useQuery(
-    'admin',
-    async () => {
-      const res = await API.GET('/admin');
-      return res.data;
-    },
-    { retry: 2 },
-  );
+  const { data, isLoading, isError } = useQuery('admin', async () => {
+    const res = await API.GET('/admin');
+    return res.data;
+  });
 
   const refs = {
     student_id: useRef(),

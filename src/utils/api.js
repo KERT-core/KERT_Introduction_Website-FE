@@ -11,6 +11,7 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 3000, // 3초 타임아웃 설정
 });
 
 // 요청 인터셉터: 모든 요청에 액세스 토큰을 헤더에 포함

@@ -19,6 +19,11 @@ const Wrapper = styled.div`
 const TitleWrapper = styled.div`
   margin-top: 200px;
   margin-bottom: 150px;
+
+  @media (max-width: 768px) {
+    margin-top: 130px;
+    margin-bottom: 100px;
+  }
 `;
 
 const Title = styled(Span).attrs({
@@ -26,19 +31,28 @@ const Title = styled(Span).attrs({
 })`
   display: block;
   text-align: center;
-  font-size: clamp(36px, 5vw, 52px);
+  font-size: 45px;
   word-break: keep-all;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+  }
 `;
 
 const Description = styled(Span).attrs({
   $weight: 'light',
-  $color: 'rgba(255, 255, 255, 0.7)',
+  $color: '--secondary-text-color',
 })`
   display: block;
   text-align: center;
-  font-size: clamp(16px, 2.5vw, 24px);
+  font-size: 24px;
   word-break: keep-all;
-  margin-top: 10px;
+  margin-top: 20px;
+
+  @media (max-width: 768px) {
+    margin-top: 16px;
+    font-size: 16px;
+  }
 `;
 
 const HistoriesWrapper = styled.div`
@@ -51,9 +65,14 @@ const Year = styled(Span).attrs({
 })`
   width: 100px;
   text-align: left;
-  font-size: clamp(36px, 4vw, 40px);
+  font-size: 32px;
   word-break: keep-all;
-  color: ${(props) => props.$color || '#FFFFFF'};
+  color: var(--primary-text-color);
+
+  @media (max-width: 768px) {
+    width: fit-content;
+    font-size: 24px;
+  }
 `;
 
 const YearHistoryContainer = styled.div`
@@ -67,6 +86,13 @@ const YearHistoryContainer = styled.div`
   transition:
     opacity 0.6s ease-in-out 0.1s,
     transform 0.6s ease-out 0.1s;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 100px;
+  }
 `;
 
 const HistoryCardContainer = styled.div`
@@ -77,6 +103,10 @@ const HistoryCardContainer = styled.div`
   align-content: flex-start;
   padding: 0px;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+  }
 `;
 
 const HistoryCard = styled.div`
@@ -105,18 +135,26 @@ const Month = styled(Span).attrs((props) => ({
   $weight: 'bold',
   $color: props.$color || '#FFFFFF',
 }))`
-  font-size: clamp(18px, 2vw, 12px);
+  font-size: 16px;
   word-break: keep-all;
-  color: ${(props) => props.$color};
+  color: var(--primary-text-color);
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 const HistoryContent = styled(Span).attrs((props) => ({
   $weight: 'regular',
   $color: props.$color || '#FFFFFF',
 }))`
-  font-size: clamp(14px, 2vw, 12px);
+  font-size: 16px;
   word-break: keep-all;
-  color: ${(props) => props.$color};
+  color: var(--secondary-text-color);
+
+  @media (max-width: 768px) {
+    font-size: 13px;
+  }
 `;
 
 export default function History() {

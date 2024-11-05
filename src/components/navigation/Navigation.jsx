@@ -96,9 +96,10 @@ const MobileMenuDisplay = styled.div`
 const NavMenus = styled.div`
   position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
 
-  width: 100vw;
+  width: fit-content;
   height: 80px;
 
   display: flex;
@@ -111,6 +112,7 @@ const NavMenus = styled.div`
     position: static;
     flex-direction: column;
     gap: 30px;
+    transform: translateX(0%);
   }
 `;
 
@@ -136,7 +138,7 @@ export const Navigation = () => {
       <MenuWrapper $active={menu_spread_active}>
         <NavMenus>
           <Link
-            to="/"
+            to="/#history"
             style={menu_style}
             onClick={() => {
               setMenuSpreadActive(false);
@@ -146,7 +148,7 @@ export const Navigation = () => {
             연혁
           </Link>
           <Link
-            to="/"
+            to="/#executives"
             style={menu_style}
             onClick={() => {
               setMenuSpreadActive(false);
@@ -156,7 +158,7 @@ export const Navigation = () => {
             임원진
           </Link>
           <Link
-            to="/"
+            to="/#education"
             style={menu_style}
             onClick={() => {
               setMenuSpreadActive(false);
@@ -165,7 +167,13 @@ export const Navigation = () => {
           >
             활동
           </Link>
-          <Link to="/board" style={menu_style}>
+          <Link
+            to="/board"
+            style={menu_style}
+            onClick={() => {
+              setMenuSpreadActive(false);
+            }}
+          >
             소식지
           </Link>
         </NavMenus>
@@ -176,10 +184,22 @@ export const Navigation = () => {
             </>
           ) : (
             <>
-              <Link to="/login" style={menu_style}>
+              <Link
+                to="/login"
+                style={menu_style}
+                onClick={() => {
+                  setMenuSpreadActive(false);
+                }}
+              >
                 로그인
               </Link>
-              <Link to="/signup" style={menu_style}>
+              <Link
+                to="/signup"
+                style={menu_style}
+                onClick={() => {
+                  setMenuSpreadActive(false);
+                }}
+              >
                 회원가입
               </Link>
             </>

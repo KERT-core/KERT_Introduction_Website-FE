@@ -4,97 +4,108 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import { useAuth } from '@components/navigation/AuthContext';
+import { Text } from '@components/typograph/Text';
+import { Button } from '@components/forms/Button';
 
 import { API } from '@/utils/api';
 
-import '@/styles/font.css';
-
 const Container = styled.div`
-  background-color: #080f17;
+  width: 100vw;
+  height: 100vh;
+
   margin: 0;
-  padding: 0;
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100vw;
-`;
 
-const LoginContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  position: relative;
+  background-color: var(--body-background);
 `;
 
 const LoginBox = styled.div`
-  background-color: #1b1e27;
+  width: 500px;
+
   padding: 50px;
-  border-radius: 10px;
-  width: 450px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  gap: 57px;
+
+  border-radius: 30px;
+
+  background-color: var(--container-primary-background);
+  border: 1px solid var(--container-border);
+
+  @media (max-width: 768px) {
+    margin: 100px 0;
+    padding: 30px;
+    border: none;
+  }
 `;
 
 const LoginHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  position: relative;
-  padding-bottom: 20px;
+  align-items: center;
+`;
 
-  h1 {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 300;
-    color: #ffffff;
-  }
-
-  h2 {
-    margin: 10px 0 20px 0;
-    font-size: 28px;
-    font-weight: 700;
-    color: #ffffff;
-  }
+const TitleWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const KertLogo = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
+  width: 103px;
+  height: 101px;
 
-  img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+  background-image: var(--square-logo-url);
+  background-size: cover;
+
+  opacity: 0.1;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  & > button {
+    margin-top: 20px;
   }
 `;
 
-const InputGroup = styled.div`
-  margin-right: 25px;
-  margin-bottom: 20px;
-
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 18px;
-    color: #ffffff;
+const InputWrapper = styled.div`
+  & > span {
+    margin-left: 10px;
+    margin-bottom: 8px;
   }
+`;
 
-  input {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #1c1f25;
-    color: white;
-    outline: none;
-  }
+const Input = styled.input`
+  transition:
+    border-color 0.2s ease-out,
+    background-color 0.2s ease-out;
 
-  input:focus {
+  width: 100%;
+  height: 56px;
+
+  padding: 20px;
+  box-sizing: border-box;
+  border-radius: 14px;
+
+  background-color: var(--container-primary-background);
+  border: 1px solid var(--container-border);
+  color: var(--primary-text-color);
+  outline: none;
+
+  &:focus {
     border: 1px solid #4a90e2; /* 파란색 테두리 */
     box-shadow: none; /* 흰색 테두리 제거 */
+    background-color: var(--container-secondary-background);
   }
 `;
 
@@ -104,24 +115,11 @@ const ErrorMessage = styled.p`
   margin-top: 10px;
 `;
 
-const LoginButton = styled.button`
-  width: 100%;
-  padding: 15px;
-  background-color: #4a90e2;
-  border: none;
-  border-radius: 5px;
-  color: white;
-  font-size: 20px;
-  cursor: pointer;
-  margin-top: 20px;
-  margin-right: 25px;
-`;
-
 const SignupLink = styled.div`
   margin-top: 20px;
   text-align: center;
   font-size: 14px;
-  color: #ccc;
+  color: var(--secondary-text-color);
 `;
 
 export default function Login() {
@@ -186,75 +184,78 @@ export default function Login() {
 
   return (
     <Container>
-      <LoginContainer>
-        <LoginBox>
-          <LoginHeader>
-            <div className="header-text">
-              <h1>Login to KERT</h1>
-              <h2>로그인</h2>
-            </div>
-            <KertLogo>
-              <img src="../logo/white_square.png" alt="kert-logo" />
-            </KertLogo>
-          </LoginHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <InputGroup>
-              <label>학번</label>
-              <input
-                type="text"
-                placeholder="학번"
-                {...register('student', {
-                  required: '학번을 입력해주세요.',
-                  minLength: {
-                    value: 10,
-                    message: '학번은 10자리 숫자여야 합니다.',
-                  },
-                  pattern: {
-                    value: /^[0-9]{10}$/,
-                    message: '학번은 10자리 숫자여야 합니다.',
-                  },
-                })}
-              />
-              {errors.student && (
-                <ErrorMessage>{errors.student.message}</ErrorMessage>
-              )}
-            </InputGroup>
+      <LoginBox>
+        <LoginHeader>
+          <TitleWrapper>
+            <Text size="m" weight="light" color="--secondary-text-color">
+              Login to KERT
+            </Text>
+            <Text size="sxl" weight="bold">
+              로그인
+            </Text>
+          </TitleWrapper>
+          <KertLogo />
+        </LoginHeader>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <InputWrapper>
+            <Text size="s" weight="regular">
+              학번
+            </Text>
+            <Input
+              type="text"
+              placeholder="2024000000"
+              {...register('student', {
+                required: '학번을 입력해주세요.',
+                minLength: {
+                  value: 10,
+                  message: '학번은 10자리 숫자여야 합니다.',
+                },
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message: '학번은 10자리 숫자여야 합니다.',
+                },
+              })}
+            />
+            {errors.student && (
+              <ErrorMessage>{errors.student.message}</ErrorMessage>
+            )}
+          </InputWrapper>
+          <InputWrapper>
+            <Text size="s" weight="regular">
+              비밀번호
+            </Text>
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              {...register('password', {
+                required: '비밀번호를 입력해주세요',
+                minLength: {
+                  value: 8,
+                  message: '비밀번호는 8자리 이상이여야 합니다. ',
+                },
+                pattern: {
+                  value:
+                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                  message:
+                    '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
+                },
+              })}
+            />
+            {errors.password && (
+              <ErrorMessage>{errors.password.message}</ErrorMessage>
+            )}
+          </InputWrapper>
 
-            <InputGroup>
-              <label>비밀번호</label>
-              <input
-                type="password"
-                placeholder="비밀번호"
-                {...register('password', {
-                  required: '비밀번호를 입력해주세요',
-                  minLength: {
-                    value: 8,
-                    message: '비밀번호는 8자리 이상이여야 합니다. ',
-                  },
-                  pattern: {
-                    value:
-                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
-                    message:
-                      '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
-                  },
-                })}
-              />
-              {errors.password && (
-                <ErrorMessage>{errors.password.message}</ErrorMessage>
-              )}
-            </InputGroup>
-
-            {/* 에러 메시지 표시 */}
-            {error && <ErrorMessage>{error}</ErrorMessage>}
-
-            <LoginButton>로그인</LoginButton>
-          </form>
-
+          {/* 에러 메시지 표시 */}
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+          <Button width="100%" height="60px">
+            로그인
+          </Button>
           <SignupLink>
             계정이 없으신가요?<Link to="/signup"> 회원가입</Link>
           </SignupLink>
-        </LoginBox>
-      </LoginContainer>
+        </Form>
+      </LoginBox>
     </Container>
   );
 }

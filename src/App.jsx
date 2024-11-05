@@ -10,6 +10,8 @@ import { GlobalStyle } from './styles/global';
 import { MainLayout } from './components/layouts/MainLayout';
 import './styles/font.css';
 
+import useTheme from './hooks/theme/useTheme';
+
 import { AuthProvider } from './components/navigation/AuthContext';
 import Navigator from './components/navigation/Navigation';
 
@@ -18,7 +20,7 @@ import NotFound from './pages/NotFound';
 
 import { DashboardLayout } from './components/layouts/DashboardLayout';
 import { Dashboard } from './pages/dashboard';
-import DevDocument from './pages/DevDocument';
+// import DevDocument from './pages/DevDocument';
 import Board from './pages/Board';
 import Article from './pages/Article';
 import NewArticleEditor from './pages/NewArticleEditor';
@@ -26,12 +28,14 @@ import NewArticleEditor from './pages/NewArticleEditor';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
-
 import History from './pages/History';
 
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
   const location = useLocation();
+
+  // 테마 적용
+  useTheme();
 
   return (
     <>
