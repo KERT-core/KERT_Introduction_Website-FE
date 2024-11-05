@@ -18,8 +18,8 @@ export const History = () => {
   const { data, isLoading } = useQuery(
     'history',
     async () => {
-      const data = await API.GET('/histories');
-      return data;
+      const res = await API.GET('/histories');
+      return res.data;
     },
     { retry: 2 },
   );

@@ -138,7 +138,7 @@ export default function Login() {
   const onSubmit = async (data) => {
     try {
       // 서버에 로그인 요청 보내기
-      const response = await API.POST('/users/login', {
+      const login_res = await API.POST('/users/login', {
         body: {
           student_id: parseInt(data.student),
           password: data.password,
@@ -148,24 +148,25 @@ export default function Login() {
       // console.log('response:', response);
 
       // get string body
-      const token = response.access_token;
+      const access_token = login_res.data.access_token;
+      const refresh_token = login_res.data.refresh_token;
 
       // 서버에 user 정보 요청
-      const response_user = await API.GET(`/users/${data.student}`, {
+      const student_res = await API.GET(`/users/${data.student}`, {
         headers: {
-          Authorization: token,
+          Authorization: access_token,
         },
       });
 
-      const userInfo = response_user;
+      const userInfo = student_res.data;
 
-      console.log('token:', token);
+      console.log('token:', { access_token, refresh_token });
       console.log('userInfo:', userInfo);
 
       alert('break!');
 
-      if (token && userInfo) {
-        login(token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
+      if (access_token && refresh_token && userInfo) {
+        login(access_token, refresh_token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
         // console.log('login user info:', userInfo); // Log user info
         setError(''); // 에러 초기화
         navigate('/');

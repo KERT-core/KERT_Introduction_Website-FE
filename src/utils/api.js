@@ -17,7 +17,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
+      config.headers.Authorization = accessToken;
     }
     return config;
   },
@@ -33,22 +33,25 @@ api.interceptors.response.use(
     // 토큰이 만료되어 401이나 403 응답이 온 경우
     if (
       (error.response.status === 401 || error.response.status === 403) &&
-      !originalRequest._retry
+      !originalRequest._retry &&
+      refreshToken
     ) {
       originalRequest._retry = true; // 무한 루프 방지
 
       try {
         // 리프레시 토큰으로 새로운 액세스 토큰 요청
         const { data } = await axios.post(`${API_URL}/auth/refresh`, {
-          refreshToken,
+          refresh_token: refreshToken,
         });
 
         // 새로운 액세스 토큰 저장
-        accessToken = data.accessToken;
+        accessToken = data.access_token;
+        refreshToken = data.refresh_token;
         localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem('refreshToken', refreshToken);
 
         // 실패했던 요청에 새로운 토큰 적용
-        originalRequest.headers.Authorization = `Bearer ${accessToken}`;
+        originalRequest.headers.Authorization = accessToken;
 
         // 실패한 요청 다시 시도
         return api(originalRequest);

@@ -74,7 +74,7 @@ export const Navigation = () => {
   const { isLoggedIn, logout, user } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <Nav>
