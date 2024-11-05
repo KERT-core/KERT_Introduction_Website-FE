@@ -7,6 +7,7 @@ import { Text } from '@/components/typograph/Text';
 
 import { API } from '@/utils/api';
 import { Link } from 'react-router-dom';
+import useDebounce from '../hooks/utils/useDebounce';
 
 const Container = styled.div`
   width: 100%;
@@ -128,6 +129,7 @@ function extractBase64ImageData(inputString) {
 export default function Board() {
   const [tag, setTag] = useState('전체');
   const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 500);
 
   const { data: adminData } = useQuery(
     'admin',
@@ -139,12 +141,12 @@ export default function Board() {
   );
 
   const { data, isLoading } = useQuery(
-    ['posts-tag-search', tag, search],
+    ['posts-tag-search', tag, debouncedSearch],
     () => {
       if (tag === '전체') {
-        return API.GET(`/posts?search=${search}`);
+        return API.GET(`/posts?search=${debouncedSearch}`);
       }
-      return API.GET(`/posts?tag=${tag}&search=${search}`);
+      return API.GET(`/posts?tag=${tag}&search=${debouncedSearch}`);
     },
   );
 
