@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import useTheme from '@/hooks/theme/useTheme';
 import styled from 'styled-components';
 import { Text } from '@components/typograph/Text';
 import { useParams } from 'react-router-dom';
@@ -5,7 +7,6 @@ import { useQuery } from 'react-query';
 import { API } from '@/utils/api';
 import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
-import colorSyntax from '@toast-ui/editor-plugin-color-syntax';
 import 'tui-color-picker/dist/tui-color-picker.css';
 import '@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css';
 import '@toast-ui/editor/dist/i18n/ko-kr';
@@ -66,10 +67,40 @@ const ArticleHorizontalLine = styled.hr`
   border: 1px solid #282c30;
 `;
 
+const ArticleViewerWrapper = styled.div`
+  color: white;
+`;
+
 export default function Article() {
   const { id } = useParams();
+  const theme = useTheme();
 
-  const { data, isLoading } = useQuery(['post', id], API.GET(`/posts/${id}`));
+  const { data, isLoading } = useQuery(['post', id], () =>
+    API.GET(`/posts/${id}`),
+  );
+
+  useEffect(() => {
+    const editorEl = document.getElementsByClassName(
+      'toastui-editor-contents',
+    )[0];
+
+    if (editorEl) {
+      const shouldAddDarkClass =
+        theme.theme === 'dark' &&
+        !editorEl.classList.contains('toastui-editor-dark');
+      const shouldRemoveDarkClass =
+        theme.theme !== 'dark' &&
+        editorEl.classList.contains('toastui-editor-dark');
+
+      if (shouldAddDarkClass) {
+        editorEl.classList.add('toastui-editor-dark');
+      } else if (shouldRemoveDarkClass) {
+        editorEl.classList.remove('toastui-editor-dark');
+      }
+    }
+  }, [theme]);
+
+  const post = data?.data;
 
   return (
     <ArticleContainer>
@@ -79,29 +110,29 @@ export default function Article() {
         <>
           <ArticleHeader>
             <Text size="18px" weight="bold" color="--secondary-text-color">
-              {data.tag}
+              {post?.tag}
             </Text>
             <ArticleTitleGroup>
               <Text size="40px" weight="extrabold">
-                {data.title}
+                {post?.title}
               </Text>
               <Text size="m" color="--secondary-text-color">
-                {data.description}
+                {post?.description}
               </Text>
             </ArticleTitleGroup>
             <Text size="s" color="--secondary-text-color">
-              {data.user?.name} | {new Date(data.createdAt).toLocaleString()}
+              {post?.user?.name} | {post?.createdAt}
             </Text>
           </ArticleHeader>
           <ArticleHorizontalLine />
-          <Viewer
-            initialValue={data.content}
-            language="ko-KR"
-            plugins={[
-              colorSyntax,
-              [codeSyntaxHighlight, { highlighter: Prism }],
-            ]}
-          />
+          <ArticleViewerWrapper>
+            <Viewer
+              initialValue={post?.content}
+              language="ko-KR"
+              plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+              theme={theme.theme === 'dark' ? 'dark' : 'default'}
+            />
+          </ArticleViewerWrapper>
         </>
       )}
     </ArticleContainer>
