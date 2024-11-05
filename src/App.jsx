@@ -43,7 +43,7 @@ export default function App() {
             <Route path="/" element={<MainLayout />}>
               <Route index path="/" element={<MainPage />} />
               <Route path="/history" element={<History />} />
-              <Route path="/developer" element={<DevDocument />} />
+              {/* <Route path="/developer" element={<DevDocument />} /> */}
               <Route path="/board">
                 <Route index path="/board" element={<Board />} />
                 <Route path="/board/new" element={<NewArticleEditor />} />
