@@ -138,21 +138,30 @@ export const Navigation = () => {
           <Link
             to="/"
             style={menu_style}
-            onClick={() => scrollToSection('history')}
+            onClick={() => {
+              setMenuSpreadActive(false);
+              scrollToSection('history');
+            }}
           >
             연혁
           </Link>
           <Link
             to="/"
             style={menu_style}
-            onClick={() => scrollToSection('executives')}
+            onClick={() => {
+              setMenuSpreadActive(false);
+              scrollToSection('executives');
+            }}
           >
             임원진
           </Link>
           <Link
             to="/"
             style={menu_style}
-            onClick={() => scrollToSection('education')}
+            onClick={() => {
+              setMenuSpreadActive(false);
+              scrollToSection('education');
+            }}
           >
             활동
           </Link>
