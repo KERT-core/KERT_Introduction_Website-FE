@@ -29,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     *::-webkit-scrollbar-thumb {
-        background: #ffffff20; /* 스크롤바 색상 */
+        background-color: var(--secondary-text-color); /* 스크롤바 색상 */
         border-radius: 10px; /* 스크롤바 둥근 테두리 */
     }
 
