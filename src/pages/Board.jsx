@@ -101,7 +101,19 @@ const PostCardImage = styled.img`
   object-fit: cover;
 `;
 
-const PostCard = ({ id, title, description, author, image }) => {
+const PostCardAuthor = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+`;
+
+const PostCardAuthorImage = styled.img`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+`;
+
+const PostCard = ({ id, title, description, user, image }) => {
   return (
     <Link to={`/articles/${id}`}>
       <PostCardWrapper>
@@ -111,9 +123,12 @@ const PostCard = ({ id, title, description, author, image }) => {
             {title}
           </Text>
           <Text size="s">{description}</Text>
-          <Text size="s" weight="bold">
-            {author}
-          </Text>
+          <PostCardAuthor>
+            <PostCardAuthorImage src={user?.profileImage} />
+            <Text size="s" weight="bold">
+              {user?.name}
+            </Text>
+          </PostCardAuthor>
         </PostCardContainer>
       </PostCardWrapper>
     </Link>
@@ -121,9 +136,13 @@ const PostCard = ({ id, title, description, author, image }) => {
 };
 
 function extractBase64ImageData(inputString) {
-  const regex = /(data:image\/[^;]+;base64,[^"]+)/g;
-  const matches = inputString.match(regex);
-  return matches || [];
+  const regex = /!\[.*?\]\((data:image\/[^;]+;base64,[^)]+)\)/g;
+  const matches = [];
+  let match;
+  while ((match = regex.exec(inputString)) !== null) {
+    matches.push(match[1]);
+  }
+  return matches;
 }
 
 export default function Board() {
@@ -199,7 +218,7 @@ export default function Board() {
               id={post.id}
               title={post.title}
               description={post.description}
-              author={post.user?.name}
+              user={post.user}
               image={extractBase64ImageData(post.content)[0]}
             />
           ))
