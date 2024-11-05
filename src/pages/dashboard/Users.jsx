@@ -11,14 +11,10 @@ import { API } from '@/utils/api.js';
 import { useQuery } from 'react-query';
 
 export default function User() {
-  const { data, isLoading, isError } = useQuery(
-    'user',
-    async () => {
-      const res = await API.GET('/users');
-      return res.data;
-    },
-    { retry: 2 },
-  );
+  const { data, isLoading, isError } = useQuery('user', async () => {
+    const res = await API.GET('/users');
+    return res.data;
+  });
 
   return (
     <>

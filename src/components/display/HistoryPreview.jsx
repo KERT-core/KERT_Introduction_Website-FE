@@ -206,13 +206,6 @@ export const HistoryPreview = () => {
 
       return data;
     },
-    {
-      retry: false,
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchInterval: false,
-    },
   );
 
   useEffect(() => {
