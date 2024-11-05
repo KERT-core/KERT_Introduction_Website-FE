@@ -68,23 +68,23 @@ api.interceptors.response.use(
 
 // API 요청 함수들 (GET, POST, PUT, DELETE)
 async function GET(endpoint, data = { headers: {} }) {
-  return await api.get(`/api/${endpoint}`, { headers: data.headers });
+  return await api.get(`/api${endpoint}`, { headers: data.headers });
 }
 
 async function POST(endpoint, data = { body: {}, headers: {} }) {
-  return await api.post(`/api/${endpoint}`, data.body, {
+  return await api.post(`/api${endpoint}`, data.body, {
     headers: data.headers,
   });
 }
 
 async function PUT(endpoint, data = { body: {}, headers: {} }) {
-  return await api.put(`/api/${endpoint}`, data.body, {
+  return await api.put(`/api${endpoint}`, data.body, {
     headers: data.headers,
   });
 }
 
 async function DELETE(endpoint, data = { headers: {} }) {
-  return await api.delete(`/api/${endpoint}`, { headers: data.headers });
+  return await api.delete(`/api${endpoint}`, { headers: data.headers });
 }
 
 export const API = {
