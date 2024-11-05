@@ -161,12 +161,7 @@ export default function Board() {
 
   const { data, isLoading } = useQuery(
     ['posts-tag-search', tag, debouncedSearch],
-    () => {
-      if (tag === '전체') {
-        return API.GET(`/posts?search=${debouncedSearch}`);
-      }
-      return API.GET(`/posts?tag=${tag}&search=${debouncedSearch}`);
-    },
+    () => API.GET(`/posts?search=${debouncedSearch}`),
   );
 
   return (
@@ -212,16 +207,18 @@ export default function Board() {
         {isLoading ? (
           <Text>불러오는 중</Text>
         ) : (
-          data?.data?.content?.map((post, index) => (
-            <PostCard
-              key={index}
-              id={post.id}
-              title={post.title}
-              description={post.description}
-              user={post.user}
-              image={extractBase64ImageData(post.content)[0]}
-            />
-          ))
+          data?.data?.content
+            ?.filter((post) => tag === '전체' || tag == post.tag)
+            .map((post, index) => (
+              <PostCard
+                key={index}
+                id={post.id}
+                title={post.title}
+                description={post.description}
+                user={post.user}
+                image={extractBase64ImageData(post.content)[0]}
+              />
+            ))
         )}
       </PostItems>
     </Container>
