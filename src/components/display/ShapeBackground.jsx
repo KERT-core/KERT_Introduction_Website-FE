@@ -30,7 +30,7 @@ const Shape = styled.div`
   border-radius: ${({ radius }) => radius || '20px'};
   background-color: ${({ color }) => color || '#213EA6'};
 
-  opacity: 0.03;
+  opacity: 0.1;
   overflow: hidden;
 
   animation: ${({ $startAngle, $direction }) => rotate($startAngle, $direction)}
