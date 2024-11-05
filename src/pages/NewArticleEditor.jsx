@@ -154,10 +154,15 @@ export default function NewArticle() {
         tag: category || null,
         content: ref.current.getInstance().getMarkdown(),
       },
-    }).then((r) => {
-      alert('게시글이 성공적으로 등록되었습니다');
-      navigate(`/articles/${r.data.id}`);
-    });
+    })
+      .then((r) => {
+        alert('게시글이 성공적으로 등록되었습니다');
+        navigate(`/articles/${r.data.id}`);
+      })
+      .catch((e) => {
+        console.error(e);
+        alert('게시글을 등록하는 중 오류가 발생했습니다');
+      });
   };
 
   useEffect(() => {
