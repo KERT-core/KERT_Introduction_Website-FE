@@ -162,9 +162,9 @@ const GradientText = styled(Span)`
   }
 `;
 
-export default function MainPage() {
+export default function Section2() {
   return (
-    <Section>
+    <Section id="introduce">
       {/* <Overlay /> */}
       <Content>
         <LeftContent>

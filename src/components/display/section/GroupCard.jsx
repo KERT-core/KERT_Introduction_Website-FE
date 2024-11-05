@@ -37,6 +37,7 @@ const CardImage = styled(GroupCardImage)`
 const TabName = styled(Span).attrs({
   $size: 's',
   $weight: 'light',
+  $color: 'white',
 })`
   position: absolute;
   top: 13px;
@@ -83,7 +84,7 @@ export const GroupCard = ({ name, logo_url, hashTags }) => {
       <Content>
         <img width={90} height={90} src={logo_url} alt={name} />
         <TitleWrapper>
-          <Text size="xl" weight="bold">
+          <Text size="xl" weight="bold" color="white">
             {name}
           </Text>
           <HashtagWrapper>

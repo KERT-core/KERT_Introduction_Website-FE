@@ -7,11 +7,12 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 300000,
-      cacheTime: 450000,
-      refetchOnMount: false,
+      retry: 0,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
+    },
+    mutations: {
+      retry: 0,
     },
   },
 });

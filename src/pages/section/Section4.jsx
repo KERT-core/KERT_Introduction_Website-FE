@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Span, Text } from '@components/typograph/Text';
+import { Span } from '@components/typograph/Text';
 
 import { ShapeBackground } from '../../components/display/ShapeBackground';
 import { ContentCard } from '@components/display/section/ContentCard';
@@ -12,7 +12,7 @@ import activ_img1 from '@/assets/activity_img/activ_pic1.png';
 import activ_img2 from '@/assets/activity_img/activ_pic2.png';
 import activ_img3 from '@/assets/activity_img/activ_pic3.png';
 
-const Section = styled.section.attrs({ id: 'education' })`
+const Section = styled.section`
   position: relative;
 
   width: 100vw;
@@ -190,7 +190,7 @@ export default function Section4() {
   ];
 
   return (
-    <Section>
+    <Section id="education">
       <ShapeBackground />
       {/* Section 4.1 */}
       <Content>

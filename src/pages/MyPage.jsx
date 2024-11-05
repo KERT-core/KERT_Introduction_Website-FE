@@ -317,7 +317,7 @@ export default function MyPage() {
           profilePic: data.profile_picture || defaultProfilePic,
         }),
       onError: (error) => {
-        console.error('Error fetching user data:', error); // 콘솔에서 오류 확인
+        // console.error('Error fetching user data:', error); // 콘솔에서 오류 확인
         openAlert({
           title: '사용자 정보 불러오기 실패',
           content: (
@@ -366,7 +366,7 @@ export default function MyPage() {
         });
       })
       .catch((error) => {
-        console.error('오류 발생:', error);
+        // console.error('오류 발생:', error);
         openAlert({
           title: '계정 삭제 실패',
           content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
@@ -398,7 +398,7 @@ export default function MyPage() {
         });
       })
       .catch((error) => {
-        console.error('계정 삭제 실패:', error);
+        // console.error('계정 삭제 실패:', error);
         openAlert({
           title: '계정 삭제 실패',
           content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,

@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     try {
       return storedUser ? JSON.parse(storedUser) : null; // user가 존재하면 파싱, 없으면 null
     } catch (error) {
-      console.error('Error parsing user data:', error); // 파싱 실패 시 오류 처리
+      // console.error('Error parsing user data:', error); // 파싱 실패 시 오류 처리
       return null;
     }
   });
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     try {
       await API.POST('/logout');
     } catch (error) {
-      console.error('Error during logout:', error);
+      // console.error('Error during logout:', error);
     } finally {
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');

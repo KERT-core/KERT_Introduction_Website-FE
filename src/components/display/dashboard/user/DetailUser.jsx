@@ -66,7 +66,7 @@ export const DetailUser = ({ user }) => {
   };
 
   if (!user) {
-    console.error('user 객체가 없습니다.');
+    // console.error('user 객체가 없습니다.');
     return;
   }
 

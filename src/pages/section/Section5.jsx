@@ -6,9 +6,7 @@ import { HistoryPreview } from '@components/display/HistoryPreview';
 
 import GraphSVG from '@/assets/graph.svg';
 
-const SectionWrapper = styled.section.attrs({
-  id: 'history',
-})`
+const Section = styled.section`
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -72,6 +70,7 @@ const RightContent = styled.div``;
 const Title = styled(Span).attrs({
   $size: '45px',
   $weight: 'extrabold',
+  $color: 'white',
 })`
   word-break: keep-all;
 
@@ -84,6 +83,7 @@ const Title = styled(Span).attrs({
 const Description = styled(Span).attrs({
   $size: 'l',
   $weight: 'light',
+  $color: 'white',
 })`
   word-break: keep-all;
 
@@ -97,15 +97,15 @@ const StyledLink = styled(Link)`
   font-weight: 300;
   font-size: clamp(12px, 1.5vw, 20px);
   text-decoration: none;
-  color: var(--primary-text-color);
+  color: white;
   opacity: 0.5;
   width: fit-content;
   height: fit-content;
 `;
 
-export default function Section6() {
+export default function Section5() {
   return (
-    <SectionWrapper>
+    <Section id="history">
       <Graph />
       <Content>
         <LeftContent>
@@ -123,6 +123,6 @@ export default function Section6() {
           <HistoryPreview />
         </RightContent>
       </Content>
-    </SectionWrapper>
+    </Section>
   );
 }

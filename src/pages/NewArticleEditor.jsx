@@ -160,7 +160,7 @@ export default function NewArticle() {
         navigate(`/articles/${r.data.id}`);
       })
       .catch((e) => {
-        console.error(e);
+        // console.error(e);
         alert('게시글을 등록하는 중 오류가 발생했습니다');
       });
   };

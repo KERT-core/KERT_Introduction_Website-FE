@@ -98,7 +98,7 @@ export const ExecutiveProfile = ({ profile, isReversed }) => {
       <ProfileDescription $reverse={isReversed}>
         <TitleWrapper>
           <NameInfo $reverse={isReversed}>
-            <Name $size="l" $weight="extrabold">
+            <Name $size="l" $weight="extrabold" $color="white">
               {profile.name}
             </Name>
             <GradientText $color={profile.color}>{profile.role}</GradientText>

@@ -71,7 +71,7 @@ export const UserElement = ({ user }) => {
 
   // 만약 user이 없다면 </> 반환
   if (!user) {
-    console.warn('user 객체를 받지 못했습니다.');
+    // console.warn('user 객체를 받지 못했습니다.');
     return <></>;
   }
 

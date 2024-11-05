@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import VerticalLogoSVG from '@/assets/kert_logos/Vertical.svg';
 import { SNSButton } from './SNSButton';
+import { ThemeSwitcher } from '../ThemeSwitcher';
 
 const FooterWrapper = styled.footer`
   width: 100%;
@@ -32,6 +33,22 @@ const LeftContent = styled.div`
     & > #links {
       display: none;
     }
+  }
+`;
+
+const RightContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 30px;
+
+  // 모바일 대응
+  @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
   }
 `;
 
@@ -139,12 +156,15 @@ export const Footer = () => {
         </Content>
       </LeftContent>
       {/* SNS 링크 */}
-      <SNSLinkContainer>
-        <SNSButton type="github" href="https://github.com/KERT-core" />
-        <SNSButton type="youtube" href="https://youtube.com/@kert_knu593" />
-        <SNSButton type="facebook" href="https://www.facebook.com/KNU.KERT" />
-        <SNSButton type="instagram" href="https://instagram.com/knu_kert" />
-      </SNSLinkContainer>
+      <RightContent>
+        <SNSLinkContainer>
+          <SNSButton type="github" href="https://github.com/KERT-core" />
+          <SNSButton type="youtube" href="https://youtube.com/@kert_knu593" />
+          <SNSButton type="facebook" href="https://www.facebook.com/KNU.KERT" />
+          <SNSButton type="instagram" href="https://instagram.com/knu_kert" />
+        </SNSLinkContainer>
+        <ThemeSwitcher />
+      </RightContent>
     </FooterWrapper>
   );
 };

@@ -1,5 +1,5 @@
 import { Section } from './section';
-import { Footer } from '../components/navigation/footer/Footer';
+import { Footer } from '@components/navigation/footer/Footer';
 
 export default function MainPage() {
   return (

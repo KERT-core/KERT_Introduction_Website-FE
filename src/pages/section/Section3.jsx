@@ -22,6 +22,7 @@ const Section = styled.section`
   align-items: center;
   gap: 100px;
 
+  background-color: black;
   background-position: center center;
   background-image: url(${BackgroundImage});
   background-size: cover;
@@ -81,7 +82,7 @@ const SubTitle = styled(Span).attrs({
 
 export default function Section3() {
   return (
-    <Section>
+    <Section id="partnership">
       <TitleWrapper>
         <Title>우리 모두 함께해요</Title>
         <SubTitle>

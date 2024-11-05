@@ -10,7 +10,7 @@ export function useHistoriesQuery() {
         const res = await API.GET('/histories');
         return refineHistories(res.data);
       } catch {
-        console.warn(`History API 요청에 실패했습니다.`);
+        // console.warn(`History API 요청에 실패했습니다.`);
         return {};
       }
     },

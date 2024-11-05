@@ -37,9 +37,9 @@ const useConfirm = create((set, get) => ({
 
     if (isOpen) {
       closeConfirm();
-      console.warn(
-        '이미 열려있는 Confirm입니다. 기존 Confirm를 닫고 새로운 Confirm을 표시합니다.',
-      );
+      // console.warn(
+      //   '이미 열려있는 Confirm입니다. 기존 Confirm를 닫고 새로운 Confirm을 표시합니다.',
+      // );
     }
 
     set({
@@ -60,7 +60,7 @@ const useConfirm = create((set, get) => ({
     const { isOpen } = get();
 
     if (!isOpen) {
-      console.warn('이미 닫혀있는 Confirm입니다.');
+      // console.warn('이미 닫혀있는 Confirm입니다.');
       return;
     }
     set({

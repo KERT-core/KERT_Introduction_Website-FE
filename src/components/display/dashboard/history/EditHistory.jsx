@@ -45,7 +45,7 @@ const Date = styled(Span).attrs({
 export const EditHistory = forwardRef(
   ({ history, onDelete, ...props }, ref) => {
     if (!history) {
-      console.error('history 객체가 없습니다.');
+      // console.error('history 객체가 없습니다.');
       return;
     }
 
