@@ -40,7 +40,7 @@ api.interceptors.response.use(
 
       try {
         // 리프레시 토큰으로 새로운 액세스 토큰 요청
-        const { data } = await axios.post(`${API_URL}/auth/refresh`, {
+        const { data } = await axios.post(`${API_URL}/api/auth/refresh`, {
           refresh_token: refreshToken,
         });
 
@@ -68,19 +68,23 @@ api.interceptors.response.use(
 
 // API 요청 함수들 (GET, POST, PUT, DELETE)
 async function GET(endpoint, data = { headers: {} }) {
-  return await api.get(endpoint, { headers: data.headers });
+  return await api.get(`/api/${endpoint}`, { headers: data.headers });
 }
 
 async function POST(endpoint, data = { body: {}, headers: {} }) {
-  return await api.post(endpoint, data.body, { headers: data.headers });
+  return await api.post(`/api/${endpoint}`, data.body, {
+    headers: data.headers,
+  });
 }
 
 async function PUT(endpoint, data = { body: {}, headers: {} }) {
-  return await api.put(endpoint, data.body, { headers: data.headers });
+  return await api.put(`/api/${endpoint}`, data.body, {
+    headers: data.headers,
+  });
 }
 
 async function DELETE(endpoint, data = { headers: {} }) {
-  return await api.delete(endpoint, { headers: data.headers });
+  return await api.delete(`/api/${endpoint}`, { headers: data.headers });
 }
 
 export const API = {
