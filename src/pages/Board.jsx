@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useQuery } from 'react-query';
 import styled from 'styled-components';
 
 import { Button } from '@/components/forms/Button';
 import { Text } from '@/components/typograph/Text';
 
 import { API } from '@/utils/api';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   width: 100%;
@@ -55,6 +57,20 @@ const ButtonGroup = styled.div`
   margin-top: 2rem;
 `;
 
+const MenuGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const SearchInput = styled.input`
+  border: 1px solid var(--secondary-text-color);
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  background: none;
+  color: var(--primary-text-color);
+`;
+
 const PostItems = styled.div`
   padding: 2rem 0;
   display: grid;
@@ -84,33 +100,47 @@ const PostCardImage = styled.img`
   object-fit: cover;
 `;
 
-const PostCard = ({ title, description, author, image }) => {
+const PostCard = ({ id, title, description, author, image }) => {
   return (
-    <PostCardWrapper>
-      <PostCardImage src={image} />
-      <PostCardContainer>
-        <Text size="l" weight="extrabold">
-          {title}
-        </Text>
-        <Text size="s">{description}</Text>
-        <Text size="s" weight="bold">
-          {author}
-        </Text>
-      </PostCardContainer>
-    </PostCardWrapper>
+    <Link to={`/articles/${id}`}>
+      <PostCardWrapper>
+        <PostCardImage src={image} />
+        <PostCardContainer>
+          <Text size="l" weight="extrabold">
+            {title}
+          </Text>
+          <Text size="s">{description}</Text>
+          <Text size="s" weight="bold">
+            {author}
+          </Text>
+        </PostCardContainer>
+      </PostCardWrapper>
+    </Link>
   );
 };
 
 export default function Board() {
-  const [posts, setPosts] = useState([]);
-
   const [tag, setTag] = useState('전체');
+  const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    API.GET('/posts').then((r) => {
-      setPosts(r.data);
-    });
-  }, []);
+  const { data: adminData } = useQuery(
+    'admin',
+    async () => {
+      const res = await API.GET('/admin');
+      return res.data;
+    },
+    { retry: 2 },
+  );
+
+  const { data, isLoading } = useQuery(
+    ['posts-tag-search', tag, search],
+    () => {
+      if (tag === '전체') {
+        return API.GET(`/posts?search=${search}`);
+      }
+      return API.GET(`/posts?tag=${tag}&search=${search}`);
+    },
+  );
 
   return (
     <Container>
@@ -118,44 +148,54 @@ export default function Board() {
         <Title>KERT 소식지</Title>
         <Description>열심히 소통하는 KERT, 자세히 알아볼 수 있어요</Description>
       </TitleBox>
-      <ButtonGroup>
-        <Button type="rounded" onClick={() => setTag('전체')}>
-          전체
-        </Button>
-        <Button
-          type="rounded"
-          color="--transparent-button-background"
-          onClick={() => setTag('공지')}
-        >
-          공지
-        </Button>
-        <Button
-          type="rounded"
-          color="--transparent-button-background"
-          onClick={() => setTag('블로그')}
-        >
-          블로그
-        </Button>
-        <Button
-          type="rounded"
-          color="--transparent-button-background"
-          onClick={() => setTag('기보교')}
-        >
-          기보교
-        </Button>
-      </ButtonGroup>
+      <MenuGroup>
+        <ButtonGroup>
+          {['전체', '공지', '블로그', '기보교'].map((t) => (
+            <Button
+              key={t}
+              type="rounded"
+              color={
+                t === tag
+                  ? '--primary-color'
+                  : '--transparent-button-background'
+              }
+              onClick={() => setTag(t)}
+            >
+              {t}
+            </Button>
+          ))}
+        </ButtonGroup>
+        <ButtonGroup>
+          {!!adminData && (
+            <Link to="/board/new">
+              <Button type="rounded" color="--transparent-button-background">
+                새 소식지 작성
+              </Button>
+            </Link>
+          )}
+          <SearchInput
+            placeholder="검색어를 입력하세요"
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+          />
+        </ButtonGroup>
+      </MenuGroup>
       <PostItems>
-        {posts
-          ?.filter((post) => tag === '전체' || post.tag === tag)
-          .map((post, index) => (
+        {isLoading ? (
+          <Text>불러오는 중</Text>
+        ) : (
+          data?.data?.content?.map((post, index) => (
             <PostCard
               key={index}
+              id={post.id}
               title={post.title}
-              description={post.content}
+              description={post.description}
               author={post.user?.name}
-              image={`https://picsum.photos/200?random=${index}`}
+              image=""
             />
-          ))}
+          ))
+        )}
       </PostItems>
     </Container>
   );
