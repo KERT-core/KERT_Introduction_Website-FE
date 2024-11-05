@@ -25,7 +25,7 @@ const Nav = styled.div`
 
   background-color: var(--nav-background);
 
-  @media (max-width: 1280px) {
+  @media (max-width: 768px) {
     padding: 0px 26px;
   }
 `;
