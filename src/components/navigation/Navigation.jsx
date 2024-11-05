@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { useAuth } from '@components/navigation/AuthContext';
-import useTheme from '@/hooks/theme/useTheme';
 
 import Profile from '@components/navigation/Profile';
 
@@ -72,9 +71,6 @@ const Menus = styled.div`
 
 export const Navigation = () => {
   const { isLoggedIn, logout, user } = useAuth();
-  const { theme, toggleTheme } = useTheme();
-
-  // console.log(user);
 
   return (
     <Nav>
@@ -85,21 +81,21 @@ export const Navigation = () => {
         <Link
           to="/"
           style={menu_style}
-          onClick={() => scrollToSection('section6')}
+          onClick={() => scrollToSection('history')}
         >
           연혁
         </Link>
         <Link
           to="/"
           style={menu_style}
-          onClick={() => scrollToSection('section7')}
+          onClick={() => scrollToSection('executives')}
         >
           임원진
         </Link>
         <Link
           to="/"
           style={menu_style}
-          onClick={() => scrollToSection('section5')}
+          onClick={() => scrollToSection('education')}
         >
           활동
         </Link>
@@ -111,7 +107,6 @@ export const Navigation = () => {
         {isLoggedIn ? (
           <>
             <Profile userName={user.name} logout={logout} />
-            {/* <Profile userName="홍길동" logout={logout} /> */}
           </>
         ) : (
           <>

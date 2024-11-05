@@ -5,7 +5,6 @@
 
 import { Routes, Route, useLocation } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { GlobalStyle } from './styles/global';
 import { MainLayout } from './components/layouts/MainLayout';
@@ -30,54 +29,50 @@ import MyPage from './pages/MyPage';
 
 import History from './pages/History';
 
-const queryClient = new QueryClient();
-
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
   const location = useLocation();
 
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <CookiesProvider>
-          <AuthProvider>
-            <GlobalStyle />
-            <Navigator />
-            <Routes>
-              <Route path="/" element={<MainLayout />}>
-                <Route index path="/" element={<MainPage />} />
-                <Route path="/history" element={<History />} />
-                <Route path="/developer" element={<DevDocument />} />
-                <Route path="/board">
-                  <Route index path="/board" element={<Board />} />
-                  <Route path="/board/new" element={<NewArticleEditor />} />
-                </Route>
-                <Route path="/articles/:id" element={<Article />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/mypage" element={<MyPage />} />
-                <Route path="*" element={<NotFound />} />
-
-                {/* 대시보드 페이지 */}
-                <Route element={<DashboardLayout location={location} />}>
-                  <Route index path="/dashboard" element={<Dashboard.Home />} />
-                  <Route
-                    path="/dashboard/history"
-                    element={<Dashboard.History />}
-                  />
-                  <Route
-                    path="/dashboard/executive"
-                    element={<Dashboard.Executive />}
-                  />
-                  <Route path="/dashboard/admin" element={<Dashboard.Admin />} />
-                  <Route path="/dashboard/users" element={<Dashboard.Users />} />
-                  <Route path="/dashboard/*" element={<NotFound />} />
-                </Route>
+      <CookiesProvider>
+        <AuthProvider>
+          <GlobalStyle />
+          <Navigator />
+          <Routes>
+            <Route path="/" element={<MainLayout />}>
+              <Route index path="/" element={<MainPage />} />
+              <Route path="/history" element={<History />} />
+              <Route path="/developer" element={<DevDocument />} />
+              <Route path="/board">
+                <Route index path="/board" element={<Board />} />
+                <Route path="/board/new" element={<NewArticleEditor />} />
               </Route>
-            </Routes>
-          </AuthProvider>
-        </CookiesProvider>
-      </QueryClientProvider>
+              <Route path="/articles/:id" element={<Article />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="*" element={<NotFound />} />
+
+              {/* 대시보드 페이지 */}
+              <Route element={<DashboardLayout location={location} />}>
+                <Route index path="/dashboard" element={<Dashboard.Home />} />
+                <Route
+                  path="/dashboard/history"
+                  element={<Dashboard.History />}
+                />
+                <Route
+                  path="/dashboard/executive"
+                  element={<Dashboard.Executive />}
+                />
+                <Route path="/dashboard/admin" element={<Dashboard.Admin />} />
+                <Route path="/dashboard/users" element={<Dashboard.Users />} />
+                <Route path="/dashboard/*" element={<NotFound />} />
+              </Route>
+            </Route>
+          </Routes>
+        </AuthProvider>
+      </CookiesProvider>
     </>
   );
 }

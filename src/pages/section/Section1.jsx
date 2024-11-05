@@ -6,9 +6,7 @@ import BackgroundImage from '@/assets/section_bg/section_1.png';
 import { SquareLogo } from '@/assets/kert_logos';
 import KertTextLogo from '@/assets/kert_logos/White_Text.png';
 
-const Section = styled.section.attrs({
-  id: 'main',
-})`
+const Section = styled.section`
   width: 100vw;
   height: 100vh;w
   background-color: black;
@@ -102,7 +100,7 @@ const DecorationLogo = styled(SquareLogo)`
 
 export default function Section1() {
   return (
-    <Section>
+    <Section id="main">
       {/* 상단 로고와 설명 텍스트 */}
       <TitleWrapper>
         <TextLogo />

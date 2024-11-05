@@ -10,9 +10,7 @@ import PromotionManagerImage from '@/assets/executive_profile/PR_director.png'; 
 import StutyManagerImage from '@/assets/executive_profile/study_director.png'; // 학술부장 이미지
 
 // MainPage 양식과 호환될 수 있도록 바탕 설정
-const Section = styled.section.attrs({
-  id: 'executives',
-})`
+const Section = styled.section`
   position: relative;
 
   width: 100vw;
@@ -63,7 +61,7 @@ const ProfilesWrapper = styled.div`
   }
 `;
 
-export default function Section7() {
+export default function Section6() {
   const executives = [
     {
       name: '박소현',
@@ -118,7 +116,7 @@ export default function Section7() {
   ];
 
   return (
-    <Section>
+    <Section id="executives">
       <Content>
         <Title>KERT 25기 임원진을 소개합니다</Title>
         <ProfilesWrapper>
