@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import useTheme from '@/hooks/theme/useTheme';
-import { Toggle } from '../forms/Toggle';
+import { Toggle } from '@components/forms/Toggle';
 
 import MoonSVG from '@/assets/icons/themeswitcher/moon.svg';
 import SunSVG from '@/assets/icons/themeswitcher/sun.svg';
@@ -22,9 +22,9 @@ export const ThemeSwitcher = () => {
 
   return (
     <ThemeSwitcherWrapper>
-      <SunSVG width="30px" height="30px" stroke="gray" />
-      <Toggle checked={theme === 'dark'} onChange={toggleTheme} />
-      <MoonSVG width="26px" height="26px" fill="gray" />
+      <SunSVG width="26px" height="26px" stroke="gray" />
+      <Toggle size="m" checked={theme === 'dark'} onChange={toggleTheme} />
+      <MoonSVG width="23px" height="23px" fill="gray" />
     </ThemeSwitcherWrapper>
   );
 };

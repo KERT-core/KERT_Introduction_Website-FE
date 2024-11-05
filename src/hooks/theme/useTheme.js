@@ -21,11 +21,11 @@ const useTheme = () => {
     const darkThemeLink = document.getElementById('dark-theme');
 
     if (theme === 'dark') {
-      darkThemeLink.disabled = false;
-      lightThemeLink.disabled = true;
+      if (darkThemeLink) darkThemeLink.disabled = false;
+      if (lightThemeLink) lightThemeLink.disabled = true;
     } else {
-      darkThemeLink.disabled = true;
-      lightThemeLink.disabled = false;
+      if (darkThemeLink) darkThemeLink.disabled = true;
+      if (lightThemeLink) lightThemeLink.disabled = false;
     }
   };
 

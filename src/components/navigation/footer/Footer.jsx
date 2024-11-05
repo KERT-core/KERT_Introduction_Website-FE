@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import VerticalLogoSVG from '@/assets/kert_logos/Vertical.svg';
 import { SNSButton } from './SNSButton';
-import { ThemeSwitcher } from '../ThemeSwitcher';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 const FooterWrapper = styled.footer`
   width: 100%;
