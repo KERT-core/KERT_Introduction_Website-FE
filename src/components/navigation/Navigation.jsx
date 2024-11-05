@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -6,14 +7,12 @@ import { useAuth } from '@components/navigation/AuthContext';
 import Profile from '@components/navigation/Profile';
 
 import { scrollToSection } from '@/utils/scrollToSection';
+import HamburgerButton from './HamburgerButton';
 
 const Nav = styled.div`
   position: fixed;
   z-index: 100;
   top: 0;
-
-  /* 반응형 패딩 */
-  padding: 0px 20px;
 
   width: 100vw;
   height: 80px;
@@ -26,12 +25,8 @@ const Nav = styled.div`
 
   background-color: var(--nav-background);
 
-  /* 스크롤 가능하게 설정 */
-  white-space: nowrap;
-  overflow-x: auto;
-
-  ::-webkit-scrollbar {
-    display: none; /* 스크롤바 숨김 */
+  @media (max-width: 1280px) {
+    padding: 0px 26px;
   }
 `;
 
@@ -56,9 +51,7 @@ const menu_style = {
   cursor: 'pointer',
 };
 
-const Menus = styled.div`
-  width: 500px;
-
+const MenuWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,58 +60,123 @@ const Menus = styled.div`
   font-weight: lighter;
 
   white-space: nowrap;
+
+  @media (max-width: 1280px) {
+    transition:
+      height 0.3s ease-out,
+      padding 0.3s ease-out;
+
+    height: ${({ $active }) => ($active ? '300px' : '0px')};
+    overflow: hidden;
+
+    position: fixed;
+    top: 80px;
+    left: 0px;
+
+    width: 100vw;
+    padding-top: ${({ $active }) => ($active ? '10px' : '0px')};
+    padding-bottom: ${({ $active }) => ($active ? '30px' : '0px')};
+    box-sizing: border-box;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    background-color: var(--nav-background);
+  }
+`;
+
+const MobileMenuDisplay = styled.div`
+  @media (min-width: 1281px) {
+    display: none;
+  }
+`;
+
+const NavMenus = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+
+  @media (max-width: 1280px) {
+    height: fit-content;
+    position: static;
+    flex-direction: column;
+    gap: 30px;
+  }
 `;
 
 export const Navigation = () => {
   const { isLoggedIn, logout, user } = useAuth();
+
+  const [menu_spread_active, setMenuSpreadActive] = useState(false);
+  const onClickHamburger = () => {
+    setMenuSpreadActive(!menu_spread_active);
+  };
 
   return (
     <Nav>
       <Link to="/" onClick={() => scrollToSection('section1')}>
         <Logo />
       </Link>
-      <Menus>
-        <Link
-          to="/"
-          style={menu_style}
-          onClick={() => scrollToSection('history')}
-        >
-          연혁
-        </Link>
-        <Link
-          to="/"
-          style={menu_style}
-          onClick={() => scrollToSection('executives')}
-        >
-          임원진
-        </Link>
-        <Link
-          to="/"
-          style={menu_style}
-          onClick={() => scrollToSection('education')}
-        >
-          활동
-        </Link>
-        <Link to="/board" style={menu_style}>
-          소식지
-        </Link>
-      </Menus>
-      <AuthLinks>
-        {isLoggedIn ? (
-          <>
-            <Profile userName={user.name} logout={logout} />
-          </>
-        ) : (
-          <>
-            <Link to="/login" style={menu_style}>
-              로그인
-            </Link>
-            <Link to="/signup" style={menu_style}>
-              회원가입
-            </Link>
-          </>
-        )}
-      </AuthLinks>
+      <MobileMenuDisplay>
+        <HamburgerButton
+          active={menu_spread_active}
+          onToggle={onClickHamburger}
+        />
+      </MobileMenuDisplay>
+      <MenuWrapper $active={menu_spread_active}>
+        <NavMenus>
+          <Link
+            to="/"
+            style={menu_style}
+            onClick={() => scrollToSection('history')}
+          >
+            연혁
+          </Link>
+          <Link
+            to="/"
+            style={menu_style}
+            onClick={() => scrollToSection('executives')}
+          >
+            임원진
+          </Link>
+          <Link
+            to="/"
+            style={menu_style}
+            onClick={() => scrollToSection('education')}
+          >
+            활동
+          </Link>
+          <Link to="/board" style={menu_style}>
+            소식지
+          </Link>
+        </NavMenus>
+        <AuthLinks>
+          {isLoggedIn ? (
+            <>
+              <Profile userName={user.name} logout={logout} />
+            </>
+          ) : (
+            <>
+              <Link to="/login" style={menu_style}>
+                로그인
+              </Link>
+              <Link to="/signup" style={menu_style}>
+                회원가입
+              </Link>
+            </>
+          )}
+        </AuthLinks>
+      </MenuWrapper>
     </Nav>
   );
 };
