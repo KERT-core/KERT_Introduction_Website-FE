@@ -61,7 +61,7 @@ export const EditAdmin = forwardRef(({ admin, ...props }, ref) => {
   const { openConfirm, closeConfirm } = useConfirm();
 
   if (!admin) {
-    console.error('admin 객체가 없습니다.');
+    // console.error('admin 객체가 없습니다.');
     return;
   }
 

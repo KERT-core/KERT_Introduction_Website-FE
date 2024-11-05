@@ -93,7 +93,7 @@ export const AdminElement = ({ admin }) => {
 
   // 만약 admin이 없다면 </> 반환
   if (!admin) {
-    console.warn('admin 객체를 받지 못했습니다.');
+    // console.warn('admin 객체를 받지 못했습니다.');
     return <></>;
   }
 

@@ -152,7 +152,7 @@ export default function SignUp() {
         });
       })
       .catch((error) => {
-        console.error('Error:', error);
+        // console.error('Error:', error);
         setValue('username', '');
         setValue('student', '');
         setValue('password', '');

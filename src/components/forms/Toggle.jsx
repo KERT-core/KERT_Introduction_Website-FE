@@ -24,9 +24,9 @@ const IToggle = styled.label`
       case 'l':
         return 'width: 56px; height: 28px;';
       default:
-        console.warn(
-          '[Toggle.jsx] 정의되지 않은 사이즈입니다. 기본값으로 적용됩니다.',
-        );
+        // console.warn(
+        //   '[Toggle.jsx] 정의되지 않은 사이즈입니다. 기본값으로 적용됩니다.',
+        // );
         return `width: 48px; height: 24px;`;
     }
   }}

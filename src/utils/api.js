@@ -57,7 +57,7 @@ api.interceptors.response.use(
         return api(originalRequest);
       } catch (refreshError) {
         // 리프레시 토큰도 만료된 경우 로그아웃 처리
-        console.error('토큰 갱신 실패:', refreshError);
+        // console.error('토큰 갱신 실패:', refreshError);
         // 로그아웃 처리 로직 추가 (예: 페이지 리다이렉션)
         return Promise.reject(refreshError);
       }

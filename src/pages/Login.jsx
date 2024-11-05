@@ -160,8 +160,8 @@ export default function Login() {
 
       const userInfo = student_res.data;
 
-      console.log('token:', { access_token, refresh_token });
-      console.log('userInfo:', userInfo);
+      // console.log('token:', { access_token, refresh_token });
+      // console.log('userInfo:', userInfo);
 
       alert('break!');
 
@@ -171,7 +171,7 @@ export default function Login() {
         setError(''); // 에러 초기화
         navigate('/');
       } else {
-        console.error('User info is undefined');
+        // console.error('User info is undefined');
         setError('로그인에 실패했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
@@ -179,7 +179,7 @@ export default function Login() {
       setValue('student', '');
       setValue('password', '');
       // 에러 처리
-      console.error('Error:', error);
+      // console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
     }
   };

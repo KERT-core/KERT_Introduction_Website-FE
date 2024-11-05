@@ -200,7 +200,7 @@ export const Button = ({
         </TranslucentButton>
       );
     default:
-      console.warn('[Button.jsx] 알 수 없는 버튼 타입입니다.');
+      // console.warn('[Button.jsx] 알 수 없는 버튼 타입입니다.');
       return <FlatButton>{children}</FlatButton>;
   }
 };

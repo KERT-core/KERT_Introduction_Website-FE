@@ -29,9 +29,9 @@ const useAlert = create((set, get) => ({
 
     if (isOpen) {
       closeAlert();
-      console.warn(
-        '이미 열려있는 Alert입니다. 기존 Alert를 닫고 새로운 Alert를 표시합니다.',
-      );
+      // console.warn(
+      //  '이미 열려있는 Alert입니다. 기존 Alert를 닫고 새로운 Alert를 표시합니다.',
+      // );
     }
     set({
       isOpen: true,
@@ -48,7 +48,7 @@ const useAlert = create((set, get) => ({
     const { isOpen } = get();
 
     if (!isOpen) {
-      console.warn('이미 닫혀있는 Alert입니다.');
+      // console.warn('이미 닫혀있는 Alert입니다.');
       return;
     }
     set({
