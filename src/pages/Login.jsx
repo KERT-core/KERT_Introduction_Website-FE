@@ -10,7 +10,7 @@ import { API } from '@/utils/api';
 import '@/styles/font.css';
 
 const Container = styled.div`
-  background-color: #080f17;
+  background-color: var(--background-color);
   margin: 0;
   padding: 0;
   display: flex;
@@ -31,7 +31,7 @@ const LoginContainer = styled.div`
 `;
 
 const LoginBox = styled.div`
-  background-color: #1b1e27;
+  background-color: var(--container-secondary-background);
   padding: 50px;
   border-radius: 10px;
   width: 450px;
@@ -48,14 +48,14 @@ const LoginHeader = styled.div`
     margin: 0;
     font-size: 20px;
     font-weight: 300;
-    color: #ffffff;
+    color: var(--primary-text-color);
   }
 
   h2 {
     margin: 10px 0 20px 0;
     font-size: 28px;
     font-weight: 700;
-    color: #ffffff;
+    color: var(--primary-text-color);
   }
 `;
 
@@ -79,7 +79,7 @@ const InputGroup = styled.div`
     display: block;
     margin-bottom: 5px;
     font-size: 18px;
-    color: #ffffff;
+    color: var(--primary-text-color);
   }
 
   input {

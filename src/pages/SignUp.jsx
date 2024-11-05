@@ -11,7 +11,7 @@ import { API } from '@/utils/api';
 import '@/font/main_font.css';
 
 const Container = styled.div`
-  background-color: #080f17;
+  background-color: var(--background-color);
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -33,7 +33,7 @@ const SignUpContainer = styled.div`
 `;
 
 const SignUpBox = styled.div`
-  background-color: #1b1e27;
+  background-color: var(--container-secondary-background);
   padding: 50px;
   border-radius: 10px;
   width: 500px;
@@ -68,7 +68,7 @@ const SignUpForm = styled.form`
       display: block;
       margin-bottom: 5px;
       font-size: 18px;
-      color: #ffffff;
+      color: var(--primary-text-color);
     }
 
     input {
@@ -77,7 +77,7 @@ const SignUpForm = styled.form`
       border: 1px solid #ccc;
       border-radius: 5px;
       background-color: #1c1f25;
-      color: white;
+      color: var(--primary-text-color);
       outline: none;
     }
 
@@ -105,7 +105,7 @@ const SignUpButton = styled.button`
   background-color: #4a90e2;
   border: none;
   border-radius: 5px;
-  color: white;
+  color: var(--primary-text-color);
   font-size: 20px;
   cursor: pointer;
   margin-top: 20px;

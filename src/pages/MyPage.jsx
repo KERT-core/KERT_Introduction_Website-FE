@@ -15,7 +15,8 @@ import defaultProfilePic from '@/assets/icons/menu/User.png';
 import { API } from '@/utils/api';
 
 const Container = styled.div`
-  background-color: #0d0e14;
+  // background-color: #0d0e14;
+  background-color: var(--background-color);
   color: #ffffff;
   margin: 0;
   padding-top: 100px;
@@ -31,7 +32,7 @@ const MyPageContainer = styled.div`
 `;
 
 const Section = styled.div`
-  background-color: #1b1e27;
+  background-color: var(--container-secondary-background);
   padding: 40px;
   border-radius: 20px;
   margin-bottom: 30px;
@@ -68,7 +69,7 @@ const PicButtons = styled.div`
 
   .change-pic-btn {
     background-color: #3b82f6;
-    color: white;
+    color: var(--primary-text-color);
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -77,7 +78,7 @@ const PicButtons = styled.div`
 
   .delete-pic-btn {
     background-color: #ff4d4d;
-    color: white;
+    color: var(--primary-text-color);
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -90,7 +91,6 @@ const Form = styled.form`
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  // margin-right: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -117,7 +117,7 @@ const InputGroup = styled.div`
     background-color: #2c2f3e;
     border: none;
     border-radius: 10px;
-    color: #ffffff;
+    color: var(--primary-text-color);
     outline: none;
 
     &:read-only {
