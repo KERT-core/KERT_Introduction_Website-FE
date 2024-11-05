@@ -156,7 +156,7 @@ export default function NewArticle() {
       },
     }).then((r) => {
       alert('게시글이 성공적으로 등록되었습니다');
-      navigate(`/board/${r.data.id}`);
+      navigate(`/articles/${r.data.id}`);
     });
   };
 
