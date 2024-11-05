@@ -119,6 +119,12 @@ const PostCard = ({ id, title, description, author, image }) => {
   );
 };
 
+function extractBase64ImageData(inputString) {
+  const regex = /(data:image\/[^;]+;base64,[^"]+)/g;
+  const matches = inputString.match(regex);
+  return matches || [];
+}
+
 export default function Board() {
   const [tag, setTag] = useState('전체');
   const [search, setSearch] = useState('');
@@ -192,7 +198,7 @@ export default function Board() {
               title={post.title}
               description={post.description}
               author={post.user?.name}
-              image=""
+              image={extractBase64ImageData(post.content)[0]}
             />
           ))
         )}
