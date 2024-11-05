@@ -1,7 +1,7 @@
 :root {
   /* 이미지 url */
   --vertical-logo-url: url('/logo/white_vertical.png');
-  --sqaure-logo-url: url('/logo/white_square.png');
+  --square-logo-url: url('/logo/white_square.png');
   --text-logo-url: url('/logo/white_text.png');
 
   /* Figma 참고해서 컬러 사용 */

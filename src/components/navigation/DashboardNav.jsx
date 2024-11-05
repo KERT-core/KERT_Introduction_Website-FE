@@ -37,7 +37,7 @@ const Logo = styled.div.attrs({
     height 0.4s ${cubicBezier};
   width: 82px;
   height: 82px;
-  background-image: var(--sqaure-logo-url);
+  background-image: var(--square-logo-url);
   background-size: contain;
   background-repeat: no-repeat;
 
