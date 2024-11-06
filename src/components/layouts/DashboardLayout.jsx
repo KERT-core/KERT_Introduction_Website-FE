@@ -81,7 +81,7 @@ export const DashboardLayout = ({ location }) => {
     }
 
     if (isError) {
-      navigate('/');
+      navigate(-1);
     }
   }, [isLoading, isError]);
 
