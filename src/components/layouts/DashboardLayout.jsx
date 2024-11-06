@@ -7,10 +7,8 @@ import PropTypes from 'prop-types';
 
 import { API } from '@/utils/api';
 import useLoading from '@/hooks/modal/useLoading';
-import useAlert from '@/hooks/modal/useAlert';
 
 import { DashboardNav } from '@components/navigation/DashboardNav';
-import { Text } from '@components/typograph/Text';
 import { Alert } from '@components/forms/modal/Alert';
 import { Confirm } from '@components/forms/modal/Confirm';
 import { Loading } from '@components/forms/modal/Loading';
@@ -68,7 +66,6 @@ export const DashboardLayout = ({ location }) => {
 
   // 레이아웃단에서 관리자 권한을 체크합니다.
   const { showLoading, hideLoading } = useLoading();
-  const { openAlert } = useAlert();
 
   // api/admin으로 권한 체크
   const { isLoading, isError } = useQuery('dashboard-protection', async () => {
@@ -84,13 +81,7 @@ export const DashboardLayout = ({ location }) => {
     }
 
     if (isError) {
-      openAlert({
-        title: '대시보드 권한이 없습니다.',
-        content: <Text>루트 페이지로 이동합니다.</Text>,
-        onClose: () => {
-          navigate('/');
-        },
-      });
+      navigate(-1);
     }
   }, [isLoading, isError]);
 
@@ -99,26 +90,30 @@ export const DashboardLayout = ({ location }) => {
       <Confirm />
       <Alert />
       <Loading />
-      {/* 내비바 */}
-      <DashboardNav />
-      {/* 콘텐츠 */}
-      <Content>
-        {/* location.key로 랜덤한 index를 부여하여 화면 전환 시 컴포넌트 충돌이 없도록 예방합니다. */}
-        <CSSTransition
-          nodeRef={nodeRef}
-          key={location.key}
-          timeout={{ enter: 500, exit: 400 }}
-          classNames="fade-slide"
-        >
-          <div
-            ref={nodeRef}
-            style={{ width: 'calc(100% - 80px)', position: 'absolute' }}
-          >
-            {/* 전환 후 표시될 컴포넌트 */}
-            {currentOutlet}
-          </div>
-        </CSSTransition>
-      </Content>
+      {!isLoading && (
+        <>
+          {/* 내비바 */}
+          <DashboardNav />
+          {/* 콘텐츠 */}
+          <Content>
+            {/* location.key로 랜덤한 index를 부여하여 화면 전환 시 컴포넌트 충돌이 없도록 예방합니다. */}
+            <CSSTransition
+              nodeRef={nodeRef}
+              key={location.key}
+              timeout={{ enter: 500, exit: 400 }}
+              classNames="fade-slide"
+            >
+              <div
+                ref={nodeRef}
+                style={{ width: 'calc(100% - 80px)', position: 'absolute' }}
+              >
+                {/* 전환 후 표시될 컴포넌트 */}
+                {currentOutlet}
+              </div>
+            </CSSTransition>
+          </Content>
+        </>
+      )}
     </Layout>
   );
 };
