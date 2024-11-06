@@ -94,7 +94,7 @@ export const DashboardLayout = ({ location }) => {
         },
       });
     }
-  }, [isLoading, isError, hideLoading, openAlert, showLoading, navigate]);
+  }, [isLoading, isError]);
 
   return (
     <Layout>
@@ -109,14 +109,13 @@ export const DashboardLayout = ({ location }) => {
         <CSSTransition
           nodeRef={nodeRef}
           key={location.key}
-          timeout={{ enter: 500, exit: 300 }}
+          timeout={{ enter: 500, exit: 400 }}
           classNames="fade-slide"
-          style={{
-            width: 'calc(100% - 80px)',
-            position: 'absolute',
-          }}
         >
-          <div ref={nodeRef}>
+          <div
+            ref={nodeRef}
+            style={{ width: 'calc(100% - 80px)', position: 'absolute' }}
+          >
             {/* 전환 후 표시될 컴포넌트 */}
             {currentOutlet}
           </div>
