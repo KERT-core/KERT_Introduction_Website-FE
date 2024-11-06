@@ -17,6 +17,7 @@ const Container = styled.div`
   width: 100vw;
   height: 100vh;
   margin: 0;
+  margin-top: 80px;
   padding: 0;
 `;
 
@@ -74,9 +75,9 @@ const SignUpForm = styled.form`
     input {
       width: 100%;
       padding: 15px;
-      border: 1px solid #ccc;
+      border: 1px solid var(--container-border);
       border-radius: 5px;
-      background-color: #1c1f25;
+      background-color: var(--container-secondary-background);
       color: var(--primary-text-color);
       outline: none;
     }
@@ -84,7 +85,7 @@ const SignUpForm = styled.form`
     input:focus {
       border-color: #3b82f6;
       box-shadow: none;
-      background-color: #1c1f25; /* 배경색은 유지 */
+      background-color: var(--container-primary-background);
     }
 
     input::placeholder {

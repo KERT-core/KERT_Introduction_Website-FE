@@ -15,10 +15,10 @@ import defaultProfilePic from '@/assets/icons/menu/User.png';
 import { API } from '@/utils/api';
 
 const Container = styled.div`
-  // background-color: #0d0e14;
   background-color: var(--background-color);
-  color: #ffffff;
+  color: var(--primary-text-color);
   margin: 0;
+  margin-top: 80px;
   padding-top: 100px;
   display: flex;
   justify-content: center;
@@ -45,7 +45,7 @@ const SectionTitle = styled.h2`
 
   .section-title-en {
     font-size: 14px;
-    color: #aaa;
+    color: var(--primary-text-color);
     margin-left: 10px;
   }
 `;
@@ -114,15 +114,15 @@ const InputGroup = styled.div`
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #2c2f3e;
+    background-color: var(--container-secondary-background);
     border: none;
     border-radius: 10px;
     color: var(--primary-text-color);
     outline: none;
 
     &:read-only {
-      background-color: #2c2f3e;
-      color: #777;
+      background-color: var(--container-secondary-background);
+      color: var(--primary-text-color);
     }
     &:focus {
       border: 1px solid #4a90e2;
@@ -143,15 +143,15 @@ const InputGroupLong = styled.div`
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #2c2f3e;
-    border: none;
+    background-color: var(--container-secondary-background);
+    border: var(--container-border);
     border-radius: 10px;
-    color: #ffffff;
+    color: var(--primary-text-color);
     outline: none;
 
     &:read-only {
       background-color: #2c2f3e;
-      color: #777;
+      color: var(--primary-text-color);
       outline: none;
     }
 
@@ -163,7 +163,7 @@ const InputGroupLong = styled.div`
 
 const EditButton = styled.button`
   background-color: #3b82f6;
-  color: white;
+  color: var(--primary-text-color);
   padding: 12px 20px;
   border: none;
   border-radius: 10px;
@@ -202,6 +202,13 @@ export default function MyPage() {
     getValues,
   } = useForm();
 
+  // 로그인 여부 확인
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  }, [isLoggedIn, navigate]);
+
   // Fetch user data after login
   const { isLoading } = useQuery(
     ['userData', user?.student_id],
@@ -234,11 +241,6 @@ export default function MyPage() {
       },
     }
   );
-
-  if (!isLoggedIn) {
-    navigate('/login');
-    return null;
-  }
 
   const imageUploadMutation = useMutation(
     async (file) => {

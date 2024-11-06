@@ -12,6 +12,7 @@ import '@/styles/font.css';
 const Container = styled.div`
   background-color: var(--background-color);
   margin: 0;
+  margin-top: 80px;
   padding: 0;
   display: flex;
   flex-direction: row;
@@ -72,7 +73,7 @@ const KertLogo = styled.div`
 `;
 
 const InputGroup = styled.div`
-  margin-right: 25px;
+  margin-right: 30px;
   margin-bottom: 20px;
 
   label {
@@ -85,14 +86,15 @@ const InputGroup = styled.div`
   input {
     width: 100%;
     padding: 15px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--container-border);
     border-radius: 5px;
-    background-color: #1c1f25;
-    color: white;
+    background-color: var(--container-secondary-background);
+    color: var(--primary-text-color);
     outline: none;
   }
 
   input:focus {
+    background-color: var(--container-primary-background);
     border: 1px solid #4a90e2; /* 파란색 테두리 */
     box-shadow: none; /* 흰색 테두리 제거 */
   }
@@ -110,7 +112,7 @@ const LoginButton = styled.button`
   background-color: #4a90e2;
   border: none;
   border-radius: 5px;
-  color: white;
+  color: var(--primary-text-color);
   font-size: 20px;
   cursor: pointer;
   margin-top: 20px;
