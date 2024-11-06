@@ -26,6 +26,11 @@ import { Button } from '@components/forms/Button';
 
 import { API } from '@/utils/api';
 import { Link, useNavigate } from 'react-router-dom';
+import useAlert from '@/hooks/modal/useAlert';
+import { Alert } from '@/components/forms/modal/Alert';
+import useLoading from '@/hooks/modal/useLoading';
+import { Text } from '@components/typograph/Text';
+import { Loading } from '../components/forms/modal/Loading';
 
 const Container = styled.div`
   width: 100%;
@@ -145,12 +150,15 @@ export default function NewArticle() {
   const [category, setCategory] = useState('');
   const ref = useRef(null);
 
+  const { openAlert } = useAlert();
+
   const navigate = useNavigate();
 
-  const { data: adminData, isLoading } = useQuery('admin', async () => {
-    const res = await API.GET('/admin');
-    return res.data;
-  });
+  const {
+    data: adminData,
+    isLoading,
+    isError,
+  } = useQuery('admin', () => API.GET('/admin'));
 
   const handleSubmit = async () => {
     API.POST('/posts', {
@@ -192,13 +200,23 @@ export default function NewArticle() {
     }
   }, [theme]);
 
-  if (!isLoading && !adminData) {
-    return <div>권한이 없습니다</div>;
-  }
+  const { showLoading, hideLoading } = useLoading();
+
+  useEffect(() => {
+    if (isLoading) {
+      showLoading({ message: '권한 검증 중' });
+    } else {
+      hideLoading();
+    }
+
+    if (!adminData && !isLoading) {
+      navigate('/board');
+    }
+  }, [isLoading, adminData]);
 
   return (
     <Container>
-      {isLoading ? (
+      {!isLoading && adminData && (
         <>
           <ArticleHeader>
             <CategorySelect
@@ -251,9 +269,10 @@ export default function NewArticle() {
             </BottomBarContainer>
           </BottomBarWrapper>
         </>
-      ) : (
-        <div>불러오는 중</div>
       )}
+
+      <Alert />
+      <Loading />
     </Container>
   );
 }
