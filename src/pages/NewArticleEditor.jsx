@@ -210,64 +210,66 @@ export default function NewArticle() {
     }
 
     if (!adminData && !isLoading) {
-      console.log('asdf');
-      openAlert({
-        title: '권한 없음',
-        content: <Text>관리자만 글을 작성할 수 있습니다.</Text>,
-        onClose: () => navigate('/board'),
-      });
+      navigate('/board');
     }
   }, [isLoading, adminData]);
 
   return (
     <Container>
-      <ArticleHeader>
-        <CategorySelect
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
-        >
-          <option value="">카테고리 선택</option>
-          <option value="공지">공지</option>
-          <option value="블로그">블로그</option>
-          <option value="기보교">기보교</option>
-        </CategorySelect>
-        <ArticleTitleGroup>
-          <TitleInput
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            placeholder="제목을 입력하세요"
-          />
-          <DescriptionInput
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            placeholder="카드에 표시될 설명을 입력하세요"
-          />
-        </ArticleTitleGroup>
-      </ArticleHeader>
-      <ArticleHorizontalLine />
+      {!isLoading && adminData && (
+        <>
+          <ArticleHeader>
+            <CategorySelect
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
+              <option value="">카테고리 선택</option>
+              <option value="공지">공지</option>
+              <option value="블로그">블로그</option>
+              <option value="기보교">기보교</option>
+            </CategorySelect>
+            <ArticleTitleGroup>
+              <TitleInput
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+                placeholder="제목을 입력하세요"
+              />
+              <DescriptionInput
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                placeholder="카드에 표시될 설명을 입력하세요"
+              />
+            </ArticleTitleGroup>
+          </ArticleHeader>
+          <ArticleHorizontalLine />
 
-      <Editor
-        ref={ref}
-        height="600px"
-        initialEditType="wysiwyg"
-        usageStatistics={false}
-        language="ko-KR"
-        hideModeSwitch={true}
-        useCommandShortcut={false}
-        plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
-      />
+          <Editor
+            ref={ref}
+            height="600px"
+            initialEditType="wysiwyg"
+            usageStatistics={false}
+            language="ko-KR"
+            hideModeSwitch={true}
+            useCommandShortcut={false}
+            plugins={[
+              colorSyntax,
+              [codeSyntaxHighlight, { highlighter: Prism }],
+            ]}
+          />
 
-      <BottomBarWrapper>
-        <BottomBarContainer>
-          <Link to="/board">
-            <Button type="translucent">취소</Button>
-          </Link>
-          <Button onClick={handleSubmit}>글 게시</Button>
-        </BottomBarContainer>
-      </BottomBarWrapper>
+          <BottomBarWrapper>
+            <BottomBarContainer>
+              <Link to="/board">
+                <Button type="translucent">취소</Button>
+              </Link>
+              <Button onClick={handleSubmit}>글 게시</Button>
+            </BottomBarContainer>
+          </BottomBarWrapper>
+        </>
+      )}
 
       <Alert />
       <Loading />
