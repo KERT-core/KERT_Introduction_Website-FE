@@ -29,8 +29,6 @@ const Layout = styled.div.attrs({
 
   display: flex;
 
-  z-index: 1000;
-
   & > #dashboard-nav {
     height: calc(100vh - 80px);
   }
