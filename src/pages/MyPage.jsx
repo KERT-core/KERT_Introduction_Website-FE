@@ -183,7 +183,7 @@ export default function MyPage() {
 
   // 로그인 여부 확인
   useEffect(() => {
-    if (isLoggedIn) {
+    if (!isLoggedIn) {
       navigate('/login');
     }
   }, [isLoggedIn, navigate]);
