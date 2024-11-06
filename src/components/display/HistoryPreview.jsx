@@ -221,7 +221,7 @@ export const HistoryPreview = () => {
   return (
     <PreviewWrapper>
       <YearListWrapper>
-        {display_key.map((year, i) => (
+        {display_key?.map((year, i) => (
           <YearWrapper
             key={i}
             className={display_year == year ? 'active' : ''}
