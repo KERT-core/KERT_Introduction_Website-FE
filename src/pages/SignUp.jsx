@@ -117,7 +117,7 @@ const Input = styled.input`
   outline: none;
 
   &:focus {
-    border: 1px solid #4a90e2; /* 파란색 테두리 */
+    border: 1px solid var(--primary-color); /* 파란색 테두리 */
     box-shadow: none; /* 흰색 테두리 제거 */
     background-color: var(--container-secondary-background);
   }
