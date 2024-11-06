@@ -83,7 +83,7 @@ const PicButtons = styled.div`
   }
 
   .delete-pic-btn {
-    background-color: #D32F2F;
+    background-color: #d32f2f;
   }
 `;
 
@@ -192,12 +192,10 @@ export default function MyPage() {
   const { isLoading } = useQuery(
     ['userData', user?.student_id],
     async () => {
-      const token = localStorage.getItem('accessToken');
-      if (!token) throw new Error('No token found');
-      const response = await API.GET(`/users/${user.student_id}`, {
-        headers: { Authorization: token },
-      });
-      if (!response.ok) throw new Error('Failed to fetch user data');
+      const response = await API.GET(`/users/${user.student_id}`);
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error('Failed to fetch user data');
+      }
       return response.data;
     },
     {
@@ -225,8 +223,6 @@ export default function MyPage() {
 
   const imageUploadMutation = useMutation(
     async (file) => {
-      const token = localStorage.getItem('accessToken');
-
       // 파일을 base64로 변환
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -242,15 +238,9 @@ export default function MyPage() {
           };
 
           try {
-            const response = await API.PUT(
-              `/users/${userInfo.student_id}`,
-              formData,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              },
-            );
+            const response = await API.PUT(`/users/${userInfo.student_id}`, {
+              body: formData,
+            });
             resolve(response.data);
           } catch (error) {
             reject(error);
@@ -286,12 +276,8 @@ export default function MyPage() {
 
   const passwordChangeMutation = useMutation(
     async (data) => {
-      const token = localStorage.getItem('accessToken');
       return await API.PUT(`/passwords/${user.student_id}`, {
         body: data,
-        headers: {
-          Authorization: token,
-        },
       });
     },
     {
@@ -503,7 +489,7 @@ export default function MyPage() {
 
             {passwordError && <WarningMessage>{passwordError}</WarningMessage>}
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Button width="25%" height="45px">
                 비밀번호 변경
               </Button>
@@ -525,7 +511,7 @@ export default function MyPage() {
               계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.
             </WarningMessage>
 
-            <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <Button width="25%" height="45px">
                 계정 삭제
               </Button>
