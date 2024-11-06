@@ -52,6 +52,8 @@ const menu_style = {
 };
 
 const MenuWrapper = styled.div`
+  z-index: 100;
+
   display: flex;
   justify-content: space-between;
   align-items: center;

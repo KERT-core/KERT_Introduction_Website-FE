@@ -1,16 +1,16 @@
 import { createRef, useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { Text } from '@components/typograph/Text';
 
-import { API } from '@/utils/api';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { refineHistories } from '@/utils/refineHistory';
+import { useHistoriesQuery } from '@/hooks/histories/query';
+
+import SAMPLE_HISTORIES from '@/utils/sampleHistories';
 
 import '@/transitions/fade-slide.css';
-import SAMPLE_HISTORIES from '@/utils/sampleHistories';
-import { useQuery } from 'react-query';
-import { refineHistories } from '@/utils/refineHistory';
 
 const PreviewWrapper = styled.div`
   width: 600px;
@@ -186,45 +186,36 @@ HistoryElement.propTypes = {
 
 export const HistoryPreview = () => {
   const nodeRef = createRef(null);
-  const [display_year, setDisplayYear] = useState();
-  const [display_key, setDisplayKey] = useState();
 
-  const [sampleData] = useState(refineHistories(SAMPLE_HISTORIES));
+  const [displayData, setDisplayData] = useState({}); // 화면 표시에 사용할 데이터 (모든 데이터가 저장됨)
+  const [displayYear, setDisplayYear] = useState(); // 기본으로 표시할 연도 (최신 연도 저장함)
+  const [displayKey, setDisplayKey] = useState(); // 화면에 표시할 연도 4개 저장
 
-  const { data, isLoading, isError } = useQuery(
-    'mainpage_history',
-    async () => {
-      let data = await API.GET('/histories');
-      // console.log(data);
-
-      // 만약 서버에 저장된 연혁이 없으면 기본 데이터 반환
-      if (data.length > 0) {
-        data = refineHistories(data);
-      } else {
-        data = sampleData;
-      }
-
-      return data;
-    },
-  );
+  const { data, isLoading, isError } = useHistoriesQuery();
 
   useEffect(() => {
-    const keys = Object.keys(data ?? sampleData).reverse();
+    if (isError || isLoading) {
+      setDisplayData(refineHistories(SAMPLE_HISTORIES));
+    } else {
+      setDisplayData(data);
+    }
+
+    const keys = Object.keys(displayData).reverse();
     setDisplayYear(keys[0]);
     setDisplayKey(keys.slice(0, 4));
-  }, [data, sampleData]);
+  }, [data, displayData]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <></>;
   }
 
   return (
     <PreviewWrapper>
       <YearListWrapper>
-        {display_key?.map((year, i) => (
+        {displayKey?.map((year, i) => (
           <YearWrapper
             key={i}
-            className={display_year == year ? 'active' : ''}
+            className={displayYear == year ? 'active' : ''}
             onClick={() => setDisplayYear(parseInt(year))}
           >
             <Year>{year}</Year>
@@ -235,19 +226,15 @@ export const HistoryPreview = () => {
       <TransitionGroup style={{ position: 'relative', width: '100%' }}>
         <CSSTransition
           nodeRef={nodeRef}
-          key={display_year}
+          key={displayYear}
           timeout={500}
           classNames="fade-slide"
           style={{ position: 'absolute', left: '0' }}
         >
           <HistoryListWrapper ref={nodeRef}>
-            {isError
-              ? sampleData[display_year]?.map((history, i) => (
-                  <HistoryElement key={i} history={history} />
-                ))
-              : data[display_year]?.map((history, i) => (
-                  <HistoryElement key={i} history={history} />
-                ))}
+            {displayData[displayYear]?.map((history, i) => (
+              <HistoryElement key={i} history={history} />
+            ))}
           </HistoryListWrapper>
         </CSSTransition>
       </TransitionGroup>
