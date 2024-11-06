@@ -1,66 +1,46 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+const getInitialTheme = () => {
+  const savedTheme = localStorage.getItem('theme');
+  return (
+    savedTheme ||
+    (window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light')
+  );
+};
+
+const useThemeStore = create(
+  persist(
+    (set) => ({
+      theme: getInitialTheme(),
+      setTheme: (theme) => set({ theme }),
+    }),
+    { name: 'theme' },
+  ),
+);
 
 const useTheme = () => {
-  // 초기 테마 설정
-  const getInitialTheme = () => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      return savedTheme;
-    }
-    const systemPrefersDark = window.matchMedia(
-      '(prefers-color-scheme: dark)',
-    ).matches;
-    return systemPrefersDark ? 'dark' : 'light';
-  };
+  const { theme, setTheme } = useThemeStore();
 
-  const [theme, setTheme] = useState(getInitialTheme);
-
-  // 테마를 적용하는 함수
-  const applyTheme = (theme) => {
-    const lightThemeLink = document.getElementById('light-theme');
-    const darkThemeLink = document.getElementById('dark-theme');
-
-    if (theme === 'dark') {
-      if (darkThemeLink) darkThemeLink.disabled = false;
-      if (lightThemeLink) lightThemeLink.disabled = true;
-    } else {
-      if (darkThemeLink) darkThemeLink.disabled = true;
-      if (lightThemeLink) lightThemeLink.disabled = false;
-    }
-  };
-
-  // 초기 로드 시 테마 적용
   useEffect(() => {
-    applyTheme(theme);
-    localStorage.setItem('theme', theme);
+    const themes = {
+      light: { dark: true, light: false },
+      dark: { dark: false, light: true },
+    };
+
+    ['light', 'dark'].forEach((type) => {
+      const link = document.getElementById(`${type}-theme`);
+      if (link) link.disabled = themes[theme][type];
+    });
   }, [theme]);
 
-  // 시스템 테마 변경 감지
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-
-    const systemThemeChangeListener = (e) => {
-      const newSystemPrefersDark = e.matches;
-      const savedTheme = localStorage.getItem('theme');
-
-      if (!savedTheme) {
-        setTheme(newSystemPrefersDark ? 'dark' : 'light');
-      }
-    };
-
-    mediaQuery.addEventListener('change', systemThemeChangeListener);
-
-    return () => {
-      mediaQuery.removeEventListener('change', systemThemeChangeListener);
-    };
-  }, []);
-
-  // 테마를 토글하는 함수
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  return {
+    theme,
+    toggleTheme: () => setTheme(theme === 'light' ? 'dark' : 'light'),
   };
-
-  return { theme, toggleTheme };
 };
 
 export default useTheme;
