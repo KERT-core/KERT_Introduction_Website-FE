@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 
-import useAlert from '@/hooks/modal/useAlert';
+import useAlert from '@/stores/useAlert';
 import { useAuth } from '@components/navigation/AuthContext';
 
 import { Text } from '@/components/typograph/Text';
@@ -15,9 +15,10 @@ import defaultProfilePic from '@/assets/icons/menu/User.png';
 import { API } from '@/utils/api';
 
 const Container = styled.div`
-  background-color: #0d0e14;
-  color: #ffffff;
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
   margin: 0;
+  margin-top: 80px;
   padding-top: 100px;
   display: flex;
   justify-content: center;
@@ -31,7 +32,7 @@ const MyPageContainer = styled.div`
 `;
 
 const Section = styled.div`
-  background-color: #1b1e27;
+  background-color: var(--container-secondary-background);
   padding: 40px;
   border-radius: 20px;
   margin-bottom: 30px;
@@ -44,7 +45,7 @@ const SectionTitle = styled.h2`
 
   .section-title-en {
     font-size: 14px;
-    color: #aaa;
+    color: var(--primary-text-color);
     margin-left: 10px;
   }
 `;
@@ -68,7 +69,7 @@ const PicButtons = styled.div`
 
   .change-pic-btn {
     background-color: #3b82f6;
-    color: white;
+    color: var(--primary-text-color);
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -77,7 +78,7 @@ const PicButtons = styled.div`
 
   .delete-pic-btn {
     background-color: #ff4d4d;
-    color: white;
+    color: var(--primary-text-color);
     padding: 10px 20px;
     border: none;
     border-radius: 8px;
@@ -90,7 +91,6 @@ const Form = styled.form`
   margin-top: 20px;
   margin-left: auto;
   margin-right: auto;
-  // margin-right: 20px;
   display: flex;
   flex-direction: column;
 `;
@@ -114,15 +114,15 @@ const InputGroup = styled.div`
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #2c2f3e;
+    background-color: var(--container-secondary-background);
     border: none;
     border-radius: 10px;
-    color: #ffffff;
+    color: var(--primary-text-color);
     outline: none;
 
     &:read-only {
-      background-color: #2c2f3e;
-      color: #777;
+      background-color: var(--container-secondary-background);
+      color: var(--primary-text-color);
     }
     &:focus {
       border: 1px solid #4a90e2;
@@ -143,35 +143,34 @@ const InputGroupLong = styled.div`
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
-    background-color: #2c2f3e;
-    border: none;
+    background-color: var(--container-secondary-background);
+    border: var(--container-border);
     border-radius: 10px;
-    color: #ffffff;
+    color: var(--primary-text-color);
     outline: none;
 
     &:read-only {
       background-color: #2c2f3e;
-      color: #777;
+      color: var(--primary-text-color);
       outline: none;
     }
 
     &:focus {
       border: 1px solid #4a90e2;
       box-shadow: none;
-    }
   }
 `;
 
 const EditButton = styled.button`
   background-color: #3b82f6;
-  color: white;
+  color: var(--primary-text-color);
   padding: 12px 20px;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   width: 200px;
   margin-left: auto;
-  margin-top: auto;
+  matgin-top: auto;
 `;
 
 const WarningMessage = styled.p`
@@ -194,6 +193,54 @@ export default function MyPage() {
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
   const { openAlert, closeAlert, isOpen } = useAlert();
+  const queryClient = useQueryClient();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    getValues,
+  } = useForm();
+
+  // 로그인 여부 확인
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate('/login');
+    }
+  }, [isLoggedIn, navigate]);
+
+  // Fetch user data after login
+  const { isLoading } = useQuery(
+    ['userData', user?.student_id],
+    async () => {
+      const token = localStorage.getItem('accessToken');
+      if (!token) throw new Error('No token found');
+      const response = await API.GET(`/users/${user.student_id}`, {
+        headers: { Authorization: token },
+      });
+      if (!response.ok) throw new Error('Failed to fetch user data');
+      return response.data;
+    },
+    {
+      enabled: isLoggedIn,
+      onSuccess: (data) => setUserInfo({
+        studentNumber: data.student_id,
+        name: data.name,
+        email: data.email,
+        generation: data.generation,
+        major: data.major,
+        profilePic: data.profile_picture || defaultProfilePic,
+      }),
+      onError: (error) => {
+        console.error('Error fetching user data:', error); // 콘솔에서 오류 확인
+        openAlert({
+          title: '사용자 정보 불러오기 실패',
+          content: <Text>사용자 정보 불러오기에 실패했습니다. 다시 시도해주세요.</Text>,
+          onClose: closeAlert,
+        });
+      },
+    }
+  );
 
   const imageUploadMutation = useMutation(
     async (file) => {
@@ -214,21 +261,17 @@ export default function MyPage() {
           };
 
           try {
-            const response = await API.PUT(
-              `/users/${userInfo.student_id}`,
-              formData,
-              {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
+            const response = await API.PUT(`/users/${userInfo.student_id}`, formData, {
+              headers: {
+                Authorization: `Bearer ${token}`,
               },
-            );
+            });
             resolve(response.data);
           } catch (error) {
             reject(error);
           }
         };
-        reader.onerror = () => reject(new Error('이미지 변환 실패'));
+        reader.onerror = () => reject(new Error("이미지 변환 실패"));
       });
     },
     {
@@ -239,13 +282,11 @@ export default function MyPage() {
       onError: () => {
         openAlert({
           title: '이미지 업로드 실패',
-          content: (
-            <Text>이미지 업로드에 실패했습니다. 다시 시도해주세요.</Text>
-          ),
+          content: <Text>이미지 업로드에 실패했습니다. 다시 시도해주세요.</Text>,
           onClose: closeAlert,
         });
       },
-    },
+    }
   );
 
   const handleImageUpload = (event) => {
@@ -277,64 +318,14 @@ export default function MyPage() {
       onError: () => {
         openAlert({
           title: '비밀번호 재설정 실패',
-          content: (
-            <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>
-          ),
+          content: <Text>비밀번호 재설정에 실패했습니다. 다시 시도해주세요.</Text>,
           onClose: closeAlert,
         });
       },
-    },
+    }
   );
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    getValues,
-  } = useForm();
-
-  // Fetch user data after login
-  const { isLoading } = useQuery(
-    ['userData', user?.student_id],
-    async () => {
-      const token = localStorage.getItem('accessToken');
-      if (!token) throw new Error('No token found');
-      const response = await API.GET(`/users/${user.student_id}`, {
-        headers: { Authorization: token },
-      });
-      if (!response.ok) throw new Error('Failed to fetch user data');
-      return response.data;
-    },
-    {
-      enabled: isLoggedIn,
-      onSuccess: (data) =>
-        setUserInfo({
-          studentNumber: data.student_id,
-          name: data.name,
-          email: data.email,
-          generation: data.generation,
-          major: data.major,
-          profilePic: data.profile_picture || defaultProfilePic,
-        }),
-      onError: (error) => {
-        // console.error('Error fetching user data:', error); // 콘솔에서 오류 확인
-        openAlert({
-          title: '사용자 정보 불러오기 실패',
-          content: (
-            <Text>사용자 정보 불러오기에 실패했습니다. 다시 시도해주세요.</Text>
-          ),
-          onClose: closeAlert,
-        });
-      },
-    },
-  );
-
-  if (!isLoggedIn) {
-    navigate('/login');
-    return null;
-  }
-
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     setPasswordError('');
     if (data.newPassword !== data.confirmPassword) {
       setPasswordError('새로운 비밀번호가 일치하지 않습니다.');
@@ -343,18 +334,17 @@ export default function MyPage() {
     // hash를 생성하여 data 객체를 수정
     const hashData = { hash: data.newPassword };
     passwordChangeMutation.mutate(hashData);
+  };
 
-    const token = localStorage.getItem('accessToken');
-
-    // 서버로 비밀번호 정보를 전송
-    API.POST(`/users/${user.student_id}`, {
-      body: data,
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: token,
-      },
-    })
-      .then(() => {
+  const deleteAccountMutation = useMutation(
+    async () => {
+      const token = localStorage.getItem('accessToken');
+      return await API.DELETE(`/users/${user.student_id}`, {
+        headers: { Authorization: token },
+      });
+    },
+    {
+      onSuccess: () => {
         openAlert({
           title: '계정 삭제',
           content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
@@ -364,47 +354,24 @@ export default function MyPage() {
             navigate('/login');
           },
         });
-      })
-      .catch((error) => {
-        // console.error('오류 발생:', error);
+      },
+      onError: () => {
         openAlert({
           title: '계정 삭제 실패',
           content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
           onClose: closeAlert,
         });
-      });
-  };
-  const handleDeleteAccount = () => {
-    const confirmDelete = window.confirm(
-      '계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?',
-    );
-    if (!confirmDelete) return;
-
-    const token = localStorage.getItem('accessToken');
-    API.DELETE(`/users/${user.student_id}`, {
-      headers: {
-        Authorization: token,
       },
-    })
-      .then(() => {
-        openAlert({
-          title: '계정 삭제',
-          content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
-          onClose: () => {
-            closeAlert();
-            logout();
-            navigate('/login');
-          },
-        });
-      })
-      .catch((error) => {
-        // console.error('계정 삭제 실패:', error);
-        openAlert({
-          title: '계정 삭제 실패',
-          content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
-          onClose: () => closeAlert(),
-        });
-      });
+    }
+  );
+
+  const handleDeleteAccount = () => {
+    openAlert({
+      title: '계정 삭제 확인',
+      content: <Text>계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?</Text>,
+      ok_label: '확인',
+      onClose: deleteAccountMutation.mutate,
+    });
   };
 
   return (
