@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
+import { useQuery } from 'react-query';
 import useTheme from '@/hooks/theme/useTheme';
 
 import { Editor } from '@toast-ui/react-editor';
@@ -146,6 +147,11 @@ export default function NewArticle() {
 
   const navigate = useNavigate();
 
+  const { data: adminData, isLoading } = useQuery('admin', async () => {
+    const res = await API.GET('/admin');
+    return res.data;
+  });
+
   const handleSubmit = async () => {
     API.POST('/posts', {
       body: {
@@ -186,55 +192,68 @@ export default function NewArticle() {
     }
   }, [theme]);
 
+  if (!isLoading && !adminData) {
+    return <div>권한이 없습니다</div>;
+  }
+
   return (
     <Container>
-      <ArticleHeader>
-        <CategorySelect
-          onChange={(e) => {
-            setCategory(e.target.value);
-          }}
-        >
-          <option value="">카테고리 선택</option>
-          <option value="공지">공지</option>
-          <option value="블로그">블로그</option>
-          <option value="기보교">기보교</option>
-        </CategorySelect>
-        <ArticleTitleGroup>
-          <TitleInput
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            placeholder="제목을 입력하세요"
-          />
-          <DescriptionInput
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-            placeholder="카드에 표시될 설명을 입력하세요"
-          />
-        </ArticleTitleGroup>
-      </ArticleHeader>
-      <ArticleHorizontalLine />
+      {isLoading ? (
+        <>
+          <ArticleHeader>
+            <CategorySelect
+              onChange={(e) => {
+                setCategory(e.target.value);
+              }}
+            >
+              <option value="">카테고리 선택</option>
+              <option value="공지">공지</option>
+              <option value="블로그">블로그</option>
+              <option value="기보교">기보교</option>
+            </CategorySelect>
+            <ArticleTitleGroup>
+              <TitleInput
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+                placeholder="제목을 입력하세요"
+              />
+              <DescriptionInput
+                onChange={(e) => {
+                  setDescription(e.target.value);
+                }}
+                placeholder="카드에 표시될 설명을 입력하세요"
+              />
+            </ArticleTitleGroup>
+          </ArticleHeader>
+          <ArticleHorizontalLine />
 
-      <Editor
-        ref={ref}
-        height="600px"
-        initialEditType="wysiwyg"
-        usageStatistics={false}
-        language="ko-KR"
-        hideModeSwitch={true}
-        useCommandShortcut={false}
-        plugins={[colorSyntax, [codeSyntaxHighlight, { highlighter: Prism }]]}
-      />
+          <Editor
+            ref={ref}
+            height="600px"
+            initialEditType="wysiwyg"
+            usageStatistics={false}
+            language="ko-KR"
+            hideModeSwitch={true}
+            useCommandShortcut={false}
+            plugins={[
+              colorSyntax,
+              [codeSyntaxHighlight, { highlighter: Prism }],
+            ]}
+          />
 
-      <BottomBarWrapper>
-        <BottomBarContainer>
-          <Link to="/board">
-            <Button type="translucent">취소</Button>
-          </Link>
-          <Button onClick={handleSubmit}>글 게시</Button>
-        </BottomBarContainer>
-      </BottomBarWrapper>
+          <BottomBarWrapper>
+            <BottomBarContainer>
+              <Link to="/board">
+                <Button type="translucent">취소</Button>
+              </Link>
+              <Button onClick={handleSubmit}>글 게시</Button>
+            </BottomBarContainer>
+          </BottomBarWrapper>
+        </>
+      ) : (
+        <div>불러오는 중</div>
+      )}
     </Container>
   );
 }
