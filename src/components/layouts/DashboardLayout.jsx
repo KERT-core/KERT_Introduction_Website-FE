@@ -12,6 +12,7 @@ import { DashboardNav } from '@components/navigation/DashboardNav';
 import { Alert } from '@components/forms/modal/Alert';
 import { Confirm } from '@components/forms/modal/Confirm';
 import { Loading } from '@components/forms/modal/Loading';
+import NotFound from '../../pages/NotFound';
 
 import '@/transitions/fade-slide.css';
 
@@ -75,15 +76,15 @@ export const DashboardLayout = ({ location }) => {
 
   useEffect(() => {
     if (isLoading) {
-      showLoading({ message: '대시보드를 준비하는 중...' });
+      showLoading({ message: '페이지를 찾는 중...' });
     } else {
       hideLoading();
     }
-
-    if (isError) {
-      navigate(-1);
-    }
   }, [isLoading, isError]);
+
+  if (isError) {
+    return <NotFound />;
+  }
 
   return (
     <Layout>

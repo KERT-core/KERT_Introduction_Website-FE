@@ -31,6 +31,7 @@ import { Alert } from '@/components/forms/modal/Alert';
 import useLoading from '@/hooks/modal/useLoading';
 import { Text } from '@components/typograph/Text';
 import { Loading } from '../components/forms/modal/Loading';
+import NotFound from './NotFound';
 
 const Container = styled.div`
   width: 100%;
@@ -208,11 +209,11 @@ export default function NewArticle() {
     } else {
       hideLoading();
     }
-
-    if (!adminData && !isLoading) {
-      navigate('/board');
-    }
   }, [isLoading, adminData]);
+
+  if (!adminData && !isLoading) {
+    return <NotFound />;
+  }
 
   return (
     <Container>
