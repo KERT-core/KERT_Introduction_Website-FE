@@ -323,7 +323,7 @@ export default function MyPage() {
     );
     if (!confirmDelete) return;
     // 계정 삭제 요청
-    const token = sessionStorage.getItem('accessToken');
+    const token = localStorage.getItem('accessToken');
     API.DELETE(`/users/${user.student_id}`, {
       headers: {
         Authorization: token,
