@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // API URL과 인증 토큰 저장 경로
-const API_URL = import.meta.env.VITE_BACKEND_URL;
+const API_URL =
+  import.meta.env.VITE_BACKEND_URL ??
+  console.error("Not found 'VITE_BACKEND_URL' from .env.*");
 let accessToken = localStorage.getItem('accessToken');
 let refreshToken = localStorage.getItem('refreshToken');
 
@@ -33,8 +35,9 @@ api.interceptors.response.use(
 
     // 토큰이 만료되어 401이나 403 응답이 온 경우
     if (
-      (error.response.status === 401 || error.response.status === 403) &&
+      (error.response?.status === 401 || error.response?.status === 403) &&
       !originalRequest._retry &&
+      accessToken &&
       refreshToken
     ) {
       originalRequest._retry = true; // 무한 루프 방지
