@@ -358,8 +358,9 @@ export default function MyPage() {
 
     // hash를 생성하여 data 객체를 수정
     const hashData = {
-      currentPassword: data.currentPassword, // 기존 비밀번호 포함
-      newPassword: data.newPassword, // 새 비밀번호
+      user_id: user.student_id,
+      old_password: data.currentPassword, // 기존 비밀번호 포함
+      password: data.newPassword, // 새 비밀번호
     };
 
     // 비밀번호 변경 요청
@@ -467,28 +468,6 @@ export default function MyPage() {
             비밀번호 변경
           </Text>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <InputWrapper>
-              <label htmlFor="current-password">현재 비밀번호 입력</label>
-              <input
-                type="password"
-                id="current-password"
-                placeholder="현재 비밀번호"
-                {...register('currentPassword', {
-                  required: '현재 비밀번호를 입력해주세요.',
-                  pattern: {
-                    value:
-                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
-                    message:
-                      '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                  },
-                })}
-              />
-              {errors.currentPassword && (
-                <WarningMessage>
-                  {errors.currentPassword.message}
-                </WarningMessage>
-              )}
-            </InputWrapper>
             <InputGroup>
               <InputWrapper>
                 <label htmlFor="new-password">새 비밀번호 입력</label>
@@ -535,6 +514,28 @@ export default function MyPage() {
                 )}
               </InputWrapper>
             </InputGroup>
+            <InputWrapper>
+              <label htmlFor="current-password">현재 비밀번호 입력</label>
+              <input
+                type="password"
+                id="current-password"
+                placeholder="현재 비밀번호"
+                {...register('currentPassword', {
+                  required: '현재 비밀번호를 입력해주세요.',
+                  pattern: {
+                    value:
+                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
+                    message:
+                      '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
+                  },
+                })}
+              />
+              {errors.currentPassword && (
+                <WarningMessage>
+                  {errors.currentPassword.message}
+                </WarningMessage>
+              )}
+            </InputWrapper>
 
             {passwordError && <WarningMessage>{passwordError}</WarningMessage>}
 
