@@ -44,8 +44,12 @@ api.interceptors.response.use(
           refresh_token: localStorage.getItem('refreshToken'),
         });
 
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
+        if (data.accessToken) {
+          localStorage.setItem('accessToken', data.accessToken);
+        }
+        if (data.refreshToken) {
+          localStorage.setItem('refreshToken', data.refreshToken);
+        }
 
         // 실패했던 요청에 새로운 토큰 적용
         originalRequest.headers.Authorization =

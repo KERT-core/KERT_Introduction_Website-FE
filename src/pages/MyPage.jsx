@@ -186,7 +186,7 @@ export default function MyPage() {
     if (!isLoggedIn) {
       navigate('/login');
     }
-  }, [isLoggedIn, navigate]);
+  }, []);
 
   // Fetch user data
   const { data, isLoading } = useQuery(
@@ -212,7 +212,6 @@ export default function MyPage() {
           content: (
             <Text>사용자 정보 불러오기에 실패했습니다. 다시 시도해주세요.</Text>
           ),
-          onClose: closeAlert,
         });
       },
     },
@@ -315,8 +314,50 @@ export default function MyPage() {
     },
   );
 
+  const imageDeleteMutation = useMutation(
+    async (default_profile_path) => {
+      const image = await fetch(default_profile_path);
+      const blob = await image.blob();
+      const reader = new FileReader();
+
+      reader.readAsDataURL(blob);
+
+      const base64String = await new Promise((resolve, reject) => {
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('이미지 변환 실패'));
+      });
+
+      const formData = {
+        ...userInfo,
+        profile_picture: base64String,
+      };
+
+      const response = await API.PUT(`/users/${userInfo.student_id}`, {
+        body: formData,
+      });
+      return response.data;
+    },
+    {
+      onSuccess: (data) => {
+        setUserInfo((prev) => ({
+          ...prev,
+          profile_picture: data.profile_picture,
+        }));
+        setImagePreview(null);
+      },
+      onError: (error) => {
+        openAlert({
+          title: '이미지 업로드 실패',
+          content: <Text>{error.message}</Text>,
+          onClose: closeAlert,
+        });
+      },
+    },
+  );
+
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
+    console.log(file);
     if (file) {
       setImagePreview(URL.createObjectURL(file));
       imageUploadMutation.mutate(file);
@@ -367,40 +408,37 @@ export default function MyPage() {
     passwordChangeMutation.mutate(hashData);
   };
 
-  const handleDeleteAccount = () => {
+  const handleDeleteAccount = async () => {
     const confirmDelete = window.confirm(
       '계정을 삭제하면 복구할 수 없습니다. 정말로 삭제하시겠습니까?',
     );
     if (!confirmDelete) return;
     // 계정 삭제 요청
-    API.DELETE(`/users/${user.student_id}`, {
-      headers: {
-        Authorization: localStorage.getItem('sessionStorageToken'),
-      },
-    })
-      .then(() => {
-        openAlert({
-          title: '계정 삭제 성공',
-          content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
-          onClose: () => {
-            logout();
-            navigate('/login');
-          },
-        });
-      })
-      .catch(() => {
-        openAlert({
-          title: '계정 삭제 실패',
-          content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
-          onClose: closeAlert,
-        });
+    try {
+      await API.DELETE(`/users/${user.student_id}`, {});
+      logout();
+      openAlert({
+        title: '계정 삭제됨',
+        content: <Text>계정이 성공적으로 삭제되었습니다.</Text>,
+        onClose: () => {
+          closeAlert();
+          navigate('/');
+        },
       });
+    } catch (error) {
+      openAlert({
+        title: '계정 삭제 실패',
+        content: <Text>계정 삭제에 실패했습니다. 다시 시도해주세요.</Text>,
+        onClose: closeAlert,
+      });
+    }
   };
 
   return (
     <Container>
+      <Alert />
       <MyPageContainer>
-        {/* Account Info Section */}
+        {/* /* Account Info Section */}
         <Section>
           <Text size="m" weight="light" color="--secondary-text-color">
             Account Info
@@ -423,7 +461,9 @@ export default function MyPage() {
               </label>
               <button
                 className="delete-pic-btn"
-                onClick={() => imageUploadMutation.mutate(null)}
+                onClick={() => {
+                  imageDeleteMutation.mutate(defaultProfilePic);
+                }}
               >
                 사진 제거
               </button>
@@ -555,19 +595,18 @@ export default function MyPage() {
             계정 삭제
           </Text>
 
-          <Form onClick={handleDeleteAccount}>
+          <div>
             <WarningMessage>
               계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.
             </WarningMessage>
 
             <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button width="25%" height="45px">
+              <Button onClick={handleDeleteAccount} width="25%" height="45px">
                 계정 삭제
               </Button>
             </div>
-          </Form>
+          </div>
         </Section>
-        <Alert isOpen={isOpen} closeAlert={closeAlert} />
       </MyPageContainer>
     </Container>
   );

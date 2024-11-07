@@ -24,6 +24,8 @@ import 'prismjs/components/prism-jsx.min'; // JSX 언어 지원을 포함합니�
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css'; // 코드 블럭에 줄 번호를 추가하기 위해 이 줄을 추가합니다
 import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 
+import { formatDate } from '@/utils/formatDate';
+
 const ArticleContainer = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -121,7 +123,7 @@ export default function Article() {
               </Text>
             </ArticleTitleGroup>
             <Text size="s" color="--secondary-text-color">
-              {post?.user?.name} | {post?.createdAt}
+              {post?.user?.name} | {formatDate(post?.created_at)}
             </Text>
           </ArticleHeader>
           <ArticleHorizontalLine />

@@ -55,7 +55,14 @@ const Profile = ({ userName, logout }) => {
       <ProfileContainer onClick={() => navigate('/mypage')}>
         <ProfileButton type="rounded" />
         <ProfileName style={menu_style}>{userName} 님</ProfileName>
-        <Link to="/login" style={menu_style} onClick={logout}>
+        <Link
+          to="/login"
+          style={menu_style}
+          onClick={() => {
+            logout();
+            window.location.href = '/';
+          }}
+        >
           로그아웃
         </Link>
       </ProfileContainer>

@@ -145,14 +145,10 @@ export default function Login() {
 
       // console.log('response:', response);
 
-      // get string body
-      const access_token = login_res.data.access_token;
-      const refresh_token = login_res.data.refresh_token;
-
       // 서버에 user 정보 요청
       const student_res = await API.GET(`/users/${data.student}`, {
         headers: {
-          Authorization: access_token,
+          Authorization: login_res.data.access_token,
         },
       });
 
@@ -161,8 +157,16 @@ export default function Login() {
       // console.log('token:', { access_token, refresh_token });
       // console.log('userInfo:', userInfo);
 
-      if (access_token && refresh_token && userInfo) {
-        login(access_token, refresh_token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
+      if (
+        login_res.data.access_token &&
+        login_res.data.refresh_token &&
+        userInfo
+      ) {
+        login(
+          login_res.data.access_token,
+          login_res.data.refresh_token,
+          userInfo,
+        ); // 로그인 성공 시 AuthContext의 login 함수 호출
         // console.log('login user info:', userInfo); // Log user info
         setError(''); // 에러 초기화
         navigate('/');
@@ -220,10 +224,6 @@ export default function Login() {
               placeholder="비밀번호"
               {...register('password', {
                 required: '비밀번호를 입력해주세요',
-                minLength: {
-                  value: 8,
-                  message: '비밀번호는 8자리 이상이여야 합니다. ',
-                },
               })}
             />
             {errors.password && (
