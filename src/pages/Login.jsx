@@ -161,8 +161,6 @@ export default function Login() {
       // console.log('token:', { access_token, refresh_token });
       // console.log('userInfo:', userInfo);
 
-      alert('break!');
-
       if (access_token && refresh_token && userInfo) {
         login(access_token, refresh_token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
         // console.log('login user info:', userInfo); // Log user info
