@@ -164,13 +164,6 @@ export default function SignUp() {
       })
       .catch((error) => {
         // console.error('Error:', error);
-        setValue('username', '');
-        setValue('student', '');
-        setValue('password', '');
-        setValue('mail', '');
-        setValue('generation', '');
-        setValue('major', '');
-
         openAlert({
           title: '회원가입 실패',
           content: <Text>회원가입에 실패했습니다. 다시 시도해주세요.</Text>,

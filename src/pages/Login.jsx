@@ -173,9 +173,6 @@ export default function Login() {
         setError('로그인에 실패했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
-      // 입력창 비우기
-      setValue('student', '');
-      setValue('password', '');
       // 에러 처리
       // console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
