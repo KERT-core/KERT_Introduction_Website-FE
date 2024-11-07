@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useQuery, useMutation } from 'react-query';
 import styled from 'styled-components';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
 
 import useAlert from '@/hooks/modal/useAlert';
 import { useAuth } from '@components/navigation/AuthContext';
@@ -161,12 +161,12 @@ const InputWrapper = styled.div`
 
 export default function MyPage() {
   const [userInfo, setUserInfo] = useState({
-    studentNumber: '',
     name: '',
     email: '',
+    student_id: 0,
+    profile_picture: '',
     generation: '',
     major: '',
-    profilePic: null,
   });
   const { isLoggedIn, logout, user } = useAuth();
   const [imagePreview, setImagePreview] = useState(null);
@@ -189,25 +189,22 @@ export default function MyPage() {
   }, [isLoggedIn, navigate]);
 
   // Fetch user data
-  const { isLoading } = useQuery(
+  const { data, isLoading } = useQuery(
     ['userData', user?.student_id],
     async () => {
       const response = await API.GET(`/users/${user.student_id}`);
-      if (response.status < 200 || response.status >= 300) {
-        throw new Error('Failed to fetch user data');
-      }
       return response.data;
     },
     {
       enabled: isLoggedIn,
       onSuccess: (data) =>
         setUserInfo({
-          studentNumber: data.student_id,
           name: data.name,
           email: data.email,
+          student_id: data.student_id,
+          profile_picture: data.profile_picture || defaultProfilePic,
           generation: data.generation,
           major: data.major,
-          profilePic: data.profile_picture || defaultProfilePic,
         }),
       onError: () => {
         openAlert({
@@ -223,18 +220,69 @@ export default function MyPage() {
 
   const imageUploadMutation = useMutation(
     async (file) => {
-      // 파일을 base64로 변환
+      if (file.size > 2 * 1024 * 1024) {
+        throw new Error('이미지 크기는 2MB를 초과할 수 없습니다.');
+      }
+
+      const compressImage = (file) => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = (event) => {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              const maxWidth = 800;
+              const maxHeight = 800;
+              let width = img.width;
+              let height = img.height;
+
+              if (width > height) {
+                if (width > maxWidth) {
+                  height *= maxWidth / width;
+                  width = maxWidth;
+                }
+              } else {
+                if (height > maxHeight) {
+                  width *= maxHeight / height;
+                  height = maxHeight;
+                }
+              }
+
+              canvas.width = width;
+              canvas.height = height;
+              ctx.drawImage(img, 0, 0, width, height);
+
+              canvas.toBlob(
+                (blob) => {
+                  resolve(blob);
+                },
+                'image/jpeg',
+                0.75, // 이미지 퀄리티 (원본 : 100%)
+              );
+            };
+            img.onerror = () =>
+              reject(new Error('올바른 형식의 이미지가 아닌 것 같아요.'));
+          };
+          reader.onerror = () =>
+            reject(new Error('이미지를 읽는 중 오류가 발생했어요.'));
+        });
+      };
+
+      const compressedFile = await compressImage(file);
+
       const reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(compressedFile);
 
       return new Promise((resolve, reject) => {
         reader.onloadend = async () => {
           const base64String = reader.result;
 
-          // userInfo 객체에 base64 인코딩된 이미지를 포함
           const formData = {
             ...userInfo,
-            profile_picture: base64String, // base64 데이터 전송
+            profile_picture: base64String,
           };
 
           try {
@@ -251,15 +299,16 @@ export default function MyPage() {
     },
     {
       onSuccess: (data) => {
-        setUserInfo((prev) => ({ ...prev, profilePic: data.profile_picture }));
+        setUserInfo((prev) => ({
+          ...prev,
+          profile_picture: data.profile_picture,
+        }));
         setImagePreview(null);
       },
-      onError: () => {
+      onError: (error) => {
         openAlert({
           title: '이미지 업로드 실패',
-          content: (
-            <Text>이미지 업로드에 실패했습니다. 다시 시도해주세요.</Text>
-          ),
+          content: <Text>{error.message}</Text>,
           onClose: closeAlert,
         });
       },
@@ -360,7 +409,7 @@ export default function MyPage() {
             계정 정보
           </Text>
           <ProfilePicContainer>
-            <ProfilePic src={userInfo.profilePic} alt="Profile" />
+            <ProfilePic src={userInfo.profile_picture} alt="Profile" />
             <PicButtons>
               <input
                 type="file"
@@ -395,13 +444,13 @@ export default function MyPage() {
               </InputWrapper>
 
               <InputWrapper>
-                <label htmlFor="studentNumber">학번</label>
+                <label htmlFor="student_id">학번</label>
                 <input
                   type="text"
                   placeholder="학번"
-                  id="studentNumber"
-                  name="studentNumber"
-                  value={userInfo.studentNumber}
+                  id="student_id"
+                  name="student_id"
+                  value={userInfo.student_id}
                   readOnly
                 />
               </InputWrapper>
