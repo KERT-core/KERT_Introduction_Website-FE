@@ -203,13 +203,9 @@ export default function Login() {
               placeholder="2024000000"
               {...register('student', {
                 required: '학번을 입력해주세요.',
-                minLength: {
-                  value: 10,
-                  message: '학번은 10자리 숫자여야 합니다.',
-                },
                 pattern: {
                   value: /^[0-9]{10}$/,
-                  message: '학번은 10자리 숫자여야 합니다.',
+                  message: '올바른 학번을 적어주세요.',
                 },
               })}
             />
@@ -229,12 +225,6 @@ export default function Login() {
                 minLength: {
                   value: 8,
                   message: '비밀번호는 8자리 이상이여야 합니다. ',
-                },
-                pattern: {
-                  value:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
-                  message:
-                    '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
                 },
               })}
             />
