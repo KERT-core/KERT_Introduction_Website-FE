@@ -4,8 +4,8 @@ import axios from 'axios';
 const API_URL =
   import.meta.env.VITE_BACKEND_URL ??
   console.error("Not found 'VITE_BACKEND_URL' from .env.*");
-let accessToken = localStorage.getItem('accessToken');
-let refreshToken = localStorage.getItem('refreshToken');
+let accessToken = sessionStorage.getItem('accessToken');
+let refreshToken = sessionStorage.getItem('refreshToken');
 
 // axios 인스턴스 생성
 const api = axios.create({
@@ -51,8 +51,8 @@ api.interceptors.response.use(
         // 새로운 액세스 토큰 저장
         accessToken = data.access_token;
         refreshToken = data.refresh_token;
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
+        sessionStorage.setItem('accessToken', accessToken);
+        sessionStorage.setItem('refreshToken', refreshToken);
 
         // 실패했던 요청에 새로운 토큰 적용
         originalRequest.headers.Authorization = accessToken;

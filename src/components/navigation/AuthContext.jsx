@@ -5,11 +5,11 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem('accessToken'),
+    !!sessionStorage.getItem('accessToken'),
   );
 
   const [user, setUser] = useState(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = sessionStorage.getItem('user');
     try {
       return storedUser ? JSON.parse(storedUser) : null; // user가 존재하면 파싱, 없으면 null
     } catch (error) {
@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }) => {
   });
 
   const login = (access_token, refresh_token, userInfo) => {
-    localStorage.setItem('accessToken', access_token); // 로그인 시 토큰 저장
-    localStorage.setItem('refreshToken', refresh_token); // 로그인 시 토큰 저장
-    localStorage.setItem('user', JSON.stringify(userInfo)); // 사용자 정보 저장
+    sessionStorage.setItem('accessToken', access_token); // 로그인 시 토큰 저장
+    sessionStorage.setItem('refreshToken', refresh_token); // 로그인 시 토큰 저장
+    sessionStorage.setItem('user', JSON.stringify(userInfo)); // 사용자 정보 저장
     setUser(userInfo); // 사용자 정보 저장
     setIsLoggedIn(true);
   };
@@ -32,9 +32,9 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       // console.error('Error during logout:', error);
     } finally {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('user');
+      sessionStorage.removeItem('accessToken');
+      sessionStorage.removeItem('refreshToken');
+      sessionStorage.removeItem('user');
       setIsLoggedIn(false);
       setUser(null);
       window.location.href = '/';
