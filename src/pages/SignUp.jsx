@@ -259,7 +259,7 @@ export default function SignUp() {
                 </Text>
                 <Input
                   type="text"
-                  placeholder="심컴/글솝/플솝"
+                  placeholder="플솦/심컴/글솝/인컴"
                   {...register('major', {
                     required: '전공을 입력해주세요.',
                     pattern: {
