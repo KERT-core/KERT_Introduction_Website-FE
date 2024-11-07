@@ -145,14 +145,10 @@ export default function Login() {
 
       // console.log('response:', response);
 
-      // get string body
-      const access_token = login_res.data.access_token;
-      const refresh_token = login_res.data.refresh_token;
-
       // 서버에 user 정보 요청
       const student_res = await API.GET(`/users/${data.student}`, {
         headers: {
-          Authorization: access_token,
+          Authorization: login_res.data.access_token,
         },
       });
 
@@ -161,10 +157,16 @@ export default function Login() {
       // console.log('token:', { access_token, refresh_token });
       // console.log('userInfo:', userInfo);
 
-      alert('break!');
-
-      if (access_token && refresh_token && userInfo) {
-        login(access_token, refresh_token, userInfo); // 로그인 성공 시 AuthContext의 login 함수 호출
+      if (
+        login_res.data.access_token &&
+        login_res.data.refresh_token &&
+        userInfo
+      ) {
+        login(
+          login_res.data.access_token,
+          login_res.data.refresh_token,
+          userInfo,
+        ); // 로그인 성공 시 AuthContext의 login 함수 호출
         // console.log('login user info:', userInfo); // Log user info
         setError(''); // 에러 초기화
         navigate('/');
@@ -173,9 +175,6 @@ export default function Login() {
         setError('로그인에 실패했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
-      // 입력창 비우기
-      setValue('student', '');
-      setValue('password', '');
       // 에러 처리
       // console.error('Error:', error);
       setError('로그인에 실패했습니다. 다시 시도해주세요.');
@@ -206,13 +205,9 @@ export default function Login() {
               placeholder="2024000000"
               {...register('student', {
                 required: '학번을 입력해주세요.',
-                minLength: {
-                  value: 10,
-                  message: '학번은 10자리 숫자여야 합니다.',
-                },
                 pattern: {
                   value: /^[0-9]{10}$/,
-                  message: '학번은 10자리 숫자여야 합니다.',
+                  message: '올바른 학번을 적어주세요.',
                 },
               })}
             />
@@ -229,16 +224,6 @@ export default function Login() {
               placeholder="비밀번호"
               {...register('password', {
                 required: '비밀번호를 입력해주세요',
-                minLength: {
-                  value: 8,
-                  message: '비밀번호는 8자리 이상이여야 합니다. ',
-                },
-                pattern: {
-                  value:
-                    /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
-                  message:
-                    '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
-                },
               })}
             />
             {errors.password && (

@@ -26,19 +26,12 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(true);
   };
 
-  const logout = async () => {
-    try {
-      await API.POST('/logout');
-    } catch (error) {
-      // console.error('Error during logout:', error);
-    } finally {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('user');
-      setIsLoggedIn(false);
-      setUser(null);
-      window.location.href = '/';
-    }
+  const logout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    setIsLoggedIn(false);
+    setUser(null);
   };
 
   return (

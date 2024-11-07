@@ -16,7 +16,7 @@ export const AddAdmin = forwardRef(({ ...props }, ref) => {
         <Input
           ref={ref.generation}
           label="동아리 가입연월"
-          placeholder="2024.9"
+          placeholder="2024-9"
         />
         <Input ref={ref.role} label="역할" placeholder="담당 역할" />
       </div>
@@ -28,3 +28,5 @@ export const AddAdmin = forwardRef(({ ...props }, ref) => {
     </Wrapper>
   );
 });
+
+AddAdmin.displayName = 'AddAdmin';
