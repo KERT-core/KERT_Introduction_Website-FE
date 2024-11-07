@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 // API URL과 인증 토큰 저장 경로
-const API_URL =
-  import.meta.env.VITE_BACKEND_URL ??
-  console.error("Not found 'VITE_BACKEND_URL' from .env.*");
+const API_URL = import.meta.env.VITE_BACKEND_URL ?? '';
 
 // axios 인스턴스 생성
 const api = axios.create({
