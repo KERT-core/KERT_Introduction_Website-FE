@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Span } from '@components/typograph/Text';
 
@@ -65,4 +66,18 @@ export const UpdatedHistory = ({ current_history, updated_history }) => {
       </Display>
     </>
   );
+};
+
+UpdatedHistory.propTypes = {
+  current_history: PropTypes.shape({
+    year: PropTypes.number.isRequired,
+    month: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
+  updated_history: PropTypes.shape({
+    history_id: PropTypes.number.isRequired,
+    year: PropTypes.number.isRequired,
+    month: PropTypes.number.isRequired,
+    content: PropTypes.string.isRequired,
+  }).isRequired,
 };

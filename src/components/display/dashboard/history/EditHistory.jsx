@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Span } from '@components/typograph/Text';
 import { Button } from '@components/forms/Button';
@@ -44,12 +45,7 @@ const Date = styled(Span).attrs({
 
 export const EditHistory = forwardRef(
   ({ history, onDelete, ...props }, ref) => {
-    if (!history) {
-      // console.error('history 객체가 없습니다.');
-      return;
-    }
-
-    const [previewDesc, setPreviewDesc] = useState(history.content);
+    const [previewDesc, setPreviewDesc] = useState(history?.content);
 
     return (
       <Wrapper>
@@ -99,3 +95,15 @@ export const EditHistory = forwardRef(
     );
   },
 );
+
+EditHistory.propTypes = {
+  history: PropTypes.shape({
+    content: PropTypes.string,
+    created_at: PropTypes.string,
+    updated_at: PropTypes.string,
+    year: PropTypes.number,
+    month: PropTypes.number,
+  }).isRequired,
+  onDelete: PropTypes.func.isRequired,
+};
+EditHistory.displayName = 'EditHistory';

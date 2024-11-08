@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 /**
  * Flat / Outline / Translucent
@@ -141,6 +142,7 @@ const TranslucentButton = styled(IButton)`
  * @param {string} height fit-content | 16px | string
  * @param {any} children 버튼에 표시될 요소
  */
+
 export const Button = ({
   type = 'flat',
   width,
@@ -203,4 +205,14 @@ export const Button = ({
       // console.warn('[Button.jsx] 알 수 없는 버튼 타입입니다.');
       return <FlatButton>{children}</FlatButton>;
   }
+};
+
+Button.propTypes = {
+  type: PropTypes.oneOf(['flat', 'rounded', 'outline', 'translucent']),
+  width: PropTypes.string,
+  height: PropTypes.string,
+  color: PropTypes.string,
+  text_color: PropTypes.string,
+  onClick: PropTypes.func,
+  children: PropTypes.node,
 };

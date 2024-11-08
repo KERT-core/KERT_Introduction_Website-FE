@@ -1,4 +1,5 @@
 import { forwardRef, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { Span, Text } from '@components/typograph/Text';
@@ -60,17 +61,12 @@ export const EditAdmin = forwardRef(({ admin, ...props }, ref) => {
   const { openAlert } = useAlert();
   const { openConfirm, closeConfirm } = useConfirm();
 
-  if (!admin) {
-    // console.error('admin 객체가 없습니다.');
-    return;
-  }
-
-  const [generation, setGeneration] = useState(admin.generation);
-  const [role, setRole] = useState(admin.role);
-
   const refs = {
     id_confirm: useRef(),
   };
+
+  const [generation, setGeneration] = useState(admin?.generation);
+  const [role, setRole] = useState(admin?.role);
 
   const profile_color = GenerateColorByString(
     admin.student_id,
@@ -106,7 +102,7 @@ export const EditAdmin = forwardRef(({ admin, ...props }, ref) => {
     showLoading({ message: '관리자를 삭제하는 중...' });
 
     API.DELETE(`/admin/${admin.student_id}`)
-      .then((api_res) => {
+      .then(() => {
         openAlert({
           title: '관리자 삭제 완료',
           content: (
@@ -195,3 +191,16 @@ export const EditAdmin = forwardRef(({ admin, ...props }, ref) => {
     </Wrapper>
   );
 });
+
+EditAdmin.propTypes = {
+  admin: PropTypes.shape({
+    generation: PropTypes.number.isRequired,
+    role: PropTypes.string.isRequired,
+    student_id: PropTypes.number.isRequired,
+    name: PropTypes.string,
+    email: PropTypes.string,
+    profile_picture: PropTypes.string,
+    description: PropTypes.string,
+  }).isRequired,
+};
+EditAdmin.displayName = 'EditAdmin';

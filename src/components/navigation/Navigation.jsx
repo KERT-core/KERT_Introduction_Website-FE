@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 import { useAuth } from '@components/navigation/AuthContext';
 
-import Profile from '@components/navigation/Profile';
+import { Profile } from '@components/navigation/Profile';
 
 import { scrollToSection } from '@/utils/scrollToSection';
 import HamburgerButton from './HamburgerButton';

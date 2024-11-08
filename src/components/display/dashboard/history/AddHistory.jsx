@@ -36,3 +36,5 @@ export const AddHistory = forwardRef(({ ...props }, ref) => {
     </Wrapper>
   );
 });
+
+AddHistory.displayName = 'AddHistory';

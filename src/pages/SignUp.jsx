@@ -47,28 +47,6 @@ const SignUpBox = styled.div`
   }
 `;
 
-const SignUpHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const KertLogo = styled.div`
-  width: 103px;
-  height: 101px;
-
-  background-image: var(--square-logo-url);
-  background-size: cover;
-
-  opacity: 0.1;
-`;
-
 const SignUpForm = styled.form`
   display: flex;
   flex-direction: column;

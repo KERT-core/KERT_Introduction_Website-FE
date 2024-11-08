@@ -1,6 +1,6 @@
 import { createRef, useEffect } from 'react';
 import { useQuery } from 'react-query';
-import { useNavigate, useOutlet } from 'react-router-dom';
+import { useOutlet } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -55,8 +55,6 @@ const Content = styled(TransitionGroup).attrs({
  * 대시보드 레이아
  */
 export const DashboardLayout = ({ location }) => {
-  const navigate = useNavigate();
-
   // Warning: findDOMNode is deprecated and will be remove 해제
   // 안정적인 사용을 위해 createRef로 nodeRef를 설정해야합니다.
   const nodeRef = createRef(null);

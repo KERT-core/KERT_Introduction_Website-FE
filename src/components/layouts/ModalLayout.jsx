@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Overlay = styled.div`
   position: fixed;
@@ -28,4 +29,9 @@ const Overlay = styled.div`
 
 export const ModalLayout = ({ $isOpen, children }) => {
   return $isOpen ? <Overlay $isOpen={$isOpen}>{children}</Overlay> : null;
+};
+
+ModalLayout.propTypes = {
+  $isOpen: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
 };

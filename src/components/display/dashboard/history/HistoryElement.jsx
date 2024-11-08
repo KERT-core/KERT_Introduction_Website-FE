@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Span, Text } from '@components/typograph/Text';
 
@@ -71,7 +72,15 @@ export const HistoryElement = ({ history }) => {
   const refs = {
     year: useRef(),
     month: useRef(),
-    content: useRef(),
+  };
+
+  HistoryElement.propTypes = {
+    history: PropTypes.shape({
+      history_id: PropTypes.number.isRequired,
+      year: PropTypes.number.isRequired,
+      month: PropTypes.number.isRequired,
+      content: PropTypes.string.isRequired,
+    }).isRequired,
   };
 
   // 연혁 요소를 눌렀을 때 이벤트
@@ -157,7 +166,7 @@ export const HistoryElement = ({ history }) => {
     showLoading({ message: '연혁을 삭제하는 중...' });
 
     API.DELETE(`/histories/${history.history_id}`)
-      .then((api_res) => {
+      .then(() => {
         openAlert({
           title: '연혁 삭제됨',
           content: <Text>연혁을 삭제했어요.</Text>,

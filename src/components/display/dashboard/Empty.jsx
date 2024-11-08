@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Text } from '@components/typograph/Text';
 
@@ -30,4 +31,8 @@ export const Empty = ({ message = '텅! 비어있네요...' }) => {
       </Text>
     </Wrapper>
   );
+};
+
+Empty.propTypes = {
+  message: PropTypes.string,
 };

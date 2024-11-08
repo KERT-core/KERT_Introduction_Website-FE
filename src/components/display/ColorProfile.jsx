@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const ColorProfile_ = styled.div`
   transition: background-color 0.2s ease-in-out;
@@ -45,4 +46,11 @@ export const ColorProfile = ({
       radius={radius}
     />
   );
+};
+
+ColorProfile.propTypes = {
+  width: PropTypes.string,
+  height: PropTypes.string,
+  color: PropTypes.string.isRequired,
+  radius: PropTypes.string,
 };

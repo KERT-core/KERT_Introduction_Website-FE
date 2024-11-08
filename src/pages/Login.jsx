@@ -47,28 +47,6 @@ const LoginBox = styled.div`
   }
 `;
 
-const LoginHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const TitleWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-const KertLogo = styled.div`
-  width: 103px;
-  height: 101px;
-
-  background-image: var(--square-logo-url);
-  background-size: cover;
-
-  opacity: 0.1;
-`;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -127,7 +105,6 @@ export default function Login() {
   const {
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();

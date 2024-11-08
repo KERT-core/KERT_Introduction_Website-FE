@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
 import { Span } from '@components/typograph/Text';
 
 const HoverToRevealWrapper = styled.div`
@@ -54,4 +56,8 @@ export const HoverToReveal = ({ children }) => {
       <Content>{children}</Content>
     </HoverToRevealWrapper>
   );
+};
+
+HoverToReveal.propTypes = {
+  children: PropTypes.node.isRequired,
 };

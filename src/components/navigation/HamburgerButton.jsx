@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const HamburgerWrapper = styled.div`
   width: 30px;
@@ -42,3 +43,8 @@ export default function HamburgerButton({ active, onToggle }) {
     </HamburgerWrapper>
   );
 }
+
+HamburgerButton.propTypes = {
+  active: PropTypes.bool,
+  onToggle: PropTypes.func,
+};

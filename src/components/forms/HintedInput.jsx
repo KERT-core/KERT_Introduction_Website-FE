@@ -1,5 +1,6 @@
 import { forwardRef } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Span } from '@components/typograph/Text';
 
@@ -60,3 +61,7 @@ export const HintedInput = forwardRef(
 );
 
 HintedInput.displayName = 'HintedInput';
+HintedInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  defaultValue: PropTypes.string,
+};

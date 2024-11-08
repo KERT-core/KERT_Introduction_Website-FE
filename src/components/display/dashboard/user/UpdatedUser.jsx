@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Span } from '@components/typograph/Text';
 
@@ -65,4 +66,20 @@ export const UpdatedUser = ({ current_admin, updated_admin }) => {
       </Display>
     </>
   );
+};
+
+UpdatedUser.propTypes = {
+  current_admin: PropTypes.shape({
+    generation: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+  updated_admin: PropTypes.shape({
+    student_id: PropTypes.string.isRequired,
+    generation: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
