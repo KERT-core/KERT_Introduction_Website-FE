@@ -44,10 +44,10 @@ api.interceptors.response.use(
           refresh_token: localStorage.getItem('refreshToken'),
         });
 
-        if (data.accessToken) {
+        if (data.access_token) {
           localStorage.setItem('accessToken', data.accessToken);
         }
-        if (data.refreshToken) {
+        if (data.refresh_token) {
           localStorage.setItem('refreshToken', data.refreshToken);
         }
 
