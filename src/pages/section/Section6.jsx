@@ -107,7 +107,7 @@ export default function Section6() {
       name: '김수진',
       role: '학술부장',
       group_number: 23,
-      major: '심화컴퓨터',
+      major: '글로벌소프트웨어',
       student_id_year: 22,
       description: '정기 세미나, 프로젝트 및 스터디를 관리해요.',
       image_url: StutyManagerImage,
