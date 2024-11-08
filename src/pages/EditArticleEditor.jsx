@@ -152,7 +152,7 @@ export default function EditArticle() {
   const [category, setCategory] = useState('');
   const ref = useRef(null);
 
-  const { openAlert } = useAlert();
+  const { openAlert, closeAlert } = useAlert();
 
   const navigate = useNavigate();
 
@@ -176,7 +176,7 @@ export default function EditArticle() {
   }, [post, isLoading]);
 
   const handleSubmit = async () => {
-    API.PUT('/posts', {
+    API.PUT(`/posts/${post?.id}`, {
       body: {
         title,
         description,
@@ -188,7 +188,8 @@ export default function EditArticle() {
         openAlert({
           title: '게시글 수정 완료',
           content: <Text>게시글이 성공적으로 수정되었습니다.</Text>,
-          onConfirm: () => {
+          onClose: () => {
+            closeAlert();
             navigate(`/articles/${r.data.id}`);
           },
         });

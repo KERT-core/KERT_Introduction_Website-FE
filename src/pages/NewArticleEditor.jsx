@@ -151,7 +151,7 @@ export default function NewArticle() {
   const [category, setCategory] = useState('');
   const ref = useRef(null);
 
-  const { openAlert } = useAlert();
+  const { openAlert, closeAlert } = useAlert();
 
   const navigate = useNavigate();
 
@@ -172,7 +172,8 @@ export default function NewArticle() {
         openAlert({
           title: '게시글 등록 완료',
           content: <Text>게시글이 성공적으로 등록되었습니다.</Text>,
-          onConfirm: () => {
+          onClose: () => {
+            closeAlert();
             navigate(`/articles/${r.data.id}`);
           },
         });
