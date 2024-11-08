@@ -190,7 +190,7 @@ export default function EditArticle() {
           content: <Text>게시글이 성공적으로 수정되었습니다.</Text>,
           onClose: () => {
             closeAlert();
-            navigate(`/articles/${r.data.id}`);
+            window.location.assign(`/articles/${r.data.id}`);
           },
         });
       })
