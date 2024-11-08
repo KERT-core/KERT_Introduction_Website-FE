@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 /**
  * @typedef {"xs" | "s" | "m" | "l" | "xl" | "sxl" | string} Size
@@ -80,4 +81,11 @@ export const Text = ({
       {children}
     </Span>
   );
+};
+
+Text.propTypes = {
+  size: PropTypes.string,
+  weight: PropTypes.oneOf(['light', 'regular', 'bold', 'extrabold', 'heavy']),
+  color: PropTypes.string,
+  children: PropTypes.node,
 };

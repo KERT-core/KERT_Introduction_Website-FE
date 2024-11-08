@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { Span } from '@components/typograph/Text';
 import {
   HomeIcon,
   TimelineIcon,
-  PersonIcon,
+  // PersonIcon,
   VerifiedIcon,
   AccountIcon,
 } from '@/assets/icons';
@@ -176,6 +177,7 @@ const MenuName = styled(Span).attrs({
  * @param {text} children 무조건 텍스트 (</> -> X)
  * @returns
  */
+
 const Menu = ({ path, icon, children, shortsName }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -197,6 +199,13 @@ const Menu = ({ path, icon, children, shortsName }) => {
       <MenuName $shortsName={shortsName ?? children}>{children}</MenuName>
     </MenuItem>
   );
+};
+
+Menu.propTypes = {
+  path: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
+  children: PropTypes.string.isRequired,
+  shortsName: PropTypes.string,
 };
 
 export const DashboardNav = () => {

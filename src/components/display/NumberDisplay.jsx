@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import { Text } from '@components/typograph/Text';
 
@@ -42,4 +43,10 @@ export const NumberDisplay = ({ label, number, detailed_label }) => {
       </Text>
     </NumberDisplayBox>
   );
+};
+
+NumberDisplay.propTypes = {
+  label: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
+  detailed_label: PropTypes.string,
 };

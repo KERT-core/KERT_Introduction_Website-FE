@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from '@components/forms/Button';
-import { Container } from '@components/forms/Container';
-import { Toggle } from '@components/forms/Toggle';
-import useAlert from '@/hooks/modal/useAlert';
+import PropTypes from 'prop-types';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -41,14 +37,8 @@ const menu_style = {
   cursor: 'pointer',
 };
 
-const Profile = ({ userName, logout }) => {
-  const [menuVisible, setMenuVisible] = useState(false);
-  const { openAlert } = useAlert();
+export const Profile = ({ userName, logout }) => {
   const navigate = useNavigate();
-
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
 
   return (
     <div style={{ position: 'relative' }}>
@@ -70,4 +60,7 @@ const Profile = ({ userName, logout }) => {
   );
 };
 
-export default Profile;
+Profile.propTypes = {
+  userName: PropTypes.string.isRequired,
+  logout: PropTypes.func.isRequired,
+};

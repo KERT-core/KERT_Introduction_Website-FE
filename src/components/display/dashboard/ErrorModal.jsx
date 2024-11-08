@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import { Text } from '@components/typograph/Text';
 
 export const ErrorModal = ({ error }) => {
@@ -9,4 +11,8 @@ export const ErrorModal = ({ error }) => {
       <Text color="--danger-color">{error.message}</Text>
     </>
   );
+};
+
+ErrorModal.propTypes = {
+  error: PropTypes.object.isRequired,
 };

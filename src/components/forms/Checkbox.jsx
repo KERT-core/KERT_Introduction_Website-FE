@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 /**
  * @typedef {"xs" | "s" | "m" | "l" | "xl" | string} Size
@@ -86,4 +87,11 @@ export const Checkbox = ({
       onChange={onChange}
     ></ICheckbox>
   );
+};
+
+Checkbox.propTypes = {
+  size: PropTypes.oneOf(['xs', 's', 'm', 'l', 'xl', 'string']),
+  color: PropTypes.oneOf(['--primary-color', '#FFFFFF', 'white', 'string']),
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
 };

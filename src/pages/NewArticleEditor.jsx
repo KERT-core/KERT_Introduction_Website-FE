@@ -29,7 +29,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import useAlert from '@/hooks/modal/useAlert';
 import { Alert } from '@/components/forms/modal/Alert';
 import useLoading from '@/hooks/modal/useLoading';
-import { Text } from '@components/typograph/Text';
 import { Loading } from '../components/forms/modal/Loading';
 import NotFound from './NotFound';
 
@@ -155,11 +154,9 @@ export default function NewArticle() {
 
   const navigate = useNavigate();
 
-  const {
-    data: adminData,
-    isLoading,
-    isError,
-  } = useQuery('admin', () => API.GET('/admin'));
+  const { data: adminData, isLoading } = useQuery('admin', () =>
+    API.GET('/admin'),
+  );
 
   const handleSubmit = async () => {
     API.POST('/posts', {

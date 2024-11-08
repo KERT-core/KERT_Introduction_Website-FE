@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 /**
  * @typedef {"xs" | "s" | "m" | "l" | "xl" | string } Size
@@ -136,4 +137,11 @@ export const Toggle = ({
       <Slider $size={size} $color={color} />
     </IToggle>
   );
+};
+
+Toggle.propTypes = {
+  size: PropTypes.oneOf(['xs', 's', 'm', 'l', 'xl']),
+  color: PropTypes.string,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
 };

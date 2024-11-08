@@ -102,7 +102,7 @@ export default function MyPage() {
   const [imagePreview, setImagePreview] = useState(null);
   const [passwordError, setPasswordError] = useState('');
   const navigate = useNavigate();
-  const { openAlert, closeAlert, isOpen } = useAlert();
+  const { openAlert, closeAlert } = useAlert();
 
   const {
     register,
@@ -119,7 +119,7 @@ export default function MyPage() {
   }, []);
 
   // Fetch user data
-  const { data, isLoading } = useQuery(
+  useQuery(
     ['userData', user?.student_id],
     async () => {
       const response = await API.GET(`/users/${user.student_id}`);

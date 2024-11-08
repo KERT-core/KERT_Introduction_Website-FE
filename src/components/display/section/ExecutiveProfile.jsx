@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { Span, Text } from '@components/typograph/Text';
+import { Span } from '@components/typograph/Text';
 
 const ExecutiveProfileWrapper = styled.div`
   width: 100%;

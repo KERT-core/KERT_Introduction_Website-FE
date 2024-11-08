@@ -203,7 +203,7 @@ export const HistoryPreview = () => {
     const keys = Object.keys(displayData).reverse();
     setDisplayYear(keys[0]);
     setDisplayKey(keys.slice(0, 4));
-  }, [data, displayData, isError, isLoading]);
+  }, [data, isError, isLoading]);
 
   if (isLoading) {
     return <></>;
