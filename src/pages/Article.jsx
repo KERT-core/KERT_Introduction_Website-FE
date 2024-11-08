@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import useTheme from '@/hooks/theme/useTheme';
 import styled from 'styled-components';
 import { Text } from '@components/typograph/Text';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { API } from '@/utils/api';
 import { Viewer } from '@toast-ui/react-editor';
@@ -25,6 +25,17 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.css'; // 코드 블럭�
 import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 
 import { formatDate } from '@/utils/formatDate';
+
+import DeleteIcon from '@/assets/icons/delete.svg';
+import EditIcon from '@/assets/icons/edit.svg';
+
+import { Confirm } from '@/components/forms/modal/Confirm';
+import { Loading } from '@/components/forms/modal/Loading';
+import { Alert } from '@/components/forms/modal/Alert';
+import useConfirm from '@/hooks/modal/useConfirm';
+import useLoading from '@/hooks/modal/useLoading';
+import useAlert from '@/hooks/modal/useAlert';
+import NotFound from './NotFound';
 
 const ArticleContainer = styled.div`
   width: 100%;
@@ -73,13 +84,68 @@ const ArticleViewerWrapper = styled.div`
   color: white;
 `;
 
+const ArticleMenu = styled.div`
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+`;
+
+const ArticleEditButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: var(--secondary-color);
+  border: none;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: pointer;
+`;
+
+const ArticleDeleteButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: none;
+  opacity: 0.3;
+  border: var(--danger-color) 2px solid;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  cursor: pointer;
+`;
+
 export default function Article() {
   const { id } = useParams();
   const theme = useTheme();
 
+  const navigate = useNavigate();
+
+  const { openConfirm, closeConfirm } = useConfirm();
+  const { showLoading, hideLoading } = useLoading();
+  const { openAlert } = useAlert();
+
   const { data, isLoading } = useQuery(['post', id], () =>
     API.GET(`/posts/${id}`),
   );
+
+  const { data: adminData, isLoading: isAdminLoading } = useQuery('admin', () =>
+    API.GET('/admin'),
+  );
+
+  useEffect(() => {
+    if (isLoading || isAdminLoading) {
+      showLoading({ message: '불러오는 중' });
+    } else {
+      hideLoading();
+    }
+  }, [isLoading, isAdminLoading]);
 
   useEffect(() => {
     const editorEl = document.getElementsByClassName(
@@ -102,13 +168,54 @@ export default function Article() {
     }
   }, [theme]);
 
+  const handleEdit = () => {};
+
+  const handleDelete = () => {
+    openConfirm({
+      title: '게시글 삭제',
+      content: <Text>이 글을 삭제하시겠습니까?</Text>,
+      onConfirm: DeleteArticle,
+      confirm_label: '삭제',
+      cancel_label: '취소',
+    });
+  };
+
+  const DeleteArticle = () => {
+    closeConfirm();
+    showLoading({ message: '게시글을 삭제하는 중...' });
+
+    console.log('awkdhawkldfhaw');
+
+    API.DELETE(`/posts/${post?.id}`, {})
+      .then(() => {
+        closeConfirm();
+        openAlert({
+          title: '게시글 삭제 완료',
+          content: <Text>게시글이 삭제되었습니다.</Text>,
+          onClose: () => navigate('/board'),
+        });
+      })
+      .catch((err) => {
+        // 오류 발생 시 안내
+        openAlert({
+          title: '통신 에러',
+          content: <Text>{err.message}</Text>,
+        });
+      })
+      .finally(() => {
+        hideLoading();
+      });
+  };
+
   const post = data?.data;
+
+  if (!data && !isLoading) {
+    return <NotFound />;
+  }
 
   return (
     <ArticleContainer>
-      {isLoading ? (
-        <Text>불러오는 중</Text>
-      ) : (
+      {data && (
         <>
           <ArticleHeader>
             <Text size="18px" weight="bold" color="--secondary-text-color">
@@ -135,8 +242,22 @@ export default function Article() {
               theme={theme.theme === 'dark' ? 'dark' : 'default'}
             />
           </ArticleViewerWrapper>
+          {!isLoading && !isAdminLoading && adminData && (
+            <ArticleMenu>
+              <ArticleDeleteButton onClick={handleDelete}>
+                <DeleteIcon height={30} width={30} fill="var(--danger-color)" />
+              </ArticleDeleteButton>
+              <ArticleEditButton onClick={handleEdit}>
+                <EditIcon height={30} width={30} fill="white" />
+              </ArticleEditButton>
+            </ArticleMenu>
+          )}
         </>
       )}
+
+      <Confirm />
+      <Loading />
+      <Alert />
     </ArticleContainer>
   );
 }
