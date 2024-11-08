@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import useTheme from '@/hooks/theme/useTheme';
 
@@ -25,7 +26,6 @@ import 'prismjs/plugins/line-numbers/prism-line-numbers.min';
 import { Button } from '@components/forms/Button';
 
 import { API } from '@/utils/api';
-import { Link, useNavigate } from 'react-router-dom';
 import useAlert from '@/hooks/modal/useAlert';
 import { Alert } from '@/components/forms/modal/Alert';
 import useLoading from '@/hooks/modal/useLoading';
@@ -144,7 +144,8 @@ const BottomBarContainer = styled.div`
   z-index: 100;
 `;
 
-export default function NewArticle() {
+export default function EditArticle() {
+  const { id } = useParams();
   const theme = useTheme();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -155,12 +156,27 @@ export default function NewArticle() {
 
   const navigate = useNavigate();
 
-  const { data: adminData, isLoading } = useQuery('admin', () =>
+  const { data: adminData, isLoading: isAdminLoading } = useQuery('admin', () =>
     API.GET('/admin'),
   );
 
+  const { data, isLoading } = useQuery(['post', id], () =>
+    API.GET(`/posts/${id}`),
+  );
+
+  const post = data?.data;
+
+  useEffect(() => {
+    if (post) {
+      setTitle(post.title);
+      setDescription(post.description);
+      setCategory(post.tag);
+      ref.current.getInstance().setMarkdown(post.content);
+    }
+  }, [post, isLoading]);
+
   const handleSubmit = async () => {
-    API.POST('/posts', {
+    API.PUT('/posts', {
       body: {
         title,
         description,
@@ -170,8 +186,8 @@ export default function NewArticle() {
     })
       .then((r) => {
         openAlert({
-          title: '게시글 등록 완료',
-          content: <Text>게시글이 성공적으로 등록되었습니다.</Text>,
+          title: '게시글 수정 완료',
+          content: <Text>게시글이 성공적으로 수정되었습니다.</Text>,
           onConfirm: () => {
             navigate(`/articles/${r.data.id}`);
           },
@@ -179,8 +195,8 @@ export default function NewArticle() {
       })
       .catch((e) => {
         openAlert({
-          title: '게시글 등록 실패',
-          content: <Text>게시글을 등록하는 도중 문제가 발생했습니다.</Text>,
+          title: '게시글 수정 실패',
+          content: <Text>게시글을 수정하는 도중 문제가 발생했습니다.</Text>,
         });
       });
   };
@@ -209,12 +225,12 @@ export default function NewArticle() {
   const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
-    if (isLoading) {
-      showLoading({ message: '권한 검증 중' });
+    if (isLoading || isAdminLoading) {
+      showLoading({ message: '불러오는 중' });
     } else {
       hideLoading();
     }
-  }, [isLoading, adminData]);
+  }, [isLoading, isAdminLoading]);
 
   if (!adminData && !isLoading) {
     return <NotFound />;
@@ -226,6 +242,7 @@ export default function NewArticle() {
         <>
           <ArticleHeader>
             <CategorySelect
+              value={category}
               onChange={(e) => {
                 setCategory(e.target.value);
               }}
@@ -237,12 +254,14 @@ export default function NewArticle() {
             </CategorySelect>
             <ArticleTitleGroup>
               <TitleInput
+                value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
                 }}
                 placeholder="제목을 입력하세요"
               />
               <DescriptionInput
+                value={description}
                 onChange={(e) => {
                   setDescription(e.target.value);
                 }}
@@ -271,7 +290,7 @@ export default function NewArticle() {
               <Link to="/board">
                 <Button type="translucent">취소</Button>
               </Link>
-              <Button onClick={handleSubmit}>글 게시</Button>
+              <Button onClick={handleSubmit}>글 수정</Button>
             </BottomBarContainer>
           </BottomBarWrapper>
         </>

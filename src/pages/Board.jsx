@@ -202,6 +202,7 @@ export default function Board() {
         ) : (
           data?.data?.content
             ?.filter((post) => tag === '전체' || tag == post.tag)
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
             .map((post, index) => (
               <PostCard
                 key={index}

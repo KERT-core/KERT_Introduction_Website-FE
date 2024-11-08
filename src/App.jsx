@@ -29,6 +29,7 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import MyPage from './pages/MyPage';
 import History from './pages/History';
+import EditArticle from './pages/EditArticleEditor';
 
 export default function App() {
   // location.key을 통해 화면 전환 시 컴포넌트 충돌/중복 방지 용으로 사용됩니다.
@@ -53,6 +54,7 @@ export default function App() {
                 <Route path="/board/new" element={<NewArticleEditor />} />
               </Route>
               <Route path="/articles/:id" element={<Article />} />
+              <Route path="/articles/:id/edit" element={<EditArticle />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/mypage" element={<MyPage />} />
