@@ -84,7 +84,7 @@ export const Text = ({
 };
 
 Text.propTypes = {
-  size: PropTypes.oneOf(['xs', 's', 'm', 'l', 'xl', 'sxl']),
+  size: PropTypes.string,
   weight: PropTypes.oneOf(['light', 'regular', 'bold', 'extrabold', 'heavy']),
   color: PropTypes.string,
   children: PropTypes.node,
