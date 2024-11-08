@@ -21,4 +21,4 @@ jobs:
         run: docker compose down fe --rmi local
 
       - name: Start service
-        run: docker compose up be -d
+        run: docker compose up fe -d
