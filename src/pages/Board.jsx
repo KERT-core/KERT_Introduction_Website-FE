@@ -9,6 +9,10 @@ import { API } from '@/utils/api';
 import { Link } from 'react-router-dom';
 import useDebounce from '../hooks/utils/useDebounce';
 
+import PropTypes from 'prop-types';
+
+import defaultProfilePic from '@/assets/icons/menu/User.png';
+
 const Container = styled.div`
   width: 100%;
   margin: 0 auto;
@@ -117,14 +121,16 @@ const PostCard = ({ id, title, description, user, image }) => {
   return (
     <Link to={`/articles/${id}`}>
       <PostCardWrapper>
-        <PostCardImage src={image} />
+        {image && <PostCardImage src={image} />}
         <PostCardContainer>
           <Text size="l" weight="extrabold">
             {title}
           </Text>
           <Text size="s">{description}</Text>
           <PostCardAuthor>
-            <PostCardAuthorImage src={user?.profileImage} />
+            <PostCardAuthorImage
+              src={user?.profileImage ?? defaultProfilePic}
+            />
             <Text size="s" weight="bold">
               {user?.name}
             </Text>
@@ -133,6 +139,17 @@ const PostCard = ({ id, title, description, user, image }) => {
       </PostCardWrapper>
     </Link>
   );
+};
+
+PostCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    profileImage: PropTypes.string,
+  }).isRequired,
+  image: PropTypes.string,
 };
 
 function extractBase64ImageData(inputString) {

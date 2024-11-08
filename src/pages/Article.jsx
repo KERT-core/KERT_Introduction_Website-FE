@@ -129,7 +129,7 @@ export default function Article() {
 
   const { openConfirm, closeConfirm } = useConfirm();
   const { showLoading, hideLoading } = useLoading();
-  const { openAlert } = useAlert();
+  const { openAlert, closeAlert } = useAlert();
 
   const { data, isLoading } = useQuery(['post', id], () =>
     API.GET(`/posts/${id}`),
@@ -168,7 +168,9 @@ export default function Article() {
     }
   }, [theme]);
 
-  const handleEdit = () => {};
+  const handleEdit = () => {
+    navigate(`/articles/${id}/edit`);
+  };
 
   const handleDelete = () => {
     openConfirm({
@@ -192,7 +194,10 @@ export default function Article() {
         openAlert({
           title: '게시글 삭제 완료',
           content: <Text>게시글이 삭제되었습니다.</Text>,
-          onClose: () => navigate('/board'),
+          onClose: () => {
+            closeAlert();
+            navigate('/board');
+          },
         });
       })
       .catch((err) => {
