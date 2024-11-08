@@ -31,6 +31,7 @@ import { Alert } from '@/components/forms/modal/Alert';
 import useLoading from '@/hooks/modal/useLoading';
 import { Loading } from '../components/forms/modal/Loading';
 import NotFound from './NotFound';
+import { Text } from '@components/typograph/Text';
 
 const Container = styled.div`
   width: 100%;
@@ -184,12 +185,19 @@ export default function EditArticle() {
       },
     })
       .then((r) => {
-        alert('게시글이 성공적으로 수정되었습니다');
-        navigate(`/articles/${r.data.id}`);
+        openAlert({
+          title: '게시글 수정 완료',
+          content: <Text>게시글이 성공적으로 수정되었습니다.</Text>,
+          onConfirm: () => {
+            navigate(`/articles/${r.data.id}`);
+          },
+        });
       })
       .catch((e) => {
-        // console.error(e);
-        alert('게시글을 수정하는 중 오류가 발생했습니다');
+        openAlert({
+          title: '게시글 수정 실패',
+          content: <Text>게시글을 수정하는 도중 문제가 발생했습니다.</Text>,
+        });
       });
   };
 
@@ -279,7 +287,7 @@ export default function EditArticle() {
               <Link to="/board">
                 <Button type="translucent">취소</Button>
               </Link>
-              <Button onClick={handleSubmit}>글 게시</Button>
+              <Button onClick={handleSubmit}>글 수정</Button>
             </BottomBarContainer>
           </BottomBarWrapper>
         </>
