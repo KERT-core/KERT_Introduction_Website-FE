@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
-
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
 import { Span } from '@components/typograph/Text';
 
 const InputWrapper = styled.div`
@@ -11,8 +12,20 @@ const Label = styled(Span).attrs({
   $size: 's',
   $weight: 'regular',
 })`
+  transition: color 0.3s ease-in-out;
+
   margin-left: 6px;
   margin-bottom: 6px;
+  ${(props) => props.$error && 'color: var(--danger-color);'}
+`;
+
+const ErrorLabel = styled(Span).attrs({
+  $size: 'xs',
+  $weight: 'regular',
+  $color: '--danger-color',
+})`
+  margin-left: 6px;
+  margin-top: 12px;
 `;
 
 export const RawInput = styled.input.attrs((props) => ({
@@ -23,7 +36,7 @@ export const RawInput = styled.input.attrs((props) => ({
   display: block;
   padding: 16px;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 12px;
   box-sizing: border-box;
 
   background-color: var(--container-primary-color);
@@ -54,15 +67,27 @@ export const RawInput = styled.input.attrs((props) => ({
   &[type='number'] {
     -moz-appearance: textfield;
   }
+
+  ${(props) => props.$error && 'border-color: var(--danger-color);'}
 `;
 
-export const Input = forwardRef(({ label, value, ...props }, ref) => {
-  return (
-    <InputWrapper>
-      <Label>{label ?? '여기에 입력'}</Label>
-      <RawInput ref={ref} value={value} {...props} />
-    </InputWrapper>
-  );
-});
+export const Input = forwardRef(
+  ({ label, error_label, value, ...props }, ref) => {
+    return (
+      <InputWrapper>
+        <Label $error={!!error_label}>{label ?? '여기에 입력'}</Label>
+        <RawInput ref={ref} value={value} $error={!!error_label} {...props} />
+        {error_label && <ErrorLabel>{error_label ?? '여기에 입력'}</ErrorLabel>}
+      </InputWrapper>
+    );
+  },
+);
 
 Input.displayName = 'Input';
+Input.propTypes = {
+  label: PropTypes.string,
+  error_label: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+  type: PropTypes.string,
+};

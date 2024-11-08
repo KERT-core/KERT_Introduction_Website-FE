@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useAuth } from '@components/navigation/AuthContext';
 import { Text } from '@components/typograph/Text';
 import { Button } from '@components/forms/Button';
+import { ContainerHeader } from '../components/ContainerHeader';
 
 import { API } from '@/utils/api';
 
@@ -184,17 +185,7 @@ export default function Login() {
   return (
     <Container>
       <LoginBox>
-        <LoginHeader>
-          <TitleWrapper>
-            <Text size="m" weight="light" color="--secondary-text-color">
-              Login to KERT
-            </Text>
-            <Text size="sxl" weight="bold">
-              로그인
-            </Text>
-          </TitleWrapper>
-          <KertLogo />
-        </LoginHeader>
+        <ContainerHeader title="로그인" subtitle="Login to KERT" />
         <Form onSubmit={handleSubmit(onSubmit)}>
           <InputWrapper>
             <Text size="s" weight="regular">
