@@ -134,7 +134,7 @@ export default function SignUp() {
       .then(() => {
         openAlert({
           title: '회원가입 요청 완료',
-          content: <Text>회원가입 요청이 완료되었습니다!</Text>,
+          content: <Text>회원가입이 완료되었습니다!</Text>,
           onClose: () => {
             closeAlert();
             navigate('/');
