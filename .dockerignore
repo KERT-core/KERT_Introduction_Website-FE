@@ -1,0 +1,16 @@
+node_modules
+npm-debug.log
+yarn-error.log
+
+dist
+
+.env.example
+
+coverage
+docs
+
+.git
+.gitignore
+
+*.log
+*.tmp
