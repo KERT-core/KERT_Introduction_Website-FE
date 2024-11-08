@@ -242,6 +242,7 @@ export default function EditArticle() {
         <>
           <ArticleHeader>
             <CategorySelect
+              value={category}
               onChange={(e) => {
                 setCategory(e.target.value);
               }}
@@ -253,12 +254,14 @@ export default function EditArticle() {
             </CategorySelect>
             <ArticleTitleGroup>
               <TitleInput
+                value={title}
                 onChange={(e) => {
                   setTitle(e.target.value);
                 }}
                 placeholder="제목을 입력하세요"
               />
               <DescriptionInput
+                value={description}
                 onChange={(e) => {
                   setDescription(e.target.value);
                 }}
