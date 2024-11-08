@@ -7,6 +7,7 @@ import useAlert from '@/hooks/modal/useAlert';
 import { Text } from '@components/typograph/Text';
 import { Button } from '@components/forms/Button';
 import { Alert } from '@components/forms/modal/Alert';
+import { ContainerHeader } from '../components/ContainerHeader';
 
 import { API } from '@/utils/api';
 
@@ -175,17 +176,7 @@ export default function SignUp() {
   return (
     <Container>
       <SignUpBox>
-        <SignUpHeader>
-          <TitleWrapper>
-            <Text size="m" weight="light" color="--secondary-text-color">
-              Sign Up to KERT
-            </Text>
-            <Text size="sxl" weight="bold">
-              회원가입
-            </Text>
-          </TitleWrapper>
-          <KertLogo />
-        </SignUpHeader>
+        <ContainerHeader title="회원가입" subtitle="Sign Up to KERT" />
         <SignUpForm onSubmit={handleSubmit(onSubmit)}>
           <div
             style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}

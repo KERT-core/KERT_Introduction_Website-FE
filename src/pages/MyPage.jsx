@@ -7,54 +7,38 @@ import styled from 'styled-components';
 import useAlert from '@/hooks/modal/useAlert';
 import { useAuth } from '@components/navigation/AuthContext';
 
-import { Text } from '@/components/typograph/Text';
+import { Container } from '@components/Container';
+import { Text } from '@components/typograph/Text';
 import { Button } from '@components/forms/Button';
 import { Alert } from '@components/forms/modal/Alert';
+import { ContainerHeader } from '../components/ContainerHeader';
 
 import defaultProfilePic from '@/assets/icons/menu/User.png';
 
 import { API } from '@/utils/api';
+import { ContainerControlBox } from '../components/ContainerControlBox';
+import { Input } from '../components/forms/Input';
 
-const Container = styled.div`
-  margin: 0;
-  padding-top: 100px;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  background-color: var(--body-background);
-  color: var(--primary-text-color);
-`;
-
-const MyPageContainer = styled.div`
+const MyPageWrapper = styled.div`
   width: 100%;
   max-width: 1000px;
-  margin: 0 auto;
-  padding: 50px;
-`;
+  margin: 120px auto;
 
-const Section = styled.div`
-  background-color: var(--container-primary-background);
-  border: 1px solid var(--container-border);
-
-  padding: 40px;
-  border-radius: 20px;
-  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
 `;
 
 const ProfilePicContainer = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  gap: 25px;
 `;
 
 const ProfilePic = styled.img`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
   margin-right: 15px;
 `;
 
@@ -88,74 +72,20 @@ const PicButtons = styled.div`
 `;
 
 const Form = styled.form`
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 `;
 
 const InputGroup = styled.div`
   width: 100%;
 
   display: flex;
-  gap: 20px;
+  gap: 40px;
 
   & > * {
     width: 100%;
-  }
-`;
-
-const WarningMessage = styled.p`
-  font-size: 14px;
-  color: #ff6b6b;
-  margin-bottom: 20px;
-`;
-
-const InputWrapper = styled.div`
-  & > span {
-    margin-left: 10px;
-    margin-bottom: 8px;
-  }
-
-  .error-message {
-    margin-left: 10px;
-    color: var(--danger-color);
-    font-size: 14px;
-    margin-top: 10px;
-  }
-
-  label {
-    font-size: 16px;
-    margin-bottom: 10px;
-    display: block;
-  }
-
-  input {
-    transition:
-      border-color 0.2s ease-out,
-      background-color 0.2s ease-out;
-    width: 100%;
-
-    box-sizing: border-box;
-    border-radius: 14px;
-    padding: 15px;
-    margin-bottom: 20px;
-
-    background-color: var(--container-primary-background);
-    border: 1px solid var(--container-border);
-    color: var(--primary-text-color);
-    outline: none;
-
-    &:read-only {
-      background-color: var(--container-secondary-background);
-      color: var(--primary-text-color);
-    }
-    &:focus {
-      border: 1px solid var(--primary-color); /* 파란색 테두리 */
-      box-shadow: none; /* 흰색 테두리 제거 */
-      background-color: var(--container-secondary-background);
-    }
   }
 `;
 
@@ -355,13 +285,22 @@ export default function MyPage() {
     },
   );
 
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    console.log(file);
-    if (file) {
-      setImagePreview(URL.createObjectURL(file));
-      imageUploadMutation.mutate(file);
-    }
+  const handleImageUpload = () => {
+    // input 생성
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.style.display = 'none';
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        setImagePreview(URL.createObjectURL(file));
+        imageUploadMutation.mutate(file);
+      }
+      // 파일 선택 후 input 제거
+      fileInput.remove();
+    };
+    fileInput.click();
   };
 
   const passwordChangeMutation = useMutation(
@@ -435,179 +374,152 @@ export default function MyPage() {
   };
 
   return (
-    <Container>
+    <>
       <Alert />
-      <MyPageContainer>
-        {/* /* Account Info Section */}
-        <Section>
-          <Text size="m" weight="light" color="--secondary-text-color">
-            Account Info
-          </Text>
-          <Text size="sxl" weight="bold">
-            계정 정보
-          </Text>
+      <MyPageWrapper>
+        {/* Account Info Section */}
+        <Container $width="100%">
+          <ContainerHeader title="계정 정보" subtitle="Account Info" />
           <ProfilePicContainer>
             <ProfilePic src={userInfo.profile_picture} alt="Profile" />
             <PicButtons>
-              <input
-                type="file"
-                accept="image/*"
-                id="image-upload"
-                style={{ display: 'none' }}
-                onChange={handleImageUpload}
-              />
-              <label htmlFor="image-upload" className="change-pic-btn">
-                이미지 업로드
-              </label>
-              <button
-                className="delete-pic-btn"
+              <Button
+                type="outline"
+                color="--primary-text-color"
+                text_color="--primary-text-color"
+                onClick={handleImageUpload}
+              >
+                사진 업로드
+              </Button>
+              <Button
+                type="outline"
+                color="--danger-color"
+                text_color="--danger-color"
                 onClick={() => {
                   imageDeleteMutation.mutate(defaultProfilePic);
                 }}
               >
                 사진 제거
-              </button>
+              </Button>
             </PicButtons>
           </ProfilePicContainer>
           <Form>
             <InputGroup>
-              <InputWrapper>
-                <label htmlFor="name">이름</label>
-                <input
-                  type="text"
-                  placeholder="이름"
-                  id="name"
-                  name="name"
-                  value={userInfo.name}
-                  readOnly
-                />
-              </InputWrapper>
-
-              <InputWrapper>
-                <label htmlFor="student_id">학번</label>
-                <input
-                  type="text"
-                  placeholder="학번"
-                  id="student_id"
-                  name="student_id"
-                  value={userInfo.student_id}
-                  readOnly
-                />
-              </InputWrapper>
-            </InputGroup>
-          </Form>
-        </Section>
-
-        {/* Change Password Section */}
-        <Section>
-          <Text size="m" weight="light" color="--secondary-text-color">
-            Change Password
-          </Text>
-          <Text size="sxl" weight="bold">
-            비밀번호 변경
-          </Text>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <InputGroup>
-              <InputWrapper>
-                <label htmlFor="new-password">새 비밀번호 입력</label>
-                <input
-                  type="password"
-                  id="new-password"
-                  placeholder="새 비밀번호"
-                  {...register('newPassword', {
-                    required: '새 비밀번호를 입력해주세요.',
-                    minLength: {
-                      value: 8,
-                      message: '비밀번호는 8자리 이상이여야 합니다. ',
-                    },
-                    pattern: {
-                      value:
-                        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/,
-                      message:
-                        '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
-                    },
-                  })}
-                />
-                {errors.newPassword && (
-                  <WarningMessage>{errors.newPassword.message}</WarningMessage>
-                )}
-              </InputWrapper>
-
-              <InputWrapper>
-                <label htmlFor="confirm-password">새 비밀번호 확인</label>
-                <input
-                  type="password"
-                  id="confirm-password"
-                  placeholder="비밀번호 확인"
-                  {...register('confirmPassword', {
-                    required: '새 비밀번호를 다시 입력해주세요.',
-                    validate: (value) =>
-                      value === getValues('newPassword') ||
-                      '비밀번호가 일치하지 않습니다.',
-                  })}
-                />
-                {errors.confirmPassword && (
-                  <WarningMessage>
-                    {errors.confirmPassword.message}
-                  </WarningMessage>
-                )}
-              </InputWrapper>
-            </InputGroup>
-            <InputWrapper>
-              <label htmlFor="current-password">현재 비밀번호 입력</label>
-              <input
-                type="password"
-                id="current-password"
-                placeholder="현재 비밀번호"
-                {...register('currentPassword', {
-                  required: '현재 비밀번호를 입력해주세요.',
-                  pattern: {
-                    value:
-                      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,20}$/,
-                    message:
-                      '비밀번호는 숫자, 대문자, 소문자, 특수문자를 포함한 8자 이상이어야 합니다.',
-                  },
-                })}
+              <Input
+                type="text"
+                label="이름"
+                placeholder="이름"
+                id="name"
+                name="name"
+                value={userInfo.name}
+                readOnly
               />
-              {errors.currentPassword && (
-                <WarningMessage>
-                  {errors.currentPassword.message}
-                </WarningMessage>
-              )}
-            </InputWrapper>
-
-            {passwordError && <WarningMessage>{passwordError}</WarningMessage>}
-
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button width="25%" height="45px">
-                비밀번호 변경
-              </Button>
-            </div>
+              <Input
+                type="text"
+                label="학번"
+                placeholder="학번"
+                id="student_id"
+                name="student_id"
+                value={userInfo.student_id.toString()}
+                readOnly
+              />
+            </InputGroup>
+            <Input
+              type="text"
+              label="이메일"
+              placeholder="example@knu.ac.kr"
+              id="email"
+              name="email"
+              value={userInfo.email}
+              readOnly
+            />
           </Form>
-        </Section>
+        </Container>
+
+        {/* 비밀번호 변경란 */}
+        <Container as="form" $width="100%" onSubmit={handleSubmit(onSubmit)}>
+          {/* 상단 컨테이너 헤더 */}
+          <ContainerHeader title="비밀번호 변경" subtitle="Change Password" />
+
+          {/* 현재 비밀번호 검증 */}
+          <Input
+            type="password"
+            id="current-password"
+            label="현재 비밀번호"
+            error_label={errors.currentPassword?.message}
+            placeholder="현재 비밀번호"
+            {...register('currentPassword', {
+              required: '현재 비밀번호를 입력해주세요.',
+            })}
+          />
+          {/* 새 비밀번호 입력 & 검증 */}
+          <InputGroup>
+            {/* 새 비밀번호 입력 */}
+            <Input
+              type="password"
+              id="new-password"
+              label="새 비밀번호 입력"
+              error_label={errors.newPassword?.message}
+              placeholder="새 비밀번호 입력"
+              {...register('newPassword', {
+                required: '새 비밀번호를 입력해주세요.',
+                minLength: {
+                  value: 8,
+                  message: '비밀번호는 8자리 이상이여야 합니다. ',
+                },
+                pattern: {
+                  value:
+                    /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/,
+                  message:
+                    '비밀번호는 숫자, 영문 대문자·소문자, 특수문자를 포함해야 합니다.',
+                },
+              })}
+            />
+            {/* 새 비밀번호 검증 */}
+            <Input
+              type="password"
+              id="confirm-password"
+              label="새 비밀번호 검증"
+              error_label={errors.confirmPassword?.message}
+              placeholder="비밀번호 검증"
+              {...register('confirmPassword', {
+                required: '새 비밀번호를 한번 더 입력해주세요.',
+                validate: (value) =>
+                  value === getValues('newPassword') ||
+                  '새 비밀번호와 일치하지 않습니다.',
+              })}
+            />
+          </InputGroup>
+
+          {/* 버튼 컨트롤 박스 */}
+          <ContainerControlBox>
+            <Button width="25%" height="45px">
+              비밀번호 변경
+            </Button>
+          </ContainerControlBox>
+        </Container>
 
         {/* Delete Account Section */}
-        <Section>
-          <Text size="m" weight="light" color="--secondary-text-color">
-            Delete Account
-          </Text>
-          <Text size="sxl" weight="bold">
-            계정 삭제
+        <Container $width="100%">
+          <ContainerHeader title="계정 삭제" subtitle="Delete Account" />
+
+          <Text size="m" weight="regular" color="--warning-color">
+            KERT 계정을 삭제합니다. 삭제한 계정은 복구가 불가하며 삭제 후엔
+            새로운 계정을 생성해야합니다.
           </Text>
 
-          <div>
-            <WarningMessage>
-              계정을 삭제하면 복구할 수 없습니다. 신중히 선택하세요.
-            </WarningMessage>
-
-            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button onClick={handleDeleteAccount} width="25%" height="45px">
-                계정 삭제
-              </Button>
-            </div>
-          </div>
-        </Section>
-      </MyPageContainer>
-    </Container>
+          <ContainerControlBox>
+            <Button
+              onClick={handleDeleteAccount}
+              type="outline"
+              color="--danger-color"
+              text_color="--danger-color"
+            >
+              계정 삭제
+            </Button>
+          </ContainerControlBox>
+        </Container>
+      </MyPageWrapper>
+    </>
   );
 }
