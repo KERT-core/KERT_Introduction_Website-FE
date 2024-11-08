@@ -76,7 +76,7 @@ export default function Section6() {
     {
       name: '박규연',
       role: '총무부장',
-      group_number: 24,
+      group_number: 23,
       major: '심화컴퓨터',
       student_id_year: 22,
       description: 'KERT의 각종 행사/재정을 계획하고 준비해요.',
