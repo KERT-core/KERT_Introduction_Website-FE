@@ -1,11 +1,14 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 
 import styled from 'styled-components';
-import { Navigation } from '../navigation/Navigation';
+import { Navigation } from '@components/navigation/Navigation';
 
 export const Main = styled.main`
-  width: 100vw;
+  width: 100%;
+  height: 100%;
   margin: 0px auto;
+
+  overflow-x: hidden;
 `;
 
 export const MainLayout = () => {

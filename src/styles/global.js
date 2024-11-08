@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
         --warning-color: #F1C40F;
         --success-color: #2ECC71;
         --container-border-width: 1px;
+        --transparent-button-background: rgba(255, 255, 255, 0.05);
     }
 
     body {
@@ -28,7 +29,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     *::-webkit-scrollbar-thumb {
-        background: #ffffff20; /* 스크롤바 색상 */
+        background-color: var(--secondary-text-color); /* 스크롤바 색상 */
         border-radius: 10px; /* 스크롤바 둥근 테두리 */
     }
 

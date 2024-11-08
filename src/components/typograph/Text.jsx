@@ -1,11 +1,5 @@
-// Text.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-
-// 외부 라이브러리에서 import
-import React from 'react';
 import styled from 'styled-components';
-
-// 사용자가 생성한 컴포넌트 및 JS파일 import
+import PropTypes from 'prop-types';
 
 /**
  * @typedef {"xs" | "s" | "m" | "l" | "xl" | "sxl" | string} Size
@@ -73,6 +67,7 @@ export const Span = styled.span`
 /**
  * Text Component
  * 스타일링된 span을 생성합니다.
+ * 기본 : m, regular
  * @param {IText & IChildren} props
  */
 export const Text = ({
@@ -86,4 +81,11 @@ export const Text = ({
       {children}
     </Span>
   );
+};
+
+Text.propTypes = {
+  size: PropTypes.string,
+  weight: PropTypes.oneOf(['light', 'regular', 'bold', 'extrabold', 'heavy']),
+  color: PropTypes.string,
+  children: PropTypes.node,
 };

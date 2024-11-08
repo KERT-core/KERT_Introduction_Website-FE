@@ -1,10 +1,5 @@
-// Toggle.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-
-// 외부 라이브러리에서 import
 import styled from 'styled-components';
-
-// 사용자가 생성한 컴포넌트 및 JS파일 import
+import PropTypes from 'prop-types';
 
 /**
  * @typedef {"xs" | "s" | "m" | "l" | "xl" | string } Size
@@ -30,9 +25,9 @@ const IToggle = styled.label`
       case 'l':
         return 'width: 56px; height: 28px;';
       default:
-        console.warn(
-          '[Toggle.jsx] 정의되지 않은 사이즈입니다. 기본값으로 적용됩니다.',
-        );
+        // console.warn(
+        //   '[Toggle.jsx] 정의되지 않은 사이즈입니다. 기본값으로 적용됩니다.',
+        // );
         return `width: 48px; height: 24px;`;
     }
   }}
@@ -47,33 +42,33 @@ const Checkbox = styled.input.attrs({ type: 'checkbox' })`
 
 // 토글 버튼 본체 :before가 좌우로 움직이는 동그란 버튼입니다.
 const Slider = styled.span`
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--secondary-text-color);
-    transition: 0.4s ease-out;
-    border-radius: ${(props) => {
-      switch (props.$size) {
-        case 's':
-          return '20px;';
-        case 'm':
-          return '24px;';
-        case 'l':
-          return '28px;';
-        default:
-          return `24px;`;
-      }
-    }};
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--secondary-text-color);
+  transition: 0.4s ease-out;
+  border-radius: ${(props) => {
+    switch (props.$size) {
+      case 's':
+        return '20px;';
+      case 'm':
+        return '24px;';
+      case 'l':
+        return '28px;';
+      default:
+        return `24px;`;
+    }
+  }};
 
-    &:before {
-        position: absolute;
-        content: '';
-        width: 16px;
-        height: 16px;
-		${(props) => {
+  &:before {
+    position: absolute;
+    content: '';
+    width: 16px;
+    height: 16px;
+    ${(props) => {
       switch (props.$size) {
         case 's':
           return 'width: 12px; height: 12px;';
@@ -85,39 +80,40 @@ const Slider = styled.span`
           return `width: 48px; height: 24px;`;
       }
     }}
-        left: 4px;
-        bottom: 4px;
-        background-color: #ffffff;
-        transition: 0.3s ease-out;
-        border-radius: 50%;
-    }
+    left: 4px;
+    bottom: 4px;
+    background-color: #ffffff;
+    transition: 0.3s ease-out;
+    border-radius: 50%;
+  }
 
-    ${Checkbox}:checked + & {
-        background-color: ${(props) => {
-          if (props.$color?.startsWith('--')) {
-            return `var(${props.$color});`;
-          } else {
-            return props.$color ?? 'var(--primary-color)';
-          }
-        }};;
-        }};
-    }
+  ${Checkbox}:checked + & {
+    background-color: ${(props) => {
+      if (props.$color?.startsWith('--')) {
+        return `var(${props.$color});`;
+      } else {
+        return props.$color ?? 'var(--primary-color)';
+      }
+    }};
+  }
 
-    ${Checkbox}:checked + &:before {
-        transform: translateX(${(props) => {
-          switch (props.$size) {
-            case 's':
-              return '20px';
-            case 'm':
-              return '24px';
-            case 'l':
-              return '28px';
-            default:
-              return `24px`;
-          }
-        }});
-		background-color: #ffffff;
-    }
+  ${Checkbox}:checked + &:before {
+    transform: translateX(
+      ${(props) => {
+        switch (props.$size) {
+          case 's':
+            return '20px';
+          case 'm':
+            return '24px';
+          case 'l':
+            return '28px';
+          default:
+            return `24px`;
+        }
+      }}
+    );
+    background-color: #ffffff;
+  }
 `;
 
 /**
@@ -141,4 +137,11 @@ export const Toggle = ({
       <Slider $size={size} $color={color} />
     </IToggle>
   );
+};
+
+Toggle.propTypes = {
+  size: PropTypes.oneOf(['xs', 's', 'm', 'l', 'xl']),
+  color: PropTypes.string,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
 };

@@ -1,10 +1,5 @@
-// Button.jsx
-// 코드 작성자 : GiHhub @whitedev77773
-
-// 외부 라이브러리에서 import
 import styled from 'styled-components';
-
-// 사용자가 생성한 컴포넌트 및 JS파일 import
+import PropTypes from 'prop-types';
 
 /**
  * Flat / Outline / Translucent
@@ -12,7 +7,7 @@ import styled from 'styled-components';
  *  기본 스타일을 지정할 수 있습니다.
  * @type {styled.button}
  */
-const IButton = styled.button`
+export const IButton = styled.button`
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -65,7 +60,7 @@ const FlatButton = styled(IButton)`
     if (props.$color?.startsWith('--')) {
       return `var(${props.$color});`;
     } else {
-      return props.$color ?? 'var(--transparent-button-background)';
+      return props.$color ?? 'var(--primary-color)';
     }
   }};
 `;
@@ -147,6 +142,7 @@ const TranslucentButton = styled(IButton)`
  * @param {string} height fit-content | 16px | string
  * @param {any} children 버튼에 표시될 요소
  */
+
 export const Button = ({
   type = 'flat',
   width,
@@ -206,7 +202,17 @@ export const Button = ({
         </TranslucentButton>
       );
     default:
-      console.warn('[Button.jsx] 알 수 없는 버튼 타입입니다.');
+      // console.warn('[Button.jsx] 알 수 없는 버튼 타입입니다.');
       return <FlatButton>{children}</FlatButton>;
   }
+};
+
+Button.propTypes = {
+  type: PropTypes.oneOf(['flat', 'rounded', 'outline', 'translucent']),
+  width: PropTypes.string,
+  height: PropTypes.string,
+  color: PropTypes.string,
+  text_color: PropTypes.string,
+  onClick: PropTypes.func,
+  children: PropTypes.node,
 };
