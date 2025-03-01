@@ -12,7 +12,6 @@ import StutyManagerImage from '@/assets/executive_profile/study_director.png'; /
 import ExternalImage from '@/assets/executive_profile/external.png'; // 학술부장 이미지
 import SupporterImage from '@/assets/executive_profile/supporter.png'; // 서포트 이미지
 
-
 // MainPage 양식과 호환될 수 있도록 바탕 설정
 const Section = styled.section`
   position: relative;
