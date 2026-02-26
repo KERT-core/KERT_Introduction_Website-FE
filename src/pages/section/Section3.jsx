@@ -43,7 +43,7 @@ const TitleWrapper = styled.div`
 
 const GroupCardsWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 40px;
 
   // 모바일 대응
@@ -86,20 +86,15 @@ export default function Section3() {
       <TitleWrapper>
         <Title>우리 모두 함께해요</Title>
         <SubTitle>
-          KERT는 HSpace와 KUCIS/CCA의 소속으로 가입되어 수준 높은 활동을
+          KERT는 HSpace와 CCA의 소속으로 가입되어 수준 높은 활동을
           외부에서 체험할 수 있어요.
-        </SubTitle>
+        </SubTitle> 
       </TitleWrapper>
       <GroupCardsWrapper>
         <GroupCard
           name="HSpace"
           logo_url={HSpaceLogoURL}
           hashTags={['hackers', 'space']}
-        />
-        <GroupCard
-          name="KUCIS"
-          logo_url={KucisLogoURL}
-          hashTags={['대학정보보호동아리', 'KISA']}
         />
         <GroupCard
           name="CCA"
