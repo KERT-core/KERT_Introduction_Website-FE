@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { Span } from '@components/typograph/Text';
 import { ExecutiveProfile } from '@components/display/section/ExecutiveProfile';
 
-import PresidentImage from '@/assets/executive_profile/president.png'; // 회장 이미지
-// import VicePresidentImage from '@/assets/executive_profile/vice_president.png'; // 부회장 이미지
-import FinancialManagerImage from '@/assets/executive_profile/affairs_manger.png'; // 총무부장 이미지
-import TechnicalManagerImage from '@/assets/executive_profile/technic_director.png'; // 기술부장 이미지
-import PromotionManagerImage from '@/assets/executive_profile/PR_director.png'; // 홍보부장 이미지
-import StutyManagerImage from '@/assets/executive_profile/study_director.png'; // 학술부장 이미지
-// import ExternalImage from '@/assets/executive_profile/external.png'; // 학술부장 이미지
-// import SupporterImage from '@/assets/executive_profile/supporter.png'; // 서포트 이미지
+import PresidentImage from '@/assets/executive_profile/president.webp'; // 회장 이미지
+import VicePresidentImage from '@/assets/executive_profile/vice_president.webp'; // 부회장 이미지
+import FinancialManagerImage from '@/assets/executive_profile/affairs_manager.webp'; // 총무부장 이미지
+import TechnicalManagerImage from '@/assets/executive_profile/technic_director.webp'; // 기술부장 이미지
+import PromotionManagerImage from '@/assets/executive_profile/PR_director.webp'; // 홍보부장 이미지
+import StutyManagerImage from '@/assets/executive_profile/study_director.webp'; // 학술부장 이미지
+import ExternalManagerImage from '@/assets/executive_profile/external_manager.webp'; // 대외부장 이미지
+// import SupporterImage from '@/assets/executive_profile/supporter.webp'; // 서포트 이미지
 
 // MainPage 양식과 호환될 수 있도록 바탕 설정
 const Section = styled.section`
@@ -77,19 +77,29 @@ export default function Section6() {
       color: '#0047FF',
     },
     {
-      name: '김유준',
+      name: '김선우',
+      role: '부회장',
+      group_number: 27,
+      major: '플랫폼소프트웨어',
+      student_id_year: 25,
+      description: 'KERT의 각종 행사를 기획하고 운영해요.',
+      image_url: VicePresidentImage,
+      color: '#5A00FF',
+    },
+    {
+      name: '이현우',
       role: '총무부장',
-      group_number: 22,
+      group_number: 23,
       major: '심화컴퓨터',
-      student_id_year: 21,
+      student_id_year: 22,
       description: 'KERT의 재정을 기록하고 관리해요.',
       image_url: FinancialManagerImage,
       color: '#FA00FF',
     },
     {
-      name: '김시연',
+      name: '김유진',
       role: '홍보부장',
-      group_number: 25,
+      group_number: 27,
       major: '글로벌소프트웨어',
       student_id_year: 24,
       description: '활동 홍보 자료를 제작하고 업로드해요.',
@@ -99,7 +109,7 @@ export default function Section6() {
     {
       name: '정성진',
       role: '기술부장',
-      group_number: 25,
+      group_number: 26,
       major: '플랫폼소프트웨어',
       student_id_year: 24,
       description: 'KERT의 웹사이트, 서버와 같은 IT 시스템을 관리해요.',
@@ -115,6 +125,16 @@ export default function Section6() {
       description: '정기 세미나, 프로젝트 및 스터디를 관리해요.',
       image_url: StutyManagerImage,
       color: '#0094FF',
+    },
+    {
+      name: '김유준',
+      role: '대외부장',
+      group_number: 22,
+      major: '심화컴퓨터',
+      student_id_year: 21,
+      description: 'KERT의 대외 활동을 기획하고 실행해요.',
+      image_url: ExternalManagerImage,
+      color: '#00FFA2',
     },
   ];
 
